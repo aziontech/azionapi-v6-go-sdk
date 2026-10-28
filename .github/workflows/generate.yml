@@ -1,0 +1,207 @@
+name: Generate SDK for Changed YAML Files
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions: {}
+
+jobs:
+  generate-sdk:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:22.04
+
+    steps:
+      - name: Setup Env
+        run: apt-get update && apt-get install -y npm curl git
+        shell: bash
+
+      - name: Install GH CLI
+        run: |
+          type -p curl >/dev/null || (apt update && apt install curl -y)
+          curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+          && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+          && apt update \
+          && apt install gh -y
+        shell: bash
+
+      - uses: actions/setup-node@3235b876344d2a9aa001b8d1453c930bba69e610 # v3.9.1
+        with:
+          node-version: 18
+
+      - uses: actions/setup-java@17f84c3641ba7b8f6deff6309fc4c864478f5d62 # v3.14.1
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Checkout Repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+
+      - name: run safe dir
+        run: git config --global --add safe.directory /__w/azionapi-v6-go-sdk/azionapi-v6-go-sdk
+
+      - name: Check if Commit Message Matches
+        id: check-commit
+        env:
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          # Keep the untrusted commit message inside a shell variable and never
+          # interpolate an expression directly into a run block (script injection).
+          COMMIT_MSG=$(git log --format=%B -n 1 "$HEAD_SHA")
+          echo "Commit message -> $COMMIT_MSG"
+          if [[ "$COMMIT_MSG" == *"chore: updated YAML files"* ]]; then
+            echo "run_commit=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::Commit message does not match. Skipping workflow."
+            echo "run_commit=false" >> "$GITHUB_OUTPUT"
+          fi
+        shell: bash
+
+      - name: Find Modified YAML Files
+        id: find-yaml
+        if: steps.check-commit.outputs.run_commit == 'true'
+        run: |
+          # Fetch all branches to make sure origin/main is available
+          git fetch origin main
+        
+          YAML_FILES=$(git diff --name-only origin/main HEAD | grep -E '\.yaml$' | grep -v '/api/openapi\.yaml$' || echo "")
+
+          if [ -z "$YAML_FILES" ]; then
+            echo "::warning::No YAML files modified. Skipping SDK generation."
+            echo "run_sdk=false" >> $GITHUB_OUTPUT
+          else
+            echo "Modified YAML files: $YAML_FILES"
+            echo "run_sdk=true" >> $GITHUB_OUTPUT
+            echo "$YAML_FILES" > yaml_files_list.txt
+          fi
+        shell: bash
+
+      - name: Install pip for Python 3
+        run: |
+          apt-get update
+          apt-get install -y python3-pip
+        shell: bash
+      
+      - name: Upgrade pip
+        run: python3 -m pip install --upgrade pip
+        shell: bash
+      
+      - name: install script dependency
+        run: python3 -m pip install pyyaml
+
+      - name: Patch YAML Files
+        if: steps.find-yaml.outputs.run_sdk == 'true'
+        run: |
+          while IFS= read -r file; do
+            echo "Patching YAML file: $file"
+            python3 scripts/patch.py "$file"
+            # python3 scripts/application_rules_patch.py "$file"
+          done < yaml_files_list.txt
+
+      - name: Install OpenAPI Generator
+        if: steps.find-yaml.outputs.run_sdk == 'true'
+        run: npm install @openapitools/openapi-generator-cli -g
+        shell: bash
+
+      - name: Rename openapi.yaml to azion-api.yaml
+        if: steps.find-yaml.outputs.run_sdk == 'true'
+        run: |
+          temp_file=$(mktemp)
+          while IFS= read -r file; do
+            filename=$(basename "$file")
+            if [ "$filename" = "openapi.yaml" ]; then
+              dir=$(dirname "$file")
+              if [ "$dir" = "." ]; then
+                new_file="azion-api.yaml"
+              else
+                new_file="${dir}/azion-api.yaml"
+              fi
+              echo "Renaming $file -> $new_file"
+              mv "$file" "$new_file"
+              echo "$new_file" >> "$temp_file"
+            else
+              echo "$file" >> "$temp_file"
+            fi
+          done < yaml_files_list.txt
+          mv "$temp_file" yaml_files_list.txt
+          echo "Updated yaml_files_list.txt contents:"
+          cat yaml_files_list.txt
+        shell: bash
+
+      - name: Run OpenAPI Generator for Changed Files
+        if: steps.find-yaml.outputs.run_sdk == 'true'
+        run: |
+          while IFS= read -r file; do
+            removed=$(echo ${file} | cut -d. -f1)
+            pkg_name=$(echo ${removed} | tr -d '-')
+            npx @openapitools/openapi-generator-cli generate -i "$file" -g go -o "./${removed}" --package-name "${pkg_name}"
+
+            # Strip decoder.DisallowUnknownFields() so new/unknown API fields don't
+            # break unmarshaling, EXCEPT in models that take part in a oneOf, where
+            # strict decoding is required for variant disambiguation. The keep-list
+            # is precomputed from azion-api.yaml (see the file's header); scoped to
+            # azion-api because other packages have different oneOf schemas.
+            if [ "$removed" = "azion-api" ]; then
+              keep=".github/workflows/azion_api_oneof_keep_strict.txt"
+              find "./${removed}" -name '*.go' | while read -r gofile; do
+                if ! grep -v '^#' "$keep" | grep -qxF "$(basename "$gofile")"; then
+                  sed -i '/DisallowUnknownFields()/d' "$gofile"
+                fi
+              done
+            fi
+
+            echo 'go.mod' >> ./${removed}/.gitignore
+            echo 'go.sum' >> ./${removed}/.gitignore
+            echo 'api/openapi.yaml' >> ./${removed}/.gitignore
+          done < yaml_files_list.txt
+
+      - name: Commit and Push Generated SDKs
+        if: steps.find-yaml.outputs.run_sdk == 'true'
+        env:
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add .
+
+          while IFS= read -r file; do
+            git rm -f "$file"
+          done < yaml_files_list.txt
+
+          if git diff-index --quiet HEAD --; then
+            echo "::warning::No SDK changes to commit."
+          else
+            git commit -m "Auto-generated SDKs for YAML files"
+            git push origin "$HEAD_REF"
+          fi
+
+      - name: Notify Slack
+        if: steps.find-yaml.outputs.run_sdk == 'true'
+        run: |
+          SLACK_WEBHOOK_URL="${{ secrets.SLACK_WEBHOOK }}"
+            
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          PR_URL="https://github.com/${GITHUB_REPOSITORY}/pull/${PR_NUMBER}"
+            
+          # Commit message with the PR URL
+          COMMIT_MESSAGE="New SDK generated and committed by GitHub Actions. View the PR here: ${PR_URL}"
+            
+          # Prepare Slack message payload with the escaped commit message
+          PAYLOAD=$(echo "{\"attachments\":[{\"color\":\"#00008B\",\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*[GitHub Action] New v6 SDK generated and committed!*\\nDetail: ${COMMIT_MESSAGE}\"}}]}]}")
+            
+          # Send the Slack message with a timeout
+          RESPONSE=$(curl -X POST "${SLACK_WEBHOOK_URL}" -H "Content-Type: application/json" -H "Accept: application/json" --data "${PAYLOAD}" --max-time 15)
+          
+          if [ $? -ne 0 ]; then
+            echo "[Slack-Notify] Failed to notify Slack!"
+          else
+            echo "[Slack-Notify] Slack response: ${RESPONSE}"
+          fi
