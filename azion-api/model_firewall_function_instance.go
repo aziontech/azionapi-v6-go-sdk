@@ -24,9 +24,8 @@ type FirewallFunctionInstance struct {
 	Id *int64 `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Args interface{} `json:"args,omitempty"`
-	AzionForm *FirewallFunctionInstanceAzionForm `json:"azion_form,omitempty"`
+	AzionForm *FunctionsAzionForm `json:"azion_form,omitempty"`
 	Function *int64 `json:"function,omitempty"`
-	Active *bool `json:"active,omitempty"`
 	LastEditor *string `json:"last_editor,omitempty"`
 	LastModified *time.Time `json:"last_modified,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
@@ -147,9 +146,9 @@ func (o *FirewallFunctionInstance) SetArgs(v interface{}) {
 }
 
 // GetAzionForm returns the AzionForm field value if set, zero value otherwise.
-func (o *FirewallFunctionInstance) GetAzionForm() FirewallFunctionInstanceAzionForm {
+func (o *FirewallFunctionInstance) GetAzionForm() FunctionsAzionForm {
 	if o == nil || IsNil(o.AzionForm) {
-		var ret FirewallFunctionInstanceAzionForm
+		var ret FunctionsAzionForm
 		return ret
 	}
 	return *o.AzionForm
@@ -157,7 +156,7 @@ func (o *FirewallFunctionInstance) GetAzionForm() FirewallFunctionInstanceAzionF
 
 // GetAzionFormOk returns a tuple with the AzionForm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FirewallFunctionInstance) GetAzionFormOk() (*FirewallFunctionInstanceAzionForm, bool) {
+func (o *FirewallFunctionInstance) GetAzionFormOk() (*FunctionsAzionForm, bool) {
 	if o == nil || IsNil(o.AzionForm) {
 		return nil, false
 	}
@@ -173,8 +172,8 @@ func (o *FirewallFunctionInstance) HasAzionForm() bool {
 	return false
 }
 
-// SetAzionForm gets a reference to the given FirewallFunctionInstanceAzionForm and assigns it to the AzionForm field.
-func (o *FirewallFunctionInstance) SetAzionForm(v FirewallFunctionInstanceAzionForm) {
+// SetAzionForm gets a reference to the given FunctionsAzionForm and assigns it to the AzionForm field.
+func (o *FirewallFunctionInstance) SetAzionForm(v FunctionsAzionForm) {
 	o.AzionForm = &v
 }
 
@@ -208,38 +207,6 @@ func (o *FirewallFunctionInstance) HasFunction() bool {
 // SetFunction gets a reference to the given int64 and assigns it to the Function field.
 func (o *FirewallFunctionInstance) SetFunction(v int64) {
 	o.Function = &v
-}
-
-// GetActive returns the Active field value if set, zero value otherwise.
-func (o *FirewallFunctionInstance) GetActive() bool {
-	if o == nil || IsNil(o.Active) {
-		var ret bool
-		return ret
-	}
-	return *o.Active
-}
-
-// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FirewallFunctionInstance) GetActiveOk() (*bool, bool) {
-	if o == nil || IsNil(o.Active) {
-		return nil, false
-	}
-	return o.Active, true
-}
-
-// HasActive returns a boolean if a field has been set.
-func (o *FirewallFunctionInstance) HasActive() bool {
-	if o != nil && !IsNil(o.Active) {
-		return true
-	}
-
-	return false
-}
-
-// SetActive gets a reference to the given bool and assigns it to the Active field.
-func (o *FirewallFunctionInstance) SetActive(v bool) {
-	o.Active = &v
 }
 
 // GetLastEditor returns the LastEditor field value if set, zero value otherwise.
@@ -362,9 +329,6 @@ func (o FirewallFunctionInstance) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Function) {
 		toSerialize["function"] = o.Function
-	}
-	if !IsNil(o.Active) {
-		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.LastEditor) {
 		toSerialize["last_editor"] = o.LastEditor

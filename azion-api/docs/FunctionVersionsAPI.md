@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 ## ArchiveFunctionVersion
 
-> ArchiveFunctionVersion(ctx, functionId, versionId).VersionArchiveRequest(versionArchiveRequest).Execute()
+> FunctionVersionMeta ArchiveFunctionVersion(ctx, functionId, versionId).FunctionVersionArchiveRequest(functionVersionArchiveRequest).Execute()
 
 Archive a Function version
 
@@ -39,15 +39,17 @@ import (
 func main() {
 	functionId := int64(789) // int64 | The ID of the Function resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	versionArchiveRequest := *openapiclient.NewVersionArchiveRequest() // VersionArchiveRequest |  (optional)
+	functionVersionArchiveRequest := *openapiclient.NewFunctionVersionArchiveRequest() // FunctionVersionArchiveRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FunctionVersionsAPI.ArchiveFunctionVersion(context.Background(), functionId, versionId).VersionArchiveRequest(versionArchiveRequest).Execute()
+	resp, r, err := apiClient.FunctionVersionsAPI.ArchiveFunctionVersion(context.Background(), functionId, versionId).FunctionVersionArchiveRequest(functionVersionArchiveRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionVersionsAPI.ArchiveFunctionVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `ArchiveFunctionVersion`: FunctionVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `FunctionVersionsAPI.ArchiveFunctionVersion`: %v\n", resp)
 }
 ```
 
@@ -69,11 +71,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionArchiveRequest** | [**VersionArchiveRequest**](VersionArchiveRequest.md) |  | 
+ **functionVersionArchiveRequest** | [**FunctionVersionArchiveRequest**](FunctionVersionArchiveRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**FunctionVersionMeta**](FunctionVersionMeta.md)
 
 ### Authorization
 
@@ -91,7 +93,7 @@ Name | Type | Description  | Notes
 
 ## BuildFunctionVersion
 
-> BuildFunctionVersion(ctx, functionId, versionId).VersionBuildRequest(versionBuildRequest).Execute()
+> FunctionVersionMeta BuildFunctionVersion(ctx, functionId, versionId).FunctionVersionBuildRequest(functionVersionBuildRequest).Execute()
 
 Build a Function version
 
@@ -112,15 +114,17 @@ import (
 func main() {
 	functionId := int64(789) // int64 | The ID of the Function resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	versionBuildRequest := *openapiclient.NewVersionBuildRequest() // VersionBuildRequest |  (optional)
+	functionVersionBuildRequest := *openapiclient.NewFunctionVersionBuildRequest() // FunctionVersionBuildRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FunctionVersionsAPI.BuildFunctionVersion(context.Background(), functionId, versionId).VersionBuildRequest(versionBuildRequest).Execute()
+	resp, r, err := apiClient.FunctionVersionsAPI.BuildFunctionVersion(context.Background(), functionId, versionId).FunctionVersionBuildRequest(functionVersionBuildRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionVersionsAPI.BuildFunctionVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `BuildFunctionVersion`: FunctionVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `FunctionVersionsAPI.BuildFunctionVersion`: %v\n", resp)
 }
 ```
 
@@ -142,11 +146,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionBuildRequest** | [**VersionBuildRequest**](VersionBuildRequest.md) |  | 
+ **functionVersionBuildRequest** | [**FunctionVersionBuildRequest**](FunctionVersionBuildRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**FunctionVersionMeta**](FunctionVersionMeta.md)
 
 ### Authorization
 
@@ -164,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## CancelFunctionVersionBuild
 
-> CancelFunctionVersionBuild(ctx, functionId, versionId).VersionCancelRequest(versionCancelRequest).Execute()
+> FunctionVersionMeta CancelFunctionVersionBuild(ctx, functionId, versionId).FunctionVersionCancelRequest(functionVersionCancelRequest).Execute()
 
 Cancel a Function version build
 
@@ -185,15 +189,17 @@ import (
 func main() {
 	functionId := int64(789) // int64 | The ID of the Function resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	versionCancelRequest := *openapiclient.NewVersionCancelRequest() // VersionCancelRequest |  (optional)
+	functionVersionCancelRequest := *openapiclient.NewFunctionVersionCancelRequest() // FunctionVersionCancelRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FunctionVersionsAPI.CancelFunctionVersionBuild(context.Background(), functionId, versionId).VersionCancelRequest(versionCancelRequest).Execute()
+	resp, r, err := apiClient.FunctionVersionsAPI.CancelFunctionVersionBuild(context.Background(), functionId, versionId).FunctionVersionCancelRequest(functionVersionCancelRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionVersionsAPI.CancelFunctionVersionBuild``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `CancelFunctionVersionBuild`: FunctionVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `FunctionVersionsAPI.CancelFunctionVersionBuild`: %v\n", resp)
 }
 ```
 
@@ -215,11 +221,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionCancelRequest** | [**VersionCancelRequest**](VersionCancelRequest.md) |  | 
+ **functionVersionCancelRequest** | [**FunctionVersionCancelRequest**](FunctionVersionCancelRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**FunctionVersionMeta**](FunctionVersionMeta.md)
 
 ### Authorization
 
@@ -237,7 +243,7 @@ Name | Type | Description  | Notes
 
 ## CreateFunctionVersion
 
-> Function CreateFunctionVersion(ctx, functionId).VersionCreateRequest(versionCreateRequest).Execute()
+> FunctionVersion CreateFunctionVersion(ctx, functionId).FunctionVersionCreateRequest(functionVersionCreateRequest).Execute()
 
 Create a new Function version
 
@@ -257,16 +263,16 @@ import (
 
 func main() {
 	functionId := int64(789) // int64 | The ID of the Function resource.
-	versionCreateRequest := *openapiclient.NewVersionCreateRequest() // VersionCreateRequest |  (optional)
+	functionVersionCreateRequest := *openapiclient.NewFunctionVersionCreateRequest() // FunctionVersionCreateRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionVersionsAPI.CreateFunctionVersion(context.Background(), functionId).VersionCreateRequest(versionCreateRequest).Execute()
+	resp, r, err := apiClient.FunctionVersionsAPI.CreateFunctionVersion(context.Background(), functionId).FunctionVersionCreateRequest(functionVersionCreateRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionVersionsAPI.CreateFunctionVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateFunctionVersion`: Function
+	// response from `CreateFunctionVersion`: FunctionVersion
 	fmt.Fprintf(os.Stdout, "Response from `FunctionVersionsAPI.CreateFunctionVersion`: %v\n", resp)
 }
 ```
@@ -287,11 +293,11 @@ Other parameters are passed through a pointer to a apiCreateFunctionVersionReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **versionCreateRequest** | [**VersionCreateRequest**](VersionCreateRequest.md) |  | 
+ **functionVersionCreateRequest** | [**FunctionVersionCreateRequest**](FunctionVersionCreateRequest.md) |  | 
 
 ### Return type
 
-[**Function**](Function.md)
+[**FunctionVersion**](FunctionVersion.md)
 
 ### Authorization
 
@@ -309,7 +315,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFunctionVersion
 
-> DeleteFunctionVersion(ctx, functionId, versionId).Execute()
+> FunctionVersionMeta DeleteFunctionVersion(ctx, functionId, versionId).Execute()
 
 Delete a Function version
 
@@ -333,11 +339,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FunctionVersionsAPI.DeleteFunctionVersion(context.Background(), functionId, versionId).Execute()
+	resp, r, err := apiClient.FunctionVersionsAPI.DeleteFunctionVersion(context.Background(), functionId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionVersionsAPI.DeleteFunctionVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteFunctionVersion`: FunctionVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `FunctionVersionsAPI.DeleteFunctionVersion`: %v\n", resp)
 }
 ```
 
@@ -362,7 +370,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**FunctionVersionMeta**](FunctionVersionMeta.md)
 
 ### Authorization
 
@@ -380,7 +388,7 @@ Name | Type | Description  | Notes
 
 ## ListFunctionVersions
 
-> PaginatedFunctionList ListFunctionVersions(ctx, functionId).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+> PaginatedFunctionVersionList ListFunctionVersions(ctx, functionId).Page(page).PageSize(pageSize).Execute()
 
 List Function versions
 
@@ -400,20 +408,17 @@ import (
 
 func main() {
 	functionId := int64(789) // int64 | The ID of the Function resource.
-	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
-	search := "search_example" // string | A search term. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionVersionsAPI.ListFunctionVersions(context.Background(), functionId).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+	resp, r, err := apiClient.FunctionVersionsAPI.ListFunctionVersions(context.Background(), functionId).Page(page).PageSize(pageSize).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionVersionsAPI.ListFunctionVersions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListFunctionVersions`: PaginatedFunctionList
+	// response from `ListFunctionVersions`: PaginatedFunctionVersionList
 	fmt.Fprintf(os.Stdout, "Response from `FunctionVersionsAPI.ListFunctionVersions`: %v\n", resp)
 }
 ```
@@ -434,15 +439,12 @@ Other parameters are passed through a pointer to a apiListFunctionVersionsReques
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **ordering** | **string** | Which field to use when ordering the results. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
- **search** | **string** | A search term. | 
 
 ### Return type
 
-[**PaginatedFunctionList**](PaginatedFunctionList.md)
+[**PaginatedFunctionVersionList**](PaginatedFunctionVersionList.md)
 
 ### Authorization
 
@@ -460,7 +462,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateFunctionVersion
 
-> Function PartialUpdateFunctionVersion(ctx, functionId, versionId).PatchedFunctionRequest(patchedFunctionRequest).Execute()
+> FunctionVersion PartialUpdateFunctionVersion(ctx, functionId, versionId).PatchedFunctionRequest(patchedFunctionRequest).Execute()
 
 Partially update a Function version
 
@@ -490,7 +492,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionVersionsAPI.PartialUpdateFunctionVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateFunctionVersion`: Function
+	// response from `PartialUpdateFunctionVersion`: FunctionVersion
 	fmt.Fprintf(os.Stdout, "Response from `FunctionVersionsAPI.PartialUpdateFunctionVersion`: %v\n", resp)
 }
 ```
@@ -517,7 +519,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Function**](Function.md)
+[**FunctionVersion**](FunctionVersion.md)
 
 ### Authorization
 
@@ -535,7 +537,7 @@ Name | Type | Description  | Notes
 
 ## RetrieveFunctionVersion
 
-> Function RetrieveFunctionVersion(ctx, functionId, versionId).Fields(fields).Execute()
+> FunctionVersion RetrieveFunctionVersion(ctx, functionId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Execute()
 
 Retrieve a Function version
 
@@ -556,16 +558,18 @@ import (
 func main() {
 	functionId := int64(789) // int64 | The ID of the Function resource.
 	versionId := "versionId_example" // string | The identifier of the version.
+	dependencies := true // bool | Include the resources this version references. (optional)
+	dependencyStates := []string{"Inner_example"} // []string | Keep only the dependency versions in these states (comma-separated). Needs dependencies=true. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionVersionsAPI.RetrieveFunctionVersion(context.Background(), functionId, versionId).Fields(fields).Execute()
+	resp, r, err := apiClient.FunctionVersionsAPI.RetrieveFunctionVersion(context.Background(), functionId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionVersionsAPI.RetrieveFunctionVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RetrieveFunctionVersion`: Function
+	// response from `RetrieveFunctionVersion`: FunctionVersion
 	fmt.Fprintf(os.Stdout, "Response from `FunctionVersionsAPI.RetrieveFunctionVersion`: %v\n", resp)
 }
 ```
@@ -588,11 +592,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **dependencies** | **bool** | Include the resources this version references. | 
+ **dependencyStates** | **[]string** | Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
 
 ### Return type
 
-[**Function**](Function.md)
+[**FunctionVersion**](FunctionVersion.md)
 
 ### Authorization
 
@@ -610,7 +616,7 @@ Name | Type | Description  | Notes
 
 ## UpdateFunctionVersion
 
-> Function UpdateFunctionVersion(ctx, functionId, versionId).FunctionRequest(functionRequest).Execute()
+> FunctionVersion UpdateFunctionVersion(ctx, functionId, versionId).FunctionRequest(functionRequest).Execute()
 
 Update a Function version
 
@@ -640,7 +646,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionVersionsAPI.UpdateFunctionVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateFunctionVersion`: Function
+	// response from `UpdateFunctionVersion`: FunctionVersion
 	fmt.Fprintf(os.Stdout, "Response from `FunctionVersionsAPI.UpdateFunctionVersion`: %v\n", resp)
 }
 ```
@@ -667,7 +673,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Function**](Function.md)
+[**FunctionVersion**](FunctionVersion.md)
 
 ### Authorization
 

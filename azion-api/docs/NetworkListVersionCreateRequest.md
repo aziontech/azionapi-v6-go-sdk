@@ -1,0 +1,170 @@
+# NetworkListVersionCreateRequest
+
+## Properties
+
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**Name** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** | * &#x60;asn&#x60; - ASN * &#x60;countries&#x60; - Countries * &#x60;ip_cidr&#x60; - IP/CIDR | [optional] 
+**Items** | Pointer to **[]string** |  | [optional] 
+**SourceVersion** | Pointer to **NullableString** | ID of the version to clone from. If omitted, clones latest ready. | [optional] 
+**Comment** | Pointer to **string** | Accepted and not stored. | [optional] 
+
+## Methods
+
+### NewNetworkListVersionCreateRequest
+
+`func NewNetworkListVersionCreateRequest() *NetworkListVersionCreateRequest`
+
+NewNetworkListVersionCreateRequest instantiates a new NetworkListVersionCreateRequest object
+This constructor will assign default values to properties that have it defined,
+and makes sure properties required by API are set, but the set of arguments
+will change when the set of required properties is changed
+
+### NewNetworkListVersionCreateRequestWithDefaults
+
+`func NewNetworkListVersionCreateRequestWithDefaults() *NetworkListVersionCreateRequest`
+
+NewNetworkListVersionCreateRequestWithDefaults instantiates a new NetworkListVersionCreateRequest object
+This constructor will only assign default values to properties that have it defined,
+but it doesn't guarantee that properties required by API are set
+
+### GetName
+
+`func (o *NetworkListVersionCreateRequest) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *NetworkListVersionCreateRequest) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *NetworkListVersionCreateRequest) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *NetworkListVersionCreateRequest) HasName() bool`
+
+HasName returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *NetworkListVersionCreateRequest) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *NetworkListVersionCreateRequest) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *NetworkListVersionCreateRequest) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *NetworkListVersionCreateRequest) HasType() bool`
+
+HasType returns a boolean if a field has been set.
+
+### GetItems
+
+`func (o *NetworkListVersionCreateRequest) GetItems() []string`
+
+GetItems returns the Items field if non-nil, zero value otherwise.
+
+### GetItemsOk
+
+`func (o *NetworkListVersionCreateRequest) GetItemsOk() (*[]string, bool)`
+
+GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetItems
+
+`func (o *NetworkListVersionCreateRequest) SetItems(v []string)`
+
+SetItems sets Items field to given value.
+
+### HasItems
+
+`func (o *NetworkListVersionCreateRequest) HasItems() bool`
+
+HasItems returns a boolean if a field has been set.
+
+### GetSourceVersion
+
+`func (o *NetworkListVersionCreateRequest) GetSourceVersion() string`
+
+GetSourceVersion returns the SourceVersion field if non-nil, zero value otherwise.
+
+### GetSourceVersionOk
+
+`func (o *NetworkListVersionCreateRequest) GetSourceVersionOk() (*string, bool)`
+
+GetSourceVersionOk returns a tuple with the SourceVersion field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSourceVersion
+
+`func (o *NetworkListVersionCreateRequest) SetSourceVersion(v string)`
+
+SetSourceVersion sets SourceVersion field to given value.
+
+### HasSourceVersion
+
+`func (o *NetworkListVersionCreateRequest) HasSourceVersion() bool`
+
+HasSourceVersion returns a boolean if a field has been set.
+
+### SetSourceVersionNil
+
+`func (o *NetworkListVersionCreateRequest) SetSourceVersionNil(b bool)`
+
+ SetSourceVersionNil sets the value for SourceVersion to be an explicit nil
+
+### UnsetSourceVersion
+`func (o *NetworkListVersionCreateRequest) UnsetSourceVersion()`
+
+UnsetSourceVersion ensures that no value is present for SourceVersion, not even an explicit nil
+### GetComment
+
+`func (o *NetworkListVersionCreateRequest) GetComment() string`
+
+GetComment returns the Comment field if non-nil, zero value otherwise.
+
+### GetCommentOk
+
+`func (o *NetworkListVersionCreateRequest) GetCommentOk() (*string, bool)`
+
+GetCommentOk returns a tuple with the Comment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetComment
+
+`func (o *NetworkListVersionCreateRequest) SetComment(v string)`
+
+SetComment sets Comment field to given value.
+
+### HasComment
+
+`func (o *NetworkListVersionCreateRequest) HasComment() bool`
+
+HasComment returns a boolean if a field has been set.
+
+
+[[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
+
+

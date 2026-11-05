@@ -170,7 +170,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFirewallRule
 
-> DeleteResponse DeleteFirewallRule(ctx, firewallId, requestRuleId).Execute()
+> DeleteFirewallRule(ctx, firewallId, requestRuleId).Execute()
 
 Delete an Firewall Rule
 
@@ -194,13 +194,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FirewallsRulesEngineAPI.DeleteFirewallRule(context.Background(), firewallId, requestRuleId).Execute()
+	r, err := apiClient.FirewallsRulesEngineAPI.DeleteFirewallRule(context.Background(), firewallId, requestRuleId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsRulesEngineAPI.DeleteFirewallRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteFirewallRule`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `FirewallsRulesEngineAPI.DeleteFirewallRule`: %v\n", resp)
 }
 ```
 
@@ -225,7 +223,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -243,7 +241,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFirewallVersionRequestRule
 
-> DeleteResponse DeleteFirewallVersionRequestRule(ctx, firewallId, requestRuleId, versionId).Execute()
+> DeleteFirewallVersionRequestRule(ctx, firewallId, requestRuleId, versionId).Execute()
 
 Delete an Firewall Rule
 
@@ -268,13 +266,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FirewallsRulesEngineAPI.DeleteFirewallVersionRequestRule(context.Background(), firewallId, requestRuleId, versionId).Execute()
+	r, err := apiClient.FirewallsRulesEngineAPI.DeleteFirewallVersionRequestRule(context.Background(), firewallId, requestRuleId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsRulesEngineAPI.DeleteFirewallVersionRequestRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteFirewallVersionRequestRule`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `FirewallsRulesEngineAPI.DeleteFirewallVersionRequestRule`: %v\n", resp)
 }
 ```
 
@@ -301,7 +297,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 

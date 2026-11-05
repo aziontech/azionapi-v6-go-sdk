@@ -20,8 +20,8 @@ var _ MappedNullable = &PatchedReleaseRequest{}
 
 // PatchedReleaseRequest struct for PatchedReleaseRequest
 type PatchedReleaseRequest struct {
-	Resources []PatchedReleaseRequestResourcesInner `json:"resources,omitempty"`
-	Origin *AccountReleaseOrigin `json:"origin,omitempty"`
+	Resources []ReleaseCreateRequestResourcesInner `json:"resources,omitempty"`
+	Origin *ReleaseOrigin `json:"origin,omitempty"`
 }
 
 // NewPatchedReleaseRequest instantiates a new PatchedReleaseRequest object
@@ -42,9 +42,9 @@ func NewPatchedReleaseRequestWithDefaults() *PatchedReleaseRequest {
 }
 
 // GetResources returns the Resources field value if set, zero value otherwise.
-func (o *PatchedReleaseRequest) GetResources() []PatchedReleaseRequestResourcesInner {
+func (o *PatchedReleaseRequest) GetResources() []ReleaseCreateRequestResourcesInner {
 	if o == nil || IsNil(o.Resources) {
-		var ret []PatchedReleaseRequestResourcesInner
+		var ret []ReleaseCreateRequestResourcesInner
 		return ret
 	}
 	return o.Resources
@@ -52,7 +52,7 @@ func (o *PatchedReleaseRequest) GetResources() []PatchedReleaseRequestResourcesI
 
 // GetResourcesOk returns a tuple with the Resources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PatchedReleaseRequest) GetResourcesOk() ([]PatchedReleaseRequestResourcesInner, bool) {
+func (o *PatchedReleaseRequest) GetResourcesOk() ([]ReleaseCreateRequestResourcesInner, bool) {
 	if o == nil || IsNil(o.Resources) {
 		return nil, false
 	}
@@ -68,15 +68,15 @@ func (o *PatchedReleaseRequest) HasResources() bool {
 	return false
 }
 
-// SetResources gets a reference to the given []PatchedReleaseRequestResourcesInner and assigns it to the Resources field.
-func (o *PatchedReleaseRequest) SetResources(v []PatchedReleaseRequestResourcesInner) {
+// SetResources gets a reference to the given []ReleaseCreateRequestResourcesInner and assigns it to the Resources field.
+func (o *PatchedReleaseRequest) SetResources(v []ReleaseCreateRequestResourcesInner) {
 	o.Resources = v
 }
 
 // GetOrigin returns the Origin field value if set, zero value otherwise.
-func (o *PatchedReleaseRequest) GetOrigin() AccountReleaseOrigin {
+func (o *PatchedReleaseRequest) GetOrigin() ReleaseOrigin {
 	if o == nil || IsNil(o.Origin) {
-		var ret AccountReleaseOrigin
+		var ret ReleaseOrigin
 		return ret
 	}
 	return *o.Origin
@@ -84,7 +84,7 @@ func (o *PatchedReleaseRequest) GetOrigin() AccountReleaseOrigin {
 
 // GetOriginOk returns a tuple with the Origin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PatchedReleaseRequest) GetOriginOk() (*AccountReleaseOrigin, bool) {
+func (o *PatchedReleaseRequest) GetOriginOk() (*ReleaseOrigin, bool) {
 	if o == nil || IsNil(o.Origin) {
 		return nil, false
 	}
@@ -100,8 +100,8 @@ func (o *PatchedReleaseRequest) HasOrigin() bool {
 	return false
 }
 
-// SetOrigin gets a reference to the given AccountReleaseOrigin and assigns it to the Origin field.
-func (o *PatchedReleaseRequest) SetOrigin(v AccountReleaseOrigin) {
+// SetOrigin gets a reference to the given ReleaseOrigin and assigns it to the Origin field.
+func (o *PatchedReleaseRequest) SetOrigin(v ReleaseOrigin) {
 	o.Origin = &v
 }
 

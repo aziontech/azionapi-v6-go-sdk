@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFirewallFunction
 
-> DeleteResponse DeleteFirewallFunction(ctx, firewallId, functionId).Execute()
+> DeleteFirewallFunction(ctx, firewallId, functionId).Execute()
 
 Delete an Firewall Function
 
@@ -192,13 +192,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FirewallsFunctionAPI.DeleteFirewallFunction(context.Background(), firewallId, functionId).Execute()
+	r, err := apiClient.FirewallsFunctionAPI.DeleteFirewallFunction(context.Background(), firewallId, functionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsFunctionAPI.DeleteFirewallFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteFirewallFunction`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `FirewallsFunctionAPI.DeleteFirewallFunction`: %v\n", resp)
 }
 ```
 
@@ -223,7 +221,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -241,7 +239,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFirewallVersionFunction
 
-> DeleteResponse DeleteFirewallVersionFunction(ctx, firewallId, functionId, versionId).Execute()
+> DeleteFirewallVersionFunction(ctx, firewallId, functionId, versionId).Execute()
 
 Delete an Firewall Function
 
@@ -266,13 +264,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FirewallsFunctionAPI.DeleteFirewallVersionFunction(context.Background(), firewallId, functionId, versionId).Execute()
+	r, err := apiClient.FirewallsFunctionAPI.DeleteFirewallVersionFunction(context.Background(), firewallId, functionId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsFunctionAPI.DeleteFirewallVersionFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteFirewallVersionFunction`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `FirewallsFunctionAPI.DeleteFirewallVersionFunction`: %v\n", resp)
 }
 ```
 
@@ -299,7 +295,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 

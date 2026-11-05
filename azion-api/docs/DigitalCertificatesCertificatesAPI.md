@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## DeleteCertificate
 
-> DeleteResponse DeleteCertificate(ctx, certificateId).Execute()
+> DeleteCertificate(ctx, certificateId).Execute()
 
 Delete a certificate
 
@@ -104,13 +104,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DigitalCertificatesCertificatesAPI.DeleteCertificate(context.Background(), certificateId).Execute()
+	r, err := apiClient.DigitalCertificatesCertificatesAPI.DeleteCertificate(context.Background(), certificateId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DigitalCertificatesCertificatesAPI.DeleteCertificate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteCertificate`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `DigitalCertificatesCertificatesAPI.DeleteCertificate`: %v\n", resp)
 }
 ```
 
@@ -133,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 

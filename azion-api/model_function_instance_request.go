@@ -24,9 +24,8 @@ var _ MappedNullable = &FunctionInstanceRequest{}
 type FunctionInstanceRequest struct {
 	Name string `json:"name"`
 	Args interface{} `json:"args,omitempty"`
-	AzionForm *FirewallFunctionInstanceAzionForm `json:"azion_form,omitempty"`
+	AzionForm *FunctionsAzionForm `json:"azion_form,omitempty"`
 	Function int64 `json:"function"`
-	Active *bool `json:"active,omitempty"`
 }
 
 type _FunctionInstanceRequest FunctionInstanceRequest
@@ -108,9 +107,9 @@ func (o *FunctionInstanceRequest) SetArgs(v interface{}) {
 }
 
 // GetAzionForm returns the AzionForm field value if set, zero value otherwise.
-func (o *FunctionInstanceRequest) GetAzionForm() FirewallFunctionInstanceAzionForm {
+func (o *FunctionInstanceRequest) GetAzionForm() FunctionsAzionForm {
 	if o == nil || IsNil(o.AzionForm) {
-		var ret FirewallFunctionInstanceAzionForm
+		var ret FunctionsAzionForm
 		return ret
 	}
 	return *o.AzionForm
@@ -118,7 +117,7 @@ func (o *FunctionInstanceRequest) GetAzionForm() FirewallFunctionInstanceAzionFo
 
 // GetAzionFormOk returns a tuple with the AzionForm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FunctionInstanceRequest) GetAzionFormOk() (*FirewallFunctionInstanceAzionForm, bool) {
+func (o *FunctionInstanceRequest) GetAzionFormOk() (*FunctionsAzionForm, bool) {
 	if o == nil || IsNil(o.AzionForm) {
 		return nil, false
 	}
@@ -134,8 +133,8 @@ func (o *FunctionInstanceRequest) HasAzionForm() bool {
 	return false
 }
 
-// SetAzionForm gets a reference to the given FirewallFunctionInstanceAzionForm and assigns it to the AzionForm field.
-func (o *FunctionInstanceRequest) SetAzionForm(v FirewallFunctionInstanceAzionForm) {
+// SetAzionForm gets a reference to the given FunctionsAzionForm and assigns it to the AzionForm field.
+func (o *FunctionInstanceRequest) SetAzionForm(v FunctionsAzionForm) {
 	o.AzionForm = &v
 }
 
@@ -163,38 +162,6 @@ func (o *FunctionInstanceRequest) SetFunction(v int64) {
 	o.Function = v
 }
 
-// GetActive returns the Active field value if set, zero value otherwise.
-func (o *FunctionInstanceRequest) GetActive() bool {
-	if o == nil || IsNil(o.Active) {
-		var ret bool
-		return ret
-	}
-	return *o.Active
-}
-
-// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FunctionInstanceRequest) GetActiveOk() (*bool, bool) {
-	if o == nil || IsNil(o.Active) {
-		return nil, false
-	}
-	return o.Active, true
-}
-
-// HasActive returns a boolean if a field has been set.
-func (o *FunctionInstanceRequest) HasActive() bool {
-	if o != nil && !IsNil(o.Active) {
-		return true
-	}
-
-	return false
-}
-
-// SetActive gets a reference to the given bool and assigns it to the Active field.
-func (o *FunctionInstanceRequest) SetActive(v bool) {
-	o.Active = &v
-}
-
 func (o FunctionInstanceRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -213,9 +180,6 @@ func (o FunctionInstanceRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["azion_form"] = o.AzionForm
 	}
 	toSerialize["function"] = o.Function
-	if !IsNil(o.Active) {
-		toSerialize["active"] = o.Active
-	}
 	return toSerialize, nil
 }
 

@@ -26,13 +26,12 @@ type FunctionSummary struct {
 	LastEditor *string `json:"last_editor,omitempty"`
 	LastModified *time.Time `json:"last_modified,omitempty"`
 	ProductVersion *string `json:"product_version,omitempty"`
-	Active *bool `json:"active,omitempty"`
 	// * `azion_js` - Azion JavaScript
 	Runtime *string `json:"runtime,omitempty"`
 	// * `firewall` - Firewall * `application` - Application
 	ExecutionEnvironment *string `json:"execution_environment,omitempty"`
 	DefaultArgs interface{} `json:"default_args,omitempty"`
-	AzionForm *FirewallFunctionInstanceAzionForm `json:"azion_form,omitempty"`
+	AzionForm *FunctionsAzionForm `json:"azion_form,omitempty"`
 	ReferenceCount *int64 `json:"reference_count,omitempty"`
 	// Installed version, which may not be the latest if the vendor has released updates since installation.
 	Version *string `json:"version,omitempty"`
@@ -220,38 +219,6 @@ func (o *FunctionSummary) SetProductVersion(v string) {
 	o.ProductVersion = &v
 }
 
-// GetActive returns the Active field value if set, zero value otherwise.
-func (o *FunctionSummary) GetActive() bool {
-	if o == nil || IsNil(o.Active) {
-		var ret bool
-		return ret
-	}
-	return *o.Active
-}
-
-// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FunctionSummary) GetActiveOk() (*bool, bool) {
-	if o == nil || IsNil(o.Active) {
-		return nil, false
-	}
-	return o.Active, true
-}
-
-// HasActive returns a boolean if a field has been set.
-func (o *FunctionSummary) HasActive() bool {
-	if o != nil && !IsNil(o.Active) {
-		return true
-	}
-
-	return false
-}
-
-// SetActive gets a reference to the given bool and assigns it to the Active field.
-func (o *FunctionSummary) SetActive(v bool) {
-	o.Active = &v
-}
-
 // GetRuntime returns the Runtime field value if set, zero value otherwise.
 func (o *FunctionSummary) GetRuntime() string {
 	if o == nil || IsNil(o.Runtime) {
@@ -350,9 +317,9 @@ func (o *FunctionSummary) SetDefaultArgs(v interface{}) {
 }
 
 // GetAzionForm returns the AzionForm field value if set, zero value otherwise.
-func (o *FunctionSummary) GetAzionForm() FirewallFunctionInstanceAzionForm {
+func (o *FunctionSummary) GetAzionForm() FunctionsAzionForm {
 	if o == nil || IsNil(o.AzionForm) {
-		var ret FirewallFunctionInstanceAzionForm
+		var ret FunctionsAzionForm
 		return ret
 	}
 	return *o.AzionForm
@@ -360,7 +327,7 @@ func (o *FunctionSummary) GetAzionForm() FirewallFunctionInstanceAzionForm {
 
 // GetAzionFormOk returns a tuple with the AzionForm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FunctionSummary) GetAzionFormOk() (*FirewallFunctionInstanceAzionForm, bool) {
+func (o *FunctionSummary) GetAzionFormOk() (*FunctionsAzionForm, bool) {
 	if o == nil || IsNil(o.AzionForm) {
 		return nil, false
 	}
@@ -376,8 +343,8 @@ func (o *FunctionSummary) HasAzionForm() bool {
 	return false
 }
 
-// SetAzionForm gets a reference to the given FirewallFunctionInstanceAzionForm and assigns it to the AzionForm field.
-func (o *FunctionSummary) SetAzionForm(v FirewallFunctionInstanceAzionForm) {
+// SetAzionForm gets a reference to the given FunctionsAzionForm and assigns it to the AzionForm field.
+func (o *FunctionSummary) SetAzionForm(v FunctionsAzionForm) {
 	o.AzionForm = &v
 }
 
@@ -585,9 +552,6 @@ func (o FunctionSummary) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ProductVersion) {
 		toSerialize["product_version"] = o.ProductVersion
-	}
-	if !IsNil(o.Active) {
-		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.Runtime) {
 		toSerialize["runtime"] = o.Runtime

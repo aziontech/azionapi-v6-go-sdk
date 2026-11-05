@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Resources** | [**[]PatchedReleaseRequestResourcesInner**](PatchedReleaseRequestResourcesInner.md) |  | 
-**Origin** | [**AccountReleaseOrigin**](AccountReleaseOrigin.md) |  | 
+**Resources** | [**[]ReleaseCreateRequestResourcesInner**](ReleaseCreateRequestResourcesInner.md) |  | 
+**Origin** | [**ReleaseOrigin**](ReleaseOrigin.md) |  | 
 
 ## Methods
 
 ### NewReleaseRequest
 
-`func NewReleaseRequest(resources []PatchedReleaseRequestResourcesInner, origin AccountReleaseOrigin, ) *ReleaseRequest`
+`func NewReleaseRequest(resources []ReleaseCreateRequestResourcesInner, origin ReleaseOrigin, ) *ReleaseRequest`
 
 NewReleaseRequest instantiates a new ReleaseRequest object
 This constructor will assign default values to properties that have it defined,
@@ -28,40 +28,40 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetResources
 
-`func (o *ReleaseRequest) GetResources() []PatchedReleaseRequestResourcesInner`
+`func (o *ReleaseRequest) GetResources() []ReleaseCreateRequestResourcesInner`
 
 GetResources returns the Resources field if non-nil, zero value otherwise.
 
 ### GetResourcesOk
 
-`func (o *ReleaseRequest) GetResourcesOk() (*[]PatchedReleaseRequestResourcesInner, bool)`
+`func (o *ReleaseRequest) GetResourcesOk() (*[]ReleaseCreateRequestResourcesInner, bool)`
 
 GetResourcesOk returns a tuple with the Resources field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResources
 
-`func (o *ReleaseRequest) SetResources(v []PatchedReleaseRequestResourcesInner)`
+`func (o *ReleaseRequest) SetResources(v []ReleaseCreateRequestResourcesInner)`
 
 SetResources sets Resources field to given value.
 
 
 ### GetOrigin
 
-`func (o *ReleaseRequest) GetOrigin() AccountReleaseOrigin`
+`func (o *ReleaseRequest) GetOrigin() ReleaseOrigin`
 
 GetOrigin returns the Origin field if non-nil, zero value otherwise.
 
 ### GetOriginOk
 
-`func (o *ReleaseRequest) GetOriginOk() (*AccountReleaseOrigin, bool)`
+`func (o *ReleaseRequest) GetOriginOk() (*ReleaseOrigin, bool)`
 
 GetOriginOk returns a tuple with the Origin field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrigin
 
-`func (o *ReleaseRequest) SetOrigin(v AccountReleaseOrigin)`
+`func (o *ReleaseRequest) SetOrigin(v ReleaseOrigin)`
 
 SetOrigin sets Origin field to given value.
 

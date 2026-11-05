@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## DeleteApplicationVersionDeviceGroup
 
-> DeleteResponse DeleteApplicationVersionDeviceGroup(ctx, applicationId, deviceGroupId, versionId).Execute()
+> DeleteApplicationVersionDeviceGroup(ctx, applicationId, deviceGroupId, versionId).Execute()
 
 Delete an Applications Device Group
 
@@ -193,13 +193,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationsDeviceGroupsAPI.DeleteApplicationVersionDeviceGroup(context.Background(), applicationId, deviceGroupId, versionId).Execute()
+	r, err := apiClient.ApplicationsDeviceGroupsAPI.DeleteApplicationVersionDeviceGroup(context.Background(), applicationId, deviceGroupId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsDeviceGroupsAPI.DeleteApplicationVersionDeviceGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteApplicationVersionDeviceGroup`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationsDeviceGroupsAPI.DeleteApplicationVersionDeviceGroup`: %v\n", resp)
 }
 ```
 
@@ -226,7 +224,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -244,7 +242,7 @@ Name | Type | Description  | Notes
 
 ## DeleteDeviceGroup
 
-> DeleteResponse DeleteDeviceGroup(ctx, applicationId, deviceGroupId).Execute()
+> DeleteDeviceGroup(ctx, applicationId, deviceGroupId).Execute()
 
 Delete an Applications Device Group
 
@@ -268,13 +266,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationsDeviceGroupsAPI.DeleteDeviceGroup(context.Background(), applicationId, deviceGroupId).Execute()
+	r, err := apiClient.ApplicationsDeviceGroupsAPI.DeleteDeviceGroup(context.Background(), applicationId, deviceGroupId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsDeviceGroupsAPI.DeleteDeviceGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteDeviceGroup`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationsDeviceGroupsAPI.DeleteDeviceGroup`: %v\n", resp)
 }
 ```
 
@@ -299,7 +295,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 

@@ -4,7 +4,6 @@ All URIs are relative to *https://api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ArchiveEnvironment**](EnvironmentsAPI.md#ArchiveEnvironment) | **Post** /environments/{environment_id}/archive | Archive an environment
 [**CreateEnvironment**](EnvironmentsAPI.md#CreateEnvironment) | **Post** /environments | Create an Environment
 [**DeleteEnvironment**](EnvironmentsAPI.md#DeleteEnvironment) | **Delete** /environments/{environment_id} | Delete an Environment
 [**ListEnvironments**](EnvironmentsAPI.md#ListEnvironments) | **Get** /environments | List Environments
@@ -12,78 +11,6 @@ Method | HTTP request | Description
 [**RetrieveEnvironment**](EnvironmentsAPI.md#RetrieveEnvironment) | **Get** /environments/{environment_id} | Retrieve details of an Environment
 [**UpdateEnvironment**](EnvironmentsAPI.md#UpdateEnvironment) | **Put** /environments/{environment_id} | Update an Environment
 
-
-
-## ArchiveEnvironment
-
-> ArchiveEnvironmentResponse ArchiveEnvironment(ctx, environmentId).ArchiveEnvironmentRequest(archiveEnvironmentRequest).Execute()
-
-Archive an environment
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
-)
-
-func main() {
-	environmentId := "environmentId_example" // string | A unique value identifying the environment.
-	archiveEnvironmentRequest := *openapiclient.NewArchiveEnvironmentRequest("Reason_example") // ArchiveEnvironmentRequest | 
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EnvironmentsAPI.ArchiveEnvironment(context.Background(), environmentId).ArchiveEnvironmentRequest(archiveEnvironmentRequest).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentsAPI.ArchiveEnvironment``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ArchiveEnvironment`: ArchiveEnvironmentResponse
-	fmt.Fprintf(os.Stdout, "Response from `EnvironmentsAPI.ArchiveEnvironment`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**environmentId** | **string** | A unique value identifying the environment. | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiArchiveEnvironmentRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **archiveEnvironmentRequest** | [**ArchiveEnvironmentRequest**](ArchiveEnvironmentRequest.md) |  | 
-
-### Return type
-
-[**ArchiveEnvironmentResponse**](ArchiveEnvironmentResponse.md)
-
-### Authorization
-
-[TokenAuth](../README.md#TokenAuth), [BearerAuth](../README.md#BearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
 
 
 ## CreateEnvironment
@@ -154,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## DeleteEnvironment
 
-> DeleteResponse DeleteEnvironment(ctx, environmentId).Execute()
+> DeleteEnvironment(ctx, environmentId).Execute()
 
 Delete an Environment
 
@@ -177,13 +104,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EnvironmentsAPI.DeleteEnvironment(context.Background(), environmentId).Execute()
+	r, err := apiClient.EnvironmentsAPI.DeleteEnvironment(context.Background(), environmentId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentsAPI.DeleteEnvironment``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteEnvironment`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `EnvironmentsAPI.DeleteEnvironment`: %v\n", resp)
 }
 ```
 
@@ -206,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -224,7 +149,7 @@ Name | Type | Description  | Notes
 
 ## ListEnvironments
 
-> PaginatedEnvironmentList ListEnvironments(ctx).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).DeploymentPolicy(deploymentPolicy).Fields(fields).Id(id).IdIn(idIn).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).State(state).StateIn(stateIn).Execute()
+> PaginatedEnvironmentList ListEnvironments(ctx).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).DeploymentPolicy(deploymentPolicy).Fields(fields).Id(id).IdIn(idIn).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).State(state).Execute()
 
 List Environments
 
@@ -244,26 +169,25 @@ import (
 )
 
 func main() {
-	createdAtGte := time.Now() // time.Time | Filter by creation date greater than or equal (ISO-8601) (optional)
-	createdAtLte := time.Now() // time.Time | Filter by creation date less than or equal (ISO-8601) (optional)
+	createdAtGte := time.Now() // time.Time | Filter by creation date greater than or equal (date-time, as Django parse_datetime reads it) (optional)
+	createdAtLte := time.Now() // time.Time | Filter by creation date less than or equal (date-time, as Django parse_datetime reads it) (optional)
 	deploymentPolicy := "deploymentPolicy_example" // string | Filter by deployment policy (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	id := []string{"Inner_example"} // []string | Filter by environment ids (up to 100) (optional)
-	idIn := []string{"Inner_example"} // []string | Filter by id (accepts comma-separated values). (optional)
+	id := []string{"Inner_example"} // []string | Filter by environment ids (optional)
+	idIn := []string{"Inner_example"} // []string | Filter by environment ids, comma-separated (`id__in=A,B`). Combined with `id`, both sets must match. (optional)
 	lastEditor := "lastEditor_example" // string | Filter by the email of the last editor (case-insensitive substring match) (optional)
-	lastModifiedGte := time.Now() // time.Time | Filter by last-modified date greater than or equal (ISO-8601) (optional)
-	lastModifiedLte := time.Now() // time.Time | Filter by last-modified date less than or equal (ISO-8601) (optional)
+	lastModifiedGte := time.Now() // time.Time | Filter by last-modified date greater than or equal (date-time, as Django parse_datetime reads it) (optional)
+	lastModifiedLte := time.Now() // time.Time | Filter by last-modified date less than or equal (date-time, as Django parse_datetime reads it) (optional)
 	name := "name_example" // string | Filter by environment name (case-insensitive substring match) (optional)
 	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state, deployment_policy, last_editor) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	search := "search_example" // string | A search term to filter results. Searches across the following fields: name. (optional)
-	state := []string{"Inner_example"} // []string | Filter by lifecycle state. `deleted` is rejected: a deleted environment never appears. (optional)
-	stateIn := []string{"Inner_example"} // []string | Filter by state (accepts comma-separated values). (optional)
+	state := []string{"Inner_example"} // []string | Filter by lifecycle state. A deleted environment never appears. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EnvironmentsAPI.ListEnvironments(context.Background()).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).DeploymentPolicy(deploymentPolicy).Fields(fields).Id(id).IdIn(idIn).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).State(state).StateIn(stateIn).Execute()
+	resp, r, err := apiClient.EnvironmentsAPI.ListEnvironments(context.Background()).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).DeploymentPolicy(deploymentPolicy).Fields(fields).Id(id).IdIn(idIn).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).State(state).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EnvironmentsAPI.ListEnvironments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -284,22 +208,21 @@ Other parameters are passed through a pointer to a apiListEnvironmentsRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createdAtGte** | **time.Time** | Filter by creation date greater than or equal (ISO-8601) | 
- **createdAtLte** | **time.Time** | Filter by creation date less than or equal (ISO-8601) | 
+ **createdAtGte** | **time.Time** | Filter by creation date greater than or equal (date-time, as Django parse_datetime reads it) | 
+ **createdAtLte** | **time.Time** | Filter by creation date less than or equal (date-time, as Django parse_datetime reads it) | 
  **deploymentPolicy** | **string** | Filter by deployment policy | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **id** | **[]string** | Filter by environment ids (up to 100) | 
- **idIn** | **[]string** | Filter by id (accepts comma-separated values). | 
+ **id** | **[]string** | Filter by environment ids | 
+ **idIn** | **[]string** | Filter by environment ids, comma-separated (&#x60;id__in&#x3D;A,B&#x60;). Combined with &#x60;id&#x60;, both sets must match. | 
  **lastEditor** | **string** | Filter by the email of the last editor (case-insensitive substring match) | 
- **lastModifiedGte** | **time.Time** | Filter by last-modified date greater than or equal (ISO-8601) | 
- **lastModifiedLte** | **time.Time** | Filter by last-modified date less than or equal (ISO-8601) | 
+ **lastModifiedGte** | **time.Time** | Filter by last-modified date greater than or equal (date-time, as Django parse_datetime reads it) | 
+ **lastModifiedLte** | **time.Time** | Filter by last-modified date less than or equal (date-time, as Django parse_datetime reads it) | 
  **name** | **string** | Filter by environment name (case-insensitive substring match) | 
  **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state, deployment_policy, last_editor) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **search** | **string** | A search term to filter results. Searches across the following fields: name. | 
- **state** | **[]string** | Filter by lifecycle state. &#x60;deleted&#x60; is rejected: a deleted environment never appears. | 
- **stateIn** | **[]string** | Filter by state (accepts comma-separated values). | 
+ **state** | **[]string** | Filter by lifecycle state. A deleted environment never appears. | 
 
 ### Return type
 

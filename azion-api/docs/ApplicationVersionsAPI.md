@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 ## ArchiveApplicationVersion
 
-> ArchiveApplicationVersion(ctx, applicationId, versionId).VersionArchiveRequest(versionArchiveRequest).Execute()
+> ApplicationVersionMeta ArchiveApplicationVersion(ctx, applicationId, versionId).ApplicationVersionArchiveRequest(applicationVersionArchiveRequest).Execute()
 
 Archive an Application version
 
@@ -39,15 +39,17 @@ import (
 func main() {
 	applicationId := int64(789) // int64 | The ID (global_id) of the Application resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	versionArchiveRequest := *openapiclient.NewVersionArchiveRequest() // VersionArchiveRequest |  (optional)
+	applicationVersionArchiveRequest := *openapiclient.NewApplicationVersionArchiveRequest() // ApplicationVersionArchiveRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationVersionsAPI.ArchiveApplicationVersion(context.Background(), applicationId, versionId).VersionArchiveRequest(versionArchiveRequest).Execute()
+	resp, r, err := apiClient.ApplicationVersionsAPI.ArchiveApplicationVersion(context.Background(), applicationId, versionId).ApplicationVersionArchiveRequest(applicationVersionArchiveRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationVersionsAPI.ArchiveApplicationVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `ArchiveApplicationVersion`: ApplicationVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationVersionsAPI.ArchiveApplicationVersion`: %v\n", resp)
 }
 ```
 
@@ -69,11 +71,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionArchiveRequest** | [**VersionArchiveRequest**](VersionArchiveRequest.md) |  | 
+ **applicationVersionArchiveRequest** | [**ApplicationVersionArchiveRequest**](ApplicationVersionArchiveRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**ApplicationVersionMeta**](ApplicationVersionMeta.md)
 
 ### Authorization
 
@@ -91,7 +93,7 @@ Name | Type | Description  | Notes
 
 ## BuildApplicationVersion
 
-> BuildApplicationVersion(ctx, applicationId, versionId).VersionBuildRequest(versionBuildRequest).Execute()
+> ApplicationVersionMeta BuildApplicationVersion(ctx, applicationId, versionId).ApplicationVersionBuildRequest(applicationVersionBuildRequest).Execute()
 
 Build an Application version
 
@@ -112,15 +114,17 @@ import (
 func main() {
 	applicationId := int64(789) // int64 | The ID (global_id) of the Application resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	versionBuildRequest := *openapiclient.NewVersionBuildRequest() // VersionBuildRequest |  (optional)
+	applicationVersionBuildRequest := *openapiclient.NewApplicationVersionBuildRequest() // ApplicationVersionBuildRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationVersionsAPI.BuildApplicationVersion(context.Background(), applicationId, versionId).VersionBuildRequest(versionBuildRequest).Execute()
+	resp, r, err := apiClient.ApplicationVersionsAPI.BuildApplicationVersion(context.Background(), applicationId, versionId).ApplicationVersionBuildRequest(applicationVersionBuildRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationVersionsAPI.BuildApplicationVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `BuildApplicationVersion`: ApplicationVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationVersionsAPI.BuildApplicationVersion`: %v\n", resp)
 }
 ```
 
@@ -142,11 +146,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionBuildRequest** | [**VersionBuildRequest**](VersionBuildRequest.md) |  | 
+ **applicationVersionBuildRequest** | [**ApplicationVersionBuildRequest**](ApplicationVersionBuildRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**ApplicationVersionMeta**](ApplicationVersionMeta.md)
 
 ### Authorization
 
@@ -164,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## CancelApplicationVersionBuild
 
-> CancelApplicationVersionBuild(ctx, applicationId, versionId).VersionBuildRequest(versionBuildRequest).Execute()
+> ApplicationVersionMeta CancelApplicationVersionBuild(ctx, applicationId, versionId).ApplicationVersionCancelRequest(applicationVersionCancelRequest).Execute()
 
 Cancel an Application version build
 
@@ -185,15 +189,17 @@ import (
 func main() {
 	applicationId := int64(789) // int64 | The ID (global_id) of the Application resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	versionBuildRequest := *openapiclient.NewVersionBuildRequest() // VersionBuildRequest |  (optional)
+	applicationVersionCancelRequest := *openapiclient.NewApplicationVersionCancelRequest() // ApplicationVersionCancelRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationVersionsAPI.CancelApplicationVersionBuild(context.Background(), applicationId, versionId).VersionBuildRequest(versionBuildRequest).Execute()
+	resp, r, err := apiClient.ApplicationVersionsAPI.CancelApplicationVersionBuild(context.Background(), applicationId, versionId).ApplicationVersionCancelRequest(applicationVersionCancelRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationVersionsAPI.CancelApplicationVersionBuild``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `CancelApplicationVersionBuild`: ApplicationVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationVersionsAPI.CancelApplicationVersionBuild`: %v\n", resp)
 }
 ```
 
@@ -215,11 +221,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionBuildRequest** | [**VersionBuildRequest**](VersionBuildRequest.md) |  | 
+ **applicationVersionCancelRequest** | [**ApplicationVersionCancelRequest**](ApplicationVersionCancelRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**ApplicationVersionMeta**](ApplicationVersionMeta.md)
 
 ### Authorization
 
@@ -237,7 +243,7 @@ Name | Type | Description  | Notes
 
 ## CreateApplicationVersion
 
-> Application CreateApplicationVersion(ctx, applicationId).VersionCreateRequest(versionCreateRequest).Execute()
+> ApplicationVersion CreateApplicationVersion(ctx, applicationId).ApplicationVersionCreateRequest(applicationVersionCreateRequest).Execute()
 
 Create a new Application version
 
@@ -257,16 +263,16 @@ import (
 
 func main() {
 	applicationId := int64(789) // int64 | The ID (global_id) of the Application resource.
-	versionCreateRequest := *openapiclient.NewVersionCreateRequest() // VersionCreateRequest |  (optional)
+	applicationVersionCreateRequest := *openapiclient.NewApplicationVersionCreateRequest() // ApplicationVersionCreateRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationVersionsAPI.CreateApplicationVersion(context.Background(), applicationId).VersionCreateRequest(versionCreateRequest).Execute()
+	resp, r, err := apiClient.ApplicationVersionsAPI.CreateApplicationVersion(context.Background(), applicationId).ApplicationVersionCreateRequest(applicationVersionCreateRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationVersionsAPI.CreateApplicationVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateApplicationVersion`: Application
+	// response from `CreateApplicationVersion`: ApplicationVersion
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationVersionsAPI.CreateApplicationVersion`: %v\n", resp)
 }
 ```
@@ -287,11 +293,11 @@ Other parameters are passed through a pointer to a apiCreateApplicationVersionRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **versionCreateRequest** | [**VersionCreateRequest**](VersionCreateRequest.md) |  | 
+ **applicationVersionCreateRequest** | [**ApplicationVersionCreateRequest**](ApplicationVersionCreateRequest.md) |  | 
 
 ### Return type
 
-[**Application**](Application.md)
+[**ApplicationVersion**](ApplicationVersion.md)
 
 ### Authorization
 
@@ -309,7 +315,7 @@ Name | Type | Description  | Notes
 
 ## DeleteApplicationVersion
 
-> DeleteApplicationVersion(ctx, applicationId, versionId).Execute()
+> ApplicationVersionMeta DeleteApplicationVersion(ctx, applicationId, versionId).Execute()
 
 Delete an Application version
 
@@ -333,11 +339,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationVersionsAPI.DeleteApplicationVersion(context.Background(), applicationId, versionId).Execute()
+	resp, r, err := apiClient.ApplicationVersionsAPI.DeleteApplicationVersion(context.Background(), applicationId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationVersionsAPI.DeleteApplicationVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteApplicationVersion`: ApplicationVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationVersionsAPI.DeleteApplicationVersion`: %v\n", resp)
 }
 ```
 
@@ -362,7 +370,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**ApplicationVersionMeta**](ApplicationVersionMeta.md)
 
 ### Authorization
 
@@ -380,7 +388,7 @@ Name | Type | Description  | Notes
 
 ## ListApplicationVersions
 
-> PaginatedApplicationList ListApplicationVersions(ctx, applicationId).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+> PaginatedApplicationVersionList ListApplicationVersions(ctx, applicationId).Page(page).PageSize(pageSize).Execute()
 
 List Application versions
 
@@ -400,20 +408,17 @@ import (
 
 func main() {
 	applicationId := int64(789) // int64 | The ID (global_id) of the Application resource.
-	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
-	search := "search_example" // string | A search term. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationVersionsAPI.ListApplicationVersions(context.Background(), applicationId).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+	resp, r, err := apiClient.ApplicationVersionsAPI.ListApplicationVersions(context.Background(), applicationId).Page(page).PageSize(pageSize).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationVersionsAPI.ListApplicationVersions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListApplicationVersions`: PaginatedApplicationList
+	// response from `ListApplicationVersions`: PaginatedApplicationVersionList
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationVersionsAPI.ListApplicationVersions`: %v\n", resp)
 }
 ```
@@ -434,15 +439,12 @@ Other parameters are passed through a pointer to a apiListApplicationVersionsReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **ordering** | **string** | Which field to use when ordering the results. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
- **search** | **string** | A search term. | 
 
 ### Return type
 
-[**PaginatedApplicationList**](PaginatedApplicationList.md)
+[**PaginatedApplicationVersionList**](PaginatedApplicationVersionList.md)
 
 ### Authorization
 
@@ -460,7 +462,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateApplicationVersion
 
-> Application PartialUpdateApplicationVersion(ctx, applicationId, versionId).PatchedApplicationRequest(patchedApplicationRequest).Execute()
+> ApplicationVersion PartialUpdateApplicationVersion(ctx, applicationId, versionId).PatchedApplicationRequest(patchedApplicationRequest).Execute()
 
 Partially update an Application version
 
@@ -490,7 +492,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationVersionsAPI.PartialUpdateApplicationVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateApplicationVersion`: Application
+	// response from `PartialUpdateApplicationVersion`: ApplicationVersion
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationVersionsAPI.PartialUpdateApplicationVersion`: %v\n", resp)
 }
 ```
@@ -517,7 +519,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Application**](Application.md)
+[**ApplicationVersion**](ApplicationVersion.md)
 
 ### Authorization
 
@@ -535,7 +537,7 @@ Name | Type | Description  | Notes
 
 ## RetrieveApplicationVersion
 
-> Application RetrieveApplicationVersion(ctx, applicationId, versionId).Fields(fields).Execute()
+> ApplicationVersion RetrieveApplicationVersion(ctx, applicationId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Execute()
 
 Retrieve an Application version
 
@@ -556,16 +558,18 @@ import (
 func main() {
 	applicationId := int64(789) // int64 | The ID (global_id) of the Application resource.
 	versionId := "versionId_example" // string | The identifier of the version.
+	dependencies := true // bool | Include the resources this version references. (optional)
+	dependencyStates := []string{"Inner_example"} // []string | Keep only the dependency versions in these states (comma-separated). Needs dependencies=true. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationVersionsAPI.RetrieveApplicationVersion(context.Background(), applicationId, versionId).Fields(fields).Execute()
+	resp, r, err := apiClient.ApplicationVersionsAPI.RetrieveApplicationVersion(context.Background(), applicationId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationVersionsAPI.RetrieveApplicationVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RetrieveApplicationVersion`: Application
+	// response from `RetrieveApplicationVersion`: ApplicationVersion
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationVersionsAPI.RetrieveApplicationVersion`: %v\n", resp)
 }
 ```
@@ -588,11 +592,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **dependencies** | **bool** | Include the resources this version references. | 
+ **dependencyStates** | **[]string** | Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
 
 ### Return type
 
-[**Application**](Application.md)
+[**ApplicationVersion**](ApplicationVersion.md)
 
 ### Authorization
 
@@ -610,7 +616,7 @@ Name | Type | Description  | Notes
 
 ## UpdateApplicationVersion
 
-> Application UpdateApplicationVersion(ctx, applicationId, versionId).ApplicationRequest(applicationRequest).Execute()
+> ApplicationVersion UpdateApplicationVersion(ctx, applicationId, versionId).ApplicationRequest(applicationRequest).Execute()
 
 Update an Application version
 
@@ -640,7 +646,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationVersionsAPI.UpdateApplicationVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateApplicationVersion`: Application
+	// response from `UpdateApplicationVersion`: ApplicationVersion
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationVersionsAPI.UpdateApplicationVersion`: %v\n", resp)
 }
 ```
@@ -667,7 +673,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Application**](Application.md)
+[**ApplicationVersion**](ApplicationVersion.md)
 
 ### Authorization
 

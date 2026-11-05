@@ -4,15 +4,15 @@ All URIs are relative to *https://api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListCertificateVersions**](CertificateVersionsAPI.md#ListCertificateVersions) | **Get** /workspace/tls/certificates/{resource_pk}/versions | List certificate versions
-[**RetrieveCertificateVersion**](CertificateVersionsAPI.md#RetrieveCertificateVersion) | **Get** /workspace/tls/certificates/{resource_pk}/versions/{id} | Retrieve a certificate version
-[**RevertCertificateVersion**](CertificateVersionsAPI.md#RevertCertificateVersion) | **Post** /workspace/tls/certificates/{resource_pk}/versions/{id}/revert | Revert to a certificate version
+[**ListCertificateVersions**](CertificateVersionsAPI.md#ListCertificateVersions) | **Get** /workspace/tls/certificates/{certificate_id}/versions | List certificate versions
+[**RetrieveCertificateVersion**](CertificateVersionsAPI.md#RetrieveCertificateVersion) | **Get** /workspace/tls/certificates/{certificate_id}/versions/{version_id} | Retrieve a certificate version
+[**RevertCertificateVersion**](CertificateVersionsAPI.md#RevertCertificateVersion) | **Post** /workspace/tls/certificates/{certificate_id}/versions/{version_id}/revert | Revert to a certificate version
 
 
 
 ## ListCertificateVersions
 
-> PaginatedCertificateList ListCertificateVersions(ctx, resourcePk).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+> PaginatedCertificateVersionList ListCertificateVersions(ctx, certificateId).Page(page).PageSize(pageSize).Execute()
 
 List certificate versions
 
@@ -31,21 +31,18 @@ import (
 )
 
 func main() {
-	resourcePk := int64(789) // int64 | The ID of the certificate resource.
-	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (optional)
+	certificateId := int64(789) // int64 | A unique value identifying the certificate.
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
-	search := "search_example" // string | A search term. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CertificateVersionsAPI.ListCertificateVersions(context.Background(), resourcePk).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+	resp, r, err := apiClient.CertificateVersionsAPI.ListCertificateVersions(context.Background(), certificateId).Page(page).PageSize(pageSize).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CertificateVersionsAPI.ListCertificateVersions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListCertificateVersions`: PaginatedCertificateList
+	// response from `ListCertificateVersions`: PaginatedCertificateVersionList
 	fmt.Fprintf(os.Stdout, "Response from `CertificateVersionsAPI.ListCertificateVersions`: %v\n", resp)
 }
 ```
@@ -56,7 +53,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resourcePk** | **int64** | The ID of the certificate resource. | 
+**certificateId** | **int64** | A unique value identifying the certificate. | 
 
 ### Other Parameters
 
@@ -66,15 +63,12 @@ Other parameters are passed through a pointer to a apiListCertificateVersionsReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **ordering** | **string** | Which field to use when ordering the results. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
- **search** | **string** | A search term. | 
 
 ### Return type
 
-[**PaginatedCertificateList**](PaginatedCertificateList.md)
+[**PaginatedCertificateVersionList**](PaginatedCertificateVersionList.md)
 
 ### Authorization
 
@@ -92,7 +86,7 @@ Name | Type | Description  | Notes
 
 ## RetrieveCertificateVersion
 
-> Certificate RetrieveCertificateVersion(ctx, id, resourcePk).Fields(fields).Execute()
+> CertificateVersion RetrieveCertificateVersion(ctx, certificateId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Execute()
 
 Retrieve a certificate version
 
@@ -111,18 +105,20 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The ULID identifier of the version.
-	resourcePk := int64(789) // int64 | The ID of the certificate resource.
+	certificateId := int64(789) // int64 | A unique value identifying the certificate.
+	versionId := "versionId_example" // string | A unique value identifying the version.
+	dependencies := true // bool | Include the resources this version references. (optional)
+	dependencyStates := []string{"Inner_example"} // []string | Keep only the dependency versions in these states (comma-separated). Needs dependencies=true. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CertificateVersionsAPI.RetrieveCertificateVersion(context.Background(), id, resourcePk).Fields(fields).Execute()
+	resp, r, err := apiClient.CertificateVersionsAPI.RetrieveCertificateVersion(context.Background(), certificateId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CertificateVersionsAPI.RetrieveCertificateVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RetrieveCertificateVersion`: Certificate
+	// response from `RetrieveCertificateVersion`: CertificateVersion
 	fmt.Fprintf(os.Stdout, "Response from `CertificateVersionsAPI.RetrieveCertificateVersion`: %v\n", resp)
 }
 ```
@@ -133,8 +129,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The ULID identifier of the version. | 
-**resourcePk** | **int64** | The ID of the certificate resource. | 
+**certificateId** | **int64** | A unique value identifying the certificate. | 
+**versionId** | **string** | A unique value identifying the version. | 
 
 ### Other Parameters
 
@@ -145,11 +141,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **dependencies** | **bool** | Include the resources this version references. | 
+ **dependencyStates** | **[]string** | Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
 
 ### Return type
 
-[**Certificate**](Certificate.md)
+[**CertificateVersion**](CertificateVersion.md)
 
 ### Authorization
 
@@ -167,7 +165,7 @@ Name | Type | Description  | Notes
 
 ## RevertCertificateVersion
 
-> RevertCertificateVersion(ctx, id, resourcePk).VersionRevert(versionRevert).Execute()
+> CertificateVersionMeta RevertCertificateVersion(ctx, certificateId, versionId).CertificateVersionRevertRequest(certificateVersionRevertRequest).Execute()
 
 Revert to a certificate version
 
@@ -186,17 +184,19 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | The ULID identifier of the version.
-	resourcePk := int64(789) // int64 | The ID of the certificate resource.
-	versionRevert := *openapiclient.NewVersionRevert() // VersionRevert |  (optional)
+	certificateId := int64(789) // int64 | A unique value identifying the certificate.
+	versionId := "versionId_example" // string | A unique value identifying the version.
+	certificateVersionRevertRequest := *openapiclient.NewCertificateVersionRevertRequest() // CertificateVersionRevertRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CertificateVersionsAPI.RevertCertificateVersion(context.Background(), id, resourcePk).VersionRevert(versionRevert).Execute()
+	resp, r, err := apiClient.CertificateVersionsAPI.RevertCertificateVersion(context.Background(), certificateId, versionId).CertificateVersionRevertRequest(certificateVersionRevertRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CertificateVersionsAPI.RevertCertificateVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `RevertCertificateVersion`: CertificateVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `CertificateVersionsAPI.RevertCertificateVersion`: %v\n", resp)
 }
 ```
 
@@ -206,8 +206,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | The ULID identifier of the version. | 
-**resourcePk** | **int64** | The ID of the certificate resource. | 
+**certificateId** | **int64** | A unique value identifying the certificate. | 
+**versionId** | **string** | A unique value identifying the version. | 
 
 ### Other Parameters
 
@@ -218,11 +218,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionRevert** | [**VersionRevert**](VersionRevert.md) |  | 
+ **certificateVersionRevertRequest** | [**CertificateVersionRevertRequest**](CertificateVersionRevertRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**CertificateVersionMeta**](CertificateVersionMeta.md)
 
 ### Authorization
 

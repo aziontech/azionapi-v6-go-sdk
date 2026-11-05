@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 ## ListResourceUsage
 
-> PaginatedResourceUsageList ListResourceUsage(ctx).ResourceId(resourceId).ResourceType(resourceType).Fields(fields).Page(page).PageSize(pageSize).Execute()
+> PaginatedResourceUsageList ListResourceUsage(ctx).ResourceId(resourceId).ResourceType(resourceType).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Execute()
 
 List deployments using a resource
 
@@ -30,15 +30,16 @@ import (
 )
 
 func main() {
-	resourceId := []string{"Inner_example"} // []string | One or more resource ids to look up (for `application` this is its `global_id`). Repeat the key (`resource_id=a&resource_id=b`) or pass a comma-separated list (`resource_id=a,b`). Max 100.
+	resourceId := []string{"Inner_example"} // []string | One or more resource ids to look up, comma-separated (`resource_id=a,b`). For `application` this is its `global_id`.
 	resourceType := "resourceType_example" // string | Resource type to look up.
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeploymentsResourceUsageAPI.ListResourceUsage(context.Background()).ResourceId(resourceId).ResourceType(resourceType).Fields(fields).Page(page).PageSize(pageSize).Execute()
+	resp, r, err := apiClient.DeploymentsResourceUsageAPI.ListResourceUsage(context.Background()).ResourceId(resourceId).ResourceType(resourceType).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeploymentsResourceUsageAPI.ListResourceUsage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -59,9 +60,10 @@ Other parameters are passed through a pointer to a apiListResourceUsageRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resourceId** | **[]string** | One or more resource ids to look up (for &#x60;application&#x60; this is its &#x60;global_id&#x60;). Repeat the key (&#x60;resource_id&#x3D;a&amp;resource_id&#x3D;b&#x60;) or pass a comma-separated list (&#x60;resource_id&#x3D;a,b&#x60;). Max 100. | 
+ **resourceId** | **[]string** | One or more resource ids to look up, comma-separated (&#x60;resource_id&#x3D;a,b&#x60;). For &#x60;application&#x60; this is its &#x60;global_id&#x60;. | 
  **resourceType** | **string** | Resource type to look up. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
 

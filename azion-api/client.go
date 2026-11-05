@@ -118,8 +118,6 @@ type APIClient struct {
 
 	StorageBucketsAPI *StorageBucketsAPIService
 
-	StorageCredentialsAPI *StorageCredentialsAPIService
-
 	StorageObjectsAPI *StorageObjectsAPIService
 
 	VariableVersionsAPI *VariableVersionsAPIService
@@ -131,8 +129,6 @@ type APIClient struct {
 	WAFsAPI *WAFsAPIService
 
 	WAFsExceptionsAPI *WAFsExceptionsAPIService
-
-	WorkloadDeploymentsAPI *WorkloadDeploymentsAPIService
 
 	WorkloadVersionsAPI *WorkloadVersionsAPIService
 
@@ -189,14 +185,12 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.NetworkListsAPI = (*NetworkListsAPIService)(&c.common)
 	c.PurgeAPI = (*PurgeAPIService)(&c.common)
 	c.StorageBucketsAPI = (*StorageBucketsAPIService)(&c.common)
-	c.StorageCredentialsAPI = (*StorageCredentialsAPIService)(&c.common)
 	c.StorageObjectsAPI = (*StorageObjectsAPIService)(&c.common)
 	c.VariableVersionsAPI = (*VariableVersionsAPIService)(&c.common)
 	c.VariablesAPI = (*VariablesAPIService)(&c.common)
 	c.WAFVersionsAPI = (*WAFVersionsAPIService)(&c.common)
 	c.WAFsAPI = (*WAFsAPIService)(&c.common)
 	c.WAFsExceptionsAPI = (*WAFsExceptionsAPIService)(&c.common)
-	c.WorkloadDeploymentsAPI = (*WorkloadDeploymentsAPIService)(&c.common)
 	c.WorkloadVersionsAPI = (*WorkloadVersionsAPIService)(&c.common)
 	c.WorkloadsAPI = (*WorkloadsAPIService)(&c.common)
 

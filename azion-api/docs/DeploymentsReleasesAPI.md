@@ -116,7 +116,7 @@ import (
 func main() {
 	deploymentId := "deploymentId_example" // string | A unique value identifying the deployment.
 	releaseId := "releaseId_example" // string | A unique value identifying the release.
-	body := map[string]interface{}{ ... } // map[string]interface{} | 
+	body := map[string]interface{}{ ... } // map[string]interface{} |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -265,7 +265,7 @@ import (
 
 func main() {
 	deploymentId := "deploymentId_example" // string | A unique value identifying the deployment.
-	releaseCreateRequest := *openapiclient.NewReleaseCreateRequest() // ReleaseCreateRequest | 
+	releaseCreateRequest := *openapiclient.NewReleaseCreateRequest([]openapiclient.ReleaseCreateRequestResourcesInner{*openapiclient.NewReleaseCreateRequestResourcesInner(int64(123), "ResourceType_example", "VersionId_example")}) // ReleaseCreateRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -317,7 +317,7 @@ Name | Type | Description  | Notes
 
 ## DeleteRelease
 
-> DeleteResponse DeleteRelease(ctx, deploymentId, releaseId).Execute()
+> DeleteRelease(ctx, deploymentId, releaseId).Execute()
 
 Delete a release
 
@@ -341,13 +341,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeploymentsReleasesAPI.DeleteRelease(context.Background(), deploymentId, releaseId).Execute()
+	r, err := apiClient.DeploymentsReleasesAPI.DeleteRelease(context.Background(), deploymentId, releaseId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeploymentsReleasesAPI.DeleteRelease``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteRelease`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `DeploymentsReleasesAPI.DeleteRelease`: %v\n", resp)
 }
 ```
 
@@ -372,7 +370,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -410,16 +408,16 @@ import (
 )
 
 func main() {
-	deployment := []string{"Inner_example"} // []string | Restrict the listing to these deployments. Comma-separated (`deployment=A,B`) or repeated (`deployment=A&deployment=B`). Max 100. An id that does not exist, or belongs to another account, yields an empty page rather than a 404. (optional)
+	deployment := []string{"Inner_example"} // []string | Restrict the listing to these deployments, comma-separated (`deployment=A,B`). More ids than the per-request cap, 100 by default, answer 400. An id that does not exist, or belongs to another account, yields an empty page rather than a 404. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	lastModifiedGte := time.Now() // time.Time | Only releases modified at or after this ISO-8601 timestamp. (optional)
-	lastModifiedLte := time.Now() // time.Time | Only releases modified at or before this ISO-8601 timestamp. (optional)
-	ordering := "ordering_example" // string | Comma-separated sort fields. Prefix with `-` for descending. Allowed: `id`, `created_at`, `last_modified`, `state`, `traffic_role`. Default: `-last_modified,-id`. (optional)
+	lastModifiedGte := time.Now() // time.Time | Filter by last modification date (greater than or equal). (optional)
+	lastModifiedLte := time.Now() // time.Time | Filter by last modification date (less than or equal). (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
-	search := "search_example" // string | Free-text search. Matches a release short_id by prefix OR the parent deployment name by substring, case-insensitive. LIKE metacharacters are literal. (optional)
-	state := []string{"Inner_example"} // []string | Filter by release state. Comma-separated (`state=ready,building`) or repeated (`state=ready&state=building`). (optional)
-	trafficRole := "trafficRole_example" // string | Only releases currently serving traffic. The roles this covers are resolved per parent `deployment_policy`: `single_version` → ACTIVE/CANDIDATE, `versioned_urls` → ACTIVE/VALID_URL. Only `active` is accepted. (optional)
+	search := "search_example" // string | A search term to filter results. Searches across the following fields: id, deployment_name. (optional)
+	state := []string{"Inner_example"} // []string | Filter by one or more lifecycle states, comma-separated (`state=ready,building`). `deleted` is never listed. `deleting` stays listed so a stuck delete can be found. (optional)
+	trafficRole := "trafficRole_example" // string | `active` returns the releases currently serving traffic, resolved per parent `deployment_policy`: `single_version` → ACTIVE/CANDIDATE, `versioned_urls` → ACTIVE/VALID_URL. Any other value matches nothing. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -444,16 +442,16 @@ Other parameters are passed through a pointer to a apiListAccountReleasesRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **deployment** | **[]string** | Restrict the listing to these deployments. Comma-separated (&#x60;deployment&#x3D;A,B&#x60;) or repeated (&#x60;deployment&#x3D;A&amp;deployment&#x3D;B&#x60;). Max 100. An id that does not exist, or belongs to another account, yields an empty page rather than a 404. | 
+ **deployment** | **[]string** | Restrict the listing to these deployments, comma-separated (&#x60;deployment&#x3D;A,B&#x60;). More ids than the per-request cap, 100 by default, answer 400. An id that does not exist, or belongs to another account, yields an empty page rather than a 404. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **lastModifiedGte** | **time.Time** | Only releases modified at or after this ISO-8601 timestamp. | 
- **lastModifiedLte** | **time.Time** | Only releases modified at or before this ISO-8601 timestamp. | 
- **ordering** | **string** | Comma-separated sort fields. Prefix with &#x60;-&#x60; for descending. Allowed: &#x60;id&#x60;, &#x60;created_at&#x60;, &#x60;last_modified&#x60;, &#x60;state&#x60;, &#x60;traffic_role&#x60;. Default: &#x60;-last_modified,-id&#x60;. | 
+ **lastModifiedGte** | **time.Time** | Filter by last modification date (greater than or equal). | 
+ **lastModifiedLte** | **time.Time** | Filter by last modification date (less than or equal). | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
- **search** | **string** | Free-text search. Matches a release short_id by prefix OR the parent deployment name by substring, case-insensitive. LIKE metacharacters are literal. | 
- **state** | **[]string** | Filter by release state. Comma-separated (&#x60;state&#x3D;ready,building&#x60;) or repeated (&#x60;state&#x3D;ready&amp;state&#x3D;building&#x60;). | 
- **trafficRole** | **string** | Only releases currently serving traffic. The roles this covers are resolved per parent &#x60;deployment_policy&#x60;: &#x60;single_version&#x60; → ACTIVE/CANDIDATE, &#x60;versioned_urls&#x60; → ACTIVE/VALID_URL. Only &#x60;active&#x60; is accepted. | 
+ **search** | **string** | A search term to filter results. Searches across the following fields: id, deployment_name. | 
+ **state** | **[]string** | Filter by one or more lifecycle states, comma-separated (&#x60;state&#x3D;ready,building&#x60;). &#x60;deleted&#x60; is never listed. &#x60;deleting&#x60; stays listed so a stuck delete can be found. | 
+ **trafficRole** | **string** | &#x60;active&#x60; returns the releases currently serving traffic, resolved per parent &#x60;deployment_policy&#x60;: &#x60;single_version&#x60; → ACTIVE/CANDIDATE, &#x60;versioned_urls&#x60; → ACTIVE/VALID_URL. Any other value matches nothing. | 
 
 ### Return type
 
@@ -496,11 +494,11 @@ import (
 func main() {
 	deploymentId := "deploymentId_example" // string | A unique value identifying the deployment.
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	ordering := "ordering_example" // string | Comma-separated sort fields. Prefix with `-` for descending. Allowed: `id`, `created_at`, `last_modified`, `state`, `traffic_role`. Default: `-created_at,-id`. (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
-	state := []string{"Inner_example"} // []string | Filter by one or more lifecycle states. Pass a comma-separated list (`state=ready,building`) or repeat the key (`state=ready&state=building`). `deleted` is rejected — it is never listed. `deleting` stays listed so a stuck delete can be found. (optional)
-	trafficRole := "trafficRole_example" // string | Semantic filter — `active` returns what is currently serving traffic. single_version → ACTIVE+CANDIDATE; versioned_urls → ACTIVE+VALID_URL. (optional)
+	state := []string{"Inner_example"} // []string | Filter by one or more lifecycle states, comma-separated (`state=ready,building`). `deleted` is never listed. `deleting` stays listed so a stuck delete can be found. (optional)
+	trafficRole := "trafficRole_example" // string | `active` returns the releases currently serving traffic, resolved per parent `deployment_policy`: `single_version` → ACTIVE/CANDIDATE, `versioned_urls` → ACTIVE/VALID_URL. Any other value matches nothing. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -531,11 +529,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **ordering** | **string** | Comma-separated sort fields. Prefix with &#x60;-&#x60; for descending. Allowed: &#x60;id&#x60;, &#x60;created_at&#x60;, &#x60;last_modified&#x60;, &#x60;state&#x60;, &#x60;traffic_role&#x60;. Default: &#x60;-created_at,-id&#x60;. | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
- **state** | **[]string** | Filter by one or more lifecycle states. Pass a comma-separated list (&#x60;state&#x3D;ready,building&#x60;) or repeat the key (&#x60;state&#x3D;ready&amp;state&#x3D;building&#x60;). &#x60;deleted&#x60; is rejected — it is never listed. &#x60;deleting&#x60; stays listed so a stuck delete can be found. | 
- **trafficRole** | **string** | Semantic filter — &#x60;active&#x60; returns what is currently serving traffic. single_version → ACTIVE+CANDIDATE; versioned_urls → ACTIVE+VALID_URL. | 
+ **state** | **[]string** | Filter by one or more lifecycle states, comma-separated (&#x60;state&#x3D;ready,building&#x60;). &#x60;deleted&#x60; is never listed. &#x60;deleting&#x60; stays listed so a stuck delete can be found. | 
+ **trafficRole** | **string** | &#x60;active&#x60; returns the releases currently serving traffic, resolved per parent &#x60;deployment_policy&#x60;: &#x60;single_version&#x60; → ACTIVE/CANDIDATE, &#x60;versioned_urls&#x60; → ACTIVE/VALID_URL. Any other value matches nothing. | 
 
 ### Return type
 
@@ -803,7 +801,7 @@ import (
 func main() {
 	deploymentId := "deploymentId_example" // string | A unique value identifying the deployment.
 	releaseId := "releaseId_example" // string | A unique value identifying the release.
-	releaseRequest := *openapiclient.NewReleaseRequest([]openapiclient.PatchedReleaseRequestResourcesInner{*openapiclient.NewPatchedReleaseRequestResourcesInner(int64(123), "ResourceType_example", "VersionId_example")}, *openapiclient.NewAccountReleaseOrigin("Type_example", "SourceEnvironmentId_example", "SourceReleaseId_example", "PromotedFrom_example")) // ReleaseRequest | 
+	releaseRequest := *openapiclient.NewReleaseRequest([]openapiclient.ReleaseCreateRequestResourcesInner{*openapiclient.NewReleaseCreateRequestResourcesInner(int64(123), "ResourceType_example", "VersionId_example")}, *openapiclient.NewReleaseOrigin("Type_example", "SourceEnvironmentId_example", "SourceReleaseId_example", "PromotedFrom_example")) // ReleaseRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

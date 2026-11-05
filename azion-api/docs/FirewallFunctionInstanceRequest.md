@@ -6,9 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
 **Args** | Pointer to **interface{}** |  | [optional] 
-**AzionForm** | Pointer to [**FirewallFunctionInstanceAzionForm**](FirewallFunctionInstanceAzionForm.md) |  | [optional] 
+**AzionForm** | Pointer to [**FunctionsAzionForm**](FunctionsAzionForm.md) |  | [optional] 
 **Function** | **int64** |  | 
-**Active** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -86,20 +85,20 @@ HasArgs returns a boolean if a field has been set.
 UnsetArgs ensures that no value is present for Args, not even an explicit nil
 ### GetAzionForm
 
-`func (o *FirewallFunctionInstanceRequest) GetAzionForm() FirewallFunctionInstanceAzionForm`
+`func (o *FirewallFunctionInstanceRequest) GetAzionForm() FunctionsAzionForm`
 
 GetAzionForm returns the AzionForm field if non-nil, zero value otherwise.
 
 ### GetAzionFormOk
 
-`func (o *FirewallFunctionInstanceRequest) GetAzionFormOk() (*FirewallFunctionInstanceAzionForm, bool)`
+`func (o *FirewallFunctionInstanceRequest) GetAzionFormOk() (*FunctionsAzionForm, bool)`
 
 GetAzionFormOk returns a tuple with the AzionForm field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAzionForm
 
-`func (o *FirewallFunctionInstanceRequest) SetAzionForm(v FirewallFunctionInstanceAzionForm)`
+`func (o *FirewallFunctionInstanceRequest) SetAzionForm(v FunctionsAzionForm)`
 
 SetAzionForm sets AzionForm field to given value.
 
@@ -128,31 +127,6 @@ and a boolean to check if the value has been set.
 
 SetFunction sets Function field to given value.
 
-
-### GetActive
-
-`func (o *FirewallFunctionInstanceRequest) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *FirewallFunctionInstanceRequest) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *FirewallFunctionInstanceRequest) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *FirewallFunctionInstanceRequest) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

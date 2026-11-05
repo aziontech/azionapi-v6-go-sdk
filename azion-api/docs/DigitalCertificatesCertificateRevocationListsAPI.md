@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**CreateCertificateRevocationList**](DigitalCertificatesCertificateRevocationListsAPI.md#CreateCertificateRevocationList) | **Post** /workspace/tls/crls | Create a certificate revocation lists (CRL)
 [**DeleteCertificateRevocationList**](DigitalCertificatesCertificateRevocationListsAPI.md#DeleteCertificateRevocationList) | **Delete** /workspace/tls/crls/{crl_id} | Delete a certificate revocation list
 [**ListCertificateRevocationLists**](DigitalCertificatesCertificateRevocationListsAPI.md#ListCertificateRevocationLists) | **Get** /workspace/tls/crls | List certificate revocation lists (CRL)
-[**PartialUpdateCertificateRevocationList**](DigitalCertificatesCertificateRevocationListsAPI.md#PartialUpdateCertificateRevocationList) | **Patch** /workspace/tls/crls/{crl_id} | Update a certificate revocation lists (CRL)
+[**PartialUpdateCertificateRevocationList**](DigitalCertificatesCertificateRevocationListsAPI.md#PartialUpdateCertificateRevocationList) | **Patch** /workspace/tls/crls/{crl_id} | Partially update a certificate revocation list
 [**RetrieveCertificateRevocationList**](DigitalCertificatesCertificateRevocationListsAPI.md#RetrieveCertificateRevocationList) | **Get** /workspace/tls/crls/{crl_id} | Retrieve details from a certificate revocation lists (CRL)
 [**UpdateCertificateRevocationList**](DigitalCertificatesCertificateRevocationListsAPI.md#UpdateCertificateRevocationList) | **Put** /workspace/tls/crls/{crl_id} | Update a certificate revocation lists (CRL)
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## DeleteCertificateRevocationList
 
-> DeleteResponse DeleteCertificateRevocationList(ctx, crlId).Execute()
+> DeleteCertificateRevocationList(ctx, crlId).Execute()
 
 Delete a certificate revocation list
 
@@ -104,13 +104,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DigitalCertificatesCertificateRevocationListsAPI.DeleteCertificateRevocationList(context.Background(), crlId).Execute()
+	r, err := apiClient.DigitalCertificatesCertificateRevocationListsAPI.DeleteCertificateRevocationList(context.Background(), crlId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DigitalCertificatesCertificateRevocationListsAPI.DeleteCertificateRevocationList``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteCertificateRevocationList`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `DigitalCertificatesCertificateRevocationListsAPI.DeleteCertificateRevocationList`: %v\n", resp)
 }
 ```
 
@@ -133,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -252,7 +250,7 @@ Name | Type | Description  | Notes
 
 > CertificateRevocationListResponse PartialUpdateCertificateRevocationList(ctx, crlId).PatchedCertificateRevocationList(patchedCertificateRevocationList).Execute()
 
-Update a certificate revocation lists (CRL)
+Partially update a certificate revocation list
 
 
 

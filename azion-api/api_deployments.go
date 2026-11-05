@@ -220,7 +220,7 @@ type ApiDeleteDeploymentRequest struct {
 	deploymentId string
 }
 
-func (r ApiDeleteDeploymentRequest) Execute() (*DeleteResponse, *http.Response, error) {
+func (r ApiDeleteDeploymentRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteDeploymentExecute(r)
 }
 
@@ -242,18 +242,16 @@ func (a *DeploymentsAPIService) DeleteDeployment(ctx context.Context, deployment
 }
 
 // Execute executes the request
-//  @return DeleteResponse
-func (a *DeploymentsAPIService) DeleteDeploymentExecute(r ApiDeleteDeploymentRequest) (*DeleteResponse, *http.Response, error) {
+func (a *DeploymentsAPIService) DeleteDeploymentExecute(r ApiDeleteDeploymentRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeleteResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeploymentsAPIService.DeleteDeployment")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/deployments/{deployment_id}"
@@ -263,10 +261,10 @@ func (a *DeploymentsAPIService) DeleteDeploymentExecute(r ApiDeleteDeploymentReq
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if strlen(r.deploymentId) < 8 {
-		return localVarReturnValue, nil, reportError("deploymentId must have at least 8 elements")
+		return nil, reportError("deploymentId must have at least 8 elements")
 	}
 	if strlen(r.deploymentId) > 26 {
-		return localVarReturnValue, nil, reportError("deploymentId must have less than 26 elements")
+		return nil, reportError("deploymentId must have less than 26 elements")
 	}
 
 	// to determine the Content-Type header
@@ -302,19 +300,19 @@ func (a *DeploymentsAPIService) DeleteDeploymentExecute(r ApiDeleteDeploymentReq
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -327,79 +325,70 @@ func (a *DeploymentsAPIService) DeleteDeploymentExecute(r ApiDeleteDeploymentReq
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type ApiListDeploymentsRequest struct {
@@ -410,7 +399,7 @@ type ApiListDeploymentsRequest struct {
 	createdAtLte *time.Time
 	deploymentPolicy *string
 	fields *string
-	idIn *string
+	idIn *[]string
 	lastModifiedGte *time.Time
 	lastModifiedLte *time.Time
 	name *string
@@ -427,13 +416,13 @@ func (r ApiListDeploymentsRequest) BindingPolicy(bindingPolicy string) ApiListDe
 	return r
 }
 
-// Filter deployments created at or after this ISO-8601 timestamp.
+// Filter by creation date (greater than or equal).
 func (r ApiListDeploymentsRequest) CreatedAtGte(createdAtGte time.Time) ApiListDeploymentsRequest {
 	r.createdAtGte = &createdAtGte
 	return r
 }
 
-// Filter deployments created at or before this ISO-8601 timestamp.
+// Filter by creation date (less than or equal).
 func (r ApiListDeploymentsRequest) CreatedAtLte(createdAtLte time.Time) ApiListDeploymentsRequest {
 	r.createdAtLte = &createdAtLte
 	return r
@@ -451,31 +440,31 @@ func (r ApiListDeploymentsRequest) Fields(fields string) ApiListDeploymentsReque
 	return r
 }
 
-// Filter by a comma-separated list of deployment short_ids.
-func (r ApiListDeploymentsRequest) IdIn(idIn string) ApiListDeploymentsRequest {
+// Filter by deployment short_ids, comma-separated (&#x60;id__in&#x3D;A,B&#x60;).
+func (r ApiListDeploymentsRequest) IdIn(idIn []string) ApiListDeploymentsRequest {
 	r.idIn = &idIn
 	return r
 }
 
-// Filter deployments last modified at or after this ISO-8601 timestamp.
+// Filter by last modification date (greater than or equal).
 func (r ApiListDeploymentsRequest) LastModifiedGte(lastModifiedGte time.Time) ApiListDeploymentsRequest {
 	r.lastModifiedGte = &lastModifiedGte
 	return r
 }
 
-// Filter deployments last modified at or before this ISO-8601 timestamp.
+// Filter by last modification date (less than or equal).
 func (r ApiListDeploymentsRequest) LastModifiedLte(lastModifiedLte time.Time) ApiListDeploymentsRequest {
 	r.lastModifiedLte = &lastModifiedLte
 	return r
 }
 
-// Filter by deployment name (substring match)
+// Filter by deployment name (case-insensitive, partial match).
 func (r ApiListDeploymentsRequest) Name(name string) ApiListDeploymentsRequest {
 	r.name = &name
 	return r
 }
 
-// Comma-separated sort fields. Prefix with &#x60;-&#x60; for descending. Allowed: &#x60;id&#x60;, &#x60;name&#x60;, &#x60;created_at&#x60;, &#x60;last_modified&#x60;, &#x60;version_state&#x60;. Default: &#x60;-created_at,-id&#x60;.
+// Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state)
 func (r ApiListDeploymentsRequest) Ordering(ordering string) ApiListDeploymentsRequest {
 	r.ordering = &ordering
 	return r
@@ -493,13 +482,13 @@ func (r ApiListDeploymentsRequest) PageSize(pageSize int32) ApiListDeploymentsRe
 	return r
 }
 
-// Free-text search across deployment name.
+// A search term to filter results. Searches across the following fields: name.
 func (r ApiListDeploymentsRequest) Search(search string) ApiListDeploymentsRequest {
 	r.search = &search
 	return r
 }
 
-// Filter by one or more lifecycle states of the resolved version (&#x60;version_state&#x60;). Pass a comma-separated list (&#x60;state&#x3D;ready,building&#x60;) or repeat the key (&#x60;state&#x3D;ready&amp;state&#x3D;building&#x60;). &#x60;deleted&#x60; is rejected — it is never listed. &#x60;deleting&#x60; stays listed so a stuck delete can be found.
+// Filter by one or more lifecycle states, comma-separated (&#x60;state&#x3D;ready,building&#x60;). &#x60;deleted&#x60; is never listed. &#x60;deleting&#x60; stays listed so a stuck delete can be found. Matches the state of the resolved version (&#x60;version_state&#x60;).
 func (r ApiListDeploymentsRequest) State(state []string) ApiListDeploymentsRequest {
 	r.state = &state
 	return r
@@ -561,7 +550,7 @@ func (a *DeploymentsAPIService) ListDeploymentsExecute(r ApiListDeploymentsReque
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.idIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id__in", r.idIn, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id__in", r.idIn, "form", "csv")
 	}
 	if r.lastModifiedGte != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "last_modified__gte", r.lastModifiedGte, "form", "")
