@@ -22,6 +22,7 @@ var _ MappedNullable = &WAFRequest{}
 
 // WAFRequest struct for WAFRequest
 type WAFRequest struct {
+	Active *bool `json:"active,omitempty"`
 	Name string `json:"name"`
 	EngineSettings *WAFEngineSettingsFieldRequest `json:"engine_settings,omitempty"`
 }
@@ -44,6 +45,38 @@ func NewWAFRequest(name string) *WAFRequest {
 func NewWAFRequestWithDefaults() *WAFRequest {
 	this := WAFRequest{}
 	return &this
+}
+
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *WAFRequest) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WAFRequest) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *WAFRequest) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *WAFRequest) SetActive(v bool) {
+	o.Active = &v
 }
 
 // GetName returns the Name field value
@@ -112,6 +145,9 @@ func (o WAFRequest) MarshalJSON() ([]byte, error) {
 
 func (o WAFRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
+	}
 	toSerialize["name"] = o.Name
 	if !IsNil(o.EngineSettings) {
 		toSerialize["engine_settings"] = o.EngineSettings

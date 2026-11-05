@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **int64** |  | [optional] 
 **Name** | **string** |  | 
+**Active** | Pointer to **bool** | Indicates if the certificate revocation list is active. This field cannot be set to false. | [optional] 
 **LastEditor** | Pointer to **string** |  | [optional] 
 **CreatedAt** | Pointer to **NullableTime** | Timestamp of the certificate revocation list creation on the platform. | [optional] 
 **LastModified** | Pointer to **time.Time** | Timestamp of the last modification made to the certificate content on the platform. | [optional] 
@@ -80,6 +81,31 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+
+### GetActive
+
+`func (o *CertificateRevocationList) GetActive() bool`
+
+GetActive returns the Active field if non-nil, zero value otherwise.
+
+### GetActiveOk
+
+`func (o *CertificateRevocationList) GetActiveOk() (*bool, bool)`
+
+GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActive
+
+`func (o *CertificateRevocationList) SetActive(v bool)`
+
+SetActive sets Active field to given value.
+
+### HasActive
+
+`func (o *CertificateRevocationList) HasActive() bool`
+
+HasActive returns a boolean if a field has been set.
 
 ### GetLastEditor
 

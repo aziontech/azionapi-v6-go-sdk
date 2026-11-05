@@ -22,6 +22,7 @@ var _ MappedNullable = &PurgeResponse{}
 
 // PurgeResponse struct for PurgeResponse
 type PurgeResponse struct {
+	State *string `json:"state,omitempty"`
 	Data Purge `json:"data"`
 }
 
@@ -43,6 +44,38 @@ func NewPurgeResponse(data Purge) *PurgeResponse {
 func NewPurgeResponseWithDefaults() *PurgeResponse {
 	this := PurgeResponse{}
 	return &this
+}
+
+// GetState returns the State field value if set, zero value otherwise.
+func (o *PurgeResponse) GetState() string {
+	if o == nil || IsNil(o.State) {
+		var ret string
+		return ret
+	}
+	return *o.State
+}
+
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PurgeResponse) GetStateOk() (*string, bool) {
+	if o == nil || IsNil(o.State) {
+		return nil, false
+	}
+	return o.State, true
+}
+
+// HasState returns a boolean if a field has been set.
+func (o *PurgeResponse) HasState() bool {
+	if o != nil && !IsNil(o.State) {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given string and assigns it to the State field.
+func (o *PurgeResponse) SetState(v string) {
+	o.State = &v
 }
 
 // GetData returns the Data field value
@@ -79,6 +112,9 @@ func (o PurgeResponse) MarshalJSON() ([]byte, error) {
 
 func (o PurgeResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
 	toSerialize["data"] = o.Data
 	return toSerialize, nil
 }

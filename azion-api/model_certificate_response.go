@@ -22,6 +22,7 @@ var _ MappedNullable = &CertificateResponse{}
 
 // CertificateResponse struct for CertificateResponse
 type CertificateResponse struct {
+	State *string `json:"state,omitempty"`
 	Data Certificate `json:"data"`
 }
 
@@ -43,6 +44,38 @@ func NewCertificateResponse(data Certificate) *CertificateResponse {
 func NewCertificateResponseWithDefaults() *CertificateResponse {
 	this := CertificateResponse{}
 	return &this
+}
+
+// GetState returns the State field value if set, zero value otherwise.
+func (o *CertificateResponse) GetState() string {
+	if o == nil || IsNil(o.State) {
+		var ret string
+		return ret
+	}
+	return *o.State
+}
+
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CertificateResponse) GetStateOk() (*string, bool) {
+	if o == nil || IsNil(o.State) {
+		return nil, false
+	}
+	return o.State, true
+}
+
+// HasState returns a boolean if a field has been set.
+func (o *CertificateResponse) HasState() bool {
+	if o != nil && !IsNil(o.State) {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given string and assigns it to the State field.
+func (o *CertificateResponse) SetState(v string) {
+	o.State = &v
 }
 
 // GetData returns the Data field value
@@ -79,6 +112,9 @@ func (o CertificateResponse) MarshalJSON() ([]byte, error) {
 
 func (o CertificateResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
 	toSerialize["data"] = o.Data
 	return toSerialize, nil
 }

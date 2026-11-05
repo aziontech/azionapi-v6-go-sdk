@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **LastEditor** | Pointer to **string** |  | [optional] 
 **LastModified** | Pointer to **time.Time** |  | [optional] 
 **ProductVersion** | Pointer to **string** |  | [optional] 
+**Active** | Pointer to **bool** |  | [optional] 
 **Runtime** | Pointer to **string** | * &#x60;azion_js&#x60; - Azion JavaScript | [optional] 
 **ExecutionEnvironment** | Pointer to **string** | * &#x60;firewall&#x60; - Firewall * &#x60;application&#x60; - Application | [optional] 
 **DefaultArgs** | Pointer to **interface{}** |  | [optional] 
@@ -19,7 +20,6 @@ Name | Type | Description | Notes
 **VersionId** | Pointer to **NullableString** | ID of the version metadata (use in /versions/{id} URLs) | [optional] 
 **VersionState** | Pointer to **NullableString** | Build state of this version (queued, building, ready, error, ...) | [optional] 
 **Code** | Pointer to **string** | String containing the function code. Maximum size: 50.0MB | [optional] 
-**Dependencies** | Pointer to [**[]DependencyEntry**](DependencyEntry.md) |  | [optional] 
 
 ## Methods
 
@@ -164,6 +164,31 @@ SetProductVersion sets ProductVersion field to given value.
 `func (o *Functions) HasProductVersion() bool`
 
 HasProductVersion returns a boolean if a field has been set.
+
+### GetActive
+
+`func (o *Functions) GetActive() bool`
+
+GetActive returns the Active field if non-nil, zero value otherwise.
+
+### GetActiveOk
+
+`func (o *Functions) GetActiveOk() (*bool, bool)`
+
+GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActive
+
+`func (o *Functions) SetActive(v bool)`
+
+SetActive sets Active field to given value.
+
+### HasActive
+
+`func (o *Functions) HasActive() bool`
+
+HasActive returns a boolean if a field has been set.
 
 ### GetRuntime
 
@@ -444,31 +469,6 @@ SetCode sets Code field to given value.
 `func (o *Functions) HasCode() bool`
 
 HasCode returns a boolean if a field has been set.
-
-### GetDependencies
-
-`func (o *Functions) GetDependencies() []DependencyEntry`
-
-GetDependencies returns the Dependencies field if non-nil, zero value otherwise.
-
-### GetDependenciesOk
-
-`func (o *Functions) GetDependenciesOk() (*[]DependencyEntry, bool)`
-
-GetDependenciesOk returns a tuple with the Dependencies field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDependencies
-
-`func (o *Functions) SetDependencies(v []DependencyEntry)`
-
-SetDependencies sets Dependencies field to given value.
-
-### HasDependencies
-
-`func (o *Functions) HasDependencies() bool`
-
-HasDependencies returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

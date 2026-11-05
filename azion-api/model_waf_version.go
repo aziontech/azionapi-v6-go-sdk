@@ -21,6 +21,7 @@ var _ MappedNullable = &WAFVersion{}
 
 // WAFVersion A version of the resource: the resource fields and the version metadata in one object, without an envelope.
 type WAFVersion struct {
+	Active *bool `json:"active,omitempty"`
 	Name *string `json:"name,omitempty"`
 	LastEditor *string `json:"last_editor,omitempty"`
 	LastModified *time.Time `json:"last_modified,omitempty"`
@@ -76,6 +77,38 @@ func NewWAFVersion() *WAFVersion {
 func NewWAFVersionWithDefaults() *WAFVersion {
 	this := WAFVersion{}
 	return &this
+}
+
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *WAFVersion) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WAFVersion) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *WAFVersion) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *WAFVersion) SetActive(v bool) {
+	o.Active = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -812,6 +845,9 @@ func (o WAFVersion) MarshalJSON() ([]byte, error) {
 
 func (o WAFVersion) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
+	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}

@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## DeleteBucket
 
-> DeleteBucket(ctx, bucketName).Execute()
+> DeleteResponse DeleteBucket(ctx, bucketName).Execute()
 
 Delete a bucket
 
@@ -103,11 +103,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StorageBucketsAPI.DeleteBucket(context.Background(), bucketName).Execute()
+	resp, r, err := apiClient.StorageBucketsAPI.DeleteBucket(context.Background(), bucketName).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StorageBucketsAPI.DeleteBucket``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteBucket`: DeleteResponse
+	fmt.Fprintf(os.Stdout, "Response from `StorageBucketsAPI.DeleteBucket`: %v\n", resp)
 }
 ```
 
@@ -130,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**DeleteResponse**](DeleteResponse.md)
 
 ### Authorization
 

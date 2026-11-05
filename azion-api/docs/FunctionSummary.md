@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **LastEditor** | Pointer to **string** |  | [optional] 
 **LastModified** | Pointer to **time.Time** |  | [optional] 
 **ProductVersion** | Pointer to **string** |  | [optional] 
+**Active** | Pointer to **bool** |  | [optional] 
 **Runtime** | Pointer to **string** | * &#x60;azion_js&#x60; - Azion JavaScript | [optional] 
 **ExecutionEnvironment** | Pointer to **string** | * &#x60;firewall&#x60; - Firewall * &#x60;application&#x60; - Application | [optional] 
 **DefaultArgs** | Pointer to **interface{}** |  | [optional] 
@@ -162,6 +163,31 @@ SetProductVersion sets ProductVersion field to given value.
 `func (o *FunctionSummary) HasProductVersion() bool`
 
 HasProductVersion returns a boolean if a field has been set.
+
+### GetActive
+
+`func (o *FunctionSummary) GetActive() bool`
+
+GetActive returns the Active field if non-nil, zero value otherwise.
+
+### GetActiveOk
+
+`func (o *FunctionSummary) GetActiveOk() (*bool, bool)`
+
+GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActive
+
+`func (o *FunctionSummary) SetActive(v bool)`
+
+SetActive sets Active field to given value.
+
+### HasActive
+
+`func (o *FunctionSummary) HasActive() bool`
+
+HasActive returns a boolean if a field has been set.
 
 ### GetRuntime
 

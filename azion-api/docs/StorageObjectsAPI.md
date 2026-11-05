@@ -170,7 +170,7 @@ Name | Type | Description  | Notes
 
 ## DeleteObject
 
-> DeleteObject(ctx, bucketName, objectKey).Execute()
+> DeleteResponse DeleteObject(ctx, bucketName, objectKey).Execute()
 
 Delete object key
 
@@ -194,11 +194,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.StorageObjectsAPI.DeleteObject(context.Background(), bucketName, objectKey).Execute()
+	resp, r, err := apiClient.StorageObjectsAPI.DeleteObject(context.Background(), bucketName, objectKey).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StorageObjectsAPI.DeleteObject``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteObject`: DeleteResponse
+	fmt.Fprintf(os.Stdout, "Response from `StorageObjectsAPI.DeleteObject`: %v\n", resp)
 }
 ```
 
@@ -223,7 +225,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**DeleteResponse**](DeleteResponse.md)
 
 ### Authorization
 

@@ -26,6 +26,7 @@ type FirewallFunctionInstanceRequest struct {
 	Args interface{} `json:"args,omitempty"`
 	AzionForm *FunctionsAzionForm `json:"azion_form,omitempty"`
 	Function int64 `json:"function"`
+	Active *bool `json:"active,omitempty"`
 }
 
 type _FirewallFunctionInstanceRequest FirewallFunctionInstanceRequest
@@ -162,6 +163,38 @@ func (o *FirewallFunctionInstanceRequest) SetFunction(v int64) {
 	o.Function = v
 }
 
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *FirewallFunctionInstanceRequest) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FirewallFunctionInstanceRequest) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *FirewallFunctionInstanceRequest) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *FirewallFunctionInstanceRequest) SetActive(v bool) {
+	o.Active = &v
+}
+
 func (o FirewallFunctionInstanceRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -180,6 +213,9 @@ func (o FirewallFunctionInstanceRequest) ToMap() (map[string]interface{}, error)
 		toSerialize["azion_form"] = o.AzionForm
 	}
 	toSerialize["function"] = o.Function
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
+	}
 	return toSerialize, nil
 }
 

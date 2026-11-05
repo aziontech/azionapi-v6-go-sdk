@@ -37,7 +37,7 @@ func (r ApiCreateApplicationVersionDeviceGroupsRequest) DeviceGroupRequest(devic
 	return r
 }
 
-func (r ApiCreateApplicationVersionDeviceGroupsRequest) Execute() (*DeviceGroupResponse, *http.Response, error) {
+func (r ApiCreateApplicationVersionDeviceGroupsRequest) Execute() (*DeviceGroupAsyncResponse, *http.Response, error) {
 	return r.ApiService.CreateApplicationVersionDeviceGroupsExecute(r)
 }
 
@@ -61,13 +61,13 @@ func (a *ApplicationsDeviceGroupsAPIService) CreateApplicationVersionDeviceGroup
 }
 
 // Execute executes the request
-//  @return DeviceGroupResponse
-func (a *ApplicationsDeviceGroupsAPIService) CreateApplicationVersionDeviceGroupsExecute(r ApiCreateApplicationVersionDeviceGroupsRequest) (*DeviceGroupResponse, *http.Response, error) {
+//  @return DeviceGroupAsyncResponse
+func (a *ApplicationsDeviceGroupsAPIService) CreateApplicationVersionDeviceGroupsExecute(r ApiCreateApplicationVersionDeviceGroupsRequest) (*DeviceGroupAsyncResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeviceGroupResponse
+		localVarReturnValue  *DeviceGroupAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsDeviceGroupsAPIService.CreateApplicationVersionDeviceGroups")
@@ -255,7 +255,7 @@ func (r ApiCreateDeviceGroupRequest) DeviceGroupRequest(deviceGroupRequest Devic
 	return r
 }
 
-func (r ApiCreateDeviceGroupRequest) Execute() (*DeviceGroupResponse, *http.Response, error) {
+func (r ApiCreateDeviceGroupRequest) Execute() (*DeviceGroupAsyncResponse, *http.Response, error) {
 	return r.ApiService.CreateDeviceGroupExecute(r)
 }
 
@@ -277,13 +277,13 @@ func (a *ApplicationsDeviceGroupsAPIService) CreateDeviceGroup(ctx context.Conte
 }
 
 // Execute executes the request
-//  @return DeviceGroupResponse
-func (a *ApplicationsDeviceGroupsAPIService) CreateDeviceGroupExecute(r ApiCreateDeviceGroupRequest) (*DeviceGroupResponse, *http.Response, error) {
+//  @return DeviceGroupAsyncResponse
+func (a *ApplicationsDeviceGroupsAPIService) CreateDeviceGroupExecute(r ApiCreateDeviceGroupRequest) (*DeviceGroupAsyncResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeviceGroupResponse
+		localVarReturnValue  *DeviceGroupAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsDeviceGroupsAPIService.CreateDeviceGroup")
@@ -466,7 +466,7 @@ type ApiDeleteApplicationVersionDeviceGroupRequest struct {
 	versionId string
 }
 
-func (r ApiDeleteApplicationVersionDeviceGroupRequest) Execute() (*http.Response, error) {
+func (r ApiDeleteApplicationVersionDeviceGroupRequest) Execute() (*DeleteAsyncResponse, *http.Response, error) {
 	return r.ApiService.DeleteApplicationVersionDeviceGroupExecute(r)
 }
 
@@ -492,16 +492,18 @@ func (a *ApplicationsDeviceGroupsAPIService) DeleteApplicationVersionDeviceGroup
 }
 
 // Execute executes the request
-func (a *ApplicationsDeviceGroupsAPIService) DeleteApplicationVersionDeviceGroupExecute(r ApiDeleteApplicationVersionDeviceGroupRequest) (*http.Response, error) {
+//  @return DeleteAsyncResponse
+func (a *ApplicationsDeviceGroupsAPIService) DeleteApplicationVersionDeviceGroupExecute(r ApiDeleteApplicationVersionDeviceGroupRequest) (*DeleteAsyncResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
+		localVarReturnValue  *DeleteAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsDeviceGroupsAPIService.DeleteApplicationVersionDeviceGroup")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/workspace/applications/{application_id}/versions/{version_id}/device_groups/{device_group_id}"
@@ -546,19 +548,19 @@ func (a *ApplicationsDeviceGroupsAPIService) DeleteApplicationVersionDeviceGroup
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -571,92 +573,101 @@ func (a *ApplicationsDeviceGroupsAPIService) DeleteApplicationVersionDeviceGroup
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiDeleteDeviceGroupRequest struct {
@@ -666,7 +677,7 @@ type ApiDeleteDeviceGroupRequest struct {
 	deviceGroupId int64
 }
 
-func (r ApiDeleteDeviceGroupRequest) Execute() (*http.Response, error) {
+func (r ApiDeleteDeviceGroupRequest) Execute() (*DeleteAsyncResponse, *http.Response, error) {
 	return r.ApiService.DeleteDeviceGroupExecute(r)
 }
 
@@ -690,16 +701,18 @@ func (a *ApplicationsDeviceGroupsAPIService) DeleteDeviceGroup(ctx context.Conte
 }
 
 // Execute executes the request
-func (a *ApplicationsDeviceGroupsAPIService) DeleteDeviceGroupExecute(r ApiDeleteDeviceGroupRequest) (*http.Response, error) {
+//  @return DeleteAsyncResponse
+func (a *ApplicationsDeviceGroupsAPIService) DeleteDeviceGroupExecute(r ApiDeleteDeviceGroupRequest) (*DeleteAsyncResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
+		localVarReturnValue  *DeleteAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsDeviceGroupsAPIService.DeleteDeviceGroup")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/workspace/applications/{application_id}/device_groups/{device_group_id}"
@@ -743,19 +756,19 @@ func (a *ApplicationsDeviceGroupsAPIService) DeleteDeviceGroupExecute(r ApiDelet
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -768,92 +781,101 @@ func (a *ApplicationsDeviceGroupsAPIService) DeleteDeviceGroupExecute(r ApiDelet
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiListApplicationVersionDeviceGroupsRequest struct {
@@ -1442,7 +1464,7 @@ func (r ApiPartialUpdateApplicationVersionDeviceGroupRequest) PatchedDeviceGroup
 	return r
 }
 
-func (r ApiPartialUpdateApplicationVersionDeviceGroupRequest) Execute() (*DeviceGroupResponse, *http.Response, error) {
+func (r ApiPartialUpdateApplicationVersionDeviceGroupRequest) Execute() (*DeviceGroupAsyncResponse, *http.Response, error) {
 	return r.ApiService.PartialUpdateApplicationVersionDeviceGroupExecute(r)
 }
 
@@ -1468,13 +1490,13 @@ func (a *ApplicationsDeviceGroupsAPIService) PartialUpdateApplicationVersionDevi
 }
 
 // Execute executes the request
-//  @return DeviceGroupResponse
-func (a *ApplicationsDeviceGroupsAPIService) PartialUpdateApplicationVersionDeviceGroupExecute(r ApiPartialUpdateApplicationVersionDeviceGroupRequest) (*DeviceGroupResponse, *http.Response, error) {
+//  @return DeviceGroupAsyncResponse
+func (a *ApplicationsDeviceGroupsAPIService) PartialUpdateApplicationVersionDeviceGroupExecute(r ApiPartialUpdateApplicationVersionDeviceGroupRequest) (*DeviceGroupAsyncResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeviceGroupResponse
+		localVarReturnValue  *DeviceGroupAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsDeviceGroupsAPIService.PartialUpdateApplicationVersionDeviceGroup")
@@ -1661,7 +1683,7 @@ func (r ApiPartialUpdateDeviceGroupRequest) PatchedDeviceGroupRequest(patchedDev
 	return r
 }
 
-func (r ApiPartialUpdateDeviceGroupRequest) Execute() (*DeviceGroupResponse, *http.Response, error) {
+func (r ApiPartialUpdateDeviceGroupRequest) Execute() (*DeviceGroupAsyncResponse, *http.Response, error) {
 	return r.ApiService.PartialUpdateDeviceGroupExecute(r)
 }
 
@@ -1685,13 +1707,13 @@ func (a *ApplicationsDeviceGroupsAPIService) PartialUpdateDeviceGroup(ctx contex
 }
 
 // Execute executes the request
-//  @return DeviceGroupResponse
-func (a *ApplicationsDeviceGroupsAPIService) PartialUpdateDeviceGroupExecute(r ApiPartialUpdateDeviceGroupRequest) (*DeviceGroupResponse, *http.Response, error) {
+//  @return DeviceGroupAsyncResponse
+func (a *ApplicationsDeviceGroupsAPIService) PartialUpdateDeviceGroupExecute(r ApiPartialUpdateDeviceGroupRequest) (*DeviceGroupAsyncResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeviceGroupResponse
+		localVarReturnValue  *DeviceGroupAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsDeviceGroupsAPIService.PartialUpdateDeviceGroup")
@@ -2318,7 +2340,7 @@ func (r ApiUpdateApplicationVersionDeviceGroupRequest) DeviceGroupRequest(device
 	return r
 }
 
-func (r ApiUpdateApplicationVersionDeviceGroupRequest) Execute() (*DeviceGroupResponse, *http.Response, error) {
+func (r ApiUpdateApplicationVersionDeviceGroupRequest) Execute() (*DeviceGroupAsyncResponse, *http.Response, error) {
 	return r.ApiService.UpdateApplicationVersionDeviceGroupExecute(r)
 }
 
@@ -2344,13 +2366,13 @@ func (a *ApplicationsDeviceGroupsAPIService) UpdateApplicationVersionDeviceGroup
 }
 
 // Execute executes the request
-//  @return DeviceGroupResponse
-func (a *ApplicationsDeviceGroupsAPIService) UpdateApplicationVersionDeviceGroupExecute(r ApiUpdateApplicationVersionDeviceGroupRequest) (*DeviceGroupResponse, *http.Response, error) {
+//  @return DeviceGroupAsyncResponse
+func (a *ApplicationsDeviceGroupsAPIService) UpdateApplicationVersionDeviceGroupExecute(r ApiUpdateApplicationVersionDeviceGroupRequest) (*DeviceGroupAsyncResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeviceGroupResponse
+		localVarReturnValue  *DeviceGroupAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsDeviceGroupsAPIService.UpdateApplicationVersionDeviceGroup")
@@ -2540,7 +2562,7 @@ func (r ApiUpdateDeviceGroupRequest) DeviceGroupRequest(deviceGroupRequest Devic
 	return r
 }
 
-func (r ApiUpdateDeviceGroupRequest) Execute() (*DeviceGroupResponse, *http.Response, error) {
+func (r ApiUpdateDeviceGroupRequest) Execute() (*DeviceGroupAsyncResponse, *http.Response, error) {
 	return r.ApiService.UpdateDeviceGroupExecute(r)
 }
 
@@ -2564,13 +2586,13 @@ func (a *ApplicationsDeviceGroupsAPIService) UpdateDeviceGroup(ctx context.Conte
 }
 
 // Execute executes the request
-//  @return DeviceGroupResponse
-func (a *ApplicationsDeviceGroupsAPIService) UpdateDeviceGroupExecute(r ApiUpdateDeviceGroupRequest) (*DeviceGroupResponse, *http.Response, error) {
+//  @return DeviceGroupAsyncResponse
+func (a *ApplicationsDeviceGroupsAPIService) UpdateDeviceGroupExecute(r ApiUpdateDeviceGroupRequest) (*DeviceGroupAsyncResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeviceGroupResponse
+		localVarReturnValue  *DeviceGroupAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsDeviceGroupsAPIService.UpdateDeviceGroup")

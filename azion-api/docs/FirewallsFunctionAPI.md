@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 ## CreateFirewallFunction
 
-> FirewallFunctionInstanceResponse CreateFirewallFunction(ctx, firewallId).FirewallFunctionInstanceRequest(firewallFunctionInstanceRequest).Execute()
+> FirewallFunctionInstanceAsyncResponse CreateFirewallFunction(ctx, firewallId).FirewallFunctionInstanceRequest(firewallFunctionInstanceRequest).Execute()
 
 Create an Firewall Function
 
@@ -50,7 +50,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsFunctionAPI.CreateFirewallFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateFirewallFunction`: FirewallFunctionInstanceResponse
+	// response from `CreateFirewallFunction`: FirewallFunctionInstanceAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `FirewallsFunctionAPI.CreateFirewallFunction`: %v\n", resp)
 }
 ```
@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirewallFunctionInstanceResponse**](FirewallFunctionInstanceResponse.md)
+[**FirewallFunctionInstanceAsyncResponse**](FirewallFunctionInstanceAsyncResponse.md)
 
 ### Authorization
 
@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 
 ## CreateFirewallVersionFunctions
 
-> FirewallFunctionInstanceResponse CreateFirewallVersionFunctions(ctx, firewallId, versionId).FirewallFunctionInstanceRequest(firewallFunctionInstanceRequest).Execute()
+> FirewallFunctionInstanceAsyncResponse CreateFirewallVersionFunctions(ctx, firewallId, versionId).FirewallFunctionInstanceRequest(firewallFunctionInstanceRequest).Execute()
 
 Create an Firewall Function
 
@@ -123,7 +123,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsFunctionAPI.CreateFirewallVersionFunctions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateFirewallVersionFunctions`: FirewallFunctionInstanceResponse
+	// response from `CreateFirewallVersionFunctions`: FirewallFunctionInstanceAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `FirewallsFunctionAPI.CreateFirewallVersionFunctions`: %v\n", resp)
 }
 ```
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirewallFunctionInstanceResponse**](FirewallFunctionInstanceResponse.md)
+[**FirewallFunctionInstanceAsyncResponse**](FirewallFunctionInstanceAsyncResponse.md)
 
 ### Authorization
 
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFirewallFunction
 
-> DeleteFirewallFunction(ctx, firewallId, functionId).Execute()
+> DeleteAsyncResponse DeleteFirewallFunction(ctx, firewallId, functionId).Execute()
 
 Delete an Firewall Function
 
@@ -192,11 +192,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FirewallsFunctionAPI.DeleteFirewallFunction(context.Background(), firewallId, functionId).Execute()
+	resp, r, err := apiClient.FirewallsFunctionAPI.DeleteFirewallFunction(context.Background(), firewallId, functionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsFunctionAPI.DeleteFirewallFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteFirewallFunction`: DeleteAsyncResponse
+	fmt.Fprintf(os.Stdout, "Response from `FirewallsFunctionAPI.DeleteFirewallFunction`: %v\n", resp)
 }
 ```
 
@@ -221,7 +223,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
 
 ### Authorization
 
@@ -239,7 +241,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFirewallVersionFunction
 
-> DeleteFirewallVersionFunction(ctx, firewallId, functionId, versionId).Execute()
+> DeleteAsyncResponse DeleteFirewallVersionFunction(ctx, firewallId, functionId, versionId).Execute()
 
 Delete an Firewall Function
 
@@ -264,11 +266,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FirewallsFunctionAPI.DeleteFirewallVersionFunction(context.Background(), firewallId, functionId, versionId).Execute()
+	resp, r, err := apiClient.FirewallsFunctionAPI.DeleteFirewallVersionFunction(context.Background(), firewallId, functionId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsFunctionAPI.DeleteFirewallVersionFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteFirewallVersionFunction`: DeleteAsyncResponse
+	fmt.Fprintf(os.Stdout, "Response from `FirewallsFunctionAPI.DeleteFirewallVersionFunction`: %v\n", resp)
 }
 ```
 
@@ -295,7 +299,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
 
 ### Authorization
 
@@ -498,7 +502,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateFirewallFunction
 
-> FirewallFunctionInstanceResponse PartialUpdateFirewallFunction(ctx, firewallId, functionId).PatchedFirewallFunctionInstanceRequest(patchedFirewallFunctionInstanceRequest).Execute()
+> FirewallFunctionInstanceAsyncResponse PartialUpdateFirewallFunction(ctx, firewallId, functionId).PatchedFirewallFunctionInstanceRequest(patchedFirewallFunctionInstanceRequest).Execute()
 
 Partially update an Firewall Function
 
@@ -528,7 +532,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsFunctionAPI.PartialUpdateFirewallFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateFirewallFunction`: FirewallFunctionInstanceResponse
+	// response from `PartialUpdateFirewallFunction`: FirewallFunctionInstanceAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `FirewallsFunctionAPI.PartialUpdateFirewallFunction`: %v\n", resp)
 }
 ```
@@ -555,7 +559,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirewallFunctionInstanceResponse**](FirewallFunctionInstanceResponse.md)
+[**FirewallFunctionInstanceAsyncResponse**](FirewallFunctionInstanceAsyncResponse.md)
 
 ### Authorization
 
@@ -573,7 +577,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateFirewallVersionFunction
 
-> FirewallFunctionInstanceResponse PartialUpdateFirewallVersionFunction(ctx, firewallId, functionId, versionId).PatchedFirewallFunctionInstanceRequest(patchedFirewallFunctionInstanceRequest).Execute()
+> FirewallFunctionInstanceAsyncResponse PartialUpdateFirewallVersionFunction(ctx, firewallId, functionId, versionId).PatchedFirewallFunctionInstanceRequest(patchedFirewallFunctionInstanceRequest).Execute()
 
 Partially update an Firewall Function
 
@@ -604,7 +608,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsFunctionAPI.PartialUpdateFirewallVersionFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateFirewallVersionFunction`: FirewallFunctionInstanceResponse
+	// response from `PartialUpdateFirewallVersionFunction`: FirewallFunctionInstanceAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `FirewallsFunctionAPI.PartialUpdateFirewallVersionFunction`: %v\n", resp)
 }
 ```
@@ -633,7 +637,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirewallFunctionInstanceResponse**](FirewallFunctionInstanceResponse.md)
+[**FirewallFunctionInstanceAsyncResponse**](FirewallFunctionInstanceAsyncResponse.md)
 
 ### Authorization
 
@@ -804,7 +808,7 @@ Name | Type | Description  | Notes
 
 ## UpdateFirewallFunction
 
-> FirewallFunctionInstanceResponse UpdateFirewallFunction(ctx, firewallId, functionId).FirewallFunctionInstanceRequest(firewallFunctionInstanceRequest).Execute()
+> FirewallFunctionInstanceAsyncResponse UpdateFirewallFunction(ctx, firewallId, functionId).FirewallFunctionInstanceRequest(firewallFunctionInstanceRequest).Execute()
 
 Update an Firewall Function
 
@@ -834,7 +838,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsFunctionAPI.UpdateFirewallFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateFirewallFunction`: FirewallFunctionInstanceResponse
+	// response from `UpdateFirewallFunction`: FirewallFunctionInstanceAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `FirewallsFunctionAPI.UpdateFirewallFunction`: %v\n", resp)
 }
 ```
@@ -861,7 +865,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirewallFunctionInstanceResponse**](FirewallFunctionInstanceResponse.md)
+[**FirewallFunctionInstanceAsyncResponse**](FirewallFunctionInstanceAsyncResponse.md)
 
 ### Authorization
 
@@ -879,7 +883,7 @@ Name | Type | Description  | Notes
 
 ## UpdateFirewallVersionFunction
 
-> FirewallFunctionInstanceResponse UpdateFirewallVersionFunction(ctx, firewallId, functionId, versionId).FirewallFunctionInstanceRequest(firewallFunctionInstanceRequest).Execute()
+> FirewallFunctionInstanceAsyncResponse UpdateFirewallVersionFunction(ctx, firewallId, functionId, versionId).FirewallFunctionInstanceRequest(firewallFunctionInstanceRequest).Execute()
 
 Update an Firewall Function
 
@@ -910,7 +914,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsFunctionAPI.UpdateFirewallVersionFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateFirewallVersionFunction`: FirewallFunctionInstanceResponse
+	// response from `UpdateFirewallVersionFunction`: FirewallFunctionInstanceAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `FirewallsFunctionAPI.UpdateFirewallVersionFunction`: %v\n", resp)
 }
 ```
@@ -939,7 +943,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirewallFunctionInstanceResponse**](FirewallFunctionInstanceResponse.md)
+[**FirewallFunctionInstanceAsyncResponse**](FirewallFunctionInstanceAsyncResponse.md)
 
 ### Authorization
 

@@ -23,6 +23,7 @@ var _ MappedNullable = &ResponsePhaseRuleRequest{}
 // ResponsePhaseRuleRequest struct for ResponsePhaseRuleRequest
 type ResponsePhaseRuleRequest struct {
 	Name string `json:"name"`
+	Active *bool `json:"active,omitempty"`
 	Criteria [][]ApplicationCriterionFieldRequest `json:"criteria"`
 	Behaviors []ResponsePhaseBehaviorRequest `json:"behaviors"`
 	Description *string `json:"description,omitempty"`
@@ -72,6 +73,38 @@ func (o *ResponsePhaseRuleRequest) GetNameOk() (*string, bool) {
 // SetName sets field value
 func (o *ResponsePhaseRuleRequest) SetName(v string) {
 	o.Name = v
+}
+
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *ResponsePhaseRuleRequest) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ResponsePhaseRuleRequest) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *ResponsePhaseRuleRequest) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *ResponsePhaseRuleRequest) SetActive(v bool) {
+	o.Active = &v
 }
 
 // GetCriteria returns the Criteria field value
@@ -165,6 +198,9 @@ func (o ResponsePhaseRuleRequest) MarshalJSON() ([]byte, error) {
 func (o ResponsePhaseRuleRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
+	}
 	toSerialize["criteria"] = o.Criteria
 	toSerialize["behaviors"] = o.Behaviors
 	if !IsNil(o.Description) {

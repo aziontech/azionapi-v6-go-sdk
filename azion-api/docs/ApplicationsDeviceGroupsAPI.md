@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 ## CreateApplicationVersionDeviceGroups
 
-> DeviceGroupResponse CreateApplicationVersionDeviceGroups(ctx, applicationId, versionId).DeviceGroupRequest(deviceGroupRequest).Execute()
+> DeviceGroupAsyncResponse CreateApplicationVersionDeviceGroups(ctx, applicationId, versionId).DeviceGroupRequest(deviceGroupRequest).Execute()
 
 Create an Applications Device Group
 
@@ -51,7 +51,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsDeviceGroupsAPI.CreateApplicationVersionDeviceGroups``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateApplicationVersionDeviceGroups`: DeviceGroupResponse
+	// response from `CreateApplicationVersionDeviceGroups`: DeviceGroupAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsDeviceGroupsAPI.CreateApplicationVersionDeviceGroups`: %v\n", resp)
 }
 ```
@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceGroupResponse**](DeviceGroupResponse.md)
+[**DeviceGroupAsyncResponse**](DeviceGroupAsyncResponse.md)
 
 ### Authorization
 
@@ -96,7 +96,7 @@ Name | Type | Description  | Notes
 
 ## CreateDeviceGroup
 
-> DeviceGroupResponse CreateDeviceGroup(ctx, applicationId).DeviceGroupRequest(deviceGroupRequest).Execute()
+> DeviceGroupAsyncResponse CreateDeviceGroup(ctx, applicationId).DeviceGroupRequest(deviceGroupRequest).Execute()
 
 Create an Applications Device Group
 
@@ -125,7 +125,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsDeviceGroupsAPI.CreateDeviceGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateDeviceGroup`: DeviceGroupResponse
+	// response from `CreateDeviceGroup`: DeviceGroupAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsDeviceGroupsAPI.CreateDeviceGroup`: %v\n", resp)
 }
 ```
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceGroupResponse**](DeviceGroupResponse.md)
+[**DeviceGroupAsyncResponse**](DeviceGroupAsyncResponse.md)
 
 ### Authorization
 
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## DeleteApplicationVersionDeviceGroup
 
-> DeleteApplicationVersionDeviceGroup(ctx, applicationId, deviceGroupId, versionId).Execute()
+> DeleteAsyncResponse DeleteApplicationVersionDeviceGroup(ctx, applicationId, deviceGroupId, versionId).Execute()
 
 Delete an Applications Device Group
 
@@ -193,11 +193,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationsDeviceGroupsAPI.DeleteApplicationVersionDeviceGroup(context.Background(), applicationId, deviceGroupId, versionId).Execute()
+	resp, r, err := apiClient.ApplicationsDeviceGroupsAPI.DeleteApplicationVersionDeviceGroup(context.Background(), applicationId, deviceGroupId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsDeviceGroupsAPI.DeleteApplicationVersionDeviceGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteApplicationVersionDeviceGroup`: DeleteAsyncResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationsDeviceGroupsAPI.DeleteApplicationVersionDeviceGroup`: %v\n", resp)
 }
 ```
 
@@ -224,7 +226,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
 
 ### Authorization
 
@@ -242,7 +244,7 @@ Name | Type | Description  | Notes
 
 ## DeleteDeviceGroup
 
-> DeleteDeviceGroup(ctx, applicationId, deviceGroupId).Execute()
+> DeleteAsyncResponse DeleteDeviceGroup(ctx, applicationId, deviceGroupId).Execute()
 
 Delete an Applications Device Group
 
@@ -266,11 +268,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationsDeviceGroupsAPI.DeleteDeviceGroup(context.Background(), applicationId, deviceGroupId).Execute()
+	resp, r, err := apiClient.ApplicationsDeviceGroupsAPI.DeleteDeviceGroup(context.Background(), applicationId, deviceGroupId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsDeviceGroupsAPI.DeleteDeviceGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteDeviceGroup`: DeleteAsyncResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationsDeviceGroupsAPI.DeleteDeviceGroup`: %v\n", resp)
 }
 ```
 
@@ -295,7 +299,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
 
 ### Authorization
 
@@ -488,7 +492,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateApplicationVersionDeviceGroup
 
-> DeviceGroupResponse PartialUpdateApplicationVersionDeviceGroup(ctx, applicationId, deviceGroupId, versionId).PatchedDeviceGroupRequest(patchedDeviceGroupRequest).Execute()
+> DeviceGroupAsyncResponse PartialUpdateApplicationVersionDeviceGroup(ctx, applicationId, deviceGroupId, versionId).PatchedDeviceGroupRequest(patchedDeviceGroupRequest).Execute()
 
 Partially update an Applications Device Group
 
@@ -519,7 +523,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsDeviceGroupsAPI.PartialUpdateApplicationVersionDeviceGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateApplicationVersionDeviceGroup`: DeviceGroupResponse
+	// response from `PartialUpdateApplicationVersionDeviceGroup`: DeviceGroupAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsDeviceGroupsAPI.PartialUpdateApplicationVersionDeviceGroup`: %v\n", resp)
 }
 ```
@@ -548,7 +552,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceGroupResponse**](DeviceGroupResponse.md)
+[**DeviceGroupAsyncResponse**](DeviceGroupAsyncResponse.md)
 
 ### Authorization
 
@@ -566,7 +570,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateDeviceGroup
 
-> DeviceGroupResponse PartialUpdateDeviceGroup(ctx, applicationId, deviceGroupId).PatchedDeviceGroupRequest(patchedDeviceGroupRequest).Execute()
+> DeviceGroupAsyncResponse PartialUpdateDeviceGroup(ctx, applicationId, deviceGroupId).PatchedDeviceGroupRequest(patchedDeviceGroupRequest).Execute()
 
 Partially update an Applications Device Group
 
@@ -596,7 +600,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsDeviceGroupsAPI.PartialUpdateDeviceGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateDeviceGroup`: DeviceGroupResponse
+	// response from `PartialUpdateDeviceGroup`: DeviceGroupAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsDeviceGroupsAPI.PartialUpdateDeviceGroup`: %v\n", resp)
 }
 ```
@@ -623,7 +627,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceGroupResponse**](DeviceGroupResponse.md)
+[**DeviceGroupAsyncResponse**](DeviceGroupAsyncResponse.md)
 
 ### Authorization
 
@@ -794,7 +798,7 @@ Name | Type | Description  | Notes
 
 ## UpdateApplicationVersionDeviceGroup
 
-> DeviceGroupResponse UpdateApplicationVersionDeviceGroup(ctx, applicationId, deviceGroupId, versionId).DeviceGroupRequest(deviceGroupRequest).Execute()
+> DeviceGroupAsyncResponse UpdateApplicationVersionDeviceGroup(ctx, applicationId, deviceGroupId, versionId).DeviceGroupRequest(deviceGroupRequest).Execute()
 
 Update an Applications Device Group
 
@@ -825,7 +829,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsDeviceGroupsAPI.UpdateApplicationVersionDeviceGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateApplicationVersionDeviceGroup`: DeviceGroupResponse
+	// response from `UpdateApplicationVersionDeviceGroup`: DeviceGroupAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsDeviceGroupsAPI.UpdateApplicationVersionDeviceGroup`: %v\n", resp)
 }
 ```
@@ -854,7 +858,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceGroupResponse**](DeviceGroupResponse.md)
+[**DeviceGroupAsyncResponse**](DeviceGroupAsyncResponse.md)
 
 ### Authorization
 
@@ -872,7 +876,7 @@ Name | Type | Description  | Notes
 
 ## UpdateDeviceGroup
 
-> DeviceGroupResponse UpdateDeviceGroup(ctx, applicationId, deviceGroupId).DeviceGroupRequest(deviceGroupRequest).Execute()
+> DeviceGroupAsyncResponse UpdateDeviceGroup(ctx, applicationId, deviceGroupId).DeviceGroupRequest(deviceGroupRequest).Execute()
 
 Update an Applications Device Group
 
@@ -902,7 +906,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsDeviceGroupsAPI.UpdateDeviceGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateDeviceGroup`: DeviceGroupResponse
+	// response from `UpdateDeviceGroup`: DeviceGroupAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsDeviceGroupsAPI.UpdateDeviceGroup`: %v\n", resp)
 }
 ```
@@ -929,7 +933,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceGroupResponse**](DeviceGroupResponse.md)
+[**DeviceGroupAsyncResponse**](DeviceGroupAsyncResponse.md)
 
 ### Authorization
 

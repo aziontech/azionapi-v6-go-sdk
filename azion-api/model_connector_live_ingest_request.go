@@ -23,6 +23,7 @@ var _ MappedNullable = &ConnectorLiveIngestRequest{}
 // ConnectorLiveIngestRequest struct for ConnectorLiveIngestRequest
 type ConnectorLiveIngestRequest struct {
 	Name string `json:"name"`
+	Active *bool `json:"active,omitempty"`
 	Type string `json:"type"`
 	Attributes ConnectorLiveIngestAttributesRequest `json:"attributes"`
 }
@@ -71,6 +72,38 @@ func (o *ConnectorLiveIngestRequest) GetNameOk() (*string, bool) {
 // SetName sets field value
 func (o *ConnectorLiveIngestRequest) SetName(v string) {
 	o.Name = v
+}
+
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *ConnectorLiveIngestRequest) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ConnectorLiveIngestRequest) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *ConnectorLiveIngestRequest) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *ConnectorLiveIngestRequest) SetActive(v bool) {
+	o.Active = &v
 }
 
 // GetType returns the Type field value
@@ -132,6 +165,9 @@ func (o ConnectorLiveIngestRequest) MarshalJSON() ([]byte, error) {
 func (o ConnectorLiveIngestRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
+	}
 	toSerialize["type"] = o.Type
 	toSerialize["attributes"] = o.Attributes
 	return toSerialize, nil

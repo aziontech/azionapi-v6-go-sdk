@@ -146,39 +146,6 @@ func (a *VariableVersionsAPIService) ListVariableVersionsExecute(r ApiListVariab
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 503 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -240,8 +207,8 @@ func (a *VariableVersionsAPIService) ListVariableVersionsExecute(r ApiListVariab
 type ApiRetrieveVariableVersionRequest struct {
 	ctx context.Context
 	ApiService *VariableVersionsAPIService
+	id string
 	variableId string
-	versionId string
 }
 
 func (r ApiRetrieveVariableVersionRequest) Execute() (*VariableVersionListItem, *http.Response, error) {
@@ -254,16 +221,16 @@ RetrieveVariableVersion Retrieve details of a Variable Version
 Retrieve a single Variable Version by its short-id.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id
  @param variableId A unique value identifying the variable.
- @param versionId A unique value identifying the variable version.
  @return ApiRetrieveVariableVersionRequest
 */
-func (a *VariableVersionsAPIService) RetrieveVariableVersion(ctx context.Context, variableId string, versionId string) ApiRetrieveVariableVersionRequest {
+func (a *VariableVersionsAPIService) RetrieveVariableVersion(ctx context.Context, id string, variableId string) ApiRetrieveVariableVersionRequest {
 	return ApiRetrieveVariableVersionRequest{
 		ApiService: a,
 		ctx: ctx,
+		id: id,
 		variableId: variableId,
-		versionId: versionId,
 	}
 }
 
@@ -282,9 +249,9 @@ func (a *VariableVersionsAPIService) RetrieveVariableVersionExecute(r ApiRetriev
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/variables/{variable_id}/versions/{version_id}"
+	localVarPath := localBasePath + "/variables/{variable_id}/versions/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"variable_id"+"}", url.PathEscape(parameterValueToString(r.variableId, "variableId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"version_id"+"}", url.PathEscape(parameterValueToString(r.versionId, "versionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -342,39 +309,6 @@ func (a *VariableVersionsAPIService) RetrieveVariableVersionExecute(r ApiRetriev
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 503 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
@@ -437,8 +371,8 @@ func (a *VariableVersionsAPIService) RetrieveVariableVersionExecute(r ApiRetriev
 type ApiRevertVariableVersionRequest struct {
 	ctx context.Context
 	ApiService *VariableVersionsAPIService
+	id string
 	variableId string
-	versionId string
 }
 
 func (r ApiRevertVariableVersionRequest) Execute() (*VariableVersionListItem, *http.Response, error) {
@@ -451,16 +385,16 @@ RevertVariableVersion Revert to a Variable Version
 Clone a historical Variable Version into a new version at the head of the history.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id
  @param variableId A unique value identifying the variable.
- @param versionId A unique value identifying the variable version.
  @return ApiRevertVariableVersionRequest
 */
-func (a *VariableVersionsAPIService) RevertVariableVersion(ctx context.Context, variableId string, versionId string) ApiRevertVariableVersionRequest {
+func (a *VariableVersionsAPIService) RevertVariableVersion(ctx context.Context, id string, variableId string) ApiRevertVariableVersionRequest {
 	return ApiRevertVariableVersionRequest{
 		ApiService: a,
 		ctx: ctx,
+		id: id,
 		variableId: variableId,
-		versionId: versionId,
 	}
 }
 
@@ -479,9 +413,9 @@ func (a *VariableVersionsAPIService) RevertVariableVersionExecute(r ApiRevertVar
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/variables/{variable_id}/revert/{version_id}"
+	localVarPath := localBasePath + "/variables/{variable_id}/revert/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"variable_id"+"}", url.PathEscape(parameterValueToString(r.variableId, "variableId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"version_id"+"}", url.PathEscape(parameterValueToString(r.versionId, "versionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -539,39 +473,6 @@ func (a *VariableVersionsAPIService) RevertVariableVersionExecute(r ApiRevertVar
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 503 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse

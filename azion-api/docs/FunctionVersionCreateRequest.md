@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** |  | [optional] 
+**Active** | Pointer to **bool** |  | [optional] 
 **Runtime** | Pointer to **string** | * &#x60;azion_js&#x60; - Azion JavaScript | [optional] 
 **ExecutionEnvironment** | Pointer to **string** | * &#x60;application&#x60; - application * &#x60;firewall&#x60; - firewall | [optional] 
 **DefaultArgs** | Pointer to **interface{}** |  | [optional] 
 **AzionForm** | Pointer to [**FunctionsAzionForm**](FunctionsAzionForm.md) |  | [optional] 
 **Code** | Pointer to **string** | String containing the function code. Maximum size: 50.0MB | [optional] 
-**Dependencies** | Pointer to [**[]DependencyEntryRequest**](DependencyEntryRequest.md) |  | [optional] 
 **SourceVersion** | Pointer to **NullableString** | ID of the version to clone from. If omitted, clones latest ready. | [optional] 
 **Comment** | Pointer to **string** | Accepted and not stored. | [optional] 
 
@@ -57,6 +57,31 @@ SetName sets Name field to given value.
 `func (o *FunctionVersionCreateRequest) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetActive
+
+`func (o *FunctionVersionCreateRequest) GetActive() bool`
+
+GetActive returns the Active field if non-nil, zero value otherwise.
+
+### GetActiveOk
+
+`func (o *FunctionVersionCreateRequest) GetActiveOk() (*bool, bool)`
+
+GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActive
+
+`func (o *FunctionVersionCreateRequest) SetActive(v bool)`
+
+SetActive sets Active field to given value.
+
+### HasActive
+
+`func (o *FunctionVersionCreateRequest) HasActive() bool`
+
+HasActive returns a boolean if a field has been set.
 
 ### GetRuntime
 
@@ -192,31 +217,6 @@ SetCode sets Code field to given value.
 `func (o *FunctionVersionCreateRequest) HasCode() bool`
 
 HasCode returns a boolean if a field has been set.
-
-### GetDependencies
-
-`func (o *FunctionVersionCreateRequest) GetDependencies() []DependencyEntryRequest`
-
-GetDependencies returns the Dependencies field if non-nil, zero value otherwise.
-
-### GetDependenciesOk
-
-`func (o *FunctionVersionCreateRequest) GetDependenciesOk() (*[]DependencyEntryRequest, bool)`
-
-GetDependenciesOk returns a tuple with the Dependencies field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDependencies
-
-`func (o *FunctionVersionCreateRequest) SetDependencies(v []DependencyEntryRequest)`
-
-SetDependencies sets Dependencies field to given value.
-
-### HasDependencies
-
-`func (o *FunctionVersionCreateRequest) HasDependencies() bool`
-
-HasDependencies returns a boolean if a field has been set.
 
 ### GetSourceVersion
 

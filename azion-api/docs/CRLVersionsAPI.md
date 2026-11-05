@@ -4,15 +4,15 @@ All URIs are relative to *https://api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListCrlVersions**](CRLVersionsAPI.md#ListCrlVersions) | **Get** /workspace/tls/crls/{crl_id}/versions | List CRL versions
-[**RetrieveCrlVersion**](CRLVersionsAPI.md#RetrieveCrlVersion) | **Get** /workspace/tls/crls/{crl_id}/versions/{version_id} | Retrieve a CRL version
-[**RevertCrlVersion**](CRLVersionsAPI.md#RevertCrlVersion) | **Post** /workspace/tls/crls/{crl_id}/versions/{version_id}/revert | Revert to a CRL version
+[**ListCrlVersions**](CRLVersionsAPI.md#ListCrlVersions) | **Get** /workspace/tls/crls/{resource_pk}/versions | List CRL versions
+[**RetrieveCrlVersion**](CRLVersionsAPI.md#RetrieveCrlVersion) | **Get** /workspace/tls/crls/{resource_pk}/versions/{id} | Retrieve a CRL version
+[**RevertCrlVersion**](CRLVersionsAPI.md#RevertCrlVersion) | **Post** /workspace/tls/crls/{resource_pk}/versions/{id}/revert | Revert to a CRL version
 
 
 
 ## ListCrlVersions
 
-> PaginatedCertificateRevocationListVersionList ListCrlVersions(ctx, crlId).Page(page).PageSize(pageSize).Execute()
+> PaginatedCertificateRevocationList ListCrlVersions(ctx, resourcePk).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
 
 List CRL versions
 
@@ -31,18 +31,21 @@ import (
 )
 
 func main() {
-	crlId := int64(789) // int64 | A unique value identifying the certificate revocation list.
+	resourcePk := int64(789) // int64 | The ID of the CRL resource.
+	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
+	search := "search_example" // string | A search term. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CRLVersionsAPI.ListCrlVersions(context.Background(), crlId).Page(page).PageSize(pageSize).Execute()
+	resp, r, err := apiClient.CRLVersionsAPI.ListCrlVersions(context.Background(), resourcePk).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CRLVersionsAPI.ListCrlVersions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListCrlVersions`: PaginatedCertificateRevocationListVersionList
+	// response from `ListCrlVersions`: PaginatedCertificateRevocationList
 	fmt.Fprintf(os.Stdout, "Response from `CRLVersionsAPI.ListCrlVersions`: %v\n", resp)
 }
 ```
@@ -53,7 +56,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**crlId** | **int64** | A unique value identifying the certificate revocation list. | 
+**resourcePk** | **int64** | The ID of the CRL resource. | 
 
 ### Other Parameters
 
@@ -63,12 +66,15 @@ Other parameters are passed through a pointer to a apiListCrlVersionsRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **fields** | **string** | Comma-separated list of field names to include in the response. | 
+ **ordering** | **string** | Which field to use when ordering the results. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
+ **search** | **string** | A search term. | 
 
 ### Return type
 
-[**PaginatedCertificateRevocationListVersionList**](PaginatedCertificateRevocationListVersionList.md)
+[**PaginatedCertificateRevocationList**](PaginatedCertificateRevocationList.md)
 
 ### Authorization
 
@@ -86,7 +92,7 @@ Name | Type | Description  | Notes
 
 ## RetrieveCrlVersion
 
-> CertificateRevocationListVersion RetrieveCrlVersion(ctx, crlId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Execute()
+> CertificateRevocationList RetrieveCrlVersion(ctx, id, resourcePk).Fields(fields).Execute()
 
 Retrieve a CRL version
 
@@ -105,20 +111,18 @@ import (
 )
 
 func main() {
-	crlId := int64(789) // int64 | A unique value identifying the certificate revocation list.
-	versionId := "versionId_example" // string | A unique value identifying the version.
-	dependencies := true // bool | Include the resources this version references. (optional)
-	dependencyStates := []string{"Inner_example"} // []string | Keep only the dependency versions in these states (comma-separated). Needs dependencies=true. (optional)
+	id := "id_example" // string | The ULID identifier of the version.
+	resourcePk := int64(789) // int64 | The ID of the CRL resource.
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CRLVersionsAPI.RetrieveCrlVersion(context.Background(), crlId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Execute()
+	resp, r, err := apiClient.CRLVersionsAPI.RetrieveCrlVersion(context.Background(), id, resourcePk).Fields(fields).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CRLVersionsAPI.RetrieveCrlVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RetrieveCrlVersion`: CertificateRevocationListVersion
+	// response from `RetrieveCrlVersion`: CertificateRevocationList
 	fmt.Fprintf(os.Stdout, "Response from `CRLVersionsAPI.RetrieveCrlVersion`: %v\n", resp)
 }
 ```
@@ -129,8 +133,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**crlId** | **int64** | A unique value identifying the certificate revocation list. | 
-**versionId** | **string** | A unique value identifying the version. | 
+**id** | **string** | The ULID identifier of the version. | 
+**resourcePk** | **int64** | The ID of the CRL resource. | 
 
 ### Other Parameters
 
@@ -141,13 +145,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **dependencies** | **bool** | Include the resources this version references. | 
- **dependencyStates** | **[]string** | Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
 
 ### Return type
 
-[**CertificateRevocationListVersion**](CertificateRevocationListVersion.md)
+[**CertificateRevocationList**](CertificateRevocationList.md)
 
 ### Authorization
 
@@ -165,7 +167,7 @@ Name | Type | Description  | Notes
 
 ## RevertCrlVersion
 
-> CertificateRevocationListVersionMeta RevertCrlVersion(ctx, crlId, versionId).CertificateRevocationListVersionRevertRequest(certificateRevocationListVersionRevertRequest).Execute()
+> RevertCrlVersion(ctx, id, resourcePk).VersionRevert(versionRevert).Execute()
 
 Revert to a CRL version
 
@@ -184,19 +186,17 @@ import (
 )
 
 func main() {
-	crlId := int64(789) // int64 | A unique value identifying the certificate revocation list.
-	versionId := "versionId_example" // string | A unique value identifying the version.
-	certificateRevocationListVersionRevertRequest := *openapiclient.NewCertificateRevocationListVersionRevertRequest() // CertificateRevocationListVersionRevertRequest |  (optional)
+	id := "id_example" // string | The ULID identifier of the version.
+	resourcePk := int64(789) // int64 | The ID of the CRL resource.
+	versionRevert := *openapiclient.NewVersionRevert() // VersionRevert |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CRLVersionsAPI.RevertCrlVersion(context.Background(), crlId, versionId).CertificateRevocationListVersionRevertRequest(certificateRevocationListVersionRevertRequest).Execute()
+	r, err := apiClient.CRLVersionsAPI.RevertCrlVersion(context.Background(), id, resourcePk).VersionRevert(versionRevert).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CRLVersionsAPI.RevertCrlVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RevertCrlVersion`: CertificateRevocationListVersionMeta
-	fmt.Fprintf(os.Stdout, "Response from `CRLVersionsAPI.RevertCrlVersion`: %v\n", resp)
 }
 ```
 
@@ -206,8 +206,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**crlId** | **int64** | A unique value identifying the certificate revocation list. | 
-**versionId** | **string** | A unique value identifying the version. | 
+**id** | **string** | The ULID identifier of the version. | 
+**resourcePk** | **int64** | The ID of the CRL resource. | 
 
 ### Other Parameters
 
@@ -218,11 +218,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **certificateRevocationListVersionRevertRequest** | [**CertificateRevocationListVersionRevertRequest**](CertificateRevocationListVersionRevertRequest.md) |  | 
+ **versionRevert** | [**VersionRevert**](VersionRevert.md) |  | 
 
 ### Return type
 
-[**CertificateRevocationListVersionMeta**](CertificateRevocationListVersionMeta.md)
+ (empty response body)
 
 ### Authorization
 

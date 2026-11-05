@@ -21,6 +21,7 @@ var _ MappedNullable = &PatchedCustomPageRequest{}
 // PatchedCustomPageRequest struct for PatchedCustomPageRequest
 type PatchedCustomPageRequest struct {
 	Name *string `json:"name,omitempty"`
+	Active *bool `json:"active,omitempty"`
 	Pages []PatchedPageRequest `json:"pages,omitempty"`
 }
 
@@ -73,6 +74,38 @@ func (o *PatchedCustomPageRequest) SetName(v string) {
 	o.Name = &v
 }
 
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *PatchedCustomPageRequest) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PatchedCustomPageRequest) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *PatchedCustomPageRequest) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *PatchedCustomPageRequest) SetActive(v bool) {
+	o.Active = &v
+}
+
 // GetPages returns the Pages field value if set, zero value otherwise.
 func (o *PatchedCustomPageRequest) GetPages() []PatchedPageRequest {
 	if o == nil || IsNil(o.Pages) {
@@ -117,6 +150,9 @@ func (o PatchedCustomPageRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.Pages) {
 		toSerialize["pages"] = o.Pages

@@ -36,7 +36,7 @@ func (r ApiCreateFunctionRequest) FunctionsRequest(functionsRequest FunctionsReq
 	return r
 }
 
-func (r ApiCreateFunctionRequest) Execute() (*FunctionResponse, *http.Response, error) {
+func (r ApiCreateFunctionRequest) Execute() (*FunctionAsyncResponse, *http.Response, error) {
 	return r.ApiService.CreateFunctionExecute(r)
 }
 
@@ -56,13 +56,13 @@ func (a *FunctionsAPIService) CreateFunction(ctx context.Context) ApiCreateFunct
 }
 
 // Execute executes the request
-//  @return FunctionResponse
-func (a *FunctionsAPIService) CreateFunctionExecute(r ApiCreateFunctionRequest) (*FunctionResponse, *http.Response, error) {
+//  @return FunctionAsyncResponse
+func (a *FunctionsAPIService) CreateFunctionExecute(r ApiCreateFunctionRequest) (*FunctionAsyncResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *FunctionResponse
+		localVarReturnValue  *FunctionAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsAPIService.CreateFunction")
@@ -242,7 +242,7 @@ type ApiDeleteFunctionRequest struct {
 	functionId int64
 }
 
-func (r ApiDeleteFunctionRequest) Execute() (*http.Response, error) {
+func (r ApiDeleteFunctionRequest) Execute() (*DeleteAsyncResponse, *http.Response, error) {
 	return r.ApiService.DeleteFunctionExecute(r)
 }
 
@@ -264,16 +264,18 @@ func (a *FunctionsAPIService) DeleteFunction(ctx context.Context, functionId int
 }
 
 // Execute executes the request
-func (a *FunctionsAPIService) DeleteFunctionExecute(r ApiDeleteFunctionRequest) (*http.Response, error) {
+//  @return DeleteAsyncResponse
+func (a *FunctionsAPIService) DeleteFunctionExecute(r ApiDeleteFunctionRequest) (*DeleteAsyncResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
+		localVarReturnValue  *DeleteAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsAPIService.DeleteFunction")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/workspace/functions/{function_id}"
@@ -316,19 +318,19 @@ func (a *FunctionsAPIService) DeleteFunctionExecute(r ApiDeleteFunctionRequest) 
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -341,97 +343,107 @@ func (a *FunctionsAPIService) DeleteFunctionExecute(r ApiDeleteFunctionRequest) 
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiListFunctionsRequest struct {
 	ctx context.Context
 	ApiService *FunctionsAPIService
+	active *bool
 	fields *string
 	id *int64
 	languageIn *string
@@ -444,6 +456,12 @@ type ApiListFunctionsRequest struct {
 	pageSize *int32
 	runtimeEnvironmentIn *string
 	search *string
+}
+
+// Filter by active status.
+func (r ApiListFunctionsRequest) Active(active bool) ApiListFunctionsRequest {
+	r.active = &active
+	return r
 }
 
 // Comma-separated list of field names to include in the response.
@@ -488,7 +506,7 @@ func (r ApiListFunctionsRequest) Name(name string) ApiListFunctionsRequest {
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, language, runtime_environment, last_editor, last_modified)
+// Which field to use when ordering the results. (Valid fields: id, name, language, runtime_environment, active, last_editor, last_modified)
 func (r ApiListFunctionsRequest) Ordering(ordering string) ApiListFunctionsRequest {
 	r.ordering = &ordering
 	return r
@@ -512,7 +530,7 @@ func (r ApiListFunctionsRequest) RuntimeEnvironmentIn(runtimeEnvironmentIn strin
 	return r
 }
 
-// A search term to filter results. Searches across the following fields: name, last_editor, language, runtime_environment.
+// A search term to filter results. Searches across the following fields: name, last_editor, language, runtime_environment, active.
 func (r ApiListFunctionsRequest) Search(search string) ApiListFunctionsRequest {
 	r.search = &search
 	return r
@@ -558,6 +576,9 @@ func (a *FunctionsAPIService) ListFunctionsExecute(r ApiListFunctionsRequest) (*
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.active != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "active", r.active, "form", "")
+	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
@@ -761,7 +782,7 @@ func (r ApiPartialUpdateFunctionRequest) PatchedFunctionsRequest(patchedFunction
 	return r
 }
 
-func (r ApiPartialUpdateFunctionRequest) Execute() (*FunctionResponse, *http.Response, error) {
+func (r ApiPartialUpdateFunctionRequest) Execute() (*FunctionAsyncResponse, *http.Response, error) {
 	return r.ApiService.PartialUpdateFunctionExecute(r)
 }
 
@@ -783,13 +804,13 @@ func (a *FunctionsAPIService) PartialUpdateFunction(ctx context.Context, functio
 }
 
 // Execute executes the request
-//  @return FunctionResponse
-func (a *FunctionsAPIService) PartialUpdateFunctionExecute(r ApiPartialUpdateFunctionRequest) (*FunctionResponse, *http.Response, error) {
+//  @return FunctionAsyncResponse
+func (a *FunctionsAPIService) PartialUpdateFunctionExecute(r ApiPartialUpdateFunctionRequest) (*FunctionAsyncResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *FunctionResponse
+		localVarReturnValue  *FunctionAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsAPIService.PartialUpdateFunction")
@@ -1187,7 +1208,7 @@ func (r ApiUpdateFunctionRequest) FunctionsRequest(functionsRequest FunctionsReq
 	return r
 }
 
-func (r ApiUpdateFunctionRequest) Execute() (*FunctionResponse, *http.Response, error) {
+func (r ApiUpdateFunctionRequest) Execute() (*FunctionAsyncResponse, *http.Response, error) {
 	return r.ApiService.UpdateFunctionExecute(r)
 }
 
@@ -1209,13 +1230,13 @@ func (a *FunctionsAPIService) UpdateFunction(ctx context.Context, functionId int
 }
 
 // Execute executes the request
-//  @return FunctionResponse
-func (a *FunctionsAPIService) UpdateFunctionExecute(r ApiUpdateFunctionRequest) (*FunctionResponse, *http.Response, error) {
+//  @return FunctionAsyncResponse
+func (a *FunctionsAPIService) UpdateFunctionExecute(r ApiUpdateFunctionRequest) (*FunctionAsyncResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *FunctionResponse
+		localVarReturnValue  *FunctionAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "FunctionsAPIService.UpdateFunction")

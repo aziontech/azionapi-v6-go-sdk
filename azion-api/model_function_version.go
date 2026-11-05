@@ -24,6 +24,7 @@ type FunctionVersion struct {
 	Name *string `json:"name,omitempty"`
 	LastEditor *string `json:"last_editor,omitempty"`
 	LastModified *time.Time `json:"last_modified,omitempty"`
+	Active *bool `json:"active,omitempty"`
 	// * `azion_js` - Azion JavaScript
 	Runtime *string `json:"runtime,omitempty"`
 	// * `application` - application * `firewall` - firewall
@@ -34,8 +35,6 @@ type FunctionVersion struct {
 	Vendor *string `json:"vendor,omitempty"`
 	// String containing the function code. Maximum size: 50.0MB
 	Code *string `json:"code,omitempty"`
-	// Resources this version references, grouped by resource type. Present only when the request sets dependencies=true.
-	Dependencies []map[string][]ApplicationVersionDependenciesInnerValueInner `json:"dependencies,omitempty"`
 	// ID of the version metadata
 	VersionId *string `json:"version_id,omitempty"`
 	// Current lifecycle state of the version.
@@ -68,6 +67,8 @@ type FunctionVersion struct {
 	LastError map[string]interface{} `json:"last_error,omitempty"`
 	// Trace ID of the last build, for observability. Omitted when unset.
 	TraceId *string `json:"trace_id,omitempty"`
+	// Resources this version references, grouped by resource type. Present only when the request sets dependencies=true.
+	Dependencies []map[string][]ApplicationVersionDependenciesInnerValueInner `json:"dependencies,omitempty"`
 }
 
 // NewFunctionVersion instantiates a new FunctionVersion object
@@ -181,6 +182,38 @@ func (o *FunctionVersion) HasLastModified() bool {
 // SetLastModified gets a reference to the given time.Time and assigns it to the LastModified field.
 func (o *FunctionVersion) SetLastModified(v time.Time) {
 	o.LastModified = &v
+}
+
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *FunctionVersion) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FunctionVersion) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *FunctionVersion) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *FunctionVersion) SetActive(v bool) {
+	o.Active = &v
 }
 
 // GetRuntime returns the Runtime field value if set, zero value otherwise.
@@ -406,38 +439,6 @@ func (o *FunctionVersion) HasCode() bool {
 // SetCode gets a reference to the given string and assigns it to the Code field.
 func (o *FunctionVersion) SetCode(v string) {
 	o.Code = &v
-}
-
-// GetDependencies returns the Dependencies field value if set, zero value otherwise.
-func (o *FunctionVersion) GetDependencies() []map[string][]ApplicationVersionDependenciesInnerValueInner {
-	if o == nil || IsNil(o.Dependencies) {
-		var ret []map[string][]ApplicationVersionDependenciesInnerValueInner
-		return ret
-	}
-	return o.Dependencies
-}
-
-// GetDependenciesOk returns a tuple with the Dependencies field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FunctionVersion) GetDependenciesOk() ([]map[string][]ApplicationVersionDependenciesInnerValueInner, bool) {
-	if o == nil || IsNil(o.Dependencies) {
-		return nil, false
-	}
-	return o.Dependencies, true
-}
-
-// HasDependencies returns a boolean if a field has been set.
-func (o *FunctionVersion) HasDependencies() bool {
-	if o != nil && !IsNil(o.Dependencies) {
-		return true
-	}
-
-	return false
-}
-
-// SetDependencies gets a reference to the given []map[string][]ApplicationVersionDependenciesInnerValueInner and assigns it to the Dependencies field.
-func (o *FunctionVersion) SetDependencies(v []map[string][]ApplicationVersionDependenciesInnerValueInner) {
-	o.Dependencies = v
 }
 
 // GetVersionId returns the VersionId field value if set, zero value otherwise.
@@ -1004,6 +1005,38 @@ func (o *FunctionVersion) SetTraceId(v string) {
 	o.TraceId = &v
 }
 
+// GetDependencies returns the Dependencies field value if set, zero value otherwise.
+func (o *FunctionVersion) GetDependencies() []map[string][]ApplicationVersionDependenciesInnerValueInner {
+	if o == nil || IsNil(o.Dependencies) {
+		var ret []map[string][]ApplicationVersionDependenciesInnerValueInner
+		return ret
+	}
+	return o.Dependencies
+}
+
+// GetDependenciesOk returns a tuple with the Dependencies field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FunctionVersion) GetDependenciesOk() ([]map[string][]ApplicationVersionDependenciesInnerValueInner, bool) {
+	if o == nil || IsNil(o.Dependencies) {
+		return nil, false
+	}
+	return o.Dependencies, true
+}
+
+// HasDependencies returns a boolean if a field has been set.
+func (o *FunctionVersion) HasDependencies() bool {
+	if o != nil && !IsNil(o.Dependencies) {
+		return true
+	}
+
+	return false
+}
+
+// SetDependencies gets a reference to the given []map[string][]ApplicationVersionDependenciesInnerValueInner and assigns it to the Dependencies field.
+func (o *FunctionVersion) SetDependencies(v []map[string][]ApplicationVersionDependenciesInnerValueInner) {
+	o.Dependencies = v
+}
+
 func (o FunctionVersion) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -1022,6 +1055,9 @@ func (o FunctionVersion) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.LastModified) {
 		toSerialize["last_modified"] = o.LastModified
+	}
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.Runtime) {
 		toSerialize["runtime"] = o.Runtime
@@ -1043,9 +1079,6 @@ func (o FunctionVersion) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Code) {
 		toSerialize["code"] = o.Code
-	}
-	if !IsNil(o.Dependencies) {
-		toSerialize["dependencies"] = o.Dependencies
 	}
 	if !IsNil(o.VersionId) {
 		toSerialize["version_id"] = o.VersionId
@@ -1094,6 +1127,9 @@ func (o FunctionVersion) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.TraceId) {
 		toSerialize["trace_id"] = o.TraceId
+	}
+	if !IsNil(o.Dependencies) {
+		toSerialize["dependencies"] = o.Dependencies
 	}
 	return toSerialize, nil
 }

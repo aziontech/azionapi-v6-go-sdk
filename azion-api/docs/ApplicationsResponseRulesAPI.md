@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 ## CreateApplicationResponseRule
 
-> ResponsePhaseRuleResponse CreateApplicationResponseRule(ctx, applicationId).ResponsePhaseRuleRequest(responsePhaseRuleRequest).Execute()
+> ResponsePhaseRuleAsyncResponse CreateApplicationResponseRule(ctx, applicationId).ResponsePhaseRuleRequest(responsePhaseRuleRequest).Execute()
 
 Create an Application Response Rule
 
@@ -52,7 +52,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsResponseRulesAPI.CreateApplicationResponseRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateApplicationResponseRule`: ResponsePhaseRuleResponse
+	// response from `CreateApplicationResponseRule`: ResponsePhaseRuleAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsResponseRulesAPI.CreateApplicationResponseRule`: %v\n", resp)
 }
 ```
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ResponsePhaseRuleResponse**](ResponsePhaseRuleResponse.md)
+[**ResponsePhaseRuleAsyncResponse**](ResponsePhaseRuleAsyncResponse.md)
 
 ### Authorization
 
@@ -95,7 +95,7 @@ Name | Type | Description  | Notes
 
 ## CreateApplicationVersionResponseRules
 
-> ResponsePhaseRuleResponse CreateApplicationVersionResponseRules(ctx, applicationId, versionId).ResponsePhaseRuleRequest(responsePhaseRuleRequest).Execute()
+> ResponsePhaseRuleAsyncResponse CreateApplicationVersionResponseRules(ctx, applicationId, versionId).ResponsePhaseRuleRequest(responsePhaseRuleRequest).Execute()
 
 Create an Application Response Rule
 
@@ -125,7 +125,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsResponseRulesAPI.CreateApplicationVersionResponseRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateApplicationVersionResponseRules`: ResponsePhaseRuleResponse
+	// response from `CreateApplicationVersionResponseRules`: ResponsePhaseRuleAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsResponseRulesAPI.CreateApplicationVersionResponseRules`: %v\n", resp)
 }
 ```
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ResponsePhaseRuleResponse**](ResponsePhaseRuleResponse.md)
+[**ResponsePhaseRuleAsyncResponse**](ResponsePhaseRuleAsyncResponse.md)
 
 ### Authorization
 
@@ -170,7 +170,7 @@ Name | Type | Description  | Notes
 
 ## DeleteApplicationResponseRule
 
-> DeleteApplicationResponseRule(ctx, applicationId, responseRuleId).Execute()
+> DeleteAsyncResponse DeleteApplicationResponseRule(ctx, applicationId, responseRuleId).Execute()
 
 Delete an Application Response Rule
 
@@ -194,11 +194,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationsResponseRulesAPI.DeleteApplicationResponseRule(context.Background(), applicationId, responseRuleId).Execute()
+	resp, r, err := apiClient.ApplicationsResponseRulesAPI.DeleteApplicationResponseRule(context.Background(), applicationId, responseRuleId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsResponseRulesAPI.DeleteApplicationResponseRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteApplicationResponseRule`: DeleteAsyncResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationsResponseRulesAPI.DeleteApplicationResponseRule`: %v\n", resp)
 }
 ```
 
@@ -223,7 +225,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
 
 ### Authorization
 
@@ -241,7 +243,7 @@ Name | Type | Description  | Notes
 
 ## DeleteApplicationVersionResponseRule
 
-> DeleteApplicationVersionResponseRule(ctx, applicationId, responseRuleId, versionId).Execute()
+> DeleteAsyncResponse DeleteApplicationVersionResponseRule(ctx, applicationId, responseRuleId, versionId).Execute()
 
 Delete an Application Response Rule
 
@@ -266,11 +268,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationsResponseRulesAPI.DeleteApplicationVersionResponseRule(context.Background(), applicationId, responseRuleId, versionId).Execute()
+	resp, r, err := apiClient.ApplicationsResponseRulesAPI.DeleteApplicationVersionResponseRule(context.Background(), applicationId, responseRuleId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsResponseRulesAPI.DeleteApplicationVersionResponseRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteApplicationVersionResponseRule`: DeleteAsyncResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationsResponseRulesAPI.DeleteApplicationVersionResponseRule`: %v\n", resp)
 }
 ```
 
@@ -297,7 +301,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
 
 ### Authorization
 
@@ -512,7 +516,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateApplicationResponseRule
 
-> ResponsePhaseRuleResponse PartialUpdateApplicationResponseRule(ctx, applicationId, responseRuleId).PatchedResponsePhaseRuleRequest(patchedResponsePhaseRuleRequest).Execute()
+> ResponsePhaseRuleAsyncResponse PartialUpdateApplicationResponseRule(ctx, applicationId, responseRuleId).PatchedResponsePhaseRuleRequest(patchedResponsePhaseRuleRequest).Execute()
 
 Partially update an Application Response Rule
 
@@ -542,7 +546,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsResponseRulesAPI.PartialUpdateApplicationResponseRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateApplicationResponseRule`: ResponsePhaseRuleResponse
+	// response from `PartialUpdateApplicationResponseRule`: ResponsePhaseRuleAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsResponseRulesAPI.PartialUpdateApplicationResponseRule`: %v\n", resp)
 }
 ```
@@ -569,7 +573,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ResponsePhaseRuleResponse**](ResponsePhaseRuleResponse.md)
+[**ResponsePhaseRuleAsyncResponse**](ResponsePhaseRuleAsyncResponse.md)
 
 ### Authorization
 
@@ -587,7 +591,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateApplicationVersionResponseRule
 
-> ResponsePhaseRuleResponse PartialUpdateApplicationVersionResponseRule(ctx, applicationId, responseRuleId, versionId).PatchedResponsePhaseRuleRequest(patchedResponsePhaseRuleRequest).Execute()
+> ResponsePhaseRuleAsyncResponse PartialUpdateApplicationVersionResponseRule(ctx, applicationId, responseRuleId, versionId).PatchedResponsePhaseRuleRequest(patchedResponsePhaseRuleRequest).Execute()
 
 Partially update an Application Response Rule
 
@@ -618,7 +622,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsResponseRulesAPI.PartialUpdateApplicationVersionResponseRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateApplicationVersionResponseRule`: ResponsePhaseRuleResponse
+	// response from `PartialUpdateApplicationVersionResponseRule`: ResponsePhaseRuleAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsResponseRulesAPI.PartialUpdateApplicationVersionResponseRule`: %v\n", resp)
 }
 ```
@@ -647,7 +651,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ResponsePhaseRuleResponse**](ResponsePhaseRuleResponse.md)
+[**ResponsePhaseRuleAsyncResponse**](ResponsePhaseRuleAsyncResponse.md)
 
 ### Authorization
 
@@ -818,7 +822,7 @@ Name | Type | Description  | Notes
 
 ## UpdateApplicationResponseRule
 
-> ResponsePhaseRuleResponse UpdateApplicationResponseRule(ctx, applicationId, responseRuleId).ResponsePhaseRuleRequest(responsePhaseRuleRequest).Execute()
+> ResponsePhaseRuleAsyncResponse UpdateApplicationResponseRule(ctx, applicationId, responseRuleId).ResponsePhaseRuleRequest(responsePhaseRuleRequest).Execute()
 
 Update an Application Response Rule
 
@@ -848,7 +852,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsResponseRulesAPI.UpdateApplicationResponseRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateApplicationResponseRule`: ResponsePhaseRuleResponse
+	// response from `UpdateApplicationResponseRule`: ResponsePhaseRuleAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsResponseRulesAPI.UpdateApplicationResponseRule`: %v\n", resp)
 }
 ```
@@ -875,7 +879,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ResponsePhaseRuleResponse**](ResponsePhaseRuleResponse.md)
+[**ResponsePhaseRuleAsyncResponse**](ResponsePhaseRuleAsyncResponse.md)
 
 ### Authorization
 
@@ -967,7 +971,7 @@ Name | Type | Description  | Notes
 
 ## UpdateApplicationVersionResponseRule
 
-> ResponsePhaseRuleResponse UpdateApplicationVersionResponseRule(ctx, applicationId, responseRuleId, versionId).ResponsePhaseRuleRequest(responsePhaseRuleRequest).Execute()
+> ResponsePhaseRuleAsyncResponse UpdateApplicationVersionResponseRule(ctx, applicationId, responseRuleId, versionId).ResponsePhaseRuleRequest(responsePhaseRuleRequest).Execute()
 
 Update an Application Response Rule
 
@@ -998,7 +1002,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsResponseRulesAPI.UpdateApplicationVersionResponseRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateApplicationVersionResponseRule`: ResponsePhaseRuleResponse
+	// response from `UpdateApplicationVersionResponseRule`: ResponsePhaseRuleAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsResponseRulesAPI.UpdateApplicationVersionResponseRule`: %v\n", resp)
 }
 ```
@@ -1027,7 +1031,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ResponsePhaseRuleResponse**](ResponsePhaseRuleResponse.md)
+[**ResponsePhaseRuleAsyncResponse**](ResponsePhaseRuleAsyncResponse.md)
 
 ### Authorization
 

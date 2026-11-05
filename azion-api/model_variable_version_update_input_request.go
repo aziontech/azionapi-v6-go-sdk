@@ -13,30 +13,25 @@ package azionapi
 
 import (
 	"encoding/json"
-	"bytes"
-	"fmt"
 )
 
 // checks if the VariableVersionUpdateInputRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &VariableVersionUpdateInputRequest{}
 
-// VariableVersionUpdateInputRequest Changes to a Variable. The scope set is fixed at creation and cannot change.
+// VariableVersionUpdateInputRequest Input for PUT/PATCH /api/variables/{variable_id} (v6).  `scope` is IMMUTABLE after POST. PUT/PATCH only mutate `key`/`value`/`secret`. Attempting to send `scope` in the payload returns 400 `PROTECTED_FIELD_OVERRIDE` — the previous \"C path\" (swap scope set in place) was retired because:    - Cascade DELETE from peer services already removes the M2M link     when a referenced resource is deleted, so \"scope went away\"     doesn't get stuck.   - Without scope mutation, the per-version history in     `VariableVersion` (which doesn't carry scope) is a complete     snapshot of what can change — revert is fully consistent.  Real scope migration (move variable from env-A to env-B) goes via DELETE + new POST. This matches the v5 contract and the original v6 docstring on `VariableVersion` (\"scope is set on POST and immutable afterward\").
 type VariableVersionUpdateInputRequest struct {
-	Key string `json:"key"`
-	Value string `json:"value"`
+	Key *string `json:"key,omitempty"`
+	Value *string `json:"value,omitempty"`
 	Secret *bool `json:"secret,omitempty"`
+	Scope []ScopeItemRequest `json:"scope,omitempty"`
 }
-
-type _VariableVersionUpdateInputRequest VariableVersionUpdateInputRequest
 
 // NewVariableVersionUpdateInputRequest instantiates a new VariableVersionUpdateInputRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVariableVersionUpdateInputRequest(key string, value string) *VariableVersionUpdateInputRequest {
+func NewVariableVersionUpdateInputRequest() *VariableVersionUpdateInputRequest {
 	this := VariableVersionUpdateInputRequest{}
-	this.Key = key
-	this.Value = value
 	return &this
 }
 
@@ -48,52 +43,68 @@ func NewVariableVersionUpdateInputRequestWithDefaults() *VariableVersionUpdateIn
 	return &this
 }
 
-// GetKey returns the Key field value
+// GetKey returns the Key field value if set, zero value otherwise.
 func (o *VariableVersionUpdateInputRequest) GetKey() string {
-	if o == nil {
+	if o == nil || IsNil(o.Key) {
 		var ret string
 		return ret
 	}
-
-	return o.Key
+	return *o.Key
 }
 
-// GetKeyOk returns a tuple with the Key field value
+// GetKeyOk returns a tuple with the Key field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VariableVersionUpdateInputRequest) GetKeyOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Key) {
 		return nil, false
 	}
-	return &o.Key, true
+	return o.Key, true
 }
 
-// SetKey sets field value
+// HasKey returns a boolean if a field has been set.
+func (o *VariableVersionUpdateInputRequest) HasKey() bool {
+	if o != nil && !IsNil(o.Key) {
+		return true
+	}
+
+	return false
+}
+
+// SetKey gets a reference to the given string and assigns it to the Key field.
 func (o *VariableVersionUpdateInputRequest) SetKey(v string) {
-	o.Key = v
+	o.Key = &v
 }
 
-// GetValue returns the Value field value
+// GetValue returns the Value field value if set, zero value otherwise.
 func (o *VariableVersionUpdateInputRequest) GetValue() string {
-	if o == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
-
-	return o.Value
+	return *o.Value
 }
 
-// GetValueOk returns a tuple with the Value field value
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VariableVersionUpdateInputRequest) GetValueOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
-	return &o.Value, true
+	return o.Value, true
 }
 
-// SetValue sets field value
+// HasValue returns a boolean if a field has been set.
+func (o *VariableVersionUpdateInputRequest) HasValue() bool {
+	if o != nil && !IsNil(o.Value) {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given string and assigns it to the Value field.
 func (o *VariableVersionUpdateInputRequest) SetValue(v string) {
-	o.Value = v
+	o.Value = &v
 }
 
 // GetSecret returns the Secret field value if set, zero value otherwise.
@@ -128,6 +139,38 @@ func (o *VariableVersionUpdateInputRequest) SetSecret(v bool) {
 	o.Secret = &v
 }
 
+// GetScope returns the Scope field value if set, zero value otherwise.
+func (o *VariableVersionUpdateInputRequest) GetScope() []ScopeItemRequest {
+	if o == nil || IsNil(o.Scope) {
+		var ret []ScopeItemRequest
+		return ret
+	}
+	return o.Scope
+}
+
+// GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VariableVersionUpdateInputRequest) GetScopeOk() ([]ScopeItemRequest, bool) {
+	if o == nil || IsNil(o.Scope) {
+		return nil, false
+	}
+	return o.Scope, true
+}
+
+// HasScope returns a boolean if a field has been set.
+func (o *VariableVersionUpdateInputRequest) HasScope() bool {
+	if o != nil && !IsNil(o.Scope) {
+		return true
+	}
+
+	return false
+}
+
+// SetScope gets a reference to the given []ScopeItemRequest and assigns it to the Scope field.
+func (o *VariableVersionUpdateInputRequest) SetScope(v []ScopeItemRequest) {
+	o.Scope = v
+}
+
 func (o VariableVersionUpdateInputRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -138,49 +181,19 @@ func (o VariableVersionUpdateInputRequest) MarshalJSON() ([]byte, error) {
 
 func (o VariableVersionUpdateInputRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["key"] = o.Key
-	toSerialize["value"] = o.Value
+	if !IsNil(o.Key) {
+		toSerialize["key"] = o.Key
+	}
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
 	if !IsNil(o.Secret) {
 		toSerialize["secret"] = o.Secret
 	}
+	if !IsNil(o.Scope) {
+		toSerialize["scope"] = o.Scope
+	}
 	return toSerialize, nil
-}
-
-func (o *VariableVersionUpdateInputRequest) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"key",
-		"value",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err;
-	}
-
-	for _, requiredProperty := range(requiredProperties) {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
-	varVariableVersionUpdateInputRequest := _VariableVersionUpdateInputRequest{}
-
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	err = decoder.Decode(&varVariableVersionUpdateInputRequest)
-
-	if err != nil {
-		return err
-	}
-
-	*o = VariableVersionUpdateInputRequest(varVariableVersionUpdateInputRequest)
-
-	return err
 }
 
 type NullableVariableVersionUpdateInputRequest struct {

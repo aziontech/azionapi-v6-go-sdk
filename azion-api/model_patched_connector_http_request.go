@@ -23,6 +23,7 @@ var _ MappedNullable = &PatchedConnectorHTTPRequest{}
 // PatchedConnectorHTTPRequest struct for PatchedConnectorHTTPRequest
 type PatchedConnectorHTTPRequest struct {
 	Name *string `json:"name,omitempty"`
+	Active *bool `json:"active,omitempty"`
 	Type string `json:"type"`
 	Attributes *PatchedConnectorHTTPAttributesRequest `json:"attributes,omitempty"`
 }
@@ -77,6 +78,38 @@ func (o *PatchedConnectorHTTPRequest) HasName() bool {
 // SetName gets a reference to the given string and assigns it to the Name field.
 func (o *PatchedConnectorHTTPRequest) SetName(v string) {
 	o.Name = &v
+}
+
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *PatchedConnectorHTTPRequest) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PatchedConnectorHTTPRequest) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *PatchedConnectorHTTPRequest) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *PatchedConnectorHTTPRequest) SetActive(v bool) {
+	o.Active = &v
 }
 
 // GetType returns the Type field value
@@ -147,6 +180,9 @@ func (o PatchedConnectorHTTPRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
 	}
 	toSerialize["type"] = o.Type
 	if !IsNil(o.Attributes) {

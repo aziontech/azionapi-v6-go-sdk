@@ -20,6 +20,7 @@ var _ MappedNullable = &PatchedWAFRequest{}
 
 // PatchedWAFRequest struct for PatchedWAFRequest
 type PatchedWAFRequest struct {
+	Active *bool `json:"active,omitempty"`
 	Name *string `json:"name,omitempty"`
 	EngineSettings *PatchedWAFEngineSettingsFieldRequest `json:"engine_settings,omitempty"`
 }
@@ -39,6 +40,38 @@ func NewPatchedWAFRequest() *PatchedWAFRequest {
 func NewPatchedWAFRequestWithDefaults() *PatchedWAFRequest {
 	this := PatchedWAFRequest{}
 	return &this
+}
+
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *PatchedWAFRequest) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PatchedWAFRequest) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *PatchedWAFRequest) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *PatchedWAFRequest) SetActive(v bool) {
+	o.Active = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -115,6 +148,9 @@ func (o PatchedWAFRequest) MarshalJSON() ([]byte, error) {
 
 func (o PatchedWAFRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
+	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
