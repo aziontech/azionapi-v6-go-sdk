@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Args** | Pointer to **interface{}** |  | [optional] 
 **AzionForm** | Pointer to [**FunctionsAzionForm**](FunctionsAzionForm.md) |  | [optional] 
 **Function** | **int64** |  | 
+**Active** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -127,6 +128,31 @@ and a boolean to check if the value has been set.
 
 SetFunction sets Function field to given value.
 
+
+### GetActive
+
+`func (o *FunctionInstanceRequest) GetActive() bool`
+
+GetActive returns the Active field if non-nil, zero value otherwise.
+
+### GetActiveOk
+
+`func (o *FunctionInstanceRequest) GetActiveOk() (*bool, bool)`
+
+GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActive
+
+`func (o *FunctionInstanceRequest) SetActive(v bool)`
+
+SetActive sets Active field to given value.
+
+### HasActive
+
+`func (o *FunctionInstanceRequest) HasActive() bool`
+
+HasActive returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

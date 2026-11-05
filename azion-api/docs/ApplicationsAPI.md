@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## CreateApplication
 
-> ApplicationResponse CreateApplication(ctx).ApplicationRequest(applicationRequest).Execute()
+> ApplicationAsyncResponse CreateApplication(ctx).ApplicationRequest(applicationRequest).Execute()
 
 Create an Application
 
@@ -43,7 +43,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.CreateApplication``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateApplication`: ApplicationResponse
+	// response from `CreateApplication`: ApplicationAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsAPI.CreateApplication`: %v\n", resp)
 }
 ```
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApplicationResponse**](ApplicationResponse.md)
+[**ApplicationAsyncResponse**](ApplicationAsyncResponse.md)
 
 ### Authorization
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## DeleteApplication
 
-> DeleteApplication(ctx, applicationId).Execute()
+> DeleteAsyncResponse DeleteApplication(ctx, applicationId).Execute()
 
 Delete an Application
 
@@ -104,11 +104,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationsAPI.DeleteApplication(context.Background(), applicationId).Execute()
+	resp, r, err := apiClient.ApplicationsAPI.DeleteApplication(context.Background(), applicationId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.DeleteApplication``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteApplication`: DeleteAsyncResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationsAPI.DeleteApplication`: %v\n", resp)
 }
 ```
 
@@ -131,7 +133,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
 
 ### Authorization
 
@@ -149,7 +151,7 @@ Name | Type | Description  | Notes
 
 ## ListApplications
 
-> PaginatedApplicationList ListApplications(ctx).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+> PaginatedApplicationList ListApplications(ctx).Active(active).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
 
 List Applications
 
@@ -169,20 +171,21 @@ import (
 )
 
 func main() {
+	active := true // bool | Filter by active status. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 	id := int64(789) // int64 | Filter by id (accepts comma-separated values). (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
 	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: name, id, last_editor, last_modified, debug, product_version) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: name, id, last_editor, last_modified, active, debug, product_version) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
-	search := "search_example" // string | A search term to filter results. Searches across the following fields: id, name, last_editor, last_modified. (optional)
+	search := "search_example" // string | A search term to filter results. Searches across the following fields: id, name, last_editor, last_modified, active. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationsAPI.ListApplications(context.Background()).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+	resp, r, err := apiClient.ApplicationsAPI.ListApplications(context.Background()).Active(active).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.ListApplications``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -203,16 +206,17 @@ Other parameters are passed through a pointer to a apiListApplicationsRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **active** | **bool** | Filter by active status. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
  **id** | **int64** | Filter by id (accepts comma-separated values). | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
  **name** | **string** | Filter by name (case-insensitive, partial match). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: name, id, last_editor, last_modified, debug, product_version) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: name, id, last_editor, last_modified, active, debug, product_version) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
- **search** | **string** | A search term to filter results. Searches across the following fields: id, name, last_editor, last_modified. | 
+ **search** | **string** | A search term to filter results. Searches across the following fields: id, name, last_editor, last_modified, active. | 
 
 ### Return type
 
@@ -234,7 +238,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateApplication
 
-> ApplicationResponse PartialUpdateApplication(ctx, applicationId).PatchedApplicationRequest(patchedApplicationRequest).Execute()
+> ApplicationAsyncResponse PartialUpdateApplication(ctx, applicationId).PatchedApplicationRequest(patchedApplicationRequest).Execute()
 
 Partially update an Application
 
@@ -263,7 +267,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.PartialUpdateApplication``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateApplication`: ApplicationResponse
+	// response from `PartialUpdateApplication`: ApplicationAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsAPI.PartialUpdateApplication`: %v\n", resp)
 }
 ```
@@ -288,7 +292,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApplicationResponse**](ApplicationResponse.md)
+[**ApplicationAsyncResponse**](ApplicationAsyncResponse.md)
 
 ### Authorization
 
@@ -378,7 +382,7 @@ Name | Type | Description  | Notes
 
 ## UpdateApplication
 
-> ApplicationResponse UpdateApplication(ctx, applicationId).ApplicationRequest(applicationRequest).Execute()
+> ApplicationAsyncResponse UpdateApplication(ctx, applicationId).ApplicationRequest(applicationRequest).Execute()
 
 Update an Application
 
@@ -407,7 +411,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.UpdateApplication``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateApplication`: ApplicationResponse
+	// response from `UpdateApplication`: ApplicationAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsAPI.UpdateApplication`: %v\n", resp)
 }
 ```
@@ -432,7 +436,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ApplicationResponse**](ApplicationResponse.md)
+[**ApplicationAsyncResponse**](ApplicationAsyncResponse.md)
 
 ### Authorization
 

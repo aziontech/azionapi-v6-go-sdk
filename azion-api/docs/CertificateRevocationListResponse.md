@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**State** | Pointer to **string** |  | [optional] 
 **Data** | [**CertificateRevocationList**](CertificateRevocationList.md) |  | 
 
 ## Methods
@@ -24,6 +25,31 @@ will change when the set of required properties is changed
 NewCertificateRevocationListResponseWithDefaults instantiates a new CertificateRevocationListResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetState
+
+`func (o *CertificateRevocationListResponse) GetState() string`
+
+GetState returns the State field if non-nil, zero value otherwise.
+
+### GetStateOk
+
+`func (o *CertificateRevocationListResponse) GetStateOk() (*string, bool)`
+
+GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetState
+
+`func (o *CertificateRevocationListResponse) SetState(v string)`
+
+SetState sets State field to given value.
+
+### HasState
+
+`func (o *CertificateRevocationListResponse) HasState() bool`
+
+HasState returns a boolean if a field has been set.
 
 ### GetData
 

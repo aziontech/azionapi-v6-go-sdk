@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Args** | Pointer to **interface{}** |  | [optional] 
 **AzionForm** | Pointer to [**FunctionsAzionForm**](FunctionsAzionForm.md) |  | [optional] 
 **Function** | Pointer to **int64** |  | [optional] 
+**Active** | Pointer to **bool** |  | [optional] 
 **LastEditor** | Pointer to **string** |  | [optional] 
 **LastModified** | Pointer to **time.Time** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
@@ -166,6 +167,31 @@ SetFunction sets Function field to given value.
 `func (o *FunctionInstance) HasFunction() bool`
 
 HasFunction returns a boolean if a field has been set.
+
+### GetActive
+
+`func (o *FunctionInstance) GetActive() bool`
+
+GetActive returns the Active field if non-nil, zero value otherwise.
+
+### GetActiveOk
+
+`func (o *FunctionInstance) GetActiveOk() (*bool, bool)`
+
+GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActive
+
+`func (o *FunctionInstance) SetActive(v bool)`
+
+SetActive sets Active field to given value.
+
+### HasActive
+
+`func (o *FunctionInstance) HasActive() bool`
+
+HasActive returns a boolean if a field has been set.
 
 ### GetLastEditor
 

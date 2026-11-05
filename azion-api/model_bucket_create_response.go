@@ -22,6 +22,7 @@ var _ MappedNullable = &BucketCreateResponse{}
 
 // BucketCreateResponse struct for BucketCreateResponse
 type BucketCreateResponse struct {
+	State *string `json:"state,omitempty"`
 	Data BucketCreate `json:"data"`
 }
 
@@ -43,6 +44,38 @@ func NewBucketCreateResponse(data BucketCreate) *BucketCreateResponse {
 func NewBucketCreateResponseWithDefaults() *BucketCreateResponse {
 	this := BucketCreateResponse{}
 	return &this
+}
+
+// GetState returns the State field value if set, zero value otherwise.
+func (o *BucketCreateResponse) GetState() string {
+	if o == nil || IsNil(o.State) {
+		var ret string
+		return ret
+	}
+	return *o.State
+}
+
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BucketCreateResponse) GetStateOk() (*string, bool) {
+	if o == nil || IsNil(o.State) {
+		return nil, false
+	}
+	return o.State, true
+}
+
+// HasState returns a boolean if a field has been set.
+func (o *BucketCreateResponse) HasState() bool {
+	if o != nil && !IsNil(o.State) {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given string and assigns it to the State field.
+func (o *BucketCreateResponse) SetState(v string) {
+	o.State = &v
 }
 
 // GetData returns the Data field value
@@ -79,6 +112,9 @@ func (o BucketCreateResponse) MarshalJSON() ([]byte, error) {
 
 func (o BucketCreateResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
 	toSerialize["data"] = o.Data
 	return toSerialize, nil
 }

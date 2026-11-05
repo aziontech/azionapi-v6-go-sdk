@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## CreateFunction
 
-> FunctionResponse CreateFunction(ctx).FunctionsRequest(functionsRequest).Execute()
+> FunctionAsyncResponse CreateFunction(ctx).FunctionsRequest(functionsRequest).Execute()
 
 Create an Function
 
@@ -43,7 +43,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.CreateFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateFunction`: FunctionResponse
+	// response from `CreateFunction`: FunctionAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.CreateFunction`: %v\n", resp)
 }
 ```
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FunctionResponse**](FunctionResponse.md)
+[**FunctionAsyncResponse**](FunctionAsyncResponse.md)
 
 ### Authorization
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFunction
 
-> DeleteFunction(ctx, functionId).Execute()
+> DeleteAsyncResponse DeleteFunction(ctx, functionId).Execute()
 
 Delete an Function
 
@@ -104,11 +104,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FunctionsAPI.DeleteFunction(context.Background(), functionId).Execute()
+	resp, r, err := apiClient.FunctionsAPI.DeleteFunction(context.Background(), functionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.DeleteFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteFunction`: DeleteAsyncResponse
+	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.DeleteFunction`: %v\n", resp)
 }
 ```
 
@@ -131,7 +133,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
 
 ### Authorization
 
@@ -149,7 +151,7 @@ Name | Type | Description  | Notes
 
 ## ListFunctions
 
-> PaginatedFunctionSummaryList ListFunctions(ctx).Fields(fields).Id(id).LanguageIn(languageIn).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).RuntimeEnvironmentIn(runtimeEnvironmentIn).Search(search).Execute()
+> PaginatedFunctionSummaryList ListFunctions(ctx).Active(active).Fields(fields).Id(id).LanguageIn(languageIn).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).RuntimeEnvironmentIn(runtimeEnvironmentIn).Search(search).Execute()
 
 List Functions
 
@@ -169,6 +171,7 @@ import (
 )
 
 func main() {
+	active := true // bool | Filter by active status. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 	id := int64(789) // int64 | Filter by id (accepts comma-separated values). (optional)
 	languageIn := "languageIn_example" // string | Filter by language (accepts comma-separated values). (optional)
@@ -176,15 +179,15 @@ func main() {
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
 	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, language, runtime_environment, last_editor, last_modified) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, language, runtime_environment, active, last_editor, last_modified) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	runtimeEnvironmentIn := "runtimeEnvironmentIn_example" // string | Filter by runtime environment (accepts comma-separated values). (optional)
-	search := "search_example" // string | A search term to filter results. Searches across the following fields: name, last_editor, language, runtime_environment. (optional)
+	search := "search_example" // string | A search term to filter results. Searches across the following fields: name, last_editor, language, runtime_environment, active. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionsAPI.ListFunctions(context.Background()).Fields(fields).Id(id).LanguageIn(languageIn).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).RuntimeEnvironmentIn(runtimeEnvironmentIn).Search(search).Execute()
+	resp, r, err := apiClient.FunctionsAPI.ListFunctions(context.Background()).Active(active).Fields(fields).Id(id).LanguageIn(languageIn).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).RuntimeEnvironmentIn(runtimeEnvironmentIn).Search(search).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.ListFunctions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -205,6 +208,7 @@ Other parameters are passed through a pointer to a apiListFunctionsRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **active** | **bool** | Filter by active status. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
  **id** | **int64** | Filter by id (accepts comma-separated values). | 
  **languageIn** | **string** | Filter by language (accepts comma-separated values). | 
@@ -212,11 +216,11 @@ Name | Type | Description  | Notes
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
  **name** | **string** | Filter by name (case-insensitive, partial match). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, language, runtime_environment, last_editor, last_modified) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, language, runtime_environment, active, last_editor, last_modified) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **runtimeEnvironmentIn** | **string** | Filter by runtime environment (accepts comma-separated values). | 
- **search** | **string** | A search term to filter results. Searches across the following fields: name, last_editor, language, runtime_environment. | 
+ **search** | **string** | A search term to filter results. Searches across the following fields: name, last_editor, language, runtime_environment, active. | 
 
 ### Return type
 
@@ -238,7 +242,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateFunction
 
-> FunctionResponse PartialUpdateFunction(ctx, functionId).PatchedFunctionsRequest(patchedFunctionsRequest).Execute()
+> FunctionAsyncResponse PartialUpdateFunction(ctx, functionId).PatchedFunctionsRequest(patchedFunctionsRequest).Execute()
 
 Partially update an Function
 
@@ -267,7 +271,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.PartialUpdateFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateFunction`: FunctionResponse
+	// response from `PartialUpdateFunction`: FunctionAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.PartialUpdateFunction`: %v\n", resp)
 }
 ```
@@ -292,7 +296,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FunctionResponse**](FunctionResponse.md)
+[**FunctionAsyncResponse**](FunctionAsyncResponse.md)
 
 ### Authorization
 
@@ -382,7 +386,7 @@ Name | Type | Description  | Notes
 
 ## UpdateFunction
 
-> FunctionResponse UpdateFunction(ctx, functionId).FunctionsRequest(functionsRequest).Execute()
+> FunctionAsyncResponse UpdateFunction(ctx, functionId).FunctionsRequest(functionsRequest).Execute()
 
 Update an Function
 
@@ -411,7 +415,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.UpdateFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateFunction`: FunctionResponse
+	// response from `UpdateFunction`: FunctionAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.UpdateFunction`: %v\n", resp)
 }
 ```
@@ -436,7 +440,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FunctionResponse**](FunctionResponse.md)
+[**FunctionAsyncResponse**](FunctionAsyncResponse.md)
 
 ### Authorization
 

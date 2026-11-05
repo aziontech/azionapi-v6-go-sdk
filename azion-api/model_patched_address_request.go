@@ -20,6 +20,8 @@ var _ MappedNullable = &PatchedAddressRequest{}
 
 // PatchedAddressRequest struct for PatchedAddressRequest
 type PatchedAddressRequest struct {
+	// Indicates if the address is active for use
+	Active *bool `json:"active,omitempty"`
 	// IPv4/IPv6 address or CNAME to resolve
 	Address *string `json:"address,omitempty"`
 	// Port number for HTTP connections
@@ -44,6 +46,38 @@ func NewPatchedAddressRequest() *PatchedAddressRequest {
 func NewPatchedAddressRequestWithDefaults() *PatchedAddressRequest {
 	this := PatchedAddressRequest{}
 	return &this
+}
+
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *PatchedAddressRequest) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PatchedAddressRequest) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *PatchedAddressRequest) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *PatchedAddressRequest) SetActive(v bool) {
+	o.Active = &v
 }
 
 // GetAddress returns the Address field value if set, zero value otherwise.
@@ -194,6 +228,9 @@ func (o PatchedAddressRequest) MarshalJSON() ([]byte, error) {
 
 func (o PatchedAddressRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
+	}
 	if !IsNil(o.Address) {
 		toSerialize["address"] = o.Address
 	}

@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **int64** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
+**Active** | Pointer to **bool** |  | [optional] 
 **LastEditor** | Pointer to **string** |  | [optional] 
 **LastModified** | Pointer to **time.Time** |  | [optional] 
 **Infrastructure** | Pointer to **int32** | * &#x60;1&#x60; - Production Infrastructure (All Locations) * &#x60;2&#x60; - Staging Infrastructure | [optional] 
@@ -101,6 +102,31 @@ SetName sets Name field to given value.
 `func (o *WorkloadVersion) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetActive
+
+`func (o *WorkloadVersion) GetActive() bool`
+
+GetActive returns the Active field if non-nil, zero value otherwise.
+
+### GetActiveOk
+
+`func (o *WorkloadVersion) GetActiveOk() (*bool, bool)`
+
+GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActive
+
+`func (o *WorkloadVersion) SetActive(v bool)`
+
+SetActive sets Active field to given value.
+
+### HasActive
+
+`func (o *WorkloadVersion) HasActive() bool`
+
+HasActive returns a boolean if a field has been set.
 
 ### GetLastEditor
 

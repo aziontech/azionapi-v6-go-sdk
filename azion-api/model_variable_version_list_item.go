@@ -14,33 +14,37 @@ package azionapi
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
 
 // checks if the VariableVersionListItem type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &VariableVersionListItem{}
 
-// VariableVersionListItem One version in the history of a Variable.
+// VariableVersionListItem One row per `VariableVersion` in a variable's history.  `build_status` reflects the deploy state of this specific row's build — `pending`/`succeeded`/`error`, or `null` for pre-refactor rows that have no linked build.
 type VariableVersionListItem struct {
 	VersionId *string `json:"version_id,omitempty"`
 	VariableId *string `json:"variable_id,omitempty"`
 	Action *string `json:"action,omitempty"`
 	Key *string `json:"key,omitempty"`
 	LastEditor *string `json:"last_editor,omitempty"`
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	CreatedAt time.Time `json:"created_at"`
 	SourceVersionId NullableString `json:"source_version_id,omitempty"`
 	BuildResourceVersion NullableString `json:"build_resource_version,omitempty"`
-	// Deploy state of the build of this version: `pending`, `succeeded` or `error`. Null when the version has no build.
 	BuildStatus NullableString `json:"build_status,omitempty"`
 	VersionState *string `json:"version_state,omitempty"`
 	TraceId *string `json:"trace_id,omitempty"`
 }
 
+type _VariableVersionListItem VariableVersionListItem
+
 // NewVariableVersionListItem instantiates a new VariableVersionListItem object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVariableVersionListItem() *VariableVersionListItem {
+func NewVariableVersionListItem(createdAt time.Time) *VariableVersionListItem {
 	this := VariableVersionListItem{}
+	this.CreatedAt = createdAt
 	return &this
 }
 
@@ -212,36 +216,28 @@ func (o *VariableVersionListItem) SetLastEditor(v string) {
 	o.LastEditor = &v
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+// GetCreatedAt returns the CreatedAt field value
 func (o *VariableVersionListItem) GetCreatedAt() time.Time {
-	if o == nil || IsNil(o.CreatedAt) {
+	if o == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.CreatedAt
+
+	return o.CreatedAt
 }
 
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
 func (o *VariableVersionListItem) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.CreatedAt) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CreatedAt, true
+	return &o.CreatedAt, true
 }
 
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *VariableVersionListItem) HasCreatedAt() bool {
-	if o != nil && !IsNil(o.CreatedAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+// SetCreatedAt sets field value
 func (o *VariableVersionListItem) SetCreatedAt(v time.Time) {
-	o.CreatedAt = &v
+	o.CreatedAt = v
 }
 
 // GetSourceVersionId returns the SourceVersionId field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -459,9 +455,7 @@ func (o VariableVersionListItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastEditor) {
 		toSerialize["last_editor"] = o.LastEditor
 	}
-	if !IsNil(o.CreatedAt) {
-		toSerialize["created_at"] = o.CreatedAt
-	}
+	toSerialize["created_at"] = o.CreatedAt
 	if o.SourceVersionId.IsSet() {
 		toSerialize["source_version_id"] = o.SourceVersionId.Get()
 	}
@@ -478,6 +472,42 @@ func (o VariableVersionListItem) ToMap() (map[string]interface{}, error) {
 		toSerialize["trace_id"] = o.TraceId
 	}
 	return toSerialize, nil
+}
+
+func (o *VariableVersionListItem) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"created_at",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varVariableVersionListItem := _VariableVersionListItem{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	err = decoder.Decode(&varVariableVersionListItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = VariableVersionListItem(varVariableVersionListItem)
+
+	return err
 }
 
 type NullableVariableVersionListItem struct {

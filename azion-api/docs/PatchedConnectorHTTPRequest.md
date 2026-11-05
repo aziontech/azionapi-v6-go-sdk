@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** |  | [optional] 
+**Active** | Pointer to **bool** |  | [optional] 
 **Type** | **string** |  | 
 **Attributes** | Pointer to [**PatchedConnectorHTTPAttributesRequest**](PatchedConnectorHTTPAttributesRequest.md) |  | [optional] 
 
@@ -51,6 +52,31 @@ SetName sets Name field to given value.
 `func (o *PatchedConnectorHTTPRequest) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetActive
+
+`func (o *PatchedConnectorHTTPRequest) GetActive() bool`
+
+GetActive returns the Active field if non-nil, zero value otherwise.
+
+### GetActiveOk
+
+`func (o *PatchedConnectorHTTPRequest) GetActiveOk() (*bool, bool)`
+
+GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActive
+
+`func (o *PatchedConnectorHTTPRequest) SetActive(v bool)`
+
+SetActive sets Active field to given value.
+
+### HasActive
+
+`func (o *PatchedConnectorHTTPRequest) HasActive() bool`
+
+HasActive returns a boolean if a field has been set.
 
 ### GetType
 

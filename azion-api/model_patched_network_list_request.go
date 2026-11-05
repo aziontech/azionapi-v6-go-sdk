@@ -24,6 +24,7 @@ type PatchedNetworkListRequest struct {
 	// * `asn` - ASN * `countries` - Countries * `ip_cidr` - IP/CIDR
 	Type *string `json:"type,omitempty"`
 	Items []string `json:"items,omitempty"`
+	Active *bool `json:"active,omitempty"`
 }
 
 // NewPatchedNetworkListRequest instantiates a new PatchedNetworkListRequest object
@@ -139,6 +140,38 @@ func (o *PatchedNetworkListRequest) SetItems(v []string) {
 	o.Items = v
 }
 
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *PatchedNetworkListRequest) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PatchedNetworkListRequest) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *PatchedNetworkListRequest) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *PatchedNetworkListRequest) SetActive(v bool) {
+	o.Active = &v
+}
+
 func (o PatchedNetworkListRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -157,6 +190,9 @@ func (o PatchedNetworkListRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
+	}
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
 	}
 	return toSerialize, nil
 }

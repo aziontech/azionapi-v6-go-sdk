@@ -23,6 +23,7 @@ var _ MappedNullable = &FunctionRequest{}
 // FunctionRequest struct for FunctionRequest
 type FunctionRequest struct {
 	Name string `json:"name"`
+	Active *bool `json:"active,omitempty"`
 	// * `azion_js` - Azion JavaScript
 	Runtime *string `json:"runtime,omitempty"`
 	// * `application` - application * `firewall` - firewall
@@ -31,7 +32,6 @@ type FunctionRequest struct {
 	AzionForm *FunctionsAzionForm `json:"azion_form,omitempty"`
 	// String containing the function code. Maximum size: 50.0MB
 	Code string `json:"code"`
-	Dependencies []DependencyEntryRequest `json:"dependencies,omitempty"`
 }
 
 type _FunctionRequest FunctionRequest
@@ -77,6 +77,38 @@ func (o *FunctionRequest) GetNameOk() (*string, bool) {
 // SetName sets field value
 func (o *FunctionRequest) SetName(v string) {
 	o.Name = v
+}
+
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *FunctionRequest) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FunctionRequest) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *FunctionRequest) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *FunctionRequest) SetActive(v bool) {
+	o.Active = &v
 }
 
 // GetRuntime returns the Runtime field value if set, zero value otherwise.
@@ -232,38 +264,6 @@ func (o *FunctionRequest) SetCode(v string) {
 	o.Code = v
 }
 
-// GetDependencies returns the Dependencies field value if set, zero value otherwise.
-func (o *FunctionRequest) GetDependencies() []DependencyEntryRequest {
-	if o == nil || IsNil(o.Dependencies) {
-		var ret []DependencyEntryRequest
-		return ret
-	}
-	return o.Dependencies
-}
-
-// GetDependenciesOk returns a tuple with the Dependencies field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FunctionRequest) GetDependenciesOk() ([]DependencyEntryRequest, bool) {
-	if o == nil || IsNil(o.Dependencies) {
-		return nil, false
-	}
-	return o.Dependencies, true
-}
-
-// HasDependencies returns a boolean if a field has been set.
-func (o *FunctionRequest) HasDependencies() bool {
-	if o != nil && !IsNil(o.Dependencies) {
-		return true
-	}
-
-	return false
-}
-
-// SetDependencies gets a reference to the given []DependencyEntryRequest and assigns it to the Dependencies field.
-func (o *FunctionRequest) SetDependencies(v []DependencyEntryRequest) {
-	o.Dependencies = v
-}
-
 func (o FunctionRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -275,6 +275,9 @@ func (o FunctionRequest) MarshalJSON() ([]byte, error) {
 func (o FunctionRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
+	}
 	if !IsNil(o.Runtime) {
 		toSerialize["runtime"] = o.Runtime
 	}
@@ -288,9 +291,6 @@ func (o FunctionRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["azion_form"] = o.AzionForm
 	}
 	toSerialize["code"] = o.Code
-	if !IsNil(o.Dependencies) {
-		toSerialize["dependencies"] = o.Dependencies
-	}
 	return toSerialize, nil
 }
 

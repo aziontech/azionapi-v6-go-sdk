@@ -26,6 +26,7 @@ type FirewallRule struct {
 	LastEditor *string `json:"last_editor,omitempty"`
 	LastModified *time.Time `json:"last_modified,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
+	Active *bool `json:"active,omitempty"`
 	Criteria [][]FirewallCriterionField `json:"criteria,omitempty"`
 	Behaviors []FirewallBehavior `json:"behaviors,omitempty"`
 	Description *string `json:"description,omitempty"`
@@ -209,6 +210,38 @@ func (o *FirewallRule) SetCreatedAt(v time.Time) {
 	o.CreatedAt = &v
 }
 
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *FirewallRule) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FirewallRule) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *FirewallRule) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *FirewallRule) SetActive(v bool) {
+	o.Active = &v
+}
+
 // GetCriteria returns the Criteria field value if set, zero value otherwise.
 func (o *FirewallRule) GetCriteria() [][]FirewallCriterionField {
 	if o == nil || IsNil(o.Criteria) {
@@ -361,6 +394,9 @@ func (o FirewallRule) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.Criteria) {
 		toSerialize["criteria"] = o.Criteria

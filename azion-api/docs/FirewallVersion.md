@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **Modules** | Pointer to [**FirewallModules**](FirewallModules.md) |  | [optional] 
 **Debug** | Pointer to **bool** |  | [optional] 
+**Active** | Pointer to **bool** |  | [optional] 
 **LastEditor** | Pointer to **string** |  | [optional] 
 **LastModified** | Pointer to **time.Time** |  | [optional] 
 **VersionId** | Pointer to **string** | ID of the version metadata | [optional] 
@@ -120,6 +121,31 @@ SetDebug sets Debug field to given value.
 `func (o *FirewallVersion) HasDebug() bool`
 
 HasDebug returns a boolean if a field has been set.
+
+### GetActive
+
+`func (o *FirewallVersion) GetActive() bool`
+
+GetActive returns the Active field if non-nil, zero value otherwise.
+
+### GetActiveOk
+
+`func (o *FirewallVersion) GetActiveOk() (*bool, bool)`
+
+GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActive
+
+`func (o *FirewallVersion) SetActive(v bool)`
+
+SetActive sets Active field to given value.
+
+### HasActive
+
+`func (o *FirewallVersion) HasActive() bool`
+
+HasActive returns a boolean if a field has been set.
 
 ### GetLastEditor
 

@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** |  | [optional] 
+**Active** | Pointer to **bool** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
 **Attributes** | Pointer to [**PatchedConnectorStorageAttributesRequest**](PatchedConnectorStorageAttributesRequest.md) |  | [optional] 
 
@@ -51,6 +52,31 @@ SetName sets Name field to given value.
 `func (o *PatchedConnectorStorageBaseRequest) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetActive
+
+`func (o *PatchedConnectorStorageBaseRequest) GetActive() bool`
+
+GetActive returns the Active field if non-nil, zero value otherwise.
+
+### GetActiveOk
+
+`func (o *PatchedConnectorStorageBaseRequest) GetActiveOk() (*bool, bool)`
+
+GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActive
+
+`func (o *PatchedConnectorStorageBaseRequest) SetActive(v bool)`
+
+SetActive sets Active field to given value.
+
+### HasActive
+
+`func (o *PatchedConnectorStorageBaseRequest) HasActive() bool`
+
+HasActive returns a boolean if a field has been set.
 
 ### GetType
 

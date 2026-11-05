@@ -20,6 +20,7 @@ var _ MappedNullable = &WAFVersionCreateRequest{}
 
 // WAFVersionCreateRequest A new version cloned from source_version, or from the latest ready version when it is omitted. Resource fields sent alongside are applied to the clone.
 type WAFVersionCreateRequest struct {
+	Active *bool `json:"active,omitempty"`
 	Name *string `json:"name,omitempty"`
 	EngineSettings *WAFEngineSettingsFieldRequest `json:"engine_settings,omitempty"`
 	// ID of the version to clone from. If omitted, clones latest ready.
@@ -43,6 +44,38 @@ func NewWAFVersionCreateRequest() *WAFVersionCreateRequest {
 func NewWAFVersionCreateRequestWithDefaults() *WAFVersionCreateRequest {
 	this := WAFVersionCreateRequest{}
 	return &this
+}
+
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *WAFVersionCreateRequest) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WAFVersionCreateRequest) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *WAFVersionCreateRequest) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *WAFVersionCreateRequest) SetActive(v bool) {
+	o.Active = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -193,6 +226,9 @@ func (o WAFVersionCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o WAFVersionCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
+	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}

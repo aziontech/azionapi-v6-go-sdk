@@ -25,6 +25,7 @@ type ApplicationVersion struct {
 	LastEditor *string `json:"last_editor,omitempty"`
 	LastModified *time.Time `json:"last_modified,omitempty"`
 	Modules *ApplicationModules `json:"modules,omitempty"`
+	Active *bool `json:"active,omitempty"`
 	Debug *bool `json:"debug,omitempty"`
 	// ID of the version metadata
 	VersionId *string `json:"version_id,omitempty"`
@@ -205,6 +206,38 @@ func (o *ApplicationVersion) HasModules() bool {
 // SetModules gets a reference to the given ApplicationModules and assigns it to the Modules field.
 func (o *ApplicationVersion) SetModules(v ApplicationModules) {
 	o.Modules = &v
+}
+
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *ApplicationVersion) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApplicationVersion) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *ApplicationVersion) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *ApplicationVersion) SetActive(v bool) {
+	o.Active = &v
 }
 
 // GetDebug returns the Debug field value if set, zero value otherwise.
@@ -856,6 +889,9 @@ func (o ApplicationVersion) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Modules) {
 		toSerialize["modules"] = o.Modules
+	}
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.Debug) {
 		toSerialize["debug"] = o.Debug

@@ -27,6 +27,7 @@ type ConnectorLiveIngestVersion struct {
 	Name *string `json:"name,omitempty"`
 	LastEditor *string `json:"last_editor,omitempty"`
 	LastModified *time.Time `json:"last_modified,omitempty"`
+	Active *bool `json:"active,omitempty"`
 	Attributes *ConnectorLiveIngestAttributes `json:"attributes,omitempty"`
 	// ID of the version metadata
 	VersionId *string `json:"version_id,omitempty"`
@@ -202,6 +203,38 @@ func (o *ConnectorLiveIngestVersion) HasLastModified() bool {
 // SetLastModified gets a reference to the given time.Time and assigns it to the LastModified field.
 func (o *ConnectorLiveIngestVersion) SetLastModified(v time.Time) {
 	o.LastModified = &v
+}
+
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *ConnectorLiveIngestVersion) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ConnectorLiveIngestVersion) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *ConnectorLiveIngestVersion) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *ConnectorLiveIngestVersion) SetActive(v bool) {
+	o.Active = &v
 }
 
 // GetAttributes returns the Attributes field value if set, zero value otherwise.
@@ -851,6 +884,9 @@ func (o ConnectorLiveIngestVersion) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.LastModified) {
 		toSerialize["last_modified"] = o.LastModified
+	}
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.Attributes) {
 		toSerialize["attributes"] = o.Attributes

@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **int64** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
+**Active** | Pointer to **bool** |  | [optional] 
 **Criteria** | Pointer to [**[][]ApplicationCriterionField**]([]ApplicationCriterionField.md) |  | [optional] 
 **Behaviors** | Pointer to [**[]RequestPhaseBehavior**](RequestPhaseBehavior.md) |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
@@ -82,6 +83,31 @@ SetName sets Name field to given value.
 `func (o *RequestPhaseRule) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetActive
+
+`func (o *RequestPhaseRule) GetActive() bool`
+
+GetActive returns the Active field if non-nil, zero value otherwise.
+
+### GetActiveOk
+
+`func (o *RequestPhaseRule) GetActiveOk() (*bool, bool)`
+
+GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActive
+
+`func (o *RequestPhaseRule) SetActive(v bool)`
+
+SetActive sets Active field to given value.
+
+### HasActive
+
+`func (o *RequestPhaseRule) HasActive() bool`
+
+HasActive returns a boolean if a field has been set.
 
 ### GetCriteria
 

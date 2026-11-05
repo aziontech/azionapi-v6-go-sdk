@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 ## CreateFirewallRule
 
-> FirewallRuleResponse CreateFirewallRule(ctx, firewallId).FirewallRuleRequest(firewallRuleRequest).Execute()
+> FirewallRuleAsyncResponse CreateFirewallRule(ctx, firewallId).FirewallRuleRequest(firewallRuleRequest).Execute()
 
 Create an Firewall Rule
 
@@ -52,7 +52,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsRulesEngineAPI.CreateFirewallRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateFirewallRule`: FirewallRuleResponse
+	// response from `CreateFirewallRule`: FirewallRuleAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `FirewallsRulesEngineAPI.CreateFirewallRule`: %v\n", resp)
 }
 ```
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirewallRuleResponse**](FirewallRuleResponse.md)
+[**FirewallRuleAsyncResponse**](FirewallRuleAsyncResponse.md)
 
 ### Authorization
 
@@ -95,7 +95,7 @@ Name | Type | Description  | Notes
 
 ## CreateFirewallVersionRequestRules
 
-> FirewallRuleResponse CreateFirewallVersionRequestRules(ctx, firewallId, versionId).FirewallRuleRequest(firewallRuleRequest).Execute()
+> FirewallRuleAsyncResponse CreateFirewallVersionRequestRules(ctx, firewallId, versionId).FirewallRuleRequest(firewallRuleRequest).Execute()
 
 Create an Firewall Rule
 
@@ -125,7 +125,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsRulesEngineAPI.CreateFirewallVersionRequestRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateFirewallVersionRequestRules`: FirewallRuleResponse
+	// response from `CreateFirewallVersionRequestRules`: FirewallRuleAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `FirewallsRulesEngineAPI.CreateFirewallVersionRequestRules`: %v\n", resp)
 }
 ```
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirewallRuleResponse**](FirewallRuleResponse.md)
+[**FirewallRuleAsyncResponse**](FirewallRuleAsyncResponse.md)
 
 ### Authorization
 
@@ -170,7 +170,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFirewallRule
 
-> DeleteFirewallRule(ctx, firewallId, requestRuleId).Execute()
+> DeleteAsyncResponse DeleteFirewallRule(ctx, firewallId, requestRuleId).Execute()
 
 Delete an Firewall Rule
 
@@ -194,11 +194,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FirewallsRulesEngineAPI.DeleteFirewallRule(context.Background(), firewallId, requestRuleId).Execute()
+	resp, r, err := apiClient.FirewallsRulesEngineAPI.DeleteFirewallRule(context.Background(), firewallId, requestRuleId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsRulesEngineAPI.DeleteFirewallRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteFirewallRule`: DeleteAsyncResponse
+	fmt.Fprintf(os.Stdout, "Response from `FirewallsRulesEngineAPI.DeleteFirewallRule`: %v\n", resp)
 }
 ```
 
@@ -223,7 +225,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
 
 ### Authorization
 
@@ -241,7 +243,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFirewallVersionRequestRule
 
-> DeleteFirewallVersionRequestRule(ctx, firewallId, requestRuleId, versionId).Execute()
+> DeleteAsyncResponse DeleteFirewallVersionRequestRule(ctx, firewallId, requestRuleId, versionId).Execute()
 
 Delete an Firewall Rule
 
@@ -266,11 +268,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FirewallsRulesEngineAPI.DeleteFirewallVersionRequestRule(context.Background(), firewallId, requestRuleId, versionId).Execute()
+	resp, r, err := apiClient.FirewallsRulesEngineAPI.DeleteFirewallVersionRequestRule(context.Background(), firewallId, requestRuleId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsRulesEngineAPI.DeleteFirewallVersionRequestRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteFirewallVersionRequestRule`: DeleteAsyncResponse
+	fmt.Fprintf(os.Stdout, "Response from `FirewallsRulesEngineAPI.DeleteFirewallVersionRequestRule`: %v\n", resp)
 }
 ```
 
@@ -297,7 +301,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
 
 ### Authorization
 
@@ -586,7 +590,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateFirewallRule
 
-> FirewallRuleResponse PartialUpdateFirewallRule(ctx, firewallId, requestRuleId).PatchedFirewallRuleRequest(patchedFirewallRuleRequest).Execute()
+> FirewallRuleAsyncResponse PartialUpdateFirewallRule(ctx, firewallId, requestRuleId).PatchedFirewallRuleRequest(patchedFirewallRuleRequest).Execute()
 
 Partially update an Firewall Rule
 
@@ -616,7 +620,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsRulesEngineAPI.PartialUpdateFirewallRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateFirewallRule`: FirewallRuleResponse
+	// response from `PartialUpdateFirewallRule`: FirewallRuleAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `FirewallsRulesEngineAPI.PartialUpdateFirewallRule`: %v\n", resp)
 }
 ```
@@ -643,7 +647,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirewallRuleResponse**](FirewallRuleResponse.md)
+[**FirewallRuleAsyncResponse**](FirewallRuleAsyncResponse.md)
 
 ### Authorization
 
@@ -661,7 +665,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateFirewallVersionRequestRule
 
-> FirewallRuleResponse PartialUpdateFirewallVersionRequestRule(ctx, firewallId, requestRuleId, versionId).PatchedFirewallRuleRequest(patchedFirewallRuleRequest).Execute()
+> FirewallRuleAsyncResponse PartialUpdateFirewallVersionRequestRule(ctx, firewallId, requestRuleId, versionId).PatchedFirewallRuleRequest(patchedFirewallRuleRequest).Execute()
 
 Partially update an Firewall Rule
 
@@ -692,7 +696,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsRulesEngineAPI.PartialUpdateFirewallVersionRequestRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateFirewallVersionRequestRule`: FirewallRuleResponse
+	// response from `PartialUpdateFirewallVersionRequestRule`: FirewallRuleAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `FirewallsRulesEngineAPI.PartialUpdateFirewallVersionRequestRule`: %v\n", resp)
 }
 ```
@@ -721,7 +725,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirewallRuleResponse**](FirewallRuleResponse.md)
+[**FirewallRuleAsyncResponse**](FirewallRuleAsyncResponse.md)
 
 ### Authorization
 
@@ -892,7 +896,7 @@ Name | Type | Description  | Notes
 
 ## UpdateFirewallRule
 
-> FirewallRuleResponse UpdateFirewallRule(ctx, firewallId, requestRuleId).FirewallRuleRequest(firewallRuleRequest).Execute()
+> FirewallRuleAsyncResponse UpdateFirewallRule(ctx, firewallId, requestRuleId).FirewallRuleRequest(firewallRuleRequest).Execute()
 
 Update an Firewall Rule
 
@@ -922,7 +926,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsRulesEngineAPI.UpdateFirewallRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateFirewallRule`: FirewallRuleResponse
+	// response from `UpdateFirewallRule`: FirewallRuleAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `FirewallsRulesEngineAPI.UpdateFirewallRule`: %v\n", resp)
 }
 ```
@@ -949,7 +953,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirewallRuleResponse**](FirewallRuleResponse.md)
+[**FirewallRuleAsyncResponse**](FirewallRuleAsyncResponse.md)
 
 ### Authorization
 
@@ -967,7 +971,7 @@ Name | Type | Description  | Notes
 
 ## UpdateFirewallVersionRequestRule
 
-> FirewallRuleResponse UpdateFirewallVersionRequestRule(ctx, firewallId, requestRuleId, versionId).FirewallRuleRequest(firewallRuleRequest).Execute()
+> FirewallRuleAsyncResponse UpdateFirewallVersionRequestRule(ctx, firewallId, requestRuleId, versionId).FirewallRuleRequest(firewallRuleRequest).Execute()
 
 Update an Firewall Rule
 
@@ -998,7 +1002,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsRulesEngineAPI.UpdateFirewallVersionRequestRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateFirewallVersionRequestRule`: FirewallRuleResponse
+	// response from `UpdateFirewallVersionRequestRule`: FirewallRuleAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `FirewallsRulesEngineAPI.UpdateFirewallVersionRequestRule`: %v\n", resp)
 }
 ```
@@ -1027,7 +1031,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirewallRuleResponse**](FirewallRuleResponse.md)
+[**FirewallRuleAsyncResponse**](FirewallRuleAsyncResponse.md)
 
 ### Authorization
 

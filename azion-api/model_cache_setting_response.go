@@ -22,6 +22,7 @@ var _ MappedNullable = &CacheSettingResponse{}
 
 // CacheSettingResponse struct for CacheSettingResponse
 type CacheSettingResponse struct {
+	State *string `json:"state,omitempty"`
 	Data CacheSetting `json:"data"`
 }
 
@@ -43,6 +44,38 @@ func NewCacheSettingResponse(data CacheSetting) *CacheSettingResponse {
 func NewCacheSettingResponseWithDefaults() *CacheSettingResponse {
 	this := CacheSettingResponse{}
 	return &this
+}
+
+// GetState returns the State field value if set, zero value otherwise.
+func (o *CacheSettingResponse) GetState() string {
+	if o == nil || IsNil(o.State) {
+		var ret string
+		return ret
+	}
+	return *o.State
+}
+
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CacheSettingResponse) GetStateOk() (*string, bool) {
+	if o == nil || IsNil(o.State) {
+		return nil, false
+	}
+	return o.State, true
+}
+
+// HasState returns a boolean if a field has been set.
+func (o *CacheSettingResponse) HasState() bool {
+	if o != nil && !IsNil(o.State) {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given string and assigns it to the State field.
+func (o *CacheSettingResponse) SetState(v string) {
+	o.State = &v
 }
 
 // GetData returns the Data field value
@@ -79,6 +112,9 @@ func (o CacheSettingResponse) MarshalJSON() ([]byte, error) {
 
 func (o CacheSettingResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
 	toSerialize["data"] = o.Data
 	return toSerialize, nil
 }

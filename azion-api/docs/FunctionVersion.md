@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **LastEditor** | Pointer to **string** |  | [optional] 
 **LastModified** | Pointer to **time.Time** |  | [optional] 
+**Active** | Pointer to **bool** |  | [optional] 
 **Runtime** | Pointer to **string** | * &#x60;azion_js&#x60; - Azion JavaScript | [optional] 
 **ExecutionEnvironment** | Pointer to **string** | * &#x60;application&#x60; - application * &#x60;firewall&#x60; - firewall | [optional] 
 **DefaultArgs** | Pointer to **interface{}** |  | [optional] 
@@ -14,7 +15,6 @@ Name | Type | Description | Notes
 **ReferenceCount** | Pointer to **int64** |  | [optional] 
 **Vendor** | Pointer to **string** |  | [optional] 
 **Code** | Pointer to **string** | String containing the function code. Maximum size: 50.0MB | [optional] 
-**Dependencies** | Pointer to [**[]map[string][]ApplicationVersionDependenciesInnerValueInner**](map[string][]ApplicationVersionDependenciesInnerValueInner.md) | Resources this version references, grouped by resource type. Present only when the request sets dependencies&#x3D;true. | [optional] 
 **VersionId** | Pointer to **string** | ID of the version metadata | [optional] 
 **VersionState** | Pointer to **string** | Current lifecycle state of the version. | [optional] 
 **ProductVersion** | Pointer to **string** | Product version string | [optional] 
@@ -31,6 +31,7 @@ Name | Type | Description | Notes
 **ArchiveComment** | Pointer to **string** | Comment provided when archiving | [optional] 
 **LastError** | Pointer to **map[string]interface{}** | Last build error details | [optional] 
 **TraceId** | Pointer to **string** | Trace ID of the last build, for observability. Omitted when unset. | [optional] 
+**Dependencies** | Pointer to [**[]map[string][]ApplicationVersionDependenciesInnerValueInner**](map[string][]ApplicationVersionDependenciesInnerValueInner.md) | Resources this version references, grouped by resource type. Present only when the request sets dependencies&#x3D;true. | [optional] 
 
 ## Methods
 
@@ -125,6 +126,31 @@ SetLastModified sets LastModified field to given value.
 `func (o *FunctionVersion) HasLastModified() bool`
 
 HasLastModified returns a boolean if a field has been set.
+
+### GetActive
+
+`func (o *FunctionVersion) GetActive() bool`
+
+GetActive returns the Active field if non-nil, zero value otherwise.
+
+### GetActiveOk
+
+`func (o *FunctionVersion) GetActiveOk() (*bool, bool)`
+
+GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActive
+
+`func (o *FunctionVersion) SetActive(v bool)`
+
+SetActive sets Active field to given value.
+
+### HasActive
+
+`func (o *FunctionVersion) HasActive() bool`
+
+HasActive returns a boolean if a field has been set.
 
 ### GetRuntime
 
@@ -310,31 +336,6 @@ SetCode sets Code field to given value.
 `func (o *FunctionVersion) HasCode() bool`
 
 HasCode returns a boolean if a field has been set.
-
-### GetDependencies
-
-`func (o *FunctionVersion) GetDependencies() []map[string][]ApplicationVersionDependenciesInnerValueInner`
-
-GetDependencies returns the Dependencies field if non-nil, zero value otherwise.
-
-### GetDependenciesOk
-
-`func (o *FunctionVersion) GetDependenciesOk() (*[]map[string][]ApplicationVersionDependenciesInnerValueInner, bool)`
-
-GetDependenciesOk returns a tuple with the Dependencies field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDependencies
-
-`func (o *FunctionVersion) SetDependencies(v []map[string][]ApplicationVersionDependenciesInnerValueInner)`
-
-SetDependencies sets Dependencies field to given value.
-
-### HasDependencies
-
-`func (o *FunctionVersion) HasDependencies() bool`
-
-HasDependencies returns a boolean if a field has been set.
 
 ### GetVersionId
 
@@ -805,6 +806,31 @@ SetTraceId sets TraceId field to given value.
 `func (o *FunctionVersion) HasTraceId() bool`
 
 HasTraceId returns a boolean if a field has been set.
+
+### GetDependencies
+
+`func (o *FunctionVersion) GetDependencies() []map[string][]ApplicationVersionDependenciesInnerValueInner`
+
+GetDependencies returns the Dependencies field if non-nil, zero value otherwise.
+
+### GetDependenciesOk
+
+`func (o *FunctionVersion) GetDependenciesOk() (*[]map[string][]ApplicationVersionDependenciesInnerValueInner, bool)`
+
+GetDependenciesOk returns a tuple with the Dependencies field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDependencies
+
+`func (o *FunctionVersion) SetDependencies(v []map[string][]ApplicationVersionDependenciesInnerValueInner)`
+
+SetDependencies sets Dependencies field to given value.
+
+### HasDependencies
+
+`func (o *FunctionVersion) HasDependencies() bool`
+
+HasDependencies returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** |  | [optional] 
 **Modules** | Pointer to [**ApplicationModulesRequest**](ApplicationModulesRequest.md) |  | [optional] 
+**Active** | Pointer to **bool** |  | [optional] 
 **Debug** | Pointer to **bool** |  | [optional] 
 **SourceVersion** | Pointer to **NullableString** | ID of the version to clone from. If omitted, clones latest ready. | [optional] 
 **Comment** | Pointer to **string** | Accepted and not stored. | [optional] 
@@ -78,6 +79,31 @@ SetModules sets Modules field to given value.
 `func (o *ApplicationVersionCreateRequest) HasModules() bool`
 
 HasModules returns a boolean if a field has been set.
+
+### GetActive
+
+`func (o *ApplicationVersionCreateRequest) GetActive() bool`
+
+GetActive returns the Active field if non-nil, zero value otherwise.
+
+### GetActiveOk
+
+`func (o *ApplicationVersionCreateRequest) GetActiveOk() (*bool, bool)`
+
+GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActive
+
+`func (o *ApplicationVersionCreateRequest) SetActive(v bool)`
+
+SetActive sets Active field to given value.
+
+### HasActive
+
+`func (o *ApplicationVersionCreateRequest) HasActive() bool`
+
+HasActive returns a boolean if a field has been set.
 
 ### GetDebug
 

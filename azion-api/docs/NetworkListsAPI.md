@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ## DeleteNetworkList
 
-> DeleteNetworkList(ctx, networkListId).Execute()
+> DeleteResponse DeleteNetworkList(ctx, networkListId).Execute()
 
 Delete a Network List
 
@@ -105,11 +105,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.NetworkListsAPI.DeleteNetworkList(context.Background(), networkListId).Execute()
+	resp, r, err := apiClient.NetworkListsAPI.DeleteNetworkList(context.Background(), networkListId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkListsAPI.DeleteNetworkList``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteNetworkList`: DeleteResponse
+	fmt.Fprintf(os.Stdout, "Response from `NetworkListsAPI.DeleteNetworkList`: %v\n", resp)
 }
 ```
 
@@ -132,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**DeleteResponse**](DeleteResponse.md)
 
 ### Authorization
 

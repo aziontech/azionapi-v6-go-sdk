@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
+**Active** | Pointer to **bool** |  | [optional] 
 **Runtime** | Pointer to **string** | * &#x60;azion_js&#x60; - Azion JavaScript | [optional] 
 **ExecutionEnvironment** | Pointer to **string** | * &#x60;firewall&#x60; - Firewall * &#x60;application&#x60; - Application | [optional] 
 **DefaultArgs** | Pointer to **interface{}** |  | [optional] 
 **AzionForm** | Pointer to [**FunctionsAzionForm**](FunctionsAzionForm.md) |  | [optional] 
 **Code** | **string** | String containing the function code. Maximum size: 50.0MB | 
-**Dependencies** | Pointer to [**[]DependencyEntryRequest**](DependencyEntryRequest.md) |  | [optional] 
 
 ## Methods
 
@@ -50,6 +50,31 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+
+### GetActive
+
+`func (o *FunctionsRequest) GetActive() bool`
+
+GetActive returns the Active field if non-nil, zero value otherwise.
+
+### GetActiveOk
+
+`func (o *FunctionsRequest) GetActiveOk() (*bool, bool)`
+
+GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetActive
+
+`func (o *FunctionsRequest) SetActive(v bool)`
+
+SetActive sets Active field to given value.
+
+### HasActive
+
+`func (o *FunctionsRequest) HasActive() bool`
+
+HasActive returns a boolean if a field has been set.
 
 ### GetRuntime
 
@@ -180,31 +205,6 @@ and a boolean to check if the value has been set.
 
 SetCode sets Code field to given value.
 
-
-### GetDependencies
-
-`func (o *FunctionsRequest) GetDependencies() []DependencyEntryRequest`
-
-GetDependencies returns the Dependencies field if non-nil, zero value otherwise.
-
-### GetDependenciesOk
-
-`func (o *FunctionsRequest) GetDependenciesOk() (*[]DependencyEntryRequest, bool)`
-
-GetDependenciesOk returns a tuple with the Dependencies field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDependencies
-
-`func (o *FunctionsRequest) SetDependencies(v []DependencyEntryRequest)`
-
-SetDependencies sets Dependencies field to given value.
-
-### HasDependencies
-
-`func (o *FunctionsRequest) HasDependencies() bool`
-
-HasDependencies returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

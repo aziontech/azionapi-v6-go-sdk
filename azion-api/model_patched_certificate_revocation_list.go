@@ -23,6 +23,8 @@ var _ MappedNullable = &PatchedCertificateRevocationList{}
 type PatchedCertificateRevocationList struct {
 	Id *int64 `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
+	// Indicates if the certificate revocation list is active. This field cannot be set to false.
+	Active *bool `json:"active,omitempty"`
 	LastEditor *string `json:"last_editor,omitempty"`
 	// Timestamp of the certificate revocation list creation on the platform.
 	CreatedAt NullableTime `json:"created_at,omitempty"`
@@ -120,6 +122,38 @@ func (o *PatchedCertificateRevocationList) HasName() bool {
 // SetName gets a reference to the given string and assigns it to the Name field.
 func (o *PatchedCertificateRevocationList) SetName(v string) {
 	o.Name = &v
+}
+
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *PatchedCertificateRevocationList) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PatchedCertificateRevocationList) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *PatchedCertificateRevocationList) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *PatchedCertificateRevocationList) SetActive(v bool) {
+	o.Active = &v
 }
 
 // GetLastEditor returns the LastEditor field value if set, zero value otherwise.
@@ -487,6 +521,9 @@ func (o PatchedCertificateRevocationList) ToMap() (map[string]interface{}, error
 	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.LastEditor) {
 		toSerialize["last_editor"] = o.LastEditor

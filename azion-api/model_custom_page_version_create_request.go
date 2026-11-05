@@ -21,6 +21,7 @@ var _ MappedNullable = &CustomPageVersionCreateRequest{}
 // CustomPageVersionCreateRequest A new version cloned from source_version, or from the latest ready version when it is omitted. Resource fields sent alongside are applied to the clone.
 type CustomPageVersionCreateRequest struct {
 	Name *string `json:"name,omitempty"`
+	Active *bool `json:"active,omitempty"`
 	Pages []PageRequest `json:"pages,omitempty"`
 	// ID of the version to clone from. If omitted, clones latest ready.
 	SourceVersion NullableString `json:"source_version,omitempty"`
@@ -75,6 +76,38 @@ func (o *CustomPageVersionCreateRequest) HasName() bool {
 // SetName gets a reference to the given string and assigns it to the Name field.
 func (o *CustomPageVersionCreateRequest) SetName(v string) {
 	o.Name = &v
+}
+
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *CustomPageVersionCreateRequest) GetActive() bool {
+	if o == nil || IsNil(o.Active) {
+		var ret bool
+		return ret
+	}
+	return *o.Active
+}
+
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CustomPageVersionCreateRequest) GetActiveOk() (*bool, bool) {
+	if o == nil || IsNil(o.Active) {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *CustomPageVersionCreateRequest) HasActive() bool {
+	if o != nil && !IsNil(o.Active) {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *CustomPageVersionCreateRequest) SetActive(v bool) {
+	o.Active = &v
 }
 
 // GetPages returns the Pages field value if set, zero value otherwise.
@@ -195,6 +228,9 @@ func (o CustomPageVersionCreateRequest) ToMap() (map[string]interface{}, error) 
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Active) {
+		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.Pages) {
 		toSerialize["pages"] = o.Pages

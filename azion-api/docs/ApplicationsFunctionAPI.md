@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 ## CreateApplicationFunctionInstance
 
-> FunctionInstanceResponse CreateApplicationFunctionInstance(ctx, applicationId).FunctionInstanceRequest(functionInstanceRequest).Execute()
+> FunctionInstanceAsyncResponse CreateApplicationFunctionInstance(ctx, applicationId).FunctionInstanceRequest(functionInstanceRequest).Execute()
 
 Create an Application Function Instance
 
@@ -50,7 +50,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsFunctionAPI.CreateApplicationFunctionInstance``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateApplicationFunctionInstance`: FunctionInstanceResponse
+	// response from `CreateApplicationFunctionInstance`: FunctionInstanceAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsFunctionAPI.CreateApplicationFunctionInstance`: %v\n", resp)
 }
 ```
@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FunctionInstanceResponse**](FunctionInstanceResponse.md)
+[**FunctionInstanceAsyncResponse**](FunctionInstanceAsyncResponse.md)
 
 ### Authorization
 
@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 
 ## CreateApplicationVersionFunctions
 
-> FunctionInstanceResponse CreateApplicationVersionFunctions(ctx, applicationId, versionId).FunctionInstanceRequest(functionInstanceRequest).Execute()
+> FunctionInstanceAsyncResponse CreateApplicationVersionFunctions(ctx, applicationId, versionId).FunctionInstanceRequest(functionInstanceRequest).Execute()
 
 Create an Application Function Instance
 
@@ -123,7 +123,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsFunctionAPI.CreateApplicationVersionFunctions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateApplicationVersionFunctions`: FunctionInstanceResponse
+	// response from `CreateApplicationVersionFunctions`: FunctionInstanceAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsFunctionAPI.CreateApplicationVersionFunctions`: %v\n", resp)
 }
 ```
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FunctionInstanceResponse**](FunctionInstanceResponse.md)
+[**FunctionInstanceAsyncResponse**](FunctionInstanceAsyncResponse.md)
 
 ### Authorization
 
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## DeleteApplicationFunctionInstance
 
-> DeleteApplicationFunctionInstance(ctx, applicationId, functionId).Execute()
+> DeleteAsyncResponse DeleteApplicationFunctionInstance(ctx, applicationId, functionId).Execute()
 
 Delete an Application Function Instance
 
@@ -192,11 +192,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationsFunctionAPI.DeleteApplicationFunctionInstance(context.Background(), applicationId, functionId).Execute()
+	resp, r, err := apiClient.ApplicationsFunctionAPI.DeleteApplicationFunctionInstance(context.Background(), applicationId, functionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsFunctionAPI.DeleteApplicationFunctionInstance``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteApplicationFunctionInstance`: DeleteAsyncResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationsFunctionAPI.DeleteApplicationFunctionInstance`: %v\n", resp)
 }
 ```
 
@@ -221,7 +223,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
 
 ### Authorization
 
@@ -239,7 +241,7 @@ Name | Type | Description  | Notes
 
 ## DeleteApplicationVersionFunction
 
-> DeleteApplicationVersionFunction(ctx, applicationId, functionId, versionId).Execute()
+> DeleteAsyncResponse DeleteApplicationVersionFunction(ctx, applicationId, functionId, versionId).Execute()
 
 Delete an Application Function Instance
 
@@ -264,11 +266,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ApplicationsFunctionAPI.DeleteApplicationVersionFunction(context.Background(), applicationId, functionId, versionId).Execute()
+	resp, r, err := apiClient.ApplicationsFunctionAPI.DeleteApplicationVersionFunction(context.Background(), applicationId, functionId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsFunctionAPI.DeleteApplicationVersionFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteApplicationVersionFunction`: DeleteAsyncResponse
+	fmt.Fprintf(os.Stdout, "Response from `ApplicationsFunctionAPI.DeleteApplicationVersionFunction`: %v\n", resp)
 }
 ```
 
@@ -295,7 +299,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
 
 ### Authorization
 
@@ -498,7 +502,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateApplicationFunctionInstance
 
-> FunctionInstanceResponse PartialUpdateApplicationFunctionInstance(ctx, applicationId, functionId).PatchedFunctionInstanceRequest(patchedFunctionInstanceRequest).Execute()
+> FunctionInstanceAsyncResponse PartialUpdateApplicationFunctionInstance(ctx, applicationId, functionId).PatchedFunctionInstanceRequest(patchedFunctionInstanceRequest).Execute()
 
 Partially update an Application Function Instance
 
@@ -528,7 +532,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsFunctionAPI.PartialUpdateApplicationFunctionInstance``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateApplicationFunctionInstance`: FunctionInstanceResponse
+	// response from `PartialUpdateApplicationFunctionInstance`: FunctionInstanceAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsFunctionAPI.PartialUpdateApplicationFunctionInstance`: %v\n", resp)
 }
 ```
@@ -555,7 +559,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FunctionInstanceResponse**](FunctionInstanceResponse.md)
+[**FunctionInstanceAsyncResponse**](FunctionInstanceAsyncResponse.md)
 
 ### Authorization
 
@@ -573,7 +577,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateApplicationVersionFunction
 
-> FunctionInstanceResponse PartialUpdateApplicationVersionFunction(ctx, applicationId, functionId, versionId).PatchedFunctionInstanceRequest(patchedFunctionInstanceRequest).Execute()
+> FunctionInstanceAsyncResponse PartialUpdateApplicationVersionFunction(ctx, applicationId, functionId, versionId).PatchedFunctionInstanceRequest(patchedFunctionInstanceRequest).Execute()
 
 Partially update an Application Function Instance
 
@@ -604,7 +608,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsFunctionAPI.PartialUpdateApplicationVersionFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateApplicationVersionFunction`: FunctionInstanceResponse
+	// response from `PartialUpdateApplicationVersionFunction`: FunctionInstanceAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsFunctionAPI.PartialUpdateApplicationVersionFunction`: %v\n", resp)
 }
 ```
@@ -633,7 +637,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FunctionInstanceResponse**](FunctionInstanceResponse.md)
+[**FunctionInstanceAsyncResponse**](FunctionInstanceAsyncResponse.md)
 
 ### Authorization
 
@@ -804,7 +808,7 @@ Name | Type | Description  | Notes
 
 ## UpdateApplicationFunctionInstance
 
-> FunctionInstanceResponse UpdateApplicationFunctionInstance(ctx, applicationId, functionId).FunctionInstanceRequest(functionInstanceRequest).Execute()
+> FunctionInstanceAsyncResponse UpdateApplicationFunctionInstance(ctx, applicationId, functionId).FunctionInstanceRequest(functionInstanceRequest).Execute()
 
 Update an Application Function Instance
 
@@ -834,7 +838,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsFunctionAPI.UpdateApplicationFunctionInstance``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateApplicationFunctionInstance`: FunctionInstanceResponse
+	// response from `UpdateApplicationFunctionInstance`: FunctionInstanceAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsFunctionAPI.UpdateApplicationFunctionInstance`: %v\n", resp)
 }
 ```
@@ -861,7 +865,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FunctionInstanceResponse**](FunctionInstanceResponse.md)
+[**FunctionInstanceAsyncResponse**](FunctionInstanceAsyncResponse.md)
 
 ### Authorization
 
@@ -879,7 +883,7 @@ Name | Type | Description  | Notes
 
 ## UpdateApplicationVersionFunction
 
-> FunctionInstanceResponse UpdateApplicationVersionFunction(ctx, applicationId, functionId, versionId).FunctionInstanceRequest(functionInstanceRequest).Execute()
+> FunctionInstanceAsyncResponse UpdateApplicationVersionFunction(ctx, applicationId, functionId, versionId).FunctionInstanceRequest(functionInstanceRequest).Execute()
 
 Update an Application Function Instance
 
@@ -910,7 +914,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsFunctionAPI.UpdateApplicationVersionFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateApplicationVersionFunction`: FunctionInstanceResponse
+	// response from `UpdateApplicationVersionFunction`: FunctionInstanceAsyncResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsFunctionAPI.UpdateApplicationVersionFunction`: %v\n", resp)
 }
 ```
@@ -939,7 +943,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FunctionInstanceResponse**](FunctionInstanceResponse.md)
+[**FunctionInstanceAsyncResponse**](FunctionInstanceAsyncResponse.md)
 
 ### Authorization
 

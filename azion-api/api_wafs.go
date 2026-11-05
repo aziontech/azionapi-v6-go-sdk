@@ -35,7 +35,7 @@ func (r ApiCreateWafRequest) WAFRequest(wAFRequest WAFRequest) ApiCreateWafReque
 	return r
 }
 
-func (r ApiCreateWafRequest) Execute() (*WAFResponse, *http.Response, error) {
+func (r ApiCreateWafRequest) Execute() (*WAFAsyncResponse, *http.Response, error) {
 	return r.ApiService.CreateWafExecute(r)
 }
 
@@ -55,13 +55,13 @@ func (a *WAFsAPIService) CreateWaf(ctx context.Context) ApiCreateWafRequest {
 }
 
 // Execute executes the request
-//  @return WAFResponse
-func (a *WAFsAPIService) CreateWafExecute(r ApiCreateWafRequest) (*WAFResponse, *http.Response, error) {
+//  @return WAFAsyncResponse
+func (a *WAFsAPIService) CreateWafExecute(r ApiCreateWafRequest) (*WAFAsyncResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *WAFResponse
+		localVarReturnValue  *WAFAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WAFsAPIService.CreateWaf")
@@ -241,7 +241,7 @@ type ApiDeleteWafRequest struct {
 	wafId int64
 }
 
-func (r ApiDeleteWafRequest) Execute() (*http.Response, error) {
+func (r ApiDeleteWafRequest) Execute() (*DeleteAsyncResponse, *http.Response, error) {
 	return r.ApiService.DeleteWafExecute(r)
 }
 
@@ -263,16 +263,18 @@ func (a *WAFsAPIService) DeleteWaf(ctx context.Context, wafId int64) ApiDeleteWa
 }
 
 // Execute executes the request
-func (a *WAFsAPIService) DeleteWafExecute(r ApiDeleteWafRequest) (*http.Response, error) {
+//  @return DeleteAsyncResponse
+func (a *WAFsAPIService) DeleteWafExecute(r ApiDeleteWafRequest) (*DeleteAsyncResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
+		localVarReturnValue  *DeleteAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WAFsAPIService.DeleteWaf")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/workspace/wafs/{waf_id}"
@@ -315,19 +317,19 @@ func (a *WAFsAPIService) DeleteWafExecute(r ApiDeleteWafRequest) (*http.Response
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -340,92 +342,101 @@ func (a *WAFsAPIService) DeleteWafExecute(r ApiDeleteWafRequest) (*http.Response
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiListWafsRequest struct {
@@ -710,7 +721,7 @@ func (r ApiPartialUpdateWafRequest) PatchedWAFRequest(patchedWAFRequest PatchedW
 	return r
 }
 
-func (r ApiPartialUpdateWafRequest) Execute() (*WAFResponse, *http.Response, error) {
+func (r ApiPartialUpdateWafRequest) Execute() (*WAFAsyncResponse, *http.Response, error) {
 	return r.ApiService.PartialUpdateWafExecute(r)
 }
 
@@ -732,13 +743,13 @@ func (a *WAFsAPIService) PartialUpdateWaf(ctx context.Context, wafId int64) ApiP
 }
 
 // Execute executes the request
-//  @return WAFResponse
-func (a *WAFsAPIService) PartialUpdateWafExecute(r ApiPartialUpdateWafRequest) (*WAFResponse, *http.Response, error) {
+//  @return WAFAsyncResponse
+func (a *WAFsAPIService) PartialUpdateWafExecute(r ApiPartialUpdateWafRequest) (*WAFAsyncResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *WAFResponse
+		localVarReturnValue  *WAFAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WAFsAPIService.PartialUpdateWaf")
@@ -1136,7 +1147,7 @@ func (r ApiUpdateWafRequest) WAFRequest(wAFRequest WAFRequest) ApiUpdateWafReque
 	return r
 }
 
-func (r ApiUpdateWafRequest) Execute() (*WAFResponse, *http.Response, error) {
+func (r ApiUpdateWafRequest) Execute() (*WAFAsyncResponse, *http.Response, error) {
 	return r.ApiService.UpdateWafExecute(r)
 }
 
@@ -1158,13 +1169,13 @@ func (a *WAFsAPIService) UpdateWaf(ctx context.Context, wafId int64) ApiUpdateWa
 }
 
 // Execute executes the request
-//  @return WAFResponse
-func (a *WAFsAPIService) UpdateWafExecute(r ApiUpdateWafRequest) (*WAFResponse, *http.Response, error) {
+//  @return WAFAsyncResponse
+func (a *WAFsAPIService) UpdateWafExecute(r ApiUpdateWafRequest) (*WAFAsyncResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *WAFResponse
+		localVarReturnValue  *WAFAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WAFsAPIService.UpdateWaf")
