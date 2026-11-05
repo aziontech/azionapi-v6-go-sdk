@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## DeleteWaf
 
-> DeleteResponse DeleteWaf(ctx, wafId).Execute()
+> DeleteWaf(ctx, wafId).Execute()
 
 Delete a Web Application Firewall (WAF)
 
@@ -104,13 +104,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WAFsAPI.DeleteWaf(context.Background(), wafId).Execute()
+	r, err := apiClient.WAFsAPI.DeleteWaf(context.Background(), wafId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WAFsAPI.DeleteWaf``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteWaf`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `WAFsAPI.DeleteWaf`: %v\n", resp)
 }
 ```
 
@@ -133,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 

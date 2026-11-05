@@ -22,7 +22,6 @@ var _ MappedNullable = &FirewallRuleResponse{}
 
 // FirewallRuleResponse struct for FirewallRuleResponse
 type FirewallRuleResponse struct {
-	State *string `json:"state,omitempty"`
 	Data FirewallRule `json:"data"`
 }
 
@@ -44,38 +43,6 @@ func NewFirewallRuleResponse(data FirewallRule) *FirewallRuleResponse {
 func NewFirewallRuleResponseWithDefaults() *FirewallRuleResponse {
 	this := FirewallRuleResponse{}
 	return &this
-}
-
-// GetState returns the State field value if set, zero value otherwise.
-func (o *FirewallRuleResponse) GetState() string {
-	if o == nil || IsNil(o.State) {
-		var ret string
-		return ret
-	}
-	return *o.State
-}
-
-// GetStateOk returns a tuple with the State field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FirewallRuleResponse) GetStateOk() (*string, bool) {
-	if o == nil || IsNil(o.State) {
-		return nil, false
-	}
-	return o.State, true
-}
-
-// HasState returns a boolean if a field has been set.
-func (o *FirewallRuleResponse) HasState() bool {
-	if o != nil && !IsNil(o.State) {
-		return true
-	}
-
-	return false
-}
-
-// SetState gets a reference to the given string and assigns it to the State field.
-func (o *FirewallRuleResponse) SetState(v string) {
-	o.State = &v
 }
 
 // GetData returns the Data field value
@@ -112,9 +79,6 @@ func (o FirewallRuleResponse) MarshalJSON() ([]byte, error) {
 
 func (o FirewallRuleResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.State) {
-		toSerialize["state"] = o.State
-	}
 	toSerialize["data"] = o.Data
 	return toSerialize, nil
 }

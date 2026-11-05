@@ -23,10 +23,10 @@ var _ MappedNullable = &AccountRelease{}
 type AccountRelease struct {
 	Id *string `json:"id,omitempty"`
 	DeploymentId *string `json:"deployment_id,omitempty"`
-	Resources []AccountReleaseResourcesInner `json:"resources,omitempty"`
+	Resources []ReleaseResourcesInner `json:"resources,omitempty"`
 	// * `ACTIVE` - ACTIVE * `CANDIDATE` - CANDIDATE * `VALID_URL` - VALID_URL * `INACTIVE` - INACTIVE
 	TrafficRole *string `json:"traffic_role,omitempty"`
-	Origin *AccountReleaseOrigin `json:"origin,omitempty"`
+	Origin *ReleaseOrigin `json:"origin,omitempty"`
 	// * `draft` - draft * `queued` - queued * `building` - building * `ready` - ready * `error` - error * `canceled` - canceled * `archiving` - archiving * `archived` - archived * `deleting` - deleting * `deleted` - deleted
 	State *string `json:"state,omitempty"`
 	ClientId *string `json:"client_id,omitempty"`
@@ -36,6 +36,7 @@ type AccountRelease struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	LastModified NullableTime `json:"last_modified,omitempty"`
 	ReadyAt NullableTime `json:"ready_at,omitempty"`
+	LastError NullableReleaseLastError `json:"last_error,omitempty"`
 	TraceId *string `json:"trace_id,omitempty"`
 	DeploymentName NullableString `json:"deployment_name,omitempty"`
 }
@@ -122,9 +123,9 @@ func (o *AccountRelease) SetDeploymentId(v string) {
 }
 
 // GetResources returns the Resources field value if set, zero value otherwise.
-func (o *AccountRelease) GetResources() []AccountReleaseResourcesInner {
+func (o *AccountRelease) GetResources() []ReleaseResourcesInner {
 	if o == nil || IsNil(o.Resources) {
-		var ret []AccountReleaseResourcesInner
+		var ret []ReleaseResourcesInner
 		return ret
 	}
 	return o.Resources
@@ -132,7 +133,7 @@ func (o *AccountRelease) GetResources() []AccountReleaseResourcesInner {
 
 // GetResourcesOk returns a tuple with the Resources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccountRelease) GetResourcesOk() ([]AccountReleaseResourcesInner, bool) {
+func (o *AccountRelease) GetResourcesOk() ([]ReleaseResourcesInner, bool) {
 	if o == nil || IsNil(o.Resources) {
 		return nil, false
 	}
@@ -148,8 +149,8 @@ func (o *AccountRelease) HasResources() bool {
 	return false
 }
 
-// SetResources gets a reference to the given []AccountReleaseResourcesInner and assigns it to the Resources field.
-func (o *AccountRelease) SetResources(v []AccountReleaseResourcesInner) {
+// SetResources gets a reference to the given []ReleaseResourcesInner and assigns it to the Resources field.
+func (o *AccountRelease) SetResources(v []ReleaseResourcesInner) {
 	o.Resources = v
 }
 
@@ -186,9 +187,9 @@ func (o *AccountRelease) SetTrafficRole(v string) {
 }
 
 // GetOrigin returns the Origin field value if set, zero value otherwise.
-func (o *AccountRelease) GetOrigin() AccountReleaseOrigin {
+func (o *AccountRelease) GetOrigin() ReleaseOrigin {
 	if o == nil || IsNil(o.Origin) {
-		var ret AccountReleaseOrigin
+		var ret ReleaseOrigin
 		return ret
 	}
 	return *o.Origin
@@ -196,7 +197,7 @@ func (o *AccountRelease) GetOrigin() AccountReleaseOrigin {
 
 // GetOriginOk returns a tuple with the Origin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccountRelease) GetOriginOk() (*AccountReleaseOrigin, bool) {
+func (o *AccountRelease) GetOriginOk() (*ReleaseOrigin, bool) {
 	if o == nil || IsNil(o.Origin) {
 		return nil, false
 	}
@@ -212,8 +213,8 @@ func (o *AccountRelease) HasOrigin() bool {
 	return false
 }
 
-// SetOrigin gets a reference to the given AccountReleaseOrigin and assigns it to the Origin field.
-func (o *AccountRelease) SetOrigin(v AccountReleaseOrigin) {
+// SetOrigin gets a reference to the given ReleaseOrigin and assigns it to the Origin field.
+func (o *AccountRelease) SetOrigin(v ReleaseOrigin) {
 	o.Origin = &v
 }
 
@@ -513,6 +514,48 @@ func (o *AccountRelease) UnsetReadyAt() {
 	o.ReadyAt.Unset()
 }
 
+// GetLastError returns the LastError field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AccountRelease) GetLastError() ReleaseLastError {
+	if o == nil || IsNil(o.LastError.Get()) {
+		var ret ReleaseLastError
+		return ret
+	}
+	return *o.LastError.Get()
+}
+
+// GetLastErrorOk returns a tuple with the LastError field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AccountRelease) GetLastErrorOk() (*ReleaseLastError, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.LastError.Get(), o.LastError.IsSet()
+}
+
+// HasLastError returns a boolean if a field has been set.
+func (o *AccountRelease) HasLastError() bool {
+	if o != nil && o.LastError.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetLastError gets a reference to the given NullableReleaseLastError and assigns it to the LastError field.
+func (o *AccountRelease) SetLastError(v ReleaseLastError) {
+	o.LastError.Set(&v)
+}
+// SetLastErrorNil sets the value for LastError to be an explicit nil
+func (o *AccountRelease) SetLastErrorNil() {
+	o.LastError.Set(nil)
+}
+
+// UnsetLastError ensures that no value is present for LastError, not even an explicit nil
+func (o *AccountRelease) UnsetLastError() {
+	o.LastError.Unset()
+}
+
 // GetTraceId returns the TraceId field value if set, zero value otherwise.
 func (o *AccountRelease) GetTraceId() string {
 	if o == nil || IsNil(o.TraceId) {
@@ -635,6 +678,9 @@ func (o AccountRelease) ToMap() (map[string]interface{}, error) {
 	}
 	if o.ReadyAt.IsSet() {
 		toSerialize["ready_at"] = o.ReadyAt.Get()
+	}
+	if o.LastError.IsSet() {
+		toSerialize["last_error"] = o.LastError.Get()
 	}
 	if !IsNil(o.TraceId) {
 		toSerialize["trace_id"] = o.TraceId

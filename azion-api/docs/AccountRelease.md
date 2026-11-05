@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] 
 **DeploymentId** | Pointer to **string** |  | [optional] 
-**Resources** | Pointer to [**[]AccountReleaseResourcesInner**](AccountReleaseResourcesInner.md) |  | [optional] 
+**Resources** | Pointer to [**[]ReleaseResourcesInner**](ReleaseResourcesInner.md) |  | [optional] 
 **TrafficRole** | Pointer to **string** | * &#x60;ACTIVE&#x60; - ACTIVE * &#x60;CANDIDATE&#x60; - CANDIDATE * &#x60;VALID_URL&#x60; - VALID_URL * &#x60;INACTIVE&#x60; - INACTIVE | [optional] 
-**Origin** | Pointer to [**AccountReleaseOrigin**](AccountReleaseOrigin.md) |  | [optional] 
+**Origin** | Pointer to [**ReleaseOrigin**](ReleaseOrigin.md) |  | [optional] 
 **State** | Pointer to **string** | * &#x60;draft&#x60; - draft * &#x60;queued&#x60; - queued * &#x60;building&#x60; - building * &#x60;ready&#x60; - ready * &#x60;error&#x60; - error * &#x60;canceled&#x60; - canceled * &#x60;archiving&#x60; - archiving * &#x60;archived&#x60; - archived * &#x60;deleting&#x60; - deleting * &#x60;deleted&#x60; - deleted | [optional] 
 **ClientId** | Pointer to **string** |  | [optional] 
 **ProductVersion** | Pointer to **string** |  | [optional] 
@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **LastModified** | Pointer to **NullableTime** |  | [optional] 
 **ReadyAt** | Pointer to **NullableTime** |  | [optional] 
+**LastError** | Pointer to [**NullableReleaseLastError**](ReleaseLastError.md) |  | [optional] 
 **TraceId** | Pointer to **string** |  | [optional] 
 **DeploymentName** | Pointer to **NullableString** |  | [optional] 
 
@@ -91,20 +92,20 @@ HasDeploymentId returns a boolean if a field has been set.
 
 ### GetResources
 
-`func (o *AccountRelease) GetResources() []AccountReleaseResourcesInner`
+`func (o *AccountRelease) GetResources() []ReleaseResourcesInner`
 
 GetResources returns the Resources field if non-nil, zero value otherwise.
 
 ### GetResourcesOk
 
-`func (o *AccountRelease) GetResourcesOk() (*[]AccountReleaseResourcesInner, bool)`
+`func (o *AccountRelease) GetResourcesOk() (*[]ReleaseResourcesInner, bool)`
 
 GetResourcesOk returns a tuple with the Resources field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetResources
 
-`func (o *AccountRelease) SetResources(v []AccountReleaseResourcesInner)`
+`func (o *AccountRelease) SetResources(v []ReleaseResourcesInner)`
 
 SetResources sets Resources field to given value.
 
@@ -141,20 +142,20 @@ HasTrafficRole returns a boolean if a field has been set.
 
 ### GetOrigin
 
-`func (o *AccountRelease) GetOrigin() AccountReleaseOrigin`
+`func (o *AccountRelease) GetOrigin() ReleaseOrigin`
 
 GetOrigin returns the Origin field if non-nil, zero value otherwise.
 
 ### GetOriginOk
 
-`func (o *AccountRelease) GetOriginOk() (*AccountReleaseOrigin, bool)`
+`func (o *AccountRelease) GetOriginOk() (*ReleaseOrigin, bool)`
 
 GetOriginOk returns a tuple with the Origin field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetOrigin
 
-`func (o *AccountRelease) SetOrigin(v AccountReleaseOrigin)`
+`func (o *AccountRelease) SetOrigin(v ReleaseOrigin)`
 
 SetOrigin sets Origin field to given value.
 
@@ -404,6 +405,41 @@ HasReadyAt returns a boolean if a field has been set.
 `func (o *AccountRelease) UnsetReadyAt()`
 
 UnsetReadyAt ensures that no value is present for ReadyAt, not even an explicit nil
+### GetLastError
+
+`func (o *AccountRelease) GetLastError() ReleaseLastError`
+
+GetLastError returns the LastError field if non-nil, zero value otherwise.
+
+### GetLastErrorOk
+
+`func (o *AccountRelease) GetLastErrorOk() (*ReleaseLastError, bool)`
+
+GetLastErrorOk returns a tuple with the LastError field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastError
+
+`func (o *AccountRelease) SetLastError(v ReleaseLastError)`
+
+SetLastError sets LastError field to given value.
+
+### HasLastError
+
+`func (o *AccountRelease) HasLastError() bool`
+
+HasLastError returns a boolean if a field has been set.
+
+### SetLastErrorNil
+
+`func (o *AccountRelease) SetLastErrorNil(b bool)`
+
+ SetLastErrorNil sets the value for LastError to be an explicit nil
+
+### UnsetLastError
+`func (o *AccountRelease) UnsetLastError()`
+
+UnsetLastError ensures that no value is present for LastError, not even an explicit nil
 ### GetTraceId
 
 `func (o *AccountRelease) GetTraceId() string`

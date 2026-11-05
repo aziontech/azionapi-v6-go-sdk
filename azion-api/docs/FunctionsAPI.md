@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFunction
 
-> DeleteResponse DeleteFunction(ctx, functionId).Execute()
+> DeleteFunction(ctx, functionId).Execute()
 
 Delete an Function
 
@@ -104,13 +104,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionsAPI.DeleteFunction(context.Background(), functionId).Execute()
+	r, err := apiClient.FunctionsAPI.DeleteFunction(context.Background(), functionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.DeleteFunction``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteFunction`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `FunctionsAPI.DeleteFunction`: %v\n", resp)
 }
 ```
 
@@ -133,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -151,7 +149,7 @@ Name | Type | Description  | Notes
 
 ## ListFunctions
 
-> PaginatedFunctionSummaryList ListFunctions(ctx).Active(active).Fields(fields).Id(id).LanguageIn(languageIn).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).RuntimeEnvironmentIn(runtimeEnvironmentIn).Search(search).Execute()
+> PaginatedFunctionSummaryList ListFunctions(ctx).Fields(fields).Id(id).LanguageIn(languageIn).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).RuntimeEnvironmentIn(runtimeEnvironmentIn).Search(search).Execute()
 
 List Functions
 
@@ -171,7 +169,6 @@ import (
 )
 
 func main() {
-	active := true // bool | Filter by active status. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 	id := int64(789) // int64 | Filter by id (accepts comma-separated values). (optional)
 	languageIn := "languageIn_example" // string | Filter by language (accepts comma-separated values). (optional)
@@ -179,15 +176,15 @@ func main() {
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
 	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, language, runtime_environment, active, last_editor, last_modified) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, language, runtime_environment, last_editor, last_modified) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	runtimeEnvironmentIn := "runtimeEnvironmentIn_example" // string | Filter by runtime environment (accepts comma-separated values). (optional)
-	search := "search_example" // string | A search term to filter results. Searches across the following fields: name, last_editor, language, runtime_environment, active. (optional)
+	search := "search_example" // string | A search term to filter results. Searches across the following fields: name, last_editor, language, runtime_environment. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionsAPI.ListFunctions(context.Background()).Active(active).Fields(fields).Id(id).LanguageIn(languageIn).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).RuntimeEnvironmentIn(runtimeEnvironmentIn).Search(search).Execute()
+	resp, r, err := apiClient.FunctionsAPI.ListFunctions(context.Background()).Fields(fields).Id(id).LanguageIn(languageIn).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).RuntimeEnvironmentIn(runtimeEnvironmentIn).Search(search).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.ListFunctions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -208,7 +205,6 @@ Other parameters are passed through a pointer to a apiListFunctionsRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **active** | **bool** | Filter by active status. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
  **id** | **int64** | Filter by id (accepts comma-separated values). | 
  **languageIn** | **string** | Filter by language (accepts comma-separated values). | 
@@ -216,11 +212,11 @@ Name | Type | Description  | Notes
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
  **name** | **string** | Filter by name (case-insensitive, partial match). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, language, runtime_environment, active, last_editor, last_modified) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, language, runtime_environment, last_editor, last_modified) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **runtimeEnvironmentIn** | **string** | Filter by runtime environment (accepts comma-separated values). | 
- **search** | **string** | A search term to filter results. Searches across the following fields: name, last_editor, language, runtime_environment, active. | 
+ **search** | **string** | A search term to filter results. Searches across the following fields: name, last_editor, language, runtime_environment. | 
 
 ### Return type
 

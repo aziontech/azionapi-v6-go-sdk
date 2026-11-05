@@ -11,7 +11,6 @@ Name | Type | Description | Notes
 **LastEditor** | Pointer to **string** |  | [optional] 
 **LastModified** | Pointer to **time.Time** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
-**Active** | Pointer to **bool** |  | [optional] 
 **ProductVersion** | Pointer to **string** |  | [optional] 
 **Type** | **string** |  | 
 **Attributes** | Pointer to [**ConnectorHTTPAttributes**](ConnectorHTTPAttributes.md) |  | [optional] 
@@ -229,31 +228,6 @@ SetCreatedAt sets CreatedAt field to given value.
 `func (o *ConnectorHTTP) HasCreatedAt() bool`
 
 HasCreatedAt returns a boolean if a field has been set.
-
-### GetActive
-
-`func (o *ConnectorHTTP) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *ConnectorHTTP) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *ConnectorHTTP) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *ConnectorHTTP) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
 
 ### GetProductVersion
 

@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
-**Active** | Pointer to **bool** |  | [optional] 
 **Runtime** | Pointer to **string** | * &#x60;azion_js&#x60; - Azion JavaScript | [optional] 
 **ExecutionEnvironment** | Pointer to **string** | * &#x60;application&#x60; - application * &#x60;firewall&#x60; - firewall | [optional] 
 **DefaultArgs** | Pointer to **interface{}** |  | [optional] 
-**AzionForm** | Pointer to [**FirewallFunctionInstanceAzionForm**](FirewallFunctionInstanceAzionForm.md) |  | [optional] 
+**AzionForm** | Pointer to [**FunctionsAzionForm**](FunctionsAzionForm.md) |  | [optional] 
 **Code** | **string** | String containing the function code. Maximum size: 50.0MB | 
+**Dependencies** | Pointer to [**[]DependencyEntryRequest**](DependencyEntryRequest.md) |  | [optional] 
 
 ## Methods
 
@@ -50,31 +50,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-
-### GetActive
-
-`func (o *FunctionRequest) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *FunctionRequest) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *FunctionRequest) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *FunctionRequest) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
 
 ### GetRuntime
 
@@ -163,20 +138,20 @@ HasDefaultArgs returns a boolean if a field has been set.
 UnsetDefaultArgs ensures that no value is present for DefaultArgs, not even an explicit nil
 ### GetAzionForm
 
-`func (o *FunctionRequest) GetAzionForm() FirewallFunctionInstanceAzionForm`
+`func (o *FunctionRequest) GetAzionForm() FunctionsAzionForm`
 
 GetAzionForm returns the AzionForm field if non-nil, zero value otherwise.
 
 ### GetAzionFormOk
 
-`func (o *FunctionRequest) GetAzionFormOk() (*FirewallFunctionInstanceAzionForm, bool)`
+`func (o *FunctionRequest) GetAzionFormOk() (*FunctionsAzionForm, bool)`
 
 GetAzionFormOk returns a tuple with the AzionForm field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAzionForm
 
-`func (o *FunctionRequest) SetAzionForm(v FirewallFunctionInstanceAzionForm)`
+`func (o *FunctionRequest) SetAzionForm(v FunctionsAzionForm)`
 
 SetAzionForm sets AzionForm field to given value.
 
@@ -205,6 +180,31 @@ and a boolean to check if the value has been set.
 
 SetCode sets Code field to given value.
 
+
+### GetDependencies
+
+`func (o *FunctionRequest) GetDependencies() []DependencyEntryRequest`
+
+GetDependencies returns the Dependencies field if non-nil, zero value otherwise.
+
+### GetDependenciesOk
+
+`func (o *FunctionRequest) GetDependenciesOk() (*[]DependencyEntryRequest, bool)`
+
+GetDependenciesOk returns a tuple with the Dependencies field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDependencies
+
+`func (o *FunctionRequest) SetDependencies(v []DependencyEntryRequest)`
+
+SetDependencies sets Dependencies field to given value.
+
+### HasDependencies
+
+`func (o *FunctionRequest) HasDependencies() bool`
+
+HasDependencies returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

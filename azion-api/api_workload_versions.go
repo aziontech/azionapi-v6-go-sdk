@@ -27,24 +27,9 @@ type WorkloadVersionsAPIService service
 type ApiListWorkloadVersionsRequest struct {
 	ctx context.Context
 	ApiService *WorkloadVersionsAPIService
-	resourcePk int64
-	fields *string
-	ordering *string
+	workloadId int64
 	page *int64
 	pageSize *int32
-	search *string
-}
-
-// Comma-separated list of field names to include in the response.
-func (r ApiListWorkloadVersionsRequest) Fields(fields string) ApiListWorkloadVersionsRequest {
-	r.fields = &fields
-	return r
-}
-
-// Which field to use when ordering the results.
-func (r ApiListWorkloadVersionsRequest) Ordering(ordering string) ApiListWorkloadVersionsRequest {
-	r.ordering = &ordering
-	return r
 }
 
 // A page number within the paginated result set.
@@ -59,13 +44,7 @@ func (r ApiListWorkloadVersionsRequest) PageSize(pageSize int32) ApiListWorkload
 	return r
 }
 
-// A search term.
-func (r ApiListWorkloadVersionsRequest) Search(search string) ApiListWorkloadVersionsRequest {
-	r.search = &search
-	return r
-}
-
-func (r ApiListWorkloadVersionsRequest) Execute() (*PaginatedWorkloadList, *http.Response, error) {
+func (r ApiListWorkloadVersionsRequest) Execute() (*PaginatedWorkloadVersionList, *http.Response, error) {
 	return r.ApiService.ListWorkloadVersionsExecute(r)
 }
 
@@ -75,25 +54,25 @@ ListWorkloadVersions List Workload versions
 List all versions of a specific Workload.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourcePk The global_id of the Workload resource.
+ @param workloadId The global_id of the Workload resource.
  @return ApiListWorkloadVersionsRequest
 */
-func (a *WorkloadVersionsAPIService) ListWorkloadVersions(ctx context.Context, resourcePk int64) ApiListWorkloadVersionsRequest {
+func (a *WorkloadVersionsAPIService) ListWorkloadVersions(ctx context.Context, workloadId int64) ApiListWorkloadVersionsRequest {
 	return ApiListWorkloadVersionsRequest{
 		ApiService: a,
 		ctx: ctx,
-		resourcePk: resourcePk,
+		workloadId: workloadId,
 	}
 }
 
 // Execute executes the request
-//  @return PaginatedWorkloadList
-func (a *WorkloadVersionsAPIService) ListWorkloadVersionsExecute(r ApiListWorkloadVersionsRequest) (*PaginatedWorkloadList, *http.Response, error) {
+//  @return PaginatedWorkloadVersionList
+func (a *WorkloadVersionsAPIService) ListWorkloadVersionsExecute(r ApiListWorkloadVersionsRequest) (*PaginatedWorkloadVersionList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *PaginatedWorkloadList
+		localVarReturnValue  *PaginatedWorkloadVersionList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkloadVersionsAPIService.ListWorkloadVersions")
@@ -101,27 +80,18 @@ func (a *WorkloadVersionsAPIService) ListWorkloadVersionsExecute(r ApiListWorklo
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/workspace/workloads/{resource_pk}/versions"
-	localVarPath = strings.Replace(localVarPath, "{"+"resource_pk"+"}", url.PathEscape(parameterValueToString(r.resourcePk, "resourcePk")), -1)
+	localVarPath := localBasePath + "/workspace/workloads/{workload_id}/versions"
+	localVarPath = strings.Replace(localVarPath, "{"+"workload_id"+"}", url.PathEscape(parameterValueToString(r.workloadId, "workloadId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.fields != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
-	}
-	if r.ordering != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ordering", r.ordering, "form", "")
-	}
 	if r.page != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	}
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
-	}
-	if r.search != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -176,7 +146,7 @@ func (a *WorkloadVersionsAPIService) ListWorkloadVersionsExecute(r ApiListWorklo
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
+		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -187,7 +157,29 @@ func (a *WorkloadVersionsAPIService) ListWorkloadVersionsExecute(r ApiListWorklo
 					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		if localVarHTTPResponse.StatusCode == 403 {
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -237,9 +229,23 @@ func (a *WorkloadVersionsAPIService) ListWorkloadVersionsExecute(r ApiListWorklo
 type ApiRetrieveWorkloadVersionRequest struct {
 	ctx context.Context
 	ApiService *WorkloadVersionsAPIService
-	id string
-	resourcePk int64
+	versionId string
+	workloadId int64
+	dependencies *bool
+	dependencyStates *[]string
 	fields *string
+}
+
+// Include the resources this version references.
+func (r ApiRetrieveWorkloadVersionRequest) Dependencies(dependencies bool) ApiRetrieveWorkloadVersionRequest {
+	r.dependencies = &dependencies
+	return r
+}
+
+// Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true.
+func (r ApiRetrieveWorkloadVersionRequest) DependencyStates(dependencyStates []string) ApiRetrieveWorkloadVersionRequest {
+	r.dependencyStates = &dependencyStates
+	return r
 }
 
 // Comma-separated list of field names to include in the response.
@@ -248,7 +254,7 @@ func (r ApiRetrieveWorkloadVersionRequest) Fields(fields string) ApiRetrieveWork
 	return r
 }
 
-func (r ApiRetrieveWorkloadVersionRequest) Execute() (*Workload, *http.Response, error) {
+func (r ApiRetrieveWorkloadVersionRequest) Execute() (*WorkloadVersion, *http.Response, error) {
 	return r.ApiService.RetrieveWorkloadVersionExecute(r)
 }
 
@@ -258,27 +264,27 @@ RetrieveWorkloadVersion Retrieve a Workload version
 Retrieve details of a specific version of a Workload.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id The short ID identifier of the version.
- @param resourcePk The global_id of the Workload resource.
+ @param versionId The short ID identifier of the version.
+ @param workloadId The global_id of the Workload resource.
  @return ApiRetrieveWorkloadVersionRequest
 */
-func (a *WorkloadVersionsAPIService) RetrieveWorkloadVersion(ctx context.Context, id string, resourcePk int64) ApiRetrieveWorkloadVersionRequest {
+func (a *WorkloadVersionsAPIService) RetrieveWorkloadVersion(ctx context.Context, versionId string, workloadId int64) ApiRetrieveWorkloadVersionRequest {
 	return ApiRetrieveWorkloadVersionRequest{
 		ApiService: a,
 		ctx: ctx,
-		id: id,
-		resourcePk: resourcePk,
+		versionId: versionId,
+		workloadId: workloadId,
 	}
 }
 
 // Execute executes the request
-//  @return Workload
-func (a *WorkloadVersionsAPIService) RetrieveWorkloadVersionExecute(r ApiRetrieveWorkloadVersionRequest) (*Workload, *http.Response, error) {
+//  @return WorkloadVersion
+func (a *WorkloadVersionsAPIService) RetrieveWorkloadVersionExecute(r ApiRetrieveWorkloadVersionRequest) (*WorkloadVersion, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Workload
+		localVarReturnValue  *WorkloadVersion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkloadVersionsAPIService.RetrieveWorkloadVersion")
@@ -286,14 +292,20 @@ func (a *WorkloadVersionsAPIService) RetrieveWorkloadVersionExecute(r ApiRetriev
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/workspace/workloads/{resource_pk}/versions/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"resource_pk"+"}", url.PathEscape(parameterValueToString(r.resourcePk, "resourcePk")), -1)
+	localVarPath := localBasePath + "/workspace/workloads/{workload_id}/versions/{version_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"version_id"+"}", url.PathEscape(parameterValueToString(r.versionId, "versionId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workload_id"+"}", url.PathEscape(parameterValueToString(r.workloadId, "workloadId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.dependencies != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "dependencies", r.dependencies, "form", "")
+	}
+	if r.dependencyStates != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "dependency_states", r.dependencyStates, "form", "csv")
+	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
@@ -350,7 +362,7 @@ func (a *WorkloadVersionsAPIService) RetrieveWorkloadVersionExecute(r ApiRetriev
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
+		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -361,7 +373,29 @@ func (a *WorkloadVersionsAPIService) RetrieveWorkloadVersionExecute(r ApiRetriev
 					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		if localVarHTTPResponse.StatusCode == 403 {
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -411,17 +445,17 @@ func (a *WorkloadVersionsAPIService) RetrieveWorkloadVersionExecute(r ApiRetriev
 type ApiRevertWorkloadVersionRequest struct {
 	ctx context.Context
 	ApiService *WorkloadVersionsAPIService
-	id string
-	resourcePk int64
-	versionRevertRequest *VersionRevertRequest
+	versionId string
+	workloadId int64
+	workloadVersionRevertRequest *WorkloadVersionRevertRequest
 }
 
-func (r ApiRevertWorkloadVersionRequest) VersionRevertRequest(versionRevertRequest VersionRevertRequest) ApiRevertWorkloadVersionRequest {
-	r.versionRevertRequest = &versionRevertRequest
+func (r ApiRevertWorkloadVersionRequest) WorkloadVersionRevertRequest(workloadVersionRevertRequest WorkloadVersionRevertRequest) ApiRevertWorkloadVersionRequest {
+	r.workloadVersionRevertRequest = &workloadVersionRevertRequest
 	return r
 }
 
-func (r ApiRevertWorkloadVersionRequest) Execute() (*http.Response, error) {
+func (r ApiRevertWorkloadVersionRequest) Execute() (*WorkloadVersionMeta, *http.Response, error) {
 	return r.ApiService.RevertWorkloadVersionExecute(r)
 }
 
@@ -431,35 +465,37 @@ RevertWorkloadVersion Revert to a Workload version
 Clone an archived version and promote it to active.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id The short ID identifier of the version.
- @param resourcePk The global_id of the Workload resource.
+ @param versionId The short ID identifier of the version.
+ @param workloadId The global_id of the Workload resource.
  @return ApiRevertWorkloadVersionRequest
 */
-func (a *WorkloadVersionsAPIService) RevertWorkloadVersion(ctx context.Context, id string, resourcePk int64) ApiRevertWorkloadVersionRequest {
+func (a *WorkloadVersionsAPIService) RevertWorkloadVersion(ctx context.Context, versionId string, workloadId int64) ApiRevertWorkloadVersionRequest {
 	return ApiRevertWorkloadVersionRequest{
 		ApiService: a,
 		ctx: ctx,
-		id: id,
-		resourcePk: resourcePk,
+		versionId: versionId,
+		workloadId: workloadId,
 	}
 }
 
 // Execute executes the request
-func (a *WorkloadVersionsAPIService) RevertWorkloadVersionExecute(r ApiRevertWorkloadVersionRequest) (*http.Response, error) {
+//  @return WorkloadVersionMeta
+func (a *WorkloadVersionsAPIService) RevertWorkloadVersionExecute(r ApiRevertWorkloadVersionRequest) (*WorkloadVersionMeta, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
+		localVarReturnValue  *WorkloadVersionMeta
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkloadVersionsAPIService.RevertWorkloadVersion")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/workspace/workloads/{resource_pk}/versions/{id}/revert"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"resource_pk"+"}", url.PathEscape(parameterValueToString(r.resourcePk, "resourcePk")), -1)
+	localVarPath := localBasePath + "/workspace/workloads/{workload_id}/versions/{version_id}/revert"
+	localVarPath = strings.Replace(localVarPath, "{"+"version_id"+"}", url.PathEscape(parameterValueToString(r.versionId, "versionId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workload_id"+"}", url.PathEscape(parameterValueToString(r.workloadId, "workloadId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -483,7 +519,7 @@ func (a *WorkloadVersionsAPIService) RevertWorkloadVersionExecute(r ApiRevertWor
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.versionRevertRequest
+	localVarPostBody = r.workloadVersionRevertRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -500,19 +536,19 @@ func (a *WorkloadVersionsAPIService) RevertWorkloadVersionExecute(r ApiRevertWor
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -520,51 +556,93 @@ func (a *WorkloadVersionsAPIService) RevertWorkloadVersionExecute(r ApiRevertWor
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

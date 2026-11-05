@@ -9,11 +9,10 @@ Name | Type | Description | Notes
 **LastEditor** | Pointer to **string** |  | [optional] 
 **LastModified** | Pointer to **time.Time** |  | [optional] 
 **ProductVersion** | Pointer to **string** |  | [optional] 
-**Active** | Pointer to **bool** |  | [optional] 
 **Runtime** | Pointer to **string** | * &#x60;azion_js&#x60; - Azion JavaScript | [optional] 
 **ExecutionEnvironment** | Pointer to **string** | * &#x60;firewall&#x60; - Firewall * &#x60;application&#x60; - Application | [optional] 
 **DefaultArgs** | Pointer to **interface{}** |  | [optional] 
-**AzionForm** | Pointer to [**FirewallFunctionInstanceAzionForm**](FirewallFunctionInstanceAzionForm.md) |  | [optional] 
+**AzionForm** | Pointer to [**FunctionsAzionForm**](FunctionsAzionForm.md) |  | [optional] 
 **ReferenceCount** | Pointer to **int64** |  | [optional] 
 **Version** | Pointer to **string** | Installed version, which may not be the latest if the vendor has released updates since installation. | [optional] 
 **Vendor** | Pointer to **string** |  | [optional] 
@@ -164,31 +163,6 @@ SetProductVersion sets ProductVersion field to given value.
 
 HasProductVersion returns a boolean if a field has been set.
 
-### GetActive
-
-`func (o *FunctionSummary) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *FunctionSummary) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *FunctionSummary) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *FunctionSummary) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
-
 ### GetRuntime
 
 `func (o *FunctionSummary) GetRuntime() string`
@@ -276,20 +250,20 @@ HasDefaultArgs returns a boolean if a field has been set.
 UnsetDefaultArgs ensures that no value is present for DefaultArgs, not even an explicit nil
 ### GetAzionForm
 
-`func (o *FunctionSummary) GetAzionForm() FirewallFunctionInstanceAzionForm`
+`func (o *FunctionSummary) GetAzionForm() FunctionsAzionForm`
 
 GetAzionForm returns the AzionForm field if non-nil, zero value otherwise.
 
 ### GetAzionFormOk
 
-`func (o *FunctionSummary) GetAzionFormOk() (*FirewallFunctionInstanceAzionForm, bool)`
+`func (o *FunctionSummary) GetAzionFormOk() (*FunctionsAzionForm, bool)`
 
 GetAzionFormOk returns a tuple with the AzionForm field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAzionForm
 
-`func (o *FunctionSummary) SetAzionForm(v FirewallFunctionInstanceAzionForm)`
+`func (o *FunctionSummary) SetAzionForm(v FunctionsAzionForm)`
 
 SetAzionForm sets AzionForm field to given value.
 

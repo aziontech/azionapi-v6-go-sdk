@@ -26,13 +26,12 @@ type Functions struct {
 	LastEditor *string `json:"last_editor,omitempty"`
 	LastModified *time.Time `json:"last_modified,omitempty"`
 	ProductVersion *string `json:"product_version,omitempty"`
-	Active *bool `json:"active,omitempty"`
 	// * `azion_js` - Azion JavaScript
 	Runtime *string `json:"runtime,omitempty"`
 	// * `firewall` - Firewall * `application` - Application
 	ExecutionEnvironment *string `json:"execution_environment,omitempty"`
 	DefaultArgs interface{} `json:"default_args,omitempty"`
-	AzionForm *FirewallFunctionInstanceAzionForm `json:"azion_form,omitempty"`
+	AzionForm *FunctionsAzionForm `json:"azion_form,omitempty"`
 	ReferenceCount *int64 `json:"reference_count,omitempty"`
 	// Installed version, which may not be the latest if the vendor has released updates since installation.
 	Version *string `json:"version,omitempty"`
@@ -43,6 +42,7 @@ type Functions struct {
 	VersionState NullableString `json:"version_state,omitempty"`
 	// String containing the function code. Maximum size: 50.0MB
 	Code *string `json:"code,omitempty"`
+	Dependencies []DependencyEntry `json:"dependencies,omitempty"`
 }
 
 // NewFunctions instantiates a new Functions object
@@ -222,38 +222,6 @@ func (o *Functions) SetProductVersion(v string) {
 	o.ProductVersion = &v
 }
 
-// GetActive returns the Active field value if set, zero value otherwise.
-func (o *Functions) GetActive() bool {
-	if o == nil || IsNil(o.Active) {
-		var ret bool
-		return ret
-	}
-	return *o.Active
-}
-
-// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Functions) GetActiveOk() (*bool, bool) {
-	if o == nil || IsNil(o.Active) {
-		return nil, false
-	}
-	return o.Active, true
-}
-
-// HasActive returns a boolean if a field has been set.
-func (o *Functions) HasActive() bool {
-	if o != nil && !IsNil(o.Active) {
-		return true
-	}
-
-	return false
-}
-
-// SetActive gets a reference to the given bool and assigns it to the Active field.
-func (o *Functions) SetActive(v bool) {
-	o.Active = &v
-}
-
 // GetRuntime returns the Runtime field value if set, zero value otherwise.
 func (o *Functions) GetRuntime() string {
 	if o == nil || IsNil(o.Runtime) {
@@ -352,9 +320,9 @@ func (o *Functions) SetDefaultArgs(v interface{}) {
 }
 
 // GetAzionForm returns the AzionForm field value if set, zero value otherwise.
-func (o *Functions) GetAzionForm() FirewallFunctionInstanceAzionForm {
+func (o *Functions) GetAzionForm() FunctionsAzionForm {
 	if o == nil || IsNil(o.AzionForm) {
-		var ret FirewallFunctionInstanceAzionForm
+		var ret FunctionsAzionForm
 		return ret
 	}
 	return *o.AzionForm
@@ -362,7 +330,7 @@ func (o *Functions) GetAzionForm() FirewallFunctionInstanceAzionForm {
 
 // GetAzionFormOk returns a tuple with the AzionForm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Functions) GetAzionFormOk() (*FirewallFunctionInstanceAzionForm, bool) {
+func (o *Functions) GetAzionFormOk() (*FunctionsAzionForm, bool) {
 	if o == nil || IsNil(o.AzionForm) {
 		return nil, false
 	}
@@ -378,8 +346,8 @@ func (o *Functions) HasAzionForm() bool {
 	return false
 }
 
-// SetAzionForm gets a reference to the given FirewallFunctionInstanceAzionForm and assigns it to the AzionForm field.
-func (o *Functions) SetAzionForm(v FirewallFunctionInstanceAzionForm) {
+// SetAzionForm gets a reference to the given FunctionsAzionForm and assigns it to the AzionForm field.
+func (o *Functions) SetAzionForm(v FunctionsAzionForm) {
 	o.AzionForm = &v
 }
 
@@ -595,6 +563,38 @@ func (o *Functions) SetCode(v string) {
 	o.Code = &v
 }
 
+// GetDependencies returns the Dependencies field value if set, zero value otherwise.
+func (o *Functions) GetDependencies() []DependencyEntry {
+	if o == nil || IsNil(o.Dependencies) {
+		var ret []DependencyEntry
+		return ret
+	}
+	return o.Dependencies
+}
+
+// GetDependenciesOk returns a tuple with the Dependencies field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Functions) GetDependenciesOk() ([]DependencyEntry, bool) {
+	if o == nil || IsNil(o.Dependencies) {
+		return nil, false
+	}
+	return o.Dependencies, true
+}
+
+// HasDependencies returns a boolean if a field has been set.
+func (o *Functions) HasDependencies() bool {
+	if o != nil && !IsNil(o.Dependencies) {
+		return true
+	}
+
+	return false
+}
+
+// SetDependencies gets a reference to the given []DependencyEntry and assigns it to the Dependencies field.
+func (o *Functions) SetDependencies(v []DependencyEntry) {
+	o.Dependencies = v
+}
+
 func (o Functions) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -619,9 +619,6 @@ func (o Functions) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ProductVersion) {
 		toSerialize["product_version"] = o.ProductVersion
-	}
-	if !IsNil(o.Active) {
-		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.Runtime) {
 		toSerialize["runtime"] = o.Runtime
@@ -652,6 +649,9 @@ func (o Functions) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Code) {
 		toSerialize["code"] = o.Code
+	}
+	if !IsNil(o.Dependencies) {
+		toSerialize["dependencies"] = o.Dependencies
 	}
 	return toSerialize, nil
 }

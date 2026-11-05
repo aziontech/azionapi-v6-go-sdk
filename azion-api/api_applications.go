@@ -242,7 +242,7 @@ type ApiDeleteApplicationRequest struct {
 	applicationId int64
 }
 
-func (r ApiDeleteApplicationRequest) Execute() (*DeleteResponse, *http.Response, error) {
+func (r ApiDeleteApplicationRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteApplicationExecute(r)
 }
 
@@ -264,18 +264,16 @@ func (a *ApplicationsAPIService) DeleteApplication(ctx context.Context, applicat
 }
 
 // Execute executes the request
-//  @return DeleteResponse
-func (a *ApplicationsAPIService) DeleteApplicationExecute(r ApiDeleteApplicationRequest) (*DeleteResponse, *http.Response, error) {
+func (a *ApplicationsAPIService) DeleteApplicationExecute(r ApiDeleteApplicationRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeleteResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsAPIService.DeleteApplication")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/workspace/applications/{application_id}"
@@ -318,19 +316,19 @@ func (a *ApplicationsAPIService) DeleteApplicationExecute(r ApiDeleteApplication
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -343,107 +341,97 @@ func (a *ApplicationsAPIService) DeleteApplicationExecute(r ApiDeleteApplication
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type ApiListApplicationsRequest struct {
 	ctx context.Context
 	ApiService *ApplicationsAPIService
-	active *bool
 	fields *string
 	id *int64
 	lastEditor *string
@@ -454,12 +442,6 @@ type ApiListApplicationsRequest struct {
 	page *int64
 	pageSize *int32
 	search *string
-}
-
-// Filter by active status.
-func (r ApiListApplicationsRequest) Active(active bool) ApiListApplicationsRequest {
-	r.active = &active
-	return r
 }
 
 // Comma-separated list of field names to include in the response.
@@ -498,7 +480,7 @@ func (r ApiListApplicationsRequest) Name(name string) ApiListApplicationsRequest
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: name, id, last_editor, last_modified, active, debug, product_version)
+// Which field to use when ordering the results. (Valid fields: name, id, last_editor, last_modified, debug, product_version)
 func (r ApiListApplicationsRequest) Ordering(ordering string) ApiListApplicationsRequest {
 	r.ordering = &ordering
 	return r
@@ -516,7 +498,7 @@ func (r ApiListApplicationsRequest) PageSize(pageSize int32) ApiListApplications
 	return r
 }
 
-// A search term to filter results. Searches across the following fields: id, name, last_editor, last_modified, active.
+// A search term to filter results. Searches across the following fields: id, name, last_editor, last_modified.
 func (r ApiListApplicationsRequest) Search(search string) ApiListApplicationsRequest {
 	r.search = &search
 	return r
@@ -562,9 +544,6 @@ func (a *ApplicationsAPIService) ListApplicationsExecute(r ApiListApplicationsRe
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.active != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "active", r.active, "form", "")
-	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}

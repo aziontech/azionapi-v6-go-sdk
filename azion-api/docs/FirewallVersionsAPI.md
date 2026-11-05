@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 ## ArchiveFirewallVersion
 
-> ArchiveFirewallVersion(ctx, firewallId, versionId).VersionArchiveRequest(versionArchiveRequest).Execute()
+> FirewallVersionMeta ArchiveFirewallVersion(ctx, firewallId, versionId).FirewallVersionArchiveRequest(firewallVersionArchiveRequest).Execute()
 
 Archive a Firewall version
 
@@ -39,15 +39,17 @@ import (
 func main() {
 	firewallId := int64(789) // int64 | The ID of the Firewall resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	versionArchiveRequest := *openapiclient.NewVersionArchiveRequest() // VersionArchiveRequest |  (optional)
+	firewallVersionArchiveRequest := *openapiclient.NewFirewallVersionArchiveRequest() // FirewallVersionArchiveRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FirewallVersionsAPI.ArchiveFirewallVersion(context.Background(), firewallId, versionId).VersionArchiveRequest(versionArchiveRequest).Execute()
+	resp, r, err := apiClient.FirewallVersionsAPI.ArchiveFirewallVersion(context.Background(), firewallId, versionId).FirewallVersionArchiveRequest(firewallVersionArchiveRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallVersionsAPI.ArchiveFirewallVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `ArchiveFirewallVersion`: FirewallVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `FirewallVersionsAPI.ArchiveFirewallVersion`: %v\n", resp)
 }
 ```
 
@@ -69,11 +71,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionArchiveRequest** | [**VersionArchiveRequest**](VersionArchiveRequest.md) |  | 
+ **firewallVersionArchiveRequest** | [**FirewallVersionArchiveRequest**](FirewallVersionArchiveRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**FirewallVersionMeta**](FirewallVersionMeta.md)
 
 ### Authorization
 
@@ -91,7 +93,7 @@ Name | Type | Description  | Notes
 
 ## BuildFirewallVersion
 
-> BuildFirewallVersion(ctx, firewallId, versionId).VersionBuildRequest(versionBuildRequest).Execute()
+> FirewallVersionMeta BuildFirewallVersion(ctx, firewallId, versionId).FirewallVersionBuildRequest(firewallVersionBuildRequest).Execute()
 
 Build a Firewall version
 
@@ -112,15 +114,17 @@ import (
 func main() {
 	firewallId := int64(789) // int64 | The ID of the Firewall resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	versionBuildRequest := *openapiclient.NewVersionBuildRequest() // VersionBuildRequest |  (optional)
+	firewallVersionBuildRequest := *openapiclient.NewFirewallVersionBuildRequest() // FirewallVersionBuildRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FirewallVersionsAPI.BuildFirewallVersion(context.Background(), firewallId, versionId).VersionBuildRequest(versionBuildRequest).Execute()
+	resp, r, err := apiClient.FirewallVersionsAPI.BuildFirewallVersion(context.Background(), firewallId, versionId).FirewallVersionBuildRequest(firewallVersionBuildRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallVersionsAPI.BuildFirewallVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `BuildFirewallVersion`: FirewallVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `FirewallVersionsAPI.BuildFirewallVersion`: %v\n", resp)
 }
 ```
 
@@ -142,11 +146,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionBuildRequest** | [**VersionBuildRequest**](VersionBuildRequest.md) |  | 
+ **firewallVersionBuildRequest** | [**FirewallVersionBuildRequest**](FirewallVersionBuildRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**FirewallVersionMeta**](FirewallVersionMeta.md)
 
 ### Authorization
 
@@ -164,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## CancelFirewallVersionBuild
 
-> CancelFirewallVersionBuild(ctx, firewallId, versionId).VersionCancelRequest(versionCancelRequest).Execute()
+> FirewallVersionMeta CancelFirewallVersionBuild(ctx, firewallId, versionId).FirewallVersionCancelRequest(firewallVersionCancelRequest).Execute()
 
 Cancel a Firewall version build
 
@@ -185,15 +189,17 @@ import (
 func main() {
 	firewallId := int64(789) // int64 | The ID of the Firewall resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	versionCancelRequest := *openapiclient.NewVersionCancelRequest() // VersionCancelRequest |  (optional)
+	firewallVersionCancelRequest := *openapiclient.NewFirewallVersionCancelRequest() // FirewallVersionCancelRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FirewallVersionsAPI.CancelFirewallVersionBuild(context.Background(), firewallId, versionId).VersionCancelRequest(versionCancelRequest).Execute()
+	resp, r, err := apiClient.FirewallVersionsAPI.CancelFirewallVersionBuild(context.Background(), firewallId, versionId).FirewallVersionCancelRequest(firewallVersionCancelRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallVersionsAPI.CancelFirewallVersionBuild``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `CancelFirewallVersionBuild`: FirewallVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `FirewallVersionsAPI.CancelFirewallVersionBuild`: %v\n", resp)
 }
 ```
 
@@ -215,11 +221,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionCancelRequest** | [**VersionCancelRequest**](VersionCancelRequest.md) |  | 
+ **firewallVersionCancelRequest** | [**FirewallVersionCancelRequest**](FirewallVersionCancelRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**FirewallVersionMeta**](FirewallVersionMeta.md)
 
 ### Authorization
 
@@ -237,7 +243,7 @@ Name | Type | Description  | Notes
 
 ## CreateFirewallVersion
 
-> Firewall CreateFirewallVersion(ctx, firewallId).VersionCreateRequest(versionCreateRequest).Execute()
+> FirewallVersion CreateFirewallVersion(ctx, firewallId).FirewallVersionCreateRequest(firewallVersionCreateRequest).Execute()
 
 Create a new Firewall version
 
@@ -257,16 +263,16 @@ import (
 
 func main() {
 	firewallId := int64(789) // int64 | The ID of the Firewall resource.
-	versionCreateRequest := *openapiclient.NewVersionCreateRequest() // VersionCreateRequest |  (optional)
+	firewallVersionCreateRequest := *openapiclient.NewFirewallVersionCreateRequest() // FirewallVersionCreateRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FirewallVersionsAPI.CreateFirewallVersion(context.Background(), firewallId).VersionCreateRequest(versionCreateRequest).Execute()
+	resp, r, err := apiClient.FirewallVersionsAPI.CreateFirewallVersion(context.Background(), firewallId).FirewallVersionCreateRequest(firewallVersionCreateRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallVersionsAPI.CreateFirewallVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateFirewallVersion`: Firewall
+	// response from `CreateFirewallVersion`: FirewallVersion
 	fmt.Fprintf(os.Stdout, "Response from `FirewallVersionsAPI.CreateFirewallVersion`: %v\n", resp)
 }
 ```
@@ -287,11 +293,11 @@ Other parameters are passed through a pointer to a apiCreateFirewallVersionReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **versionCreateRequest** | [**VersionCreateRequest**](VersionCreateRequest.md) |  | 
+ **firewallVersionCreateRequest** | [**FirewallVersionCreateRequest**](FirewallVersionCreateRequest.md) |  | 
 
 ### Return type
 
-[**Firewall**](Firewall.md)
+[**FirewallVersion**](FirewallVersion.md)
 
 ### Authorization
 
@@ -309,7 +315,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFirewallVersion
 
-> DeleteFirewallVersion(ctx, firewallId, versionId).Execute()
+> FirewallVersionMeta DeleteFirewallVersion(ctx, firewallId, versionId).Execute()
 
 Delete a Firewall version
 
@@ -333,11 +339,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.FirewallVersionsAPI.DeleteFirewallVersion(context.Background(), firewallId, versionId).Execute()
+	resp, r, err := apiClient.FirewallVersionsAPI.DeleteFirewallVersion(context.Background(), firewallId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallVersionsAPI.DeleteFirewallVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteFirewallVersion`: FirewallVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `FirewallVersionsAPI.DeleteFirewallVersion`: %v\n", resp)
 }
 ```
 
@@ -362,7 +370,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**FirewallVersionMeta**](FirewallVersionMeta.md)
 
 ### Authorization
 
@@ -380,7 +388,7 @@ Name | Type | Description  | Notes
 
 ## ListFirewallVersions
 
-> PaginatedFirewallList ListFirewallVersions(ctx, firewallId).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+> PaginatedFirewallVersionList ListFirewallVersions(ctx, firewallId).Page(page).PageSize(pageSize).Execute()
 
 List Firewall versions
 
@@ -400,20 +408,17 @@ import (
 
 func main() {
 	firewallId := int64(789) // int64 | The ID of the Firewall resource.
-	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
-	search := "search_example" // string | A search term. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FirewallVersionsAPI.ListFirewallVersions(context.Background(), firewallId).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+	resp, r, err := apiClient.FirewallVersionsAPI.ListFirewallVersions(context.Background(), firewallId).Page(page).PageSize(pageSize).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallVersionsAPI.ListFirewallVersions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListFirewallVersions`: PaginatedFirewallList
+	// response from `ListFirewallVersions`: PaginatedFirewallVersionList
 	fmt.Fprintf(os.Stdout, "Response from `FirewallVersionsAPI.ListFirewallVersions`: %v\n", resp)
 }
 ```
@@ -434,15 +439,12 @@ Other parameters are passed through a pointer to a apiListFirewallVersionsReques
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **ordering** | **string** | Which field to use when ordering the results. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
- **search** | **string** | A search term. | 
 
 ### Return type
 
-[**PaginatedFirewallList**](PaginatedFirewallList.md)
+[**PaginatedFirewallVersionList**](PaginatedFirewallVersionList.md)
 
 ### Authorization
 
@@ -460,7 +462,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateFirewallVersion
 
-> Firewall PartialUpdateFirewallVersion(ctx, firewallId, versionId).PatchedFirewallRequest(patchedFirewallRequest).Execute()
+> FirewallVersion PartialUpdateFirewallVersion(ctx, firewallId, versionId).PatchedFirewallRequest(patchedFirewallRequest).Execute()
 
 Partially update a Firewall version
 
@@ -490,7 +492,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallVersionsAPI.PartialUpdateFirewallVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateFirewallVersion`: Firewall
+	// response from `PartialUpdateFirewallVersion`: FirewallVersion
 	fmt.Fprintf(os.Stdout, "Response from `FirewallVersionsAPI.PartialUpdateFirewallVersion`: %v\n", resp)
 }
 ```
@@ -517,7 +519,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Firewall**](Firewall.md)
+[**FirewallVersion**](FirewallVersion.md)
 
 ### Authorization
 
@@ -535,7 +537,7 @@ Name | Type | Description  | Notes
 
 ## RetrieveFirewallVersion
 
-> Firewall RetrieveFirewallVersion(ctx, firewallId, versionId).Fields(fields).Execute()
+> FirewallVersion RetrieveFirewallVersion(ctx, firewallId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Execute()
 
 Retrieve a Firewall version
 
@@ -556,16 +558,18 @@ import (
 func main() {
 	firewallId := int64(789) // int64 | The ID of the Firewall resource.
 	versionId := "versionId_example" // string | The identifier of the version.
+	dependencies := true // bool | Include the resources this version references. (optional)
+	dependencyStates := []string{"Inner_example"} // []string | Keep only the dependency versions in these states (comma-separated). Needs dependencies=true. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FirewallVersionsAPI.RetrieveFirewallVersion(context.Background(), firewallId, versionId).Fields(fields).Execute()
+	resp, r, err := apiClient.FirewallVersionsAPI.RetrieveFirewallVersion(context.Background(), firewallId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallVersionsAPI.RetrieveFirewallVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RetrieveFirewallVersion`: Firewall
+	// response from `RetrieveFirewallVersion`: FirewallVersion
 	fmt.Fprintf(os.Stdout, "Response from `FirewallVersionsAPI.RetrieveFirewallVersion`: %v\n", resp)
 }
 ```
@@ -588,11 +592,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **dependencies** | **bool** | Include the resources this version references. | 
+ **dependencyStates** | **[]string** | Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
 
 ### Return type
 
-[**Firewall**](Firewall.md)
+[**FirewallVersion**](FirewallVersion.md)
 
 ### Authorization
 
@@ -610,7 +616,7 @@ Name | Type | Description  | Notes
 
 ## UpdateFirewallVersion
 
-> Firewall UpdateFirewallVersion(ctx, firewallId, versionId).FirewallRequest(firewallRequest).Execute()
+> FirewallVersion UpdateFirewallVersion(ctx, firewallId, versionId).FirewallRequest(firewallRequest).Execute()
 
 Update a Firewall version
 
@@ -640,7 +646,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallVersionsAPI.UpdateFirewallVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateFirewallVersion`: Firewall
+	// response from `UpdateFirewallVersion`: FirewallVersion
 	fmt.Fprintf(os.Stdout, "Response from `FirewallVersionsAPI.UpdateFirewallVersion`: %v\n", resp)
 }
 ```
@@ -667,7 +673,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Firewall**](Firewall.md)
+[**FirewallVersion**](FirewallVersion.md)
 
 ### Authorization
 

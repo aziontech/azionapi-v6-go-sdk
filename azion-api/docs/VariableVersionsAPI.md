@@ -5,8 +5,8 @@ All URIs are relative to *https://api.azion.com/v6*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**ListVariableVersions**](VariableVersionsAPI.md#ListVariableVersions) | **Get** /variables/{variable_id}/versions | List Variable Versions
-[**RetrieveVariableVersion**](VariableVersionsAPI.md#RetrieveVariableVersion) | **Get** /variables/{variable_id}/versions/{id} | Retrieve details of a Variable Version
-[**RevertVariableVersion**](VariableVersionsAPI.md#RevertVariableVersion) | **Post** /variables/{variable_id}/revert/{id} | Revert to a Variable Version
+[**RetrieveVariableVersion**](VariableVersionsAPI.md#RetrieveVariableVersion) | **Get** /variables/{variable_id}/versions/{version_id} | Retrieve details of a Variable Version
+[**RevertVariableVersion**](VariableVersionsAPI.md#RevertVariableVersion) | **Post** /variables/{variable_id}/revert/{version_id} | Revert to a Variable Version
 
 
 
@@ -31,7 +31,7 @@ import (
 )
 
 func main() {
-	variableId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | A unique value identifying the variable.
+	variableId := "variableId_example" // string | A unique value identifying the variable.
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 
 ## RetrieveVariableVersion
 
-> VariableVersionListItem RetrieveVariableVersion(ctx, id, variableId).Execute()
+> VariableVersionListItem RetrieveVariableVersion(ctx, variableId, versionId).Execute()
 
 Retrieve details of a Variable Version
 
@@ -105,12 +105,12 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | A unique value identifying the variable version.
-	variableId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | A unique value identifying the variable.
+	variableId := "variableId_example" // string | A unique value identifying the variable.
+	versionId := "versionId_example" // string | A unique value identifying the variable version.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.VariableVersionsAPI.RetrieveVariableVersion(context.Background(), id, variableId).Execute()
+	resp, r, err := apiClient.VariableVersionsAPI.RetrieveVariableVersion(context.Background(), variableId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `VariableVersionsAPI.RetrieveVariableVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -126,8 +126,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | A unique value identifying the variable version. | 
 **variableId** | **string** | A unique value identifying the variable. | 
+**versionId** | **string** | A unique value identifying the variable version. | 
 
 ### Other Parameters
 
@@ -159,7 +159,7 @@ Name | Type | Description  | Notes
 
 ## RevertVariableVersion
 
-> VariableVersionListItem RevertVariableVersion(ctx, id, variableId).Execute()
+> VariableVersionListItem RevertVariableVersion(ctx, variableId, versionId).Execute()
 
 Revert to a Variable Version
 
@@ -178,12 +178,12 @@ import (
 )
 
 func main() {
-	id := "id_example" // string | A unique value identifying the variable version.
-	variableId := "38400000-8cf0-11bd-b23e-10b96e4ef00d" // string | A unique value identifying the variable.
+	variableId := "variableId_example" // string | A unique value identifying the variable.
+	versionId := "versionId_example" // string | A unique value identifying the variable version.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.VariableVersionsAPI.RevertVariableVersion(context.Background(), id, variableId).Execute()
+	resp, r, err := apiClient.VariableVersionsAPI.RevertVariableVersion(context.Background(), variableId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `VariableVersionsAPI.RevertVariableVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -199,8 +199,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**id** | **string** | A unique value identifying the variable version. | 
 **variableId** | **string** | A unique value identifying the variable. | 
+**versionId** | **string** | A unique value identifying the variable version. | 
 
 ### Other Parameters
 

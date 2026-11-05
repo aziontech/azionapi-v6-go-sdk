@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## DeleteDeployment
 
-> DeleteResponse DeleteDeployment(ctx, deploymentId).Execute()
+> DeleteDeployment(ctx, deploymentId).Execute()
 
 Delete a deployment
 
@@ -104,13 +104,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeploymentsAPI.DeleteDeployment(context.Background(), deploymentId).Execute()
+	r, err := apiClient.DeploymentsAPI.DeleteDeployment(context.Background(), deploymentId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeploymentsAPI.DeleteDeployment``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteDeployment`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `DeploymentsAPI.DeleteDeployment`: %v\n", resp)
 }
 ```
 
@@ -133,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -172,19 +170,19 @@ import (
 
 func main() {
 	bindingPolicy := "bindingPolicy_example" // string | Filter by binding policy. (optional)
-	createdAtGte := time.Now() // time.Time | Filter deployments created at or after this ISO-8601 timestamp. (optional)
-	createdAtLte := time.Now() // time.Time | Filter deployments created at or before this ISO-8601 timestamp. (optional)
+	createdAtGte := time.Now() // time.Time | Filter by creation date (greater than or equal). (optional)
+	createdAtLte := time.Now() // time.Time | Filter by creation date (less than or equal). (optional)
 	deploymentPolicy := "deploymentPolicy_example" // string | Filter by deployment policy. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	idIn := "idIn_example" // string | Filter by a comma-separated list of deployment short_ids. (optional)
-	lastModifiedGte := time.Now() // time.Time | Filter deployments last modified at or after this ISO-8601 timestamp. (optional)
-	lastModifiedLte := time.Now() // time.Time | Filter deployments last modified at or before this ISO-8601 timestamp. (optional)
-	name := "name_example" // string | Filter by deployment name (substring match) (optional)
-	ordering := "ordering_example" // string | Comma-separated sort fields. Prefix with `-` for descending. Allowed: `id`, `name`, `created_at`, `last_modified`, `version_state`. Default: `-created_at,-id`. (optional)
+	idIn := []string{"Inner_example"} // []string | Filter by deployment short_ids, comma-separated (`id__in=A,B`). (optional)
+	lastModifiedGte := time.Now() // time.Time | Filter by last modification date (greater than or equal). (optional)
+	lastModifiedLte := time.Now() // time.Time | Filter by last modification date (less than or equal). (optional)
+	name := "name_example" // string | Filter by deployment name (case-insensitive, partial match). (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
-	search := "search_example" // string | Free-text search across deployment name. (optional)
-	state := []string{"Inner_example"} // []string | Filter by one or more lifecycle states of the resolved version (`version_state`). Pass a comma-separated list (`state=ready,building`) or repeat the key (`state=ready&state=building`). `deleted` is rejected — it is never listed. `deleting` stays listed so a stuck delete can be found. (optional)
+	search := "search_example" // string | A search term to filter results. Searches across the following fields: name. (optional)
+	state := []string{"Inner_example"} // []string | Filter by one or more lifecycle states, comma-separated (`state=ready,building`). `deleted` is never listed. `deleting` stays listed so a stuck delete can be found. Matches the state of the resolved version (`version_state`). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -210,19 +208,19 @@ Other parameters are passed through a pointer to a apiListDeploymentsRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **bindingPolicy** | **string** | Filter by binding policy. | 
- **createdAtGte** | **time.Time** | Filter deployments created at or after this ISO-8601 timestamp. | 
- **createdAtLte** | **time.Time** | Filter deployments created at or before this ISO-8601 timestamp. | 
+ **createdAtGte** | **time.Time** | Filter by creation date (greater than or equal). | 
+ **createdAtLte** | **time.Time** | Filter by creation date (less than or equal). | 
  **deploymentPolicy** | **string** | Filter by deployment policy. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **idIn** | **string** | Filter by a comma-separated list of deployment short_ids. | 
- **lastModifiedGte** | **time.Time** | Filter deployments last modified at or after this ISO-8601 timestamp. | 
- **lastModifiedLte** | **time.Time** | Filter deployments last modified at or before this ISO-8601 timestamp. | 
- **name** | **string** | Filter by deployment name (substring match) | 
- **ordering** | **string** | Comma-separated sort fields. Prefix with &#x60;-&#x60; for descending. Allowed: &#x60;id&#x60;, &#x60;name&#x60;, &#x60;created_at&#x60;, &#x60;last_modified&#x60;, &#x60;version_state&#x60;. Default: &#x60;-created_at,-id&#x60;. | 
+ **idIn** | **[]string** | Filter by deployment short_ids, comma-separated (&#x60;id__in&#x3D;A,B&#x60;). | 
+ **lastModifiedGte** | **time.Time** | Filter by last modification date (greater than or equal). | 
+ **lastModifiedLte** | **time.Time** | Filter by last modification date (less than or equal). | 
+ **name** | **string** | Filter by deployment name (case-insensitive, partial match). | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
- **search** | **string** | Free-text search across deployment name. | 
- **state** | **[]string** | Filter by one or more lifecycle states of the resolved version (&#x60;version_state&#x60;). Pass a comma-separated list (&#x60;state&#x3D;ready,building&#x60;) or repeat the key (&#x60;state&#x3D;ready&amp;state&#x3D;building&#x60;). &#x60;deleted&#x60; is rejected — it is never listed. &#x60;deleting&#x60; stays listed so a stuck delete can be found. | 
+ **search** | **string** | A search term to filter results. Searches across the following fields: name. | 
+ **state** | **[]string** | Filter by one or more lifecycle states, comma-separated (&#x60;state&#x3D;ready,building&#x60;). &#x60;deleted&#x60; is never listed. &#x60;deleting&#x60; stays listed so a stuck delete can be found. Matches the state of the resolved version (&#x60;version_state&#x60;). | 
 
 ### Return type
 

@@ -29,15 +29,15 @@ type ApiArchiveWafVersionRequest struct {
 	ApiService *WAFVersionsAPIService
 	versionId string
 	wafId int64
-	versionArchiveRequest *VersionArchiveRequest
+	wAFVersionArchiveRequest *WAFVersionArchiveRequest
 }
 
-func (r ApiArchiveWafVersionRequest) VersionArchiveRequest(versionArchiveRequest VersionArchiveRequest) ApiArchiveWafVersionRequest {
-	r.versionArchiveRequest = &versionArchiveRequest
+func (r ApiArchiveWafVersionRequest) WAFVersionArchiveRequest(wAFVersionArchiveRequest WAFVersionArchiveRequest) ApiArchiveWafVersionRequest {
+	r.wAFVersionArchiveRequest = &wAFVersionArchiveRequest
 	return r
 }
 
-func (r ApiArchiveWafVersionRequest) Execute() (*http.Response, error) {
+func (r ApiArchiveWafVersionRequest) Execute() (*WAFVersionMeta, *http.Response, error) {
 	return r.ApiService.ArchiveWafVersionExecute(r)
 }
 
@@ -61,16 +61,18 @@ func (a *WAFVersionsAPIService) ArchiveWafVersion(ctx context.Context, versionId
 }
 
 // Execute executes the request
-func (a *WAFVersionsAPIService) ArchiveWafVersionExecute(r ApiArchiveWafVersionRequest) (*http.Response, error) {
+//  @return WAFVersionMeta
+func (a *WAFVersionsAPIService) ArchiveWafVersionExecute(r ApiArchiveWafVersionRequest) (*WAFVersionMeta, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
+		localVarReturnValue  *WAFVersionMeta
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WAFVersionsAPIService.ArchiveWafVersion")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/workspace/wafs/{waf_id}/versions/{version_id}/archive"
@@ -99,488 +101,7 @@ func (a *WAFVersionsAPIService) ArchiveWafVersionExecute(r ApiArchiveWafVersionR
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.versionArchiveRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["TokenAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiBuildWafVersionRequest struct {
-	ctx context.Context
-	ApiService *WAFVersionsAPIService
-	versionId string
-	wafId int64
-	versionBuildRequest *VersionBuildRequest
-}
-
-func (r ApiBuildWafVersionRequest) VersionBuildRequest(versionBuildRequest VersionBuildRequest) ApiBuildWafVersionRequest {
-	r.versionBuildRequest = &versionBuildRequest
-	return r
-}
-
-func (r ApiBuildWafVersionRequest) Execute() (*http.Response, error) {
-	return r.ApiService.BuildWafVersionExecute(r)
-}
-
-/*
-BuildWafVersion Build a WAF version
-
-Trigger a build for a draft version.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param versionId The identifier of the version.
- @param wafId The ID of the WAF resource.
- @return ApiBuildWafVersionRequest
-*/
-func (a *WAFVersionsAPIService) BuildWafVersion(ctx context.Context, versionId string, wafId int64) ApiBuildWafVersionRequest {
-	return ApiBuildWafVersionRequest{
-		ApiService: a,
-		ctx: ctx,
-		versionId: versionId,
-		wafId: wafId,
-	}
-}
-
-// Execute executes the request
-func (a *WAFVersionsAPIService) BuildWafVersionExecute(r ApiBuildWafVersionRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WAFVersionsAPIService.BuildWafVersion")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/workspace/wafs/{waf_id}/versions/{version_id}/build"
-	localVarPath = strings.Replace(localVarPath, "{"+"version_id"+"}", url.PathEscape(parameterValueToString(r.versionId, "versionId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"waf_id"+"}", url.PathEscape(parameterValueToString(r.wafId, "wafId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.versionBuildRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["TokenAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiCancelWafVersionBuildRequest struct {
-	ctx context.Context
-	ApiService *WAFVersionsAPIService
-	versionId string
-	wafId int64
-	versionCancelRequest *VersionCancelRequest
-}
-
-func (r ApiCancelWafVersionBuildRequest) VersionCancelRequest(versionCancelRequest VersionCancelRequest) ApiCancelWafVersionBuildRequest {
-	r.versionCancelRequest = &versionCancelRequest
-	return r
-}
-
-func (r ApiCancelWafVersionBuildRequest) Execute() (*http.Response, error) {
-	return r.ApiService.CancelWafVersionBuildExecute(r)
-}
-
-/*
-CancelWafVersionBuild Cancel a WAF version build
-
-Cancel a queued or building version.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param versionId The identifier of the version.
- @param wafId The ID of the WAF resource.
- @return ApiCancelWafVersionBuildRequest
-*/
-func (a *WAFVersionsAPIService) CancelWafVersionBuild(ctx context.Context, versionId string, wafId int64) ApiCancelWafVersionBuildRequest {
-	return ApiCancelWafVersionBuildRequest{
-		ApiService: a,
-		ctx: ctx,
-		versionId: versionId,
-		wafId: wafId,
-	}
-}
-
-// Execute executes the request
-func (a *WAFVersionsAPIService) CancelWafVersionBuildExecute(r ApiCancelWafVersionBuildRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WAFVersionsAPIService.CancelWafVersionBuild")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/workspace/wafs/{waf_id}/versions/{version_id}/cancel"
-	localVarPath = strings.Replace(localVarPath, "{"+"version_id"+"}", url.PathEscape(parameterValueToString(r.versionId, "versionId")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"waf_id"+"}", url.PathEscape(parameterValueToString(r.wafId, "wafId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.versionCancelRequest
-	if r.ctx != nil {
-		// API Key Authentication
-		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
-			if apiKey, ok := auth["TokenAuth"]; ok {
-				var key string
-				if apiKey.Prefix != "" {
-					key = apiKey.Prefix + " " + apiKey.Key
-				} else {
-					key = apiKey.Key
-				}
-				localVarHeaderParams["Authorization"] = key
-			}
-		}
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 429 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiCreateWafVersionRequest struct {
-	ctx context.Context
-	ApiService *WAFVersionsAPIService
-	wafId int64
-	versionCreateRequest *VersionCreateRequest
-}
-
-func (r ApiCreateWafVersionRequest) VersionCreateRequest(versionCreateRequest VersionCreateRequest) ApiCreateWafVersionRequest {
-	r.versionCreateRequest = &versionCreateRequest
-	return r
-}
-
-func (r ApiCreateWafVersionRequest) Execute() (*WAF, *http.Response, error) {
-	return r.ApiService.CreateWafVersionExecute(r)
-}
-
-/*
-CreateWafVersion Create a new WAF version
-
-Create a new version by cloning.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param wafId The ID of the WAF resource.
- @return ApiCreateWafVersionRequest
-*/
-func (a *WAFVersionsAPIService) CreateWafVersion(ctx context.Context, wafId int64) ApiCreateWafVersionRequest {
-	return ApiCreateWafVersionRequest{
-		ApiService: a,
-		ctx: ctx,
-		wafId: wafId,
-	}
-}
-
-// Execute executes the request
-//  @return WAF
-func (a *WAFVersionsAPIService) CreateWafVersionExecute(r ApiCreateWafVersionRequest) (*WAF, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *WAF
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WAFVersionsAPIService.CreateWafVersion")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/workspace/wafs/{waf_id}/versions"
-	localVarPath = strings.Replace(localVarPath, "{"+"waf_id"+"}", url.PathEscape(parameterValueToString(r.wafId, "wafId")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.versionCreateRequest
+	localVarPostBody = r.wAFVersionArchiveRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -617,6 +138,50 @@ func (a *WAFVersionsAPIService) CreateWafVersionExecute(r ApiCreateWafVersionReq
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -628,7 +193,596 @@ func (a *WAFVersionsAPIService) CreateWafVersionExecute(r ApiCreateWafVersionReq
 					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiBuildWafVersionRequest struct {
+	ctx context.Context
+	ApiService *WAFVersionsAPIService
+	versionId string
+	wafId int64
+	wAFVersionBuildRequest *WAFVersionBuildRequest
+}
+
+func (r ApiBuildWafVersionRequest) WAFVersionBuildRequest(wAFVersionBuildRequest WAFVersionBuildRequest) ApiBuildWafVersionRequest {
+	r.wAFVersionBuildRequest = &wAFVersionBuildRequest
+	return r
+}
+
+func (r ApiBuildWafVersionRequest) Execute() (*WAFVersionMeta, *http.Response, error) {
+	return r.ApiService.BuildWafVersionExecute(r)
+}
+
+/*
+BuildWafVersion Build a WAF version
+
+Trigger a build for a draft version.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param versionId The identifier of the version.
+ @param wafId The ID of the WAF resource.
+ @return ApiBuildWafVersionRequest
+*/
+func (a *WAFVersionsAPIService) BuildWafVersion(ctx context.Context, versionId string, wafId int64) ApiBuildWafVersionRequest {
+	return ApiBuildWafVersionRequest{
+		ApiService: a,
+		ctx: ctx,
+		versionId: versionId,
+		wafId: wafId,
+	}
+}
+
+// Execute executes the request
+//  @return WAFVersionMeta
+func (a *WAFVersionsAPIService) BuildWafVersionExecute(r ApiBuildWafVersionRequest) (*WAFVersionMeta, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *WAFVersionMeta
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WAFVersionsAPIService.BuildWafVersion")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/workspace/wafs/{waf_id}/versions/{version_id}/build"
+	localVarPath = strings.Replace(localVarPath, "{"+"version_id"+"}", url.PathEscape(parameterValueToString(r.versionId, "versionId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"waf_id"+"}", url.PathEscape(parameterValueToString(r.wafId, "wafId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.wAFVersionBuildRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["TokenAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
 		if localVarHTTPResponse.StatusCode == 403 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiCancelWafVersionBuildRequest struct {
+	ctx context.Context
+	ApiService *WAFVersionsAPIService
+	versionId string
+	wafId int64
+	wAFVersionCancelRequest *WAFVersionCancelRequest
+}
+
+func (r ApiCancelWafVersionBuildRequest) WAFVersionCancelRequest(wAFVersionCancelRequest WAFVersionCancelRequest) ApiCancelWafVersionBuildRequest {
+	r.wAFVersionCancelRequest = &wAFVersionCancelRequest
+	return r
+}
+
+func (r ApiCancelWafVersionBuildRequest) Execute() (*WAFVersionMeta, *http.Response, error) {
+	return r.ApiService.CancelWafVersionBuildExecute(r)
+}
+
+/*
+CancelWafVersionBuild Cancel a WAF version build
+
+Cancel a queued or building version.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param versionId The identifier of the version.
+ @param wafId The ID of the WAF resource.
+ @return ApiCancelWafVersionBuildRequest
+*/
+func (a *WAFVersionsAPIService) CancelWafVersionBuild(ctx context.Context, versionId string, wafId int64) ApiCancelWafVersionBuildRequest {
+	return ApiCancelWafVersionBuildRequest{
+		ApiService: a,
+		ctx: ctx,
+		versionId: versionId,
+		wafId: wafId,
+	}
+}
+
+// Execute executes the request
+//  @return WAFVersionMeta
+func (a *WAFVersionsAPIService) CancelWafVersionBuildExecute(r ApiCancelWafVersionBuildRequest) (*WAFVersionMeta, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *WAFVersionMeta
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WAFVersionsAPIService.CancelWafVersionBuild")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/workspace/wafs/{waf_id}/versions/{version_id}/cancel"
+	localVarPath = strings.Replace(localVarPath, "{"+"version_id"+"}", url.PathEscape(parameterValueToString(r.versionId, "versionId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"waf_id"+"}", url.PathEscape(parameterValueToString(r.wafId, "wafId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.wAFVersionCancelRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["TokenAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiCreateWafVersionRequest struct {
+	ctx context.Context
+	ApiService *WAFVersionsAPIService
+	wafId int64
+	wAFVersionCreateRequest *WAFVersionCreateRequest
+}
+
+func (r ApiCreateWafVersionRequest) WAFVersionCreateRequest(wAFVersionCreateRequest WAFVersionCreateRequest) ApiCreateWafVersionRequest {
+	r.wAFVersionCreateRequest = &wAFVersionCreateRequest
+	return r
+}
+
+func (r ApiCreateWafVersionRequest) Execute() (*WAFVersion, *http.Response, error) {
+	return r.ApiService.CreateWafVersionExecute(r)
+}
+
+/*
+CreateWafVersion Create a new WAF version
+
+Create a new version by cloning.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param wafId The ID of the WAF resource.
+ @return ApiCreateWafVersionRequest
+*/
+func (a *WAFVersionsAPIService) CreateWafVersion(ctx context.Context, wafId int64) ApiCreateWafVersionRequest {
+	return ApiCreateWafVersionRequest{
+		ApiService: a,
+		ctx: ctx,
+		wafId: wafId,
+	}
+}
+
+// Execute executes the request
+//  @return WAFVersion
+func (a *WAFVersionsAPIService) CreateWafVersionExecute(r ApiCreateWafVersionRequest) (*WAFVersion, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *WAFVersion
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WAFVersionsAPIService.CreateWafVersion")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/workspace/wafs/{waf_id}/versions"
+	localVarPath = strings.Replace(localVarPath, "{"+"waf_id"+"}", url.PathEscape(parameterValueToString(r.wafId, "wafId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.wAFVersionCreateRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["TokenAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -682,7 +836,7 @@ type ApiDeleteWafVersionRequest struct {
 	wafId int64
 }
 
-func (r ApiDeleteWafVersionRequest) Execute() (*http.Response, error) {
+func (r ApiDeleteWafVersionRequest) Execute() (*WAFVersionMeta, *http.Response, error) {
 	return r.ApiService.DeleteWafVersionExecute(r)
 }
 
@@ -706,16 +860,18 @@ func (a *WAFVersionsAPIService) DeleteWafVersion(ctx context.Context, versionId 
 }
 
 // Execute executes the request
-func (a *WAFVersionsAPIService) DeleteWafVersionExecute(r ApiDeleteWafVersionRequest) (*http.Response, error) {
+//  @return WAFVersionMeta
+func (a *WAFVersionsAPIService) DeleteWafVersionExecute(r ApiDeleteWafVersionRequest) (*WAFVersionMeta, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
+		localVarReturnValue  *WAFVersionMeta
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WAFVersionsAPIService.DeleteWafVersion")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/workspace/wafs/{waf_id}/versions/{version_id}"
@@ -759,19 +915,19 @@ func (a *WAFVersionsAPIService) DeleteWafVersionExecute(r ApiDeleteWafVersionReq
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -779,76 +935,103 @@ func (a *WAFVersionsAPIService) DeleteWafVersionExecute(r ApiDeleteWafVersionReq
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiListWafVersionsRequest struct {
 	ctx context.Context
 	ApiService *WAFVersionsAPIService
 	wafId int64
-	fields *string
-	ordering *string
 	page *int64
 	pageSize *int32
-	search *string
-}
-
-// Comma-separated list of field names to include in the response.
-func (r ApiListWafVersionsRequest) Fields(fields string) ApiListWafVersionsRequest {
-	r.fields = &fields
-	return r
-}
-
-// Which field to use when ordering the results.
-func (r ApiListWafVersionsRequest) Ordering(ordering string) ApiListWafVersionsRequest {
-	r.ordering = &ordering
-	return r
 }
 
 // A page number within the paginated result set.
@@ -863,13 +1046,7 @@ func (r ApiListWafVersionsRequest) PageSize(pageSize int32) ApiListWafVersionsRe
 	return r
 }
 
-// A search term.
-func (r ApiListWafVersionsRequest) Search(search string) ApiListWafVersionsRequest {
-	r.search = &search
-	return r
-}
-
-func (r ApiListWafVersionsRequest) Execute() (*PaginatedWAFList, *http.Response, error) {
+func (r ApiListWafVersionsRequest) Execute() (*PaginatedWAFVersionList, *http.Response, error) {
 	return r.ApiService.ListWafVersionsExecute(r)
 }
 
@@ -891,13 +1068,13 @@ func (a *WAFVersionsAPIService) ListWafVersions(ctx context.Context, wafId int64
 }
 
 // Execute executes the request
-//  @return PaginatedWAFList
-func (a *WAFVersionsAPIService) ListWafVersionsExecute(r ApiListWafVersionsRequest) (*PaginatedWAFList, *http.Response, error) {
+//  @return PaginatedWAFVersionList
+func (a *WAFVersionsAPIService) ListWafVersionsExecute(r ApiListWafVersionsRequest) (*PaginatedWAFVersionList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *PaginatedWAFList
+		localVarReturnValue  *PaginatedWAFVersionList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WAFVersionsAPIService.ListWafVersions")
@@ -912,20 +1089,11 @@ func (a *WAFVersionsAPIService) ListWafVersionsExecute(r ApiListWafVersionsReque
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.fields != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
-	}
-	if r.ordering != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ordering", r.ordering, "form", "")
-	}
 	if r.page != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	}
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
-	}
-	if r.search != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -980,7 +1148,7 @@ func (a *WAFVersionsAPIService) ListWafVersionsExecute(r ApiListWafVersionsReque
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
+		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -991,7 +1159,29 @@ func (a *WAFVersionsAPIService) ListWafVersionsExecute(r ApiListWafVersionsReque
 					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		if localVarHTTPResponse.StatusCode == 403 {
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -1051,7 +1241,7 @@ func (r ApiPartialUpdateWafVersionRequest) PatchedWAFRequest(patchedWAFRequest P
 	return r
 }
 
-func (r ApiPartialUpdateWafVersionRequest) Execute() (*WAF, *http.Response, error) {
+func (r ApiPartialUpdateWafVersionRequest) Execute() (*WAFVersion, *http.Response, error) {
 	return r.ApiService.PartialUpdateWafVersionExecute(r)
 }
 
@@ -1075,13 +1265,13 @@ func (a *WAFVersionsAPIService) PartialUpdateWafVersion(ctx context.Context, ver
 }
 
 // Execute executes the request
-//  @return WAF
-func (a *WAFVersionsAPIService) PartialUpdateWafVersionExecute(r ApiPartialUpdateWafVersionRequest) (*WAF, *http.Response, error) {
+//  @return WAFVersion
+func (a *WAFVersionsAPIService) PartialUpdateWafVersionExecute(r ApiPartialUpdateWafVersionRequest) (*WAFVersion, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *WAF
+		localVarReturnValue  *WAFVersion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WAFVersionsAPIService.PartialUpdateWafVersion")
@@ -1152,7 +1342,7 @@ func (a *WAFVersionsAPIService) PartialUpdateWafVersionExecute(r ApiPartialUpdat
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
+		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -1163,7 +1353,40 @@ func (a *WAFVersionsAPIService) PartialUpdateWafVersionExecute(r ApiPartialUpdat
 					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		if localVarHTTPResponse.StatusCode == 403 {
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -1215,7 +1438,21 @@ type ApiRetrieveWafVersionRequest struct {
 	ApiService *WAFVersionsAPIService
 	versionId string
 	wafId int64
+	dependencies *bool
+	dependencyStates *[]string
 	fields *string
+}
+
+// Include the resources this version references.
+func (r ApiRetrieveWafVersionRequest) Dependencies(dependencies bool) ApiRetrieveWafVersionRequest {
+	r.dependencies = &dependencies
+	return r
+}
+
+// Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true.
+func (r ApiRetrieveWafVersionRequest) DependencyStates(dependencyStates []string) ApiRetrieveWafVersionRequest {
+	r.dependencyStates = &dependencyStates
+	return r
 }
 
 // Comma-separated list of field names to include in the response.
@@ -1224,7 +1461,7 @@ func (r ApiRetrieveWafVersionRequest) Fields(fields string) ApiRetrieveWafVersio
 	return r
 }
 
-func (r ApiRetrieveWafVersionRequest) Execute() (*WAF, *http.Response, error) {
+func (r ApiRetrieveWafVersionRequest) Execute() (*WAFVersion, *http.Response, error) {
 	return r.ApiService.RetrieveWafVersionExecute(r)
 }
 
@@ -1248,13 +1485,13 @@ func (a *WAFVersionsAPIService) RetrieveWafVersion(ctx context.Context, versionI
 }
 
 // Execute executes the request
-//  @return WAF
-func (a *WAFVersionsAPIService) RetrieveWafVersionExecute(r ApiRetrieveWafVersionRequest) (*WAF, *http.Response, error) {
+//  @return WAFVersion
+func (a *WAFVersionsAPIService) RetrieveWafVersionExecute(r ApiRetrieveWafVersionRequest) (*WAFVersion, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *WAF
+		localVarReturnValue  *WAFVersion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WAFVersionsAPIService.RetrieveWafVersion")
@@ -1270,6 +1507,12 @@ func (a *WAFVersionsAPIService) RetrieveWafVersionExecute(r ApiRetrieveWafVersio
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.dependencies != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "dependencies", r.dependencies, "form", "")
+	}
+	if r.dependencyStates != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "dependency_states", r.dependencyStates, "form", "csv")
+	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
@@ -1326,7 +1569,7 @@ func (a *WAFVersionsAPIService) RetrieveWafVersionExecute(r ApiRetrieveWafVersio
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
+		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -1337,7 +1580,29 @@ func (a *WAFVersionsAPIService) RetrieveWafVersionExecute(r ApiRetrieveWafVersio
 					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		if localVarHTTPResponse.StatusCode == 403 {
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -1397,7 +1662,7 @@ func (r ApiUpdateWafVersionRequest) WAFRequest(wAFRequest WAFRequest) ApiUpdateW
 	return r
 }
 
-func (r ApiUpdateWafVersionRequest) Execute() (*WAF, *http.Response, error) {
+func (r ApiUpdateWafVersionRequest) Execute() (*WAFVersion, *http.Response, error) {
 	return r.ApiService.UpdateWafVersionExecute(r)
 }
 
@@ -1421,13 +1686,13 @@ func (a *WAFVersionsAPIService) UpdateWafVersion(ctx context.Context, versionId 
 }
 
 // Execute executes the request
-//  @return WAF
-func (a *WAFVersionsAPIService) UpdateWafVersionExecute(r ApiUpdateWafVersionRequest) (*WAF, *http.Response, error) {
+//  @return WAFVersion
+func (a *WAFVersionsAPIService) UpdateWafVersionExecute(r ApiUpdateWafVersionRequest) (*WAFVersion, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *WAF
+		localVarReturnValue  *WAFVersion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WAFVersionsAPIService.UpdateWafVersion")
@@ -1501,7 +1766,7 @@ func (a *WAFVersionsAPIService) UpdateWafVersionExecute(r ApiUpdateWafVersionReq
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
+		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -1512,7 +1777,40 @@ func (a *WAFVersionsAPIService) UpdateWafVersionExecute(r ApiUpdateWafVersionReq
 					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		if localVarHTTPResponse.StatusCode == 403 {
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {

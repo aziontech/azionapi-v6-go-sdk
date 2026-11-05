@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 ## ArchiveCustomPageVersion
 
-> ArchiveCustomPageVersion(ctx, customPageId, versionId).VersionArchiveRequest(versionArchiveRequest).Execute()
+> CustomPageVersionMeta ArchiveCustomPageVersion(ctx, customPageId, versionId).CustomPageVersionArchiveRequest(customPageVersionArchiveRequest).Execute()
 
 Archive a Custom Page version
 
@@ -39,15 +39,17 @@ import (
 func main() {
 	customPageId := int64(789) // int64 | The ID of the Custom Page resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	versionArchiveRequest := *openapiclient.NewVersionArchiveRequest() // VersionArchiveRequest |  (optional)
+	customPageVersionArchiveRequest := *openapiclient.NewCustomPageVersionArchiveRequest() // CustomPageVersionArchiveRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CustomPageVersionsAPI.ArchiveCustomPageVersion(context.Background(), customPageId, versionId).VersionArchiveRequest(versionArchiveRequest).Execute()
+	resp, r, err := apiClient.CustomPageVersionsAPI.ArchiveCustomPageVersion(context.Background(), customPageId, versionId).CustomPageVersionArchiveRequest(customPageVersionArchiveRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CustomPageVersionsAPI.ArchiveCustomPageVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `ArchiveCustomPageVersion`: CustomPageVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `CustomPageVersionsAPI.ArchiveCustomPageVersion`: %v\n", resp)
 }
 ```
 
@@ -69,11 +71,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionArchiveRequest** | [**VersionArchiveRequest**](VersionArchiveRequest.md) |  | 
+ **customPageVersionArchiveRequest** | [**CustomPageVersionArchiveRequest**](CustomPageVersionArchiveRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**CustomPageVersionMeta**](CustomPageVersionMeta.md)
 
 ### Authorization
 
@@ -91,7 +93,7 @@ Name | Type | Description  | Notes
 
 ## BuildCustomPageVersion
 
-> BuildCustomPageVersion(ctx, customPageId, versionId).VersionBuildRequest(versionBuildRequest).Execute()
+> CustomPageVersionMeta BuildCustomPageVersion(ctx, customPageId, versionId).CustomPageVersionBuildRequest(customPageVersionBuildRequest).Execute()
 
 Build a Custom Page version
 
@@ -112,15 +114,17 @@ import (
 func main() {
 	customPageId := int64(789) // int64 | The ID of the Custom Page resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	versionBuildRequest := *openapiclient.NewVersionBuildRequest() // VersionBuildRequest |  (optional)
+	customPageVersionBuildRequest := *openapiclient.NewCustomPageVersionBuildRequest() // CustomPageVersionBuildRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CustomPageVersionsAPI.BuildCustomPageVersion(context.Background(), customPageId, versionId).VersionBuildRequest(versionBuildRequest).Execute()
+	resp, r, err := apiClient.CustomPageVersionsAPI.BuildCustomPageVersion(context.Background(), customPageId, versionId).CustomPageVersionBuildRequest(customPageVersionBuildRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CustomPageVersionsAPI.BuildCustomPageVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `BuildCustomPageVersion`: CustomPageVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `CustomPageVersionsAPI.BuildCustomPageVersion`: %v\n", resp)
 }
 ```
 
@@ -142,11 +146,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionBuildRequest** | [**VersionBuildRequest**](VersionBuildRequest.md) |  | 
+ **customPageVersionBuildRequest** | [**CustomPageVersionBuildRequest**](CustomPageVersionBuildRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**CustomPageVersionMeta**](CustomPageVersionMeta.md)
 
 ### Authorization
 
@@ -164,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## CancelCustomPageVersionBuild
 
-> CancelCustomPageVersionBuild(ctx, customPageId, versionId).VersionCancelRequest(versionCancelRequest).Execute()
+> CustomPageVersionMeta CancelCustomPageVersionBuild(ctx, customPageId, versionId).CustomPageVersionCancelRequest(customPageVersionCancelRequest).Execute()
 
 Cancel a Custom Page version build
 
@@ -185,15 +189,17 @@ import (
 func main() {
 	customPageId := int64(789) // int64 | The ID of the Custom Page resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	versionCancelRequest := *openapiclient.NewVersionCancelRequest() // VersionCancelRequest |  (optional)
+	customPageVersionCancelRequest := *openapiclient.NewCustomPageVersionCancelRequest() // CustomPageVersionCancelRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CustomPageVersionsAPI.CancelCustomPageVersionBuild(context.Background(), customPageId, versionId).VersionCancelRequest(versionCancelRequest).Execute()
+	resp, r, err := apiClient.CustomPageVersionsAPI.CancelCustomPageVersionBuild(context.Background(), customPageId, versionId).CustomPageVersionCancelRequest(customPageVersionCancelRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CustomPageVersionsAPI.CancelCustomPageVersionBuild``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `CancelCustomPageVersionBuild`: CustomPageVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `CustomPageVersionsAPI.CancelCustomPageVersionBuild`: %v\n", resp)
 }
 ```
 
@@ -215,11 +221,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionCancelRequest** | [**VersionCancelRequest**](VersionCancelRequest.md) |  | 
+ **customPageVersionCancelRequest** | [**CustomPageVersionCancelRequest**](CustomPageVersionCancelRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**CustomPageVersionMeta**](CustomPageVersionMeta.md)
 
 ### Authorization
 
@@ -237,7 +243,7 @@ Name | Type | Description  | Notes
 
 ## CreateCustomPageVersion
 
-> CustomPage CreateCustomPageVersion(ctx, customPageId).VersionCreateRequest(versionCreateRequest).Execute()
+> CustomPageVersion CreateCustomPageVersion(ctx, customPageId).CustomPageVersionCreateRequest(customPageVersionCreateRequest).Execute()
 
 Create a new Custom Page version
 
@@ -257,16 +263,16 @@ import (
 
 func main() {
 	customPageId := int64(789) // int64 | The ID of the Custom Page resource.
-	versionCreateRequest := *openapiclient.NewVersionCreateRequest() // VersionCreateRequest |  (optional)
+	customPageVersionCreateRequest := *openapiclient.NewCustomPageVersionCreateRequest() // CustomPageVersionCreateRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomPageVersionsAPI.CreateCustomPageVersion(context.Background(), customPageId).VersionCreateRequest(versionCreateRequest).Execute()
+	resp, r, err := apiClient.CustomPageVersionsAPI.CreateCustomPageVersion(context.Background(), customPageId).CustomPageVersionCreateRequest(customPageVersionCreateRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CustomPageVersionsAPI.CreateCustomPageVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateCustomPageVersion`: CustomPage
+	// response from `CreateCustomPageVersion`: CustomPageVersion
 	fmt.Fprintf(os.Stdout, "Response from `CustomPageVersionsAPI.CreateCustomPageVersion`: %v\n", resp)
 }
 ```
@@ -287,11 +293,11 @@ Other parameters are passed through a pointer to a apiCreateCustomPageVersionReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **versionCreateRequest** | [**VersionCreateRequest**](VersionCreateRequest.md) |  | 
+ **customPageVersionCreateRequest** | [**CustomPageVersionCreateRequest**](CustomPageVersionCreateRequest.md) |  | 
 
 ### Return type
 
-[**CustomPage**](CustomPage.md)
+[**CustomPageVersion**](CustomPageVersion.md)
 
 ### Authorization
 
@@ -309,7 +315,7 @@ Name | Type | Description  | Notes
 
 ## DeleteCustomPageVersion
 
-> DeleteCustomPageVersion(ctx, customPageId, versionId).Execute()
+> CustomPageVersionMeta DeleteCustomPageVersion(ctx, customPageId, versionId).Execute()
 
 Delete a Custom Page version
 
@@ -333,11 +339,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.CustomPageVersionsAPI.DeleteCustomPageVersion(context.Background(), customPageId, versionId).Execute()
+	resp, r, err := apiClient.CustomPageVersionsAPI.DeleteCustomPageVersion(context.Background(), customPageId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CustomPageVersionsAPI.DeleteCustomPageVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteCustomPageVersion`: CustomPageVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `CustomPageVersionsAPI.DeleteCustomPageVersion`: %v\n", resp)
 }
 ```
 
@@ -362,7 +370,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**CustomPageVersionMeta**](CustomPageVersionMeta.md)
 
 ### Authorization
 
@@ -380,7 +388,7 @@ Name | Type | Description  | Notes
 
 ## ListCustomPageVersions
 
-> PaginatedCustomPageList ListCustomPageVersions(ctx, customPageId).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+> PaginatedCustomPageVersionList ListCustomPageVersions(ctx, customPageId).Page(page).PageSize(pageSize).Execute()
 
 List Custom Page versions
 
@@ -400,20 +408,17 @@ import (
 
 func main() {
 	customPageId := int64(789) // int64 | The ID of the Custom Page resource.
-	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
-	search := "search_example" // string | A search term. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomPageVersionsAPI.ListCustomPageVersions(context.Background(), customPageId).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+	resp, r, err := apiClient.CustomPageVersionsAPI.ListCustomPageVersions(context.Background(), customPageId).Page(page).PageSize(pageSize).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CustomPageVersionsAPI.ListCustomPageVersions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListCustomPageVersions`: PaginatedCustomPageList
+	// response from `ListCustomPageVersions`: PaginatedCustomPageVersionList
 	fmt.Fprintf(os.Stdout, "Response from `CustomPageVersionsAPI.ListCustomPageVersions`: %v\n", resp)
 }
 ```
@@ -434,15 +439,12 @@ Other parameters are passed through a pointer to a apiListCustomPageVersionsRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **ordering** | **string** | Which field to use when ordering the results. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
- **search** | **string** | A search term. | 
 
 ### Return type
 
-[**PaginatedCustomPageList**](PaginatedCustomPageList.md)
+[**PaginatedCustomPageVersionList**](PaginatedCustomPageVersionList.md)
 
 ### Authorization
 
@@ -460,7 +462,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateCustomPageVersion
 
-> CustomPage PartialUpdateCustomPageVersion(ctx, customPageId, versionId).PatchedCustomPageRequest(patchedCustomPageRequest).Execute()
+> CustomPageVersion PartialUpdateCustomPageVersion(ctx, customPageId, versionId).PatchedCustomPageRequest(patchedCustomPageRequest).Execute()
 
 Partially update a Custom Page version
 
@@ -490,7 +492,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CustomPageVersionsAPI.PartialUpdateCustomPageVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateCustomPageVersion`: CustomPage
+	// response from `PartialUpdateCustomPageVersion`: CustomPageVersion
 	fmt.Fprintf(os.Stdout, "Response from `CustomPageVersionsAPI.PartialUpdateCustomPageVersion`: %v\n", resp)
 }
 ```
@@ -517,7 +519,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CustomPage**](CustomPage.md)
+[**CustomPageVersion**](CustomPageVersion.md)
 
 ### Authorization
 
@@ -535,7 +537,7 @@ Name | Type | Description  | Notes
 
 ## RetrieveCustomPageVersion
 
-> CustomPage RetrieveCustomPageVersion(ctx, customPageId, versionId).Fields(fields).Execute()
+> CustomPageVersion RetrieveCustomPageVersion(ctx, customPageId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Execute()
 
 Retrieve a Custom Page version
 
@@ -556,16 +558,18 @@ import (
 func main() {
 	customPageId := int64(789) // int64 | The ID of the Custom Page resource.
 	versionId := "versionId_example" // string | The identifier of the version.
+	dependencies := true // bool | Include the resources this version references. (optional)
+	dependencyStates := []string{"Inner_example"} // []string | Keep only the dependency versions in these states (comma-separated). Needs dependencies=true. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CustomPageVersionsAPI.RetrieveCustomPageVersion(context.Background(), customPageId, versionId).Fields(fields).Execute()
+	resp, r, err := apiClient.CustomPageVersionsAPI.RetrieveCustomPageVersion(context.Background(), customPageId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `CustomPageVersionsAPI.RetrieveCustomPageVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RetrieveCustomPageVersion`: CustomPage
+	// response from `RetrieveCustomPageVersion`: CustomPageVersion
 	fmt.Fprintf(os.Stdout, "Response from `CustomPageVersionsAPI.RetrieveCustomPageVersion`: %v\n", resp)
 }
 ```
@@ -588,11 +592,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **dependencies** | **bool** | Include the resources this version references. | 
+ **dependencyStates** | **[]string** | Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
 
 ### Return type
 
-[**CustomPage**](CustomPage.md)
+[**CustomPageVersion**](CustomPageVersion.md)
 
 ### Authorization
 
@@ -610,7 +616,7 @@ Name | Type | Description  | Notes
 
 ## UpdateCustomPageVersion
 
-> CustomPage UpdateCustomPageVersion(ctx, customPageId, versionId).CustomPageRequest(customPageRequest).Execute()
+> CustomPageVersion UpdateCustomPageVersion(ctx, customPageId, versionId).CustomPageRequest(customPageRequest).Execute()
 
 Update a Custom Page version
 
@@ -640,7 +646,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CustomPageVersionsAPI.UpdateCustomPageVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateCustomPageVersion`: CustomPage
+	// response from `UpdateCustomPageVersion`: CustomPageVersion
 	fmt.Fprintf(os.Stdout, "Response from `CustomPageVersionsAPI.UpdateCustomPageVersion`: %v\n", resp)
 }
 ```
@@ -667,7 +673,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CustomPage**](CustomPage.md)
+[**CustomPageVersion**](CustomPageVersion.md)
 
 ### Authorization
 

@@ -19,7 +19,6 @@ import (
 	"net/url"
 	"strings"
 	"time"
-	"reflect"
 )
 
 
@@ -255,7 +254,7 @@ func (r ApiBuildReleaseRequest) Execute() (*ReleaseAsyncResponse, *http.Response
 /*
 BuildRelease Finalize a draft release (send to edge via outbox)
 
-Transitions a draft release to `state="queued"`. Runs catalog validation + STRICT baseline checks and emits the INSTALL outbox event so the worker can build the artifact at the edge. On any failure, the draft transitions to `state="error"` and a new draft is required to retry. Mirrors the `/build` verb used by edge-api for the analogous build-config versioning action.
+Transitions a draft release to `state="queued"`. Runs catalog validation + STRICT baseline checks and emits the INSTALL outbox event so the worker can build the artifact at the edge. A refused build leaves the release in `state="error"`. A release in `error` can be edited and built again. Mirrors the `/build` verb used by edge-api for the analogous build-config versioning action.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
@@ -304,9 +303,6 @@ func (a *DeploymentsReleasesAPIService) BuildReleaseExecute(r ApiBuildReleaseReq
 	}
 	if strlen(r.releaseId) > 26 {
 		return localVarReturnValue, nil, reportError("releaseId must have less than 26 elements")
-	}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -683,7 +679,7 @@ func (r ApiCreateReleaseRequest) Execute() (*ReleaseAsyncResponse, *http.Respons
 /*
 CreateRelease Create a draft release
 
-Creates a new release in `state="draft"`. Drafts are local-only: the resource catalog is not invoked and no outbox event is emitted. The client refines the release through PATCH `/v6/deployments/{deployment_id}/releases/{release_id}` and finalizes via POST `/v6/deployments/{deployment_id}/releases/{release_id}` (no verb suffix; same path with a different method). Limit: 20 drafts per (client_id, deployment_id).
+Creates a new release in `state="draft"`. A release always holds exactly one `application`, a draft included: `resources` is required, and a composition without an application, or with two of a singleton type (`application`, `firewall`, `custom_page`), is refused with 400 `43002` (`/data/resources`). The global id of the `application` is resolved against the edge-api and no outbox event is emitted. The client refines the release through PATCH `/v6/deployments/{deployment_id}/releases/{release_id}`, which keeps the same composition rule, and builds it with POST `/v6/deployments/{deployment_id}/releases/{release_id}/build`. Limit: 20 drafts per (client_id, deployment_id).
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
@@ -881,7 +877,7 @@ type ApiDeleteReleaseRequest struct {
 	releaseId string
 }
 
-func (r ApiDeleteReleaseRequest) Execute() (*DeleteResponse, *http.Response, error) {
+func (r ApiDeleteReleaseRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteReleaseExecute(r)
 }
 
@@ -905,18 +901,16 @@ func (a *DeploymentsReleasesAPIService) DeleteRelease(ctx context.Context, deplo
 }
 
 // Execute executes the request
-//  @return DeleteResponse
-func (a *DeploymentsReleasesAPIService) DeleteReleaseExecute(r ApiDeleteReleaseRequest) (*DeleteResponse, *http.Response, error) {
+func (a *DeploymentsReleasesAPIService) DeleteReleaseExecute(r ApiDeleteReleaseRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeleteResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeploymentsReleasesAPIService.DeleteRelease")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/deployments/{deployment_id}/releases/{release_id}"
@@ -927,16 +921,16 @@ func (a *DeploymentsReleasesAPIService) DeleteReleaseExecute(r ApiDeleteReleaseR
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 	if strlen(r.deploymentId) < 8 {
-		return localVarReturnValue, nil, reportError("deploymentId must have at least 8 elements")
+		return nil, reportError("deploymentId must have at least 8 elements")
 	}
 	if strlen(r.deploymentId) > 26 {
-		return localVarReturnValue, nil, reportError("deploymentId must have less than 26 elements")
+		return nil, reportError("deploymentId must have less than 26 elements")
 	}
 	if strlen(r.releaseId) < 8 {
-		return localVarReturnValue, nil, reportError("releaseId must have at least 8 elements")
+		return nil, reportError("releaseId must have at least 8 elements")
 	}
 	if strlen(r.releaseId) > 26 {
-		return localVarReturnValue, nil, reportError("releaseId must have less than 26 elements")
+		return nil, reportError("releaseId must have less than 26 elements")
 	}
 
 	// to determine the Content-Type header
@@ -972,19 +966,19 @@ func (a *DeploymentsReleasesAPIService) DeleteReleaseExecute(r ApiDeleteReleaseR
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -997,79 +991,70 @@ func (a *DeploymentsReleasesAPIService) DeleteReleaseExecute(r ApiDeleteReleaseR
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type ApiListAccountReleasesRequest struct {
@@ -1087,7 +1072,7 @@ type ApiListAccountReleasesRequest struct {
 	trafficRole *string
 }
 
-// Restrict the listing to these deployments. Comma-separated (&#x60;deployment&#x3D;A,B&#x60;) or repeated (&#x60;deployment&#x3D;A&amp;deployment&#x3D;B&#x60;). Max 100. An id that does not exist, or belongs to another account, yields an empty page rather than a 404.
+// Restrict the listing to these deployments, comma-separated (&#x60;deployment&#x3D;A,B&#x60;). More ids than the per-request cap, 100 by default, answer 400. An id that does not exist, or belongs to another account, yields an empty page rather than a 404.
 func (r ApiListAccountReleasesRequest) Deployment(deployment []string) ApiListAccountReleasesRequest {
 	r.deployment = &deployment
 	return r
@@ -1099,19 +1084,19 @@ func (r ApiListAccountReleasesRequest) Fields(fields string) ApiListAccountRelea
 	return r
 }
 
-// Only releases modified at or after this ISO-8601 timestamp.
+// Filter by last modification date (greater than or equal).
 func (r ApiListAccountReleasesRequest) LastModifiedGte(lastModifiedGte time.Time) ApiListAccountReleasesRequest {
 	r.lastModifiedGte = &lastModifiedGte
 	return r
 }
 
-// Only releases modified at or before this ISO-8601 timestamp.
+// Filter by last modification date (less than or equal).
 func (r ApiListAccountReleasesRequest) LastModifiedLte(lastModifiedLte time.Time) ApiListAccountReleasesRequest {
 	r.lastModifiedLte = &lastModifiedLte
 	return r
 }
 
-// Comma-separated sort fields. Prefix with &#x60;-&#x60; for descending. Allowed: &#x60;id&#x60;, &#x60;created_at&#x60;, &#x60;last_modified&#x60;, &#x60;state&#x60;, &#x60;traffic_role&#x60;. Default: &#x60;-last_modified,-id&#x60;.
+// Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role)
 func (r ApiListAccountReleasesRequest) Ordering(ordering string) ApiListAccountReleasesRequest {
 	r.ordering = &ordering
 	return r
@@ -1129,19 +1114,19 @@ func (r ApiListAccountReleasesRequest) PageSize(pageSize int32) ApiListAccountRe
 	return r
 }
 
-// Free-text search. Matches a release short_id by prefix OR the parent deployment name by substring, case-insensitive. LIKE metacharacters are literal.
+// A search term to filter results. Searches across the following fields: id, deployment_name.
 func (r ApiListAccountReleasesRequest) Search(search string) ApiListAccountReleasesRequest {
 	r.search = &search
 	return r
 }
 
-// Filter by release state. Comma-separated (&#x60;state&#x3D;ready,building&#x60;) or repeated (&#x60;state&#x3D;ready&amp;state&#x3D;building&#x60;).
+// Filter by one or more lifecycle states, comma-separated (&#x60;state&#x3D;ready,building&#x60;). &#x60;deleted&#x60; is never listed. &#x60;deleting&#x60; stays listed so a stuck delete can be found.
 func (r ApiListAccountReleasesRequest) State(state []string) ApiListAccountReleasesRequest {
 	r.state = &state
 	return r
 }
 
-// Only releases currently serving traffic. The roles this covers are resolved per parent &#x60;deployment_policy&#x60;: &#x60;single_version&#x60; → ACTIVE/CANDIDATE, &#x60;versioned_urls&#x60; → ACTIVE/VALID_URL. Only &#x60;active&#x60; is accepted.
+// &#x60;active&#x60; returns the releases currently serving traffic, resolved per parent &#x60;deployment_policy&#x60;: &#x60;single_version&#x60; → ACTIVE/CANDIDATE, &#x60;versioned_urls&#x60; → ACTIVE/VALID_URL. Any other value matches nothing.
 func (r ApiListAccountReleasesRequest) TrafficRole(trafficRole string) ApiListAccountReleasesRequest {
 	r.trafficRole = &trafficRole
 	return r
@@ -1154,7 +1139,7 @@ func (r ApiListAccountReleasesRequest) Execute() (*PaginatedAccountReleaseList, 
 /*
 ListAccountReleases List every release of the account
 
-Returns the releases of all deployments the authenticated account owns, newest first. Each item carries `deployment_name` so a listing needs no follow-up call to resolve the parent. Note that `traffic_role` is NOT supported here: `active` is defined per deployment_policy, so it only has meaning under GET /v6/deployments/{deployment_id}/releases.
+Returns the releases of all deployments the authenticated account owns, oldest first. Each item carries `deployment_name` so a listing needs no follow-up call to resolve the parent. `traffic_role=active` keeps the releases serving traffic, resolved per parent `deployment_policy`.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListAccountReleasesRequest
@@ -1188,15 +1173,7 @@ func (a *DeploymentsReleasesAPIService) ListAccountReleasesExecute(r ApiListAcco
 	localVarFormParams := url.Values{}
 
 	if r.deployment != nil {
-		t := *r.deployment
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "deployment", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "deployment", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "deployment", r.deployment, "form", "csv")
 	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
@@ -1220,15 +1197,7 @@ func (a *DeploymentsReleasesAPIService) ListAccountReleasesExecute(r ApiListAcco
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
 	}
 	if r.state != nil {
-		t := *r.state
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "state", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "state", t, "form", "multi")
-		}
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "csv")
 	}
 	if r.trafficRole != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "traffic_role", r.trafficRole, "form", "")
@@ -1384,7 +1353,7 @@ func (r ApiListReleasesRequest) Fields(fields string) ApiListReleasesRequest {
 	return r
 }
 
-// Comma-separated sort fields. Prefix with &#x60;-&#x60; for descending. Allowed: &#x60;id&#x60;, &#x60;created_at&#x60;, &#x60;last_modified&#x60;, &#x60;state&#x60;, &#x60;traffic_role&#x60;. Default: &#x60;-created_at,-id&#x60;.
+// Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role)
 func (r ApiListReleasesRequest) Ordering(ordering string) ApiListReleasesRequest {
 	r.ordering = &ordering
 	return r
@@ -1402,13 +1371,13 @@ func (r ApiListReleasesRequest) PageSize(pageSize int32) ApiListReleasesRequest 
 	return r
 }
 
-// Filter by one or more lifecycle states. Pass a comma-separated list (&#x60;state&#x3D;ready,building&#x60;) or repeat the key (&#x60;state&#x3D;ready&amp;state&#x3D;building&#x60;). &#x60;deleted&#x60; is rejected — it is never listed. &#x60;deleting&#x60; stays listed so a stuck delete can be found.
+// Filter by one or more lifecycle states, comma-separated (&#x60;state&#x3D;ready,building&#x60;). &#x60;deleted&#x60; is never listed. &#x60;deleting&#x60; stays listed so a stuck delete can be found.
 func (r ApiListReleasesRequest) State(state []string) ApiListReleasesRequest {
 	r.state = &state
 	return r
 }
 
-// Semantic filter — &#x60;active&#x60; returns what is currently serving traffic. single_version → ACTIVE+CANDIDATE; versioned_urls → ACTIVE+VALID_URL.
+// &#x60;active&#x60; returns the releases currently serving traffic, resolved per parent &#x60;deployment_policy&#x60;: &#x60;single_version&#x60; → ACTIVE/CANDIDATE, &#x60;versioned_urls&#x60; → ACTIVE/VALID_URL. Any other value matches nothing.
 func (r ApiListReleasesRequest) TrafficRole(trafficRole string) ApiListReleasesRequest {
 	r.trafficRole = &trafficRole
 	return r
@@ -1533,6 +1502,17 @@ func (a *DeploymentsReleasesAPIService) ListReleasesExecute(r ApiListReleasesReq
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse

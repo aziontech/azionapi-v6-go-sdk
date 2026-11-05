@@ -22,8 +22,8 @@ var _ MappedNullable = &ReleaseRequest{}
 
 // ReleaseRequest struct for ReleaseRequest
 type ReleaseRequest struct {
-	Resources []PatchedReleaseRequestResourcesInner `json:"resources"`
-	Origin AccountReleaseOrigin `json:"origin"`
+	Resources []ReleaseCreateRequestResourcesInner `json:"resources"`
+	Origin ReleaseOrigin `json:"origin"`
 }
 
 type _ReleaseRequest ReleaseRequest
@@ -32,7 +32,7 @@ type _ReleaseRequest ReleaseRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewReleaseRequest(resources []PatchedReleaseRequestResourcesInner, origin AccountReleaseOrigin) *ReleaseRequest {
+func NewReleaseRequest(resources []ReleaseCreateRequestResourcesInner, origin ReleaseOrigin) *ReleaseRequest {
 	this := ReleaseRequest{}
 	this.Resources = resources
 	this.Origin = origin
@@ -48,9 +48,9 @@ func NewReleaseRequestWithDefaults() *ReleaseRequest {
 }
 
 // GetResources returns the Resources field value
-func (o *ReleaseRequest) GetResources() []PatchedReleaseRequestResourcesInner {
+func (o *ReleaseRequest) GetResources() []ReleaseCreateRequestResourcesInner {
 	if o == nil {
-		var ret []PatchedReleaseRequestResourcesInner
+		var ret []ReleaseCreateRequestResourcesInner
 		return ret
 	}
 
@@ -59,7 +59,7 @@ func (o *ReleaseRequest) GetResources() []PatchedReleaseRequestResourcesInner {
 
 // GetResourcesOk returns a tuple with the Resources field value
 // and a boolean to check if the value has been set.
-func (o *ReleaseRequest) GetResourcesOk() ([]PatchedReleaseRequestResourcesInner, bool) {
+func (o *ReleaseRequest) GetResourcesOk() ([]ReleaseCreateRequestResourcesInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -67,14 +67,14 @@ func (o *ReleaseRequest) GetResourcesOk() ([]PatchedReleaseRequestResourcesInner
 }
 
 // SetResources sets field value
-func (o *ReleaseRequest) SetResources(v []PatchedReleaseRequestResourcesInner) {
+func (o *ReleaseRequest) SetResources(v []ReleaseCreateRequestResourcesInner) {
 	o.Resources = v
 }
 
 // GetOrigin returns the Origin field value
-func (o *ReleaseRequest) GetOrigin() AccountReleaseOrigin {
+func (o *ReleaseRequest) GetOrigin() ReleaseOrigin {
 	if o == nil {
-		var ret AccountReleaseOrigin
+		var ret ReleaseOrigin
 		return ret
 	}
 
@@ -83,7 +83,7 @@ func (o *ReleaseRequest) GetOrigin() AccountReleaseOrigin {
 
 // GetOriginOk returns a tuple with the Origin field value
 // and a boolean to check if the value has been set.
-func (o *ReleaseRequest) GetOriginOk() (*AccountReleaseOrigin, bool) {
+func (o *ReleaseRequest) GetOriginOk() (*ReleaseOrigin, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -91,7 +91,7 @@ func (o *ReleaseRequest) GetOriginOk() (*AccountReleaseOrigin, bool) {
 }
 
 // SetOrigin sets field value
-func (o *ReleaseRequest) SetOrigin(v AccountReleaseOrigin) {
+func (o *ReleaseRequest) SetOrigin(v ReleaseOrigin) {
 	o.Origin = v
 }
 

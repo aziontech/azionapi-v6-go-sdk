@@ -13,6 +13,8 @@ package azionapi
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the ReleaseCreateRequest type satisfies the MappedNullable interface at compile time
@@ -20,16 +22,19 @@ var _ MappedNullable = &ReleaseCreateRequest{}
 
 // ReleaseCreateRequest struct for ReleaseCreateRequest
 type ReleaseCreateRequest struct {
-	Resources []PatchedReleaseRequestResourcesInner `json:"resources,omitempty"`
-	Origin *AccountReleaseOrigin `json:"origin,omitempty"`
+	Resources []ReleaseCreateRequestResourcesInner `json:"resources"`
+	Origin *ReleaseOrigin `json:"origin,omitempty"`
 }
+
+type _ReleaseCreateRequest ReleaseCreateRequest
 
 // NewReleaseCreateRequest instantiates a new ReleaseCreateRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewReleaseCreateRequest() *ReleaseCreateRequest {
+func NewReleaseCreateRequest(resources []ReleaseCreateRequestResourcesInner) *ReleaseCreateRequest {
 	this := ReleaseCreateRequest{}
+	this.Resources = resources
 	return &this
 }
 
@@ -41,42 +46,34 @@ func NewReleaseCreateRequestWithDefaults() *ReleaseCreateRequest {
 	return &this
 }
 
-// GetResources returns the Resources field value if set, zero value otherwise.
-func (o *ReleaseCreateRequest) GetResources() []PatchedReleaseRequestResourcesInner {
-	if o == nil || IsNil(o.Resources) {
-		var ret []PatchedReleaseRequestResourcesInner
+// GetResources returns the Resources field value
+func (o *ReleaseCreateRequest) GetResources() []ReleaseCreateRequestResourcesInner {
+	if o == nil {
+		var ret []ReleaseCreateRequestResourcesInner
 		return ret
 	}
+
 	return o.Resources
 }
 
-// GetResourcesOk returns a tuple with the Resources field value if set, nil otherwise
+// GetResourcesOk returns a tuple with the Resources field value
 // and a boolean to check if the value has been set.
-func (o *ReleaseCreateRequest) GetResourcesOk() ([]PatchedReleaseRequestResourcesInner, bool) {
-	if o == nil || IsNil(o.Resources) {
+func (o *ReleaseCreateRequest) GetResourcesOk() ([]ReleaseCreateRequestResourcesInner, bool) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Resources, true
 }
 
-// HasResources returns a boolean if a field has been set.
-func (o *ReleaseCreateRequest) HasResources() bool {
-	if o != nil && !IsNil(o.Resources) {
-		return true
-	}
-
-	return false
-}
-
-// SetResources gets a reference to the given []PatchedReleaseRequestResourcesInner and assigns it to the Resources field.
-func (o *ReleaseCreateRequest) SetResources(v []PatchedReleaseRequestResourcesInner) {
+// SetResources sets field value
+func (o *ReleaseCreateRequest) SetResources(v []ReleaseCreateRequestResourcesInner) {
 	o.Resources = v
 }
 
 // GetOrigin returns the Origin field value if set, zero value otherwise.
-func (o *ReleaseCreateRequest) GetOrigin() AccountReleaseOrigin {
+func (o *ReleaseCreateRequest) GetOrigin() ReleaseOrigin {
 	if o == nil || IsNil(o.Origin) {
-		var ret AccountReleaseOrigin
+		var ret ReleaseOrigin
 		return ret
 	}
 	return *o.Origin
@@ -84,7 +81,7 @@ func (o *ReleaseCreateRequest) GetOrigin() AccountReleaseOrigin {
 
 // GetOriginOk returns a tuple with the Origin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReleaseCreateRequest) GetOriginOk() (*AccountReleaseOrigin, bool) {
+func (o *ReleaseCreateRequest) GetOriginOk() (*ReleaseOrigin, bool) {
 	if o == nil || IsNil(o.Origin) {
 		return nil, false
 	}
@@ -100,8 +97,8 @@ func (o *ReleaseCreateRequest) HasOrigin() bool {
 	return false
 }
 
-// SetOrigin gets a reference to the given AccountReleaseOrigin and assigns it to the Origin field.
-func (o *ReleaseCreateRequest) SetOrigin(v AccountReleaseOrigin) {
+// SetOrigin gets a reference to the given ReleaseOrigin and assigns it to the Origin field.
+func (o *ReleaseCreateRequest) SetOrigin(v ReleaseOrigin) {
 	o.Origin = &v
 }
 
@@ -115,13 +112,47 @@ func (o ReleaseCreateRequest) MarshalJSON() ([]byte, error) {
 
 func (o ReleaseCreateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Resources) {
-		toSerialize["resources"] = o.Resources
-	}
+	toSerialize["resources"] = o.Resources
 	if !IsNil(o.Origin) {
 		toSerialize["origin"] = o.Origin
 	}
 	return toSerialize, nil
+}
+
+func (o *ReleaseCreateRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"resources",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varReleaseCreateRequest := _ReleaseCreateRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	err = decoder.Decode(&varReleaseCreateRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ReleaseCreateRequest(varReleaseCreateRequest)
+
+	return err
 }
 
 type NullableReleaseCreateRequest struct {

@@ -7,9 +7,8 @@ Name | Type | Description | Notes
 **Id** | Pointer to **int64** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Args** | Pointer to **interface{}** |  | [optional] 
-**AzionForm** | Pointer to [**FirewallFunctionInstanceAzionForm**](FirewallFunctionInstanceAzionForm.md) |  | [optional] 
+**AzionForm** | Pointer to [**FunctionsAzionForm**](FunctionsAzionForm.md) |  | [optional] 
 **Function** | Pointer to **int64** |  | [optional] 
-**Active** | Pointer to **bool** |  | [optional] 
 **LastEditor** | Pointer to **string** |  | [optional] 
 **LastModified** | Pointer to **time.Time** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
@@ -120,20 +119,20 @@ HasArgs returns a boolean if a field has been set.
 UnsetArgs ensures that no value is present for Args, not even an explicit nil
 ### GetAzionForm
 
-`func (o *FirewallFunctionInstance) GetAzionForm() FirewallFunctionInstanceAzionForm`
+`func (o *FirewallFunctionInstance) GetAzionForm() FunctionsAzionForm`
 
 GetAzionForm returns the AzionForm field if non-nil, zero value otherwise.
 
 ### GetAzionFormOk
 
-`func (o *FirewallFunctionInstance) GetAzionFormOk() (*FirewallFunctionInstanceAzionForm, bool)`
+`func (o *FirewallFunctionInstance) GetAzionFormOk() (*FunctionsAzionForm, bool)`
 
 GetAzionFormOk returns a tuple with the AzionForm field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAzionForm
 
-`func (o *FirewallFunctionInstance) SetAzionForm(v FirewallFunctionInstanceAzionForm)`
+`func (o *FirewallFunctionInstance) SetAzionForm(v FunctionsAzionForm)`
 
 SetAzionForm sets AzionForm field to given value.
 
@@ -167,31 +166,6 @@ SetFunction sets Function field to given value.
 `func (o *FirewallFunctionInstance) HasFunction() bool`
 
 HasFunction returns a boolean if a field has been set.
-
-### GetActive
-
-`func (o *FirewallFunctionInstance) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *FirewallFunctionInstance) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *FirewallFunctionInstance) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *FirewallFunctionInstance) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
 
 ### GetLastEditor
 

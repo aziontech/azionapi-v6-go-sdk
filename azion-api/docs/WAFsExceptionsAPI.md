@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## DeleteWafException
 
-> DeleteResponse DeleteWafException(ctx, exceptionId, wafId).Execute()
+> DeleteWafException(ctx, exceptionId, wafId).Execute()
 
 Delete an Exception from a Web Application Firewall (WAF)
 
@@ -192,13 +192,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WAFsExceptionsAPI.DeleteWafException(context.Background(), exceptionId, wafId).Execute()
+	r, err := apiClient.WAFsExceptionsAPI.DeleteWafException(context.Background(), exceptionId, wafId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WAFsExceptionsAPI.DeleteWafException``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteWafException`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `WAFsExceptionsAPI.DeleteWafException`: %v\n", resp)
 }
 ```
 
@@ -223,7 +221,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -241,7 +239,7 @@ Name | Type | Description  | Notes
 
 ## DeleteWafVersionException
 
-> DeleteResponse DeleteWafVersionException(ctx, exceptionId, versionId, wafId).Execute()
+> DeleteWafVersionException(ctx, exceptionId, versionId, wafId).Execute()
 
 Delete an Exception from a Web Application Firewall (WAF)
 
@@ -266,13 +264,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WAFsExceptionsAPI.DeleteWafVersionException(context.Background(), exceptionId, versionId, wafId).Execute()
+	r, err := apiClient.WAFsExceptionsAPI.DeleteWafVersionException(context.Background(), exceptionId, versionId, wafId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WAFsExceptionsAPI.DeleteWafVersionException``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteWafVersionException`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `WAFsExceptionsAPI.DeleteWafVersionException`: %v\n", resp)
 }
 ```
 
@@ -299,7 +295,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 

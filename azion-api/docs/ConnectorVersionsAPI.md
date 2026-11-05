@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 ## ArchiveConnectorVersion
 
-> ArchiveConnectorVersion(ctx, connectorId, versionId).VersionArchiveRequest(versionArchiveRequest).Execute()
+> ConnectorVersionMeta ArchiveConnectorVersion(ctx, connectorId, versionId).ConnectorVersionArchiveRequest(connectorVersionArchiveRequest).Execute()
 
 Archive a Connector version
 
@@ -39,15 +39,17 @@ import (
 func main() {
 	connectorId := int64(789) // int64 | The ID of the Connector resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	versionArchiveRequest := *openapiclient.NewVersionArchiveRequest() // VersionArchiveRequest |  (optional)
+	connectorVersionArchiveRequest := *openapiclient.NewConnectorVersionArchiveRequest() // ConnectorVersionArchiveRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ConnectorVersionsAPI.ArchiveConnectorVersion(context.Background(), connectorId, versionId).VersionArchiveRequest(versionArchiveRequest).Execute()
+	resp, r, err := apiClient.ConnectorVersionsAPI.ArchiveConnectorVersion(context.Background(), connectorId, versionId).ConnectorVersionArchiveRequest(connectorVersionArchiveRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorVersionsAPI.ArchiveConnectorVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `ArchiveConnectorVersion`: ConnectorVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorVersionsAPI.ArchiveConnectorVersion`: %v\n", resp)
 }
 ```
 
@@ -69,11 +71,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionArchiveRequest** | [**VersionArchiveRequest**](VersionArchiveRequest.md) |  | 
+ **connectorVersionArchiveRequest** | [**ConnectorVersionArchiveRequest**](ConnectorVersionArchiveRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**ConnectorVersionMeta**](ConnectorVersionMeta.md)
 
 ### Authorization
 
@@ -91,7 +93,7 @@ Name | Type | Description  | Notes
 
 ## BuildConnectorVersion
 
-> BuildConnectorVersion(ctx, connectorId, versionId).VersionBuildRequest(versionBuildRequest).Execute()
+> ConnectorVersionMeta BuildConnectorVersion(ctx, connectorId, versionId).ConnectorVersionBuildRequest(connectorVersionBuildRequest).Execute()
 
 Build a Connector version
 
@@ -112,15 +114,17 @@ import (
 func main() {
 	connectorId := int64(789) // int64 | The ID of the Connector resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	versionBuildRequest := *openapiclient.NewVersionBuildRequest() // VersionBuildRequest |  (optional)
+	connectorVersionBuildRequest := *openapiclient.NewConnectorVersionBuildRequest() // ConnectorVersionBuildRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ConnectorVersionsAPI.BuildConnectorVersion(context.Background(), connectorId, versionId).VersionBuildRequest(versionBuildRequest).Execute()
+	resp, r, err := apiClient.ConnectorVersionsAPI.BuildConnectorVersion(context.Background(), connectorId, versionId).ConnectorVersionBuildRequest(connectorVersionBuildRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorVersionsAPI.BuildConnectorVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `BuildConnectorVersion`: ConnectorVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorVersionsAPI.BuildConnectorVersion`: %v\n", resp)
 }
 ```
 
@@ -142,11 +146,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionBuildRequest** | [**VersionBuildRequest**](VersionBuildRequest.md) |  | 
+ **connectorVersionBuildRequest** | [**ConnectorVersionBuildRequest**](ConnectorVersionBuildRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**ConnectorVersionMeta**](ConnectorVersionMeta.md)
 
 ### Authorization
 
@@ -164,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## CancelConnectorVersionBuild
 
-> CancelConnectorVersionBuild(ctx, connectorId, versionId).VersionCancelRequest(versionCancelRequest).Execute()
+> ConnectorVersionMeta CancelConnectorVersionBuild(ctx, connectorId, versionId).ConnectorVersionCancelRequest(connectorVersionCancelRequest).Execute()
 
 Cancel a Connector version build
 
@@ -185,15 +189,17 @@ import (
 func main() {
 	connectorId := int64(789) // int64 | The ID of the Connector resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	versionCancelRequest := *openapiclient.NewVersionCancelRequest() // VersionCancelRequest |  (optional)
+	connectorVersionCancelRequest := *openapiclient.NewConnectorVersionCancelRequest() // ConnectorVersionCancelRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ConnectorVersionsAPI.CancelConnectorVersionBuild(context.Background(), connectorId, versionId).VersionCancelRequest(versionCancelRequest).Execute()
+	resp, r, err := apiClient.ConnectorVersionsAPI.CancelConnectorVersionBuild(context.Background(), connectorId, versionId).ConnectorVersionCancelRequest(connectorVersionCancelRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorVersionsAPI.CancelConnectorVersionBuild``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `CancelConnectorVersionBuild`: ConnectorVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorVersionsAPI.CancelConnectorVersionBuild`: %v\n", resp)
 }
 ```
 
@@ -215,11 +221,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionCancelRequest** | [**VersionCancelRequest**](VersionCancelRequest.md) |  | 
+ **connectorVersionCancelRequest** | [**ConnectorVersionCancelRequest**](ConnectorVersionCancelRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**ConnectorVersionMeta**](ConnectorVersionMeta.md)
 
 ### Authorization
 
@@ -237,7 +243,7 @@ Name | Type | Description  | Notes
 
 ## CreateConnectorVersion
 
-> Connector CreateConnectorVersion(ctx, connectorId).VersionCreateRequest(versionCreateRequest).Execute()
+> ConnectorVersion CreateConnectorVersion(ctx, connectorId).ConnectorVersionCreateRequest(connectorVersionCreateRequest).Execute()
 
 Create a new Connector version
 
@@ -257,16 +263,16 @@ import (
 
 func main() {
 	connectorId := int64(789) // int64 | The ID of the Connector resource.
-	versionCreateRequest := *openapiclient.NewVersionCreateRequest() // VersionCreateRequest |  (optional)
+	connectorVersionCreateRequest := *openapiclient.NewConnectorVersionCreateRequest() // ConnectorVersionCreateRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorVersionsAPI.CreateConnectorVersion(context.Background(), connectorId).VersionCreateRequest(versionCreateRequest).Execute()
+	resp, r, err := apiClient.ConnectorVersionsAPI.CreateConnectorVersion(context.Background(), connectorId).ConnectorVersionCreateRequest(connectorVersionCreateRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorVersionsAPI.CreateConnectorVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateConnectorVersion`: Connector
+	// response from `CreateConnectorVersion`: ConnectorVersion
 	fmt.Fprintf(os.Stdout, "Response from `ConnectorVersionsAPI.CreateConnectorVersion`: %v\n", resp)
 }
 ```
@@ -287,11 +293,11 @@ Other parameters are passed through a pointer to a apiCreateConnectorVersionRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **versionCreateRequest** | [**VersionCreateRequest**](VersionCreateRequest.md) |  | 
+ **connectorVersionCreateRequest** | [**ConnectorVersionCreateRequest**](ConnectorVersionCreateRequest.md) |  | 
 
 ### Return type
 
-[**Connector**](Connector.md)
+[**ConnectorVersion**](ConnectorVersion.md)
 
 ### Authorization
 
@@ -309,7 +315,7 @@ Name | Type | Description  | Notes
 
 ## DeleteConnectorVersion
 
-> DeleteConnectorVersion(ctx, connectorId, versionId).Execute()
+> ConnectorVersionMeta DeleteConnectorVersion(ctx, connectorId, versionId).Execute()
 
 Delete a Connector version
 
@@ -333,11 +339,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ConnectorVersionsAPI.DeleteConnectorVersion(context.Background(), connectorId, versionId).Execute()
+	resp, r, err := apiClient.ConnectorVersionsAPI.DeleteConnectorVersion(context.Background(), connectorId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorVersionsAPI.DeleteConnectorVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteConnectorVersion`: ConnectorVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `ConnectorVersionsAPI.DeleteConnectorVersion`: %v\n", resp)
 }
 ```
 
@@ -362,7 +370,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**ConnectorVersionMeta**](ConnectorVersionMeta.md)
 
 ### Authorization
 
@@ -380,7 +388,7 @@ Name | Type | Description  | Notes
 
 ## ListConnectorVersions
 
-> PaginatedConnectorList ListConnectorVersions(ctx, connectorId).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+> PaginatedConnectorVersionList ListConnectorVersions(ctx, connectorId).Page(page).PageSize(pageSize).Execute()
 
 List Connector versions
 
@@ -400,20 +408,17 @@ import (
 
 func main() {
 	connectorId := int64(789) // int64 | The ID of the Connector resource.
-	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
-	search := "search_example" // string | A search term. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorVersionsAPI.ListConnectorVersions(context.Background(), connectorId).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+	resp, r, err := apiClient.ConnectorVersionsAPI.ListConnectorVersions(context.Background(), connectorId).Page(page).PageSize(pageSize).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorVersionsAPI.ListConnectorVersions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListConnectorVersions`: PaginatedConnectorList
+	// response from `ListConnectorVersions`: PaginatedConnectorVersionList
 	fmt.Fprintf(os.Stdout, "Response from `ConnectorVersionsAPI.ListConnectorVersions`: %v\n", resp)
 }
 ```
@@ -434,15 +439,12 @@ Other parameters are passed through a pointer to a apiListConnectorVersionsReque
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **ordering** | **string** | Which field to use when ordering the results. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
- **search** | **string** | A search term. | 
 
 ### Return type
 
-[**PaginatedConnectorList**](PaginatedConnectorList.md)
+[**PaginatedConnectorVersionList**](PaginatedConnectorVersionList.md)
 
 ### Authorization
 
@@ -460,7 +462,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateConnectorVersion
 
-> Connector PartialUpdateConnectorVersion(ctx, connectorId, versionId).PatchedConnectorRequest(patchedConnectorRequest).Execute()
+> ConnectorVersion PartialUpdateConnectorVersion(ctx, connectorId, versionId).PatchedConnectorRequest(patchedConnectorRequest).Execute()
 
 Partially update a Connector version
 
@@ -490,7 +492,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorVersionsAPI.PartialUpdateConnectorVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateConnectorVersion`: Connector
+	// response from `PartialUpdateConnectorVersion`: ConnectorVersion
 	fmt.Fprintf(os.Stdout, "Response from `ConnectorVersionsAPI.PartialUpdateConnectorVersion`: %v\n", resp)
 }
 ```
@@ -517,7 +519,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Connector**](Connector.md)
+[**ConnectorVersion**](ConnectorVersion.md)
 
 ### Authorization
 
@@ -535,7 +537,7 @@ Name | Type | Description  | Notes
 
 ## RetrieveConnectorVersion
 
-> Connector RetrieveConnectorVersion(ctx, connectorId, versionId).Fields(fields).Execute()
+> ConnectorVersion RetrieveConnectorVersion(ctx, connectorId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Execute()
 
 Retrieve a Connector version
 
@@ -556,16 +558,18 @@ import (
 func main() {
 	connectorId := int64(789) // int64 | The ID of the Connector resource.
 	versionId := "versionId_example" // string | The identifier of the version.
+	dependencies := true // bool | Include the resources this version references. (optional)
+	dependencyStates := []string{"Inner_example"} // []string | Keep only the dependency versions in these states (comma-separated). Needs dependencies=true. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorVersionsAPI.RetrieveConnectorVersion(context.Background(), connectorId, versionId).Fields(fields).Execute()
+	resp, r, err := apiClient.ConnectorVersionsAPI.RetrieveConnectorVersion(context.Background(), connectorId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorVersionsAPI.RetrieveConnectorVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RetrieveConnectorVersion`: Connector
+	// response from `RetrieveConnectorVersion`: ConnectorVersion
 	fmt.Fprintf(os.Stdout, "Response from `ConnectorVersionsAPI.RetrieveConnectorVersion`: %v\n", resp)
 }
 ```
@@ -588,11 +592,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **dependencies** | **bool** | Include the resources this version references. | 
+ **dependencyStates** | **[]string** | Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
 
 ### Return type
 
-[**Connector**](Connector.md)
+[**ConnectorVersion**](ConnectorVersion.md)
 
 ### Authorization
 
@@ -610,7 +616,7 @@ Name | Type | Description  | Notes
 
 ## UpdateConnectorVersion
 
-> Connector UpdateConnectorVersion(ctx, connectorId, versionId).ConnectorRequest(connectorRequest).Execute()
+> ConnectorVersion UpdateConnectorVersion(ctx, connectorId, versionId).ConnectorRequest(connectorRequest).Execute()
 
 Update a Connector version
 
@@ -640,7 +646,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorVersionsAPI.UpdateConnectorVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateConnectorVersion`: Connector
+	// response from `UpdateConnectorVersion`: ConnectorVersion
 	fmt.Fprintf(os.Stdout, "Response from `ConnectorVersionsAPI.UpdateConnectorVersion`: %v\n", resp)
 }
 ```
@@ -667,7 +673,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Connector**](Connector.md)
+[**ConnectorVersion**](ConnectorVersion.md)
 
 ### Authorization
 

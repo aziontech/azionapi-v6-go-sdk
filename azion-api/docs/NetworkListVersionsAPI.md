@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 ## ArchiveNetworkListVersion
 
-> ArchiveNetworkListVersion(ctx, networkListId, versionId).VersionArchiveRequest(versionArchiveRequest).Execute()
+> NetworkListVersionMeta ArchiveNetworkListVersion(ctx, networkListId, versionId).NetworkListVersionArchiveRequest(networkListVersionArchiveRequest).Execute()
 
 Archive a Network List version
 
@@ -39,15 +39,17 @@ import (
 func main() {
 	networkListId := int64(789) // int64 | The ID of the Network List resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	versionArchiveRequest := *openapiclient.NewVersionArchiveRequest() // VersionArchiveRequest |  (optional)
+	networkListVersionArchiveRequest := *openapiclient.NewNetworkListVersionArchiveRequest() // NetworkListVersionArchiveRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.NetworkListVersionsAPI.ArchiveNetworkListVersion(context.Background(), networkListId, versionId).VersionArchiveRequest(versionArchiveRequest).Execute()
+	resp, r, err := apiClient.NetworkListVersionsAPI.ArchiveNetworkListVersion(context.Background(), networkListId, versionId).NetworkListVersionArchiveRequest(networkListVersionArchiveRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkListVersionsAPI.ArchiveNetworkListVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `ArchiveNetworkListVersion`: NetworkListVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `NetworkListVersionsAPI.ArchiveNetworkListVersion`: %v\n", resp)
 }
 ```
 
@@ -69,11 +71,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionArchiveRequest** | [**VersionArchiveRequest**](VersionArchiveRequest.md) |  | 
+ **networkListVersionArchiveRequest** | [**NetworkListVersionArchiveRequest**](NetworkListVersionArchiveRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**NetworkListVersionMeta**](NetworkListVersionMeta.md)
 
 ### Authorization
 
@@ -91,7 +93,7 @@ Name | Type | Description  | Notes
 
 ## BuildNetworkListVersion
 
-> BuildNetworkListVersion(ctx, networkListId, versionId).VersionBuildRequest(versionBuildRequest).Execute()
+> NetworkListVersionMeta BuildNetworkListVersion(ctx, networkListId, versionId).NetworkListVersionBuildRequest(networkListVersionBuildRequest).Execute()
 
 Build a Network List version
 
@@ -112,15 +114,17 @@ import (
 func main() {
 	networkListId := int64(789) // int64 | The ID of the Network List resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	versionBuildRequest := *openapiclient.NewVersionBuildRequest() // VersionBuildRequest |  (optional)
+	networkListVersionBuildRequest := *openapiclient.NewNetworkListVersionBuildRequest() // NetworkListVersionBuildRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.NetworkListVersionsAPI.BuildNetworkListVersion(context.Background(), networkListId, versionId).VersionBuildRequest(versionBuildRequest).Execute()
+	resp, r, err := apiClient.NetworkListVersionsAPI.BuildNetworkListVersion(context.Background(), networkListId, versionId).NetworkListVersionBuildRequest(networkListVersionBuildRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkListVersionsAPI.BuildNetworkListVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `BuildNetworkListVersion`: NetworkListVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `NetworkListVersionsAPI.BuildNetworkListVersion`: %v\n", resp)
 }
 ```
 
@@ -142,11 +146,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionBuildRequest** | [**VersionBuildRequest**](VersionBuildRequest.md) |  | 
+ **networkListVersionBuildRequest** | [**NetworkListVersionBuildRequest**](NetworkListVersionBuildRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**NetworkListVersionMeta**](NetworkListVersionMeta.md)
 
 ### Authorization
 
@@ -164,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## CancelNetworkListVersionBuild
 
-> CancelNetworkListVersionBuild(ctx, networkListId, versionId).VersionCancelRequest(versionCancelRequest).Execute()
+> NetworkListVersionMeta CancelNetworkListVersionBuild(ctx, networkListId, versionId).NetworkListVersionCancelRequest(networkListVersionCancelRequest).Execute()
 
 Cancel a Network List version build
 
@@ -185,15 +189,17 @@ import (
 func main() {
 	networkListId := int64(789) // int64 | The ID of the Network List resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	versionCancelRequest := *openapiclient.NewVersionCancelRequest() // VersionCancelRequest |  (optional)
+	networkListVersionCancelRequest := *openapiclient.NewNetworkListVersionCancelRequest() // NetworkListVersionCancelRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.NetworkListVersionsAPI.CancelNetworkListVersionBuild(context.Background(), networkListId, versionId).VersionCancelRequest(versionCancelRequest).Execute()
+	resp, r, err := apiClient.NetworkListVersionsAPI.CancelNetworkListVersionBuild(context.Background(), networkListId, versionId).NetworkListVersionCancelRequest(networkListVersionCancelRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkListVersionsAPI.CancelNetworkListVersionBuild``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `CancelNetworkListVersionBuild`: NetworkListVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `NetworkListVersionsAPI.CancelNetworkListVersionBuild`: %v\n", resp)
 }
 ```
 
@@ -215,11 +221,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **versionCancelRequest** | [**VersionCancelRequest**](VersionCancelRequest.md) |  | 
+ **networkListVersionCancelRequest** | [**NetworkListVersionCancelRequest**](NetworkListVersionCancelRequest.md) |  | 
 
 ### Return type
 
- (empty response body)
+[**NetworkListVersionMeta**](NetworkListVersionMeta.md)
 
 ### Authorization
 
@@ -237,7 +243,7 @@ Name | Type | Description  | Notes
 
 ## CreateNetworkListVersion
 
-> NetworkList CreateNetworkListVersion(ctx, networkListId).VersionCreateRequest(versionCreateRequest).Execute()
+> NetworkListVersion CreateNetworkListVersion(ctx, networkListId).NetworkListVersionCreateRequest(networkListVersionCreateRequest).Execute()
 
 Create a new Network List version
 
@@ -257,16 +263,16 @@ import (
 
 func main() {
 	networkListId := int64(789) // int64 | The ID of the Network List resource.
-	versionCreateRequest := *openapiclient.NewVersionCreateRequest() // VersionCreateRequest |  (optional)
+	networkListVersionCreateRequest := *openapiclient.NewNetworkListVersionCreateRequest() // NetworkListVersionCreateRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NetworkListVersionsAPI.CreateNetworkListVersion(context.Background(), networkListId).VersionCreateRequest(versionCreateRequest).Execute()
+	resp, r, err := apiClient.NetworkListVersionsAPI.CreateNetworkListVersion(context.Background(), networkListId).NetworkListVersionCreateRequest(networkListVersionCreateRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkListVersionsAPI.CreateNetworkListVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateNetworkListVersion`: NetworkList
+	// response from `CreateNetworkListVersion`: NetworkListVersion
 	fmt.Fprintf(os.Stdout, "Response from `NetworkListVersionsAPI.CreateNetworkListVersion`: %v\n", resp)
 }
 ```
@@ -287,11 +293,11 @@ Other parameters are passed through a pointer to a apiCreateNetworkListVersionRe
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **versionCreateRequest** | [**VersionCreateRequest**](VersionCreateRequest.md) |  | 
+ **networkListVersionCreateRequest** | [**NetworkListVersionCreateRequest**](NetworkListVersionCreateRequest.md) |  | 
 
 ### Return type
 
-[**NetworkList**](NetworkList.md)
+[**NetworkListVersion**](NetworkListVersion.md)
 
 ### Authorization
 
@@ -309,7 +315,7 @@ Name | Type | Description  | Notes
 
 ## DeleteNetworkListVersion
 
-> DeleteNetworkListVersion(ctx, networkListId, versionId).Execute()
+> NetworkListVersionMeta DeleteNetworkListVersion(ctx, networkListId, versionId).Execute()
 
 Delete a Network List version
 
@@ -333,11 +339,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.NetworkListVersionsAPI.DeleteNetworkListVersion(context.Background(), networkListId, versionId).Execute()
+	resp, r, err := apiClient.NetworkListVersionsAPI.DeleteNetworkListVersion(context.Background(), networkListId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkListVersionsAPI.DeleteNetworkListVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
+	// response from `DeleteNetworkListVersion`: NetworkListVersionMeta
+	fmt.Fprintf(os.Stdout, "Response from `NetworkListVersionsAPI.DeleteNetworkListVersion`: %v\n", resp)
 }
 ```
 
@@ -362,7 +370,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**NetworkListVersionMeta**](NetworkListVersionMeta.md)
 
 ### Authorization
 
@@ -380,7 +388,7 @@ Name | Type | Description  | Notes
 
 ## ListNetworkListVersions
 
-> PaginatedNetworkList ListNetworkListVersions(ctx, networkListId).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+> PaginatedNetworkListVersionList ListNetworkListVersions(ctx, networkListId).Page(page).PageSize(pageSize).Execute()
 
 List Network List versions
 
@@ -400,20 +408,17 @@ import (
 
 func main() {
 	networkListId := int64(789) // int64 | The ID of the Network List resource.
-	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
-	search := "search_example" // string | A search term. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NetworkListVersionsAPI.ListNetworkListVersions(context.Background(), networkListId).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+	resp, r, err := apiClient.NetworkListVersionsAPI.ListNetworkListVersions(context.Background(), networkListId).Page(page).PageSize(pageSize).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkListVersionsAPI.ListNetworkListVersions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListNetworkListVersions`: PaginatedNetworkList
+	// response from `ListNetworkListVersions`: PaginatedNetworkListVersionList
 	fmt.Fprintf(os.Stdout, "Response from `NetworkListVersionsAPI.ListNetworkListVersions`: %v\n", resp)
 }
 ```
@@ -434,15 +439,12 @@ Other parameters are passed through a pointer to a apiListNetworkListVersionsReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **ordering** | **string** | Which field to use when ordering the results. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
- **search** | **string** | A search term. | 
 
 ### Return type
 
-[**PaginatedNetworkList**](PaginatedNetworkList.md)
+[**PaginatedNetworkListVersionList**](PaginatedNetworkListVersionList.md)
 
 ### Authorization
 
@@ -460,7 +462,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateNetworkListVersion
 
-> NetworkList PartialUpdateNetworkListVersion(ctx, networkListId, versionId).PatchedNetworkListRequest(patchedNetworkListRequest).Execute()
+> NetworkListVersion PartialUpdateNetworkListVersion(ctx, networkListId, versionId).PatchedNetworkListRequest(patchedNetworkListRequest).Execute()
 
 Partially update a Network List version
 
@@ -490,7 +492,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkListVersionsAPI.PartialUpdateNetworkListVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateNetworkListVersion`: NetworkList
+	// response from `PartialUpdateNetworkListVersion`: NetworkListVersion
 	fmt.Fprintf(os.Stdout, "Response from `NetworkListVersionsAPI.PartialUpdateNetworkListVersion`: %v\n", resp)
 }
 ```
@@ -517,7 +519,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NetworkList**](NetworkList.md)
+[**NetworkListVersion**](NetworkListVersion.md)
 
 ### Authorization
 
@@ -535,7 +537,7 @@ Name | Type | Description  | Notes
 
 ## RetrieveNetworkListVersion
 
-> NetworkList RetrieveNetworkListVersion(ctx, networkListId, versionId).Fields(fields).Execute()
+> NetworkListVersion RetrieveNetworkListVersion(ctx, networkListId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Execute()
 
 Retrieve a Network List version
 
@@ -556,16 +558,18 @@ import (
 func main() {
 	networkListId := int64(789) // int64 | The ID of the Network List resource.
 	versionId := "versionId_example" // string | The identifier of the version.
+	dependencies := true // bool | Include the resources this version references. (optional)
+	dependencyStates := []string{"Inner_example"} // []string | Keep only the dependency versions in these states (comma-separated). Needs dependencies=true. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NetworkListVersionsAPI.RetrieveNetworkListVersion(context.Background(), networkListId, versionId).Fields(fields).Execute()
+	resp, r, err := apiClient.NetworkListVersionsAPI.RetrieveNetworkListVersion(context.Background(), networkListId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkListVersionsAPI.RetrieveNetworkListVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `RetrieveNetworkListVersion`: NetworkList
+	// response from `RetrieveNetworkListVersion`: NetworkListVersion
 	fmt.Fprintf(os.Stdout, "Response from `NetworkListVersionsAPI.RetrieveNetworkListVersion`: %v\n", resp)
 }
 ```
@@ -588,11 +592,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **dependencies** | **bool** | Include the resources this version references. | 
+ **dependencyStates** | **[]string** | Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
 
 ### Return type
 
-[**NetworkList**](NetworkList.md)
+[**NetworkListVersion**](NetworkListVersion.md)
 
 ### Authorization
 
@@ -610,7 +616,7 @@ Name | Type | Description  | Notes
 
 ## UpdateNetworkListVersion
 
-> NetworkList UpdateNetworkListVersion(ctx, networkListId, versionId).NetworkListRequest(networkListRequest).Execute()
+> NetworkListVersion UpdateNetworkListVersion(ctx, networkListId, versionId).NetworkListRequest(networkListRequest).Execute()
 
 Update a Network List version
 
@@ -640,7 +646,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkListVersionsAPI.UpdateNetworkListVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateNetworkListVersion`: NetworkList
+	// response from `UpdateNetworkListVersion`: NetworkListVersion
 	fmt.Fprintf(os.Stdout, "Response from `NetworkListVersionsAPI.UpdateNetworkListVersion`: %v\n", resp)
 }
 ```
@@ -667,7 +673,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NetworkList**](NetworkList.md)
+[**NetworkListVersion**](NetworkListVersion.md)
 
 ### Authorization
 

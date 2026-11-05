@@ -18,7 +18,6 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
-	"reflect"
 )
 
 
@@ -31,11 +30,12 @@ type ApiListResourceUsageRequest struct {
 	resourceId *[]string
 	resourceType *string
 	fields *string
+	ordering *string
 	page *int64
 	pageSize *int32
 }
 
-// One or more resource ids to look up (for &#x60;application&#x60; this is its &#x60;global_id&#x60;). Repeat the key (&#x60;resource_id&#x3D;a&amp;resource_id&#x3D;b&#x60;) or pass a comma-separated list (&#x60;resource_id&#x3D;a,b&#x60;). Max 100.
+// One or more resource ids to look up, comma-separated (&#x60;resource_id&#x3D;a,b&#x60;). For &#x60;application&#x60; this is its &#x60;global_id&#x60;.
 func (r ApiListResourceUsageRequest) ResourceId(resourceId []string) ApiListResourceUsageRequest {
 	r.resourceId = &resourceId
 	return r
@@ -50,6 +50,12 @@ func (r ApiListResourceUsageRequest) ResourceType(resourceType string) ApiListRe
 // Comma-separated list of field names to include in the response.
 func (r ApiListResourceUsageRequest) Fields(fields string) ApiListResourceUsageRequest {
 	r.fields = &fields
+	return r
+}
+
+// Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state)
+func (r ApiListResourceUsageRequest) Ordering(ordering string) ApiListResourceUsageRequest {
+	r.ordering = &ordering
 	return r
 }
 
@@ -114,23 +120,16 @@ func (a *DeploymentsResourceUsageAPIService) ListResourceUsageExecute(r ApiListR
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
+	if r.ordering != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ordering", r.ordering, "form", "")
+	}
 	if r.page != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	}
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
 	}
-	{
-		t := *r.resourceId
-		if reflect.TypeOf(t).Kind() == reflect.Slice {
-			s := reflect.ValueOf(t)
-			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "resource_id", s.Index(i).Interface(), "form", "multi")
-			}
-		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "resource_id", t, "form", "multi")
-		}
-	}
+	parameterAddToHeaderOrQuery(localVarQueryParams, "resource_id", r.resourceId, "form", "csv")
 	parameterAddToHeaderOrQuery(localVarQueryParams, "resource_type", r.resourceType, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
