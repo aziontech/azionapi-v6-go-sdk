@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **Items** | Pointer to **[]string** |  | [optional] 
 **LastEditor** | Pointer to **string** |  | [optional] 
 **LastModified** | Pointer to **time.Time** |  | [optional] 
-**Active** | Pointer to **bool** |  | [optional] 
 **VersionId** | Pointer to **string** | ID of the version metadata | [optional] 
 **VersionState** | Pointer to **string** | Current lifecycle state of the version. | [optional] 
 **ProductVersion** | Pointer to **string** | Product version string | [optional] 
@@ -197,31 +196,6 @@ SetLastModified sets LastModified field to given value.
 `func (o *NetworkListVersion) HasLastModified() bool`
 
 HasLastModified returns a boolean if a field has been set.
-
-### GetActive
-
-`func (o *NetworkListVersion) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *NetworkListVersion) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *NetworkListVersion) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *NetworkListVersion) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
 
 ### GetVersionId
 

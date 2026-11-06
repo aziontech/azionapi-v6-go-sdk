@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** |  | [optional] 
-**Active** | Pointer to **bool** |  | [optional] 
 **Type** | Pointer to **string** | The connector&#39;s current type. Optional, and no other type is accepted. | [optional] 
 **Attributes** | Pointer to [**ConnectorVersionCreateRequestAttributes**](ConnectorVersionCreateRequestAttributes.md) |  | [optional] 
 **SourceVersion** | Pointer to **NullableString** | ID of the version to clone from. If omitted, clones latest ready. | [optional] 
@@ -54,31 +53,6 @@ SetName sets Name field to given value.
 `func (o *ConnectorVersionCreateRequest) HasName() bool`
 
 HasName returns a boolean if a field has been set.
-
-### GetActive
-
-`func (o *ConnectorVersionCreateRequest) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *ConnectorVersionCreateRequest) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *ConnectorVersionCreateRequest) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *ConnectorVersionCreateRequest) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
 
 ### GetType
 
