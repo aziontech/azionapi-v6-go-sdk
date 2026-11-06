@@ -28,7 +28,6 @@ type NetworkListVersion struct {
 	Items []string `json:"items,omitempty"`
 	LastEditor *string `json:"last_editor,omitempty"`
 	LastModified *time.Time `json:"last_modified,omitempty"`
-	Active *bool `json:"active,omitempty"`
 	// ID of the version metadata
 	VersionId *string `json:"version_id,omitempty"`
 	// Current lifecycle state of the version.
@@ -272,38 +271,6 @@ func (o *NetworkListVersion) HasLastModified() bool {
 // SetLastModified gets a reference to the given time.Time and assigns it to the LastModified field.
 func (o *NetworkListVersion) SetLastModified(v time.Time) {
 	o.LastModified = &v
-}
-
-// GetActive returns the Active field value if set, zero value otherwise.
-func (o *NetworkListVersion) GetActive() bool {
-	if o == nil || IsNil(o.Active) {
-		var ret bool
-		return ret
-	}
-	return *o.Active
-}
-
-// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NetworkListVersion) GetActiveOk() (*bool, bool) {
-	if o == nil || IsNil(o.Active) {
-		return nil, false
-	}
-	return o.Active, true
-}
-
-// HasActive returns a boolean if a field has been set.
-func (o *NetworkListVersion) HasActive() bool {
-	if o != nil && !IsNil(o.Active) {
-		return true
-	}
-
-	return false
-}
-
-// SetActive gets a reference to the given bool and assigns it to the Active field.
-func (o *NetworkListVersion) SetActive(v bool) {
-	o.Active = &v
 }
 
 // GetVersionId returns the VersionId field value if set, zero value otherwise.
@@ -929,9 +896,6 @@ func (o NetworkListVersion) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.LastModified) {
 		toSerialize["last_modified"] = o.LastModified
-	}
-	if !IsNil(o.Active) {
-		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.VersionId) {
 		toSerialize["version_id"] = o.VersionId

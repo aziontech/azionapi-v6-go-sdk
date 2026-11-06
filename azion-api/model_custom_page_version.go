@@ -24,7 +24,6 @@ type CustomPageVersion struct {
 	Name *string `json:"name,omitempty"`
 	LastEditor *string `json:"last_editor,omitempty"`
 	LastModified *time.Time `json:"last_modified,omitempty"`
-	Active *bool `json:"active,omitempty"`
 	Pages []Page `json:"pages,omitempty"`
 	// ID of the version metadata
 	VersionId *string `json:"version_id,omitempty"`
@@ -173,38 +172,6 @@ func (o *CustomPageVersion) HasLastModified() bool {
 // SetLastModified gets a reference to the given time.Time and assigns it to the LastModified field.
 func (o *CustomPageVersion) SetLastModified(v time.Time) {
 	o.LastModified = &v
-}
-
-// GetActive returns the Active field value if set, zero value otherwise.
-func (o *CustomPageVersion) GetActive() bool {
-	if o == nil || IsNil(o.Active) {
-		var ret bool
-		return ret
-	}
-	return *o.Active
-}
-
-// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CustomPageVersion) GetActiveOk() (*bool, bool) {
-	if o == nil || IsNil(o.Active) {
-		return nil, false
-	}
-	return o.Active, true
-}
-
-// HasActive returns a boolean if a field has been set.
-func (o *CustomPageVersion) HasActive() bool {
-	if o != nil && !IsNil(o.Active) {
-		return true
-	}
-
-	return false
-}
-
-// SetActive gets a reference to the given bool and assigns it to the Active field.
-func (o *CustomPageVersion) SetActive(v bool) {
-	o.Active = &v
 }
 
 // GetPages returns the Pages field value if set, zero value otherwise.
@@ -853,9 +820,6 @@ func (o CustomPageVersion) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.LastModified) {
 		toSerialize["last_modified"] = o.LastModified
-	}
-	if !IsNil(o.Active) {
-		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.Pages) {
 		toSerialize["pages"] = o.Pages

@@ -21,7 +21,6 @@ var _ MappedNullable = &PatchedConnectorStorageBaseRequest{}
 // PatchedConnectorStorageBaseRequest struct for PatchedConnectorStorageBaseRequest
 type PatchedConnectorStorageBaseRequest struct {
 	Name *string `json:"name,omitempty"`
-	Active *bool `json:"active,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Attributes *PatchedConnectorStorageAttributesRequest `json:"attributes,omitempty"`
 }
@@ -73,38 +72,6 @@ func (o *PatchedConnectorStorageBaseRequest) HasName() bool {
 // SetName gets a reference to the given string and assigns it to the Name field.
 func (o *PatchedConnectorStorageBaseRequest) SetName(v string) {
 	o.Name = &v
-}
-
-// GetActive returns the Active field value if set, zero value otherwise.
-func (o *PatchedConnectorStorageBaseRequest) GetActive() bool {
-	if o == nil || IsNil(o.Active) {
-		var ret bool
-		return ret
-	}
-	return *o.Active
-}
-
-// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PatchedConnectorStorageBaseRequest) GetActiveOk() (*bool, bool) {
-	if o == nil || IsNil(o.Active) {
-		return nil, false
-	}
-	return o.Active, true
-}
-
-// HasActive returns a boolean if a field has been set.
-func (o *PatchedConnectorStorageBaseRequest) HasActive() bool {
-	if o != nil && !IsNil(o.Active) {
-		return true
-	}
-
-	return false
-}
-
-// SetActive gets a reference to the given bool and assigns it to the Active field.
-func (o *PatchedConnectorStorageBaseRequest) SetActive(v bool) {
-	o.Active = &v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
@@ -183,9 +150,6 @@ func (o PatchedConnectorStorageBaseRequest) ToMap() (map[string]interface{}, err
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
-	}
-	if !IsNil(o.Active) {
-		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type

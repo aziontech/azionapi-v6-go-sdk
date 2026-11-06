@@ -24,7 +24,6 @@ type NetworkListVersionCreateRequest struct {
 	// * `asn` - ASN * `countries` - Countries * `ip_cidr` - IP/CIDR
 	Type *string `json:"type,omitempty"`
 	Items []string `json:"items,omitempty"`
-	Active *bool `json:"active,omitempty"`
 	// ID of the version to clone from. If omitted, clones latest ready.
 	SourceVersion NullableString `json:"source_version,omitempty"`
 	// Accepted and not stored.
@@ -144,38 +143,6 @@ func (o *NetworkListVersionCreateRequest) SetItems(v []string) {
 	o.Items = v
 }
 
-// GetActive returns the Active field value if set, zero value otherwise.
-func (o *NetworkListVersionCreateRequest) GetActive() bool {
-	if o == nil || IsNil(o.Active) {
-		var ret bool
-		return ret
-	}
-	return *o.Active
-}
-
-// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NetworkListVersionCreateRequest) GetActiveOk() (*bool, bool) {
-	if o == nil || IsNil(o.Active) {
-		return nil, false
-	}
-	return o.Active, true
-}
-
-// HasActive returns a boolean if a field has been set.
-func (o *NetworkListVersionCreateRequest) HasActive() bool {
-	if o != nil && !IsNil(o.Active) {
-		return true
-	}
-
-	return false
-}
-
-// SetActive gets a reference to the given bool and assigns it to the Active field.
-func (o *NetworkListVersionCreateRequest) SetActive(v bool) {
-	o.Active = &v
-}
-
 // GetSourceVersion returns the SourceVersion field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NetworkListVersionCreateRequest) GetSourceVersion() string {
 	if o == nil || IsNil(o.SourceVersion.Get()) {
@@ -268,9 +235,6 @@ func (o NetworkListVersionCreateRequest) ToMap() (map[string]interface{}, error)
 	}
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
-	}
-	if !IsNil(o.Active) {
-		toSerialize["active"] = o.Active
 	}
 	if o.SourceVersion.IsSet() {
 		toSerialize["source_version"] = o.SourceVersion.Get()

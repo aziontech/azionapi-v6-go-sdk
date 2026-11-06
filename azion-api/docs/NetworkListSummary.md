@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **LastEditor** | Pointer to **string** |  | [optional] 
 **LastModified** | Pointer to **time.Time** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
-**Active** | Pointer to **bool** |  | [optional] 
 **VersionId** | Pointer to **NullableString** | ID of the version metadata (use in /versions/{id} URLs) | [optional] 
 **VersionState** | Pointer to **NullableString** | Build state of this version (queued, building, ready, error, ...) | [optional] 
 
@@ -182,31 +181,6 @@ SetCreatedAt sets CreatedAt field to given value.
 `func (o *NetworkListSummary) HasCreatedAt() bool`
 
 HasCreatedAt returns a boolean if a field has been set.
-
-### GetActive
-
-`func (o *NetworkListSummary) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *NetworkListSummary) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *NetworkListSummary) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *NetworkListSummary) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
 
 ### GetVersionId
 

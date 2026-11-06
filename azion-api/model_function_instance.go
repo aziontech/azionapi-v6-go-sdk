@@ -26,7 +26,6 @@ type FunctionInstance struct {
 	Args interface{} `json:"args,omitempty"`
 	AzionForm *FunctionsAzionForm `json:"azion_form,omitempty"`
 	Function *int64 `json:"function,omitempty"`
-	Active *bool `json:"active,omitempty"`
 	LastEditor *string `json:"last_editor,omitempty"`
 	LastModified *time.Time `json:"last_modified,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
@@ -210,38 +209,6 @@ func (o *FunctionInstance) SetFunction(v int64) {
 	o.Function = &v
 }
 
-// GetActive returns the Active field value if set, zero value otherwise.
-func (o *FunctionInstance) GetActive() bool {
-	if o == nil || IsNil(o.Active) {
-		var ret bool
-		return ret
-	}
-	return *o.Active
-}
-
-// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FunctionInstance) GetActiveOk() (*bool, bool) {
-	if o == nil || IsNil(o.Active) {
-		return nil, false
-	}
-	return o.Active, true
-}
-
-// HasActive returns a boolean if a field has been set.
-func (o *FunctionInstance) HasActive() bool {
-	if o != nil && !IsNil(o.Active) {
-		return true
-	}
-
-	return false
-}
-
-// SetActive gets a reference to the given bool and assigns it to the Active field.
-func (o *FunctionInstance) SetActive(v bool) {
-	o.Active = &v
-}
-
 // GetLastEditor returns the LastEditor field value if set, zero value otherwise.
 func (o *FunctionInstance) GetLastEditor() string {
 	if o == nil || IsNil(o.LastEditor) {
@@ -362,9 +329,6 @@ func (o FunctionInstance) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Function) {
 		toSerialize["function"] = o.Function
-	}
-	if !IsNil(o.Active) {
-		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.LastEditor) {
 		toSerialize["last_editor"] = o.LastEditor
