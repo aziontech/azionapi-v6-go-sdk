@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **LastEditor** | Pointer to **string** |  | [optional] 
 **LastModified** | Pointer to **time.Time** |  | [optional] 
-**Active** | Pointer to **bool** |  | [optional] 
 **Attributes** | Pointer to [**ConnectorLiveIngestAttributes**](ConnectorLiveIngestAttributes.md) |  | [optional] 
 **VersionId** | Pointer to **string** | ID of the version metadata | [optional] 
 **VersionState** | Pointer to **string** | Current lifecycle state of the version. | [optional] 
@@ -141,31 +140,6 @@ SetLastModified sets LastModified field to given value.
 `func (o *ConnectorLiveIngestVersion) HasLastModified() bool`
 
 HasLastModified returns a boolean if a field has been set.
-
-### GetActive
-
-`func (o *ConnectorLiveIngestVersion) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *ConnectorLiveIngestVersion) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *ConnectorLiveIngestVersion) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *ConnectorLiveIngestVersion) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
 
 ### GetAttributes
 

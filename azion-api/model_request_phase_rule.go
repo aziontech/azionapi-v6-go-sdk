@@ -23,7 +23,6 @@ var _ MappedNullable = &RequestPhaseRule{}
 type RequestPhaseRule struct {
 	Id *int64 `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
-	Active *bool `json:"active,omitempty"`
 	Criteria [][]ApplicationCriterionField `json:"criteria,omitempty"`
 	Behaviors []RequestPhaseBehavior `json:"behaviors,omitempty"`
 	Description *string `json:"description,omitempty"`
@@ -112,38 +111,6 @@ func (o *RequestPhaseRule) HasName() bool {
 // SetName gets a reference to the given string and assigns it to the Name field.
 func (o *RequestPhaseRule) SetName(v string) {
 	o.Name = &v
-}
-
-// GetActive returns the Active field value if set, zero value otherwise.
-func (o *RequestPhaseRule) GetActive() bool {
-	if o == nil || IsNil(o.Active) {
-		var ret bool
-		return ret
-	}
-	return *o.Active
-}
-
-// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RequestPhaseRule) GetActiveOk() (*bool, bool) {
-	if o == nil || IsNil(o.Active) {
-		return nil, false
-	}
-	return o.Active, true
-}
-
-// HasActive returns a boolean if a field has been set.
-func (o *RequestPhaseRule) HasActive() bool {
-	if o != nil && !IsNil(o.Active) {
-		return true
-	}
-
-	return false
-}
-
-// SetActive gets a reference to the given bool and assigns it to the Active field.
-func (o *RequestPhaseRule) SetActive(v bool) {
-	o.Active = &v
 }
 
 // GetCriteria returns the Criteria field value if set, zero value otherwise.
@@ -405,9 +372,6 @@ func (o RequestPhaseRule) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
-	}
-	if !IsNil(o.Active) {
-		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.Criteria) {
 		toSerialize["criteria"] = o.Criteria

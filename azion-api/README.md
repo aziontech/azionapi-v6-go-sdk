@@ -68,7 +68,7 @@ ctx = context.WithValue(context.Background(), azionapi.ContextOperationServerVar
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://api.azion.com/v6*
+All URIs are relative to *https://stage-api.azion.com/v6*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -151,12 +151,12 @@ Class | Method | HTTP request | Description
 *ApplicationsResponseRulesAPI* | [**UpdateApplicationResponseRulesOrder**](docs/ApplicationsResponseRulesAPI.md#updateapplicationresponserulesorder) | **Put** /workspace/applications/{application_id}/response_rules/order | Ordering Application Response Rules
 *ApplicationsResponseRulesAPI* | [**UpdateApplicationVersionResponseRule**](docs/ApplicationsResponseRulesAPI.md#updateapplicationversionresponserule) | **Put** /workspace/applications/{application_id}/versions/{version_id}/response_rules/{response_rule_id} | Update an Application Response Rule
 *ApplicationsResponseRulesAPI* | [**UpdateApplicationVersionResponseRulesOrder**](docs/ApplicationsResponseRulesAPI.md#updateapplicationversionresponserulesorder) | **Put** /workspace/applications/{application_id}/versions/{version_id}/response_rules/order | Ordering Application Response Rules
-*CRLVersionsAPI* | [**ListCrlVersions**](docs/CRLVersionsAPI.md#listcrlversions) | **Get** /workspace/tls/crls/{resource_pk}/versions | List CRL versions
-*CRLVersionsAPI* | [**RetrieveCrlVersion**](docs/CRLVersionsAPI.md#retrievecrlversion) | **Get** /workspace/tls/crls/{resource_pk}/versions/{id} | Retrieve a CRL version
-*CRLVersionsAPI* | [**RevertCrlVersion**](docs/CRLVersionsAPI.md#revertcrlversion) | **Post** /workspace/tls/crls/{resource_pk}/versions/{id}/revert | Revert to a CRL version
-*CertificateVersionsAPI* | [**ListCertificateVersions**](docs/CertificateVersionsAPI.md#listcertificateversions) | **Get** /workspace/tls/certificates/{resource_pk}/versions | List certificate versions
-*CertificateVersionsAPI* | [**RetrieveCertificateVersion**](docs/CertificateVersionsAPI.md#retrievecertificateversion) | **Get** /workspace/tls/certificates/{resource_pk}/versions/{id} | Retrieve a certificate version
-*CertificateVersionsAPI* | [**RevertCertificateVersion**](docs/CertificateVersionsAPI.md#revertcertificateversion) | **Post** /workspace/tls/certificates/{resource_pk}/versions/{id}/revert | Revert to a certificate version
+*CRLVersionsAPI* | [**ListCrlVersions**](docs/CRLVersionsAPI.md#listcrlversions) | **Get** /workspace/tls/crls/{crl_id}/versions | List CRL versions
+*CRLVersionsAPI* | [**RetrieveCrlVersion**](docs/CRLVersionsAPI.md#retrievecrlversion) | **Get** /workspace/tls/crls/{crl_id}/versions/{version_id} | Retrieve a CRL version
+*CRLVersionsAPI* | [**RevertCrlVersion**](docs/CRLVersionsAPI.md#revertcrlversion) | **Post** /workspace/tls/crls/{crl_id}/versions/{version_id}/revert | Revert to a CRL version
+*CertificateVersionsAPI* | [**ListCertificateVersions**](docs/CertificateVersionsAPI.md#listcertificateversions) | **Get** /workspace/tls/certificates/{certificate_id}/versions | List certificate versions
+*CertificateVersionsAPI* | [**RetrieveCertificateVersion**](docs/CertificateVersionsAPI.md#retrievecertificateversion) | **Get** /workspace/tls/certificates/{certificate_id}/versions/{version_id} | Retrieve a certificate version
+*CertificateVersionsAPI* | [**RevertCertificateVersion**](docs/CertificateVersionsAPI.md#revertcertificateversion) | **Post** /workspace/tls/certificates/{certificate_id}/versions/{version_id}/revert | Revert to a certificate version
 *ConnectorVersionsAPI* | [**ArchiveConnectorVersion**](docs/ConnectorVersionsAPI.md#archiveconnectorversion) | **Post** /workspace/connectors/{connector_id}/versions/{version_id}/archive | Archive a Connector version
 *ConnectorVersionsAPI* | [**BuildConnectorVersion**](docs/ConnectorVersionsAPI.md#buildconnectorversion) | **Post** /workspace/connectors/{connector_id}/versions/{version_id}/build | Build a Connector version
 *ConnectorVersionsAPI* | [**CancelConnectorVersionBuild**](docs/ConnectorVersionsAPI.md#cancelconnectorversionbuild) | **Post** /workspace/connectors/{connector_id}/versions/{version_id}/cancel | Cancel a Connector version build
@@ -187,10 +187,34 @@ Class | Method | HTTP request | Description
 *CustomPagesAPI* | [**PartialUpdateCustomPage**](docs/CustomPagesAPI.md#partialupdatecustompage) | **Patch** /workspace/custom_pages/{custom_page_id} | Partially update a Custom Page
 *CustomPagesAPI* | [**RetrieveCustomPage**](docs/CustomPagesAPI.md#retrievecustompage) | **Get** /workspace/custom_pages/{custom_page_id} | Retrieve details of a Custom Page
 *CustomPagesAPI* | [**UpdateCustomPage**](docs/CustomPagesAPI.md#updatecustompage) | **Put** /workspace/custom_pages/{custom_page_id} | Update a Custom Page
+*DeploymentsAPI* | [**CreateDeployment**](docs/DeploymentsAPI.md#createdeployment) | **Post** /deployments | Create a deployment
+*DeploymentsAPI* | [**DeleteDeployment**](docs/DeploymentsAPI.md#deletedeployment) | **Delete** /deployments/{deployment_id} | Delete a deployment
+*DeploymentsAPI* | [**ListDeployments**](docs/DeploymentsAPI.md#listdeployments) | **Get** /deployments | List deployments
+*DeploymentsAPI* | [**PartialUpdateDeployment**](docs/DeploymentsAPI.md#partialupdatedeployment) | **Patch** /deployments/{deployment_id} | Update a deployment
+*DeploymentsAPI* | [**RetrieveDeployment**](docs/DeploymentsAPI.md#retrievedeployment) | **Get** /deployments/{deployment_id} | Get a deployment
+*DeploymentsAPI* | [**UpdateDeployment**](docs/DeploymentsAPI.md#updatedeployment) | **Put** /deployments/{deployment_id} | Replace a deployment
+*DeploymentsReleaseRoutingAPI* | [**ActivateRelease**](docs/DeploymentsReleaseRoutingAPI.md#activaterelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/activate | Activate a release
+*DeploymentsReleasesAPI* | [**ArchiveRelease**](docs/DeploymentsReleasesAPI.md#archiverelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/archive | Archive a release
+*DeploymentsReleasesAPI* | [**BuildRelease**](docs/DeploymentsReleasesAPI.md#buildrelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/build | Finalize a draft release (send to edge via outbox)
+*DeploymentsReleasesAPI* | [**CancelRelease**](docs/DeploymentsReleasesAPI.md#cancelrelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/cancel | Cancel a release
+*DeploymentsReleasesAPI* | [**CreateRelease**](docs/DeploymentsReleasesAPI.md#createrelease) | **Post** /deployments/{deployment_id}/releases | Create a draft release
+*DeploymentsReleasesAPI* | [**DeleteRelease**](docs/DeploymentsReleasesAPI.md#deleterelease) | **Delete** /deployments/{deployment_id}/releases/{release_id} | Delete a release
+*DeploymentsReleasesAPI* | [**ListAccountReleases**](docs/DeploymentsReleasesAPI.md#listaccountreleases) | **Get** /deployments/releases | List every release of the account
+*DeploymentsReleasesAPI* | [**ListReleases**](docs/DeploymentsReleasesAPI.md#listreleases) | **Get** /deployments/{deployment_id}/releases | List releases
+*DeploymentsReleasesAPI* | [**PartialUpdateRelease**](docs/DeploymentsReleasesAPI.md#partialupdaterelease) | **Patch** /deployments/{deployment_id}/releases/{release_id} | Patch a release
+*DeploymentsReleasesAPI* | [**PromoteRelease**](docs/DeploymentsReleasesAPI.md#promoterelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/promote | Promote a release
+*DeploymentsReleasesAPI* | [**RetrieveRelease**](docs/DeploymentsReleasesAPI.md#retrieverelease) | **Get** /deployments/{deployment_id}/releases/{release_id} | Get a release
+*DeploymentsReleasesAPI* | [**UpdateRelease**](docs/DeploymentsReleasesAPI.md#updaterelease) | **Put** /deployments/{deployment_id}/releases/{release_id} | Replace a release
+*DeploymentsResourceUsageAPI* | [**ListResourceUsage**](docs/DeploymentsResourceUsageAPI.md#listresourceusage) | **Get** /resource_usage | List deployments using a resource
+*DeploymentsResourceUsageAPI* | [**RetrieveDeploymentResourceHierarchy**](docs/DeploymentsResourceUsageAPI.md#retrievedeploymentresourcehierarchy) | **Get** /deployments/{deployment_id}/resource_hierarchy | Get a deployment resource hierarchy
+*DeploymentsVersionsAPI* | [**CancelDeploymentVersionBuild**](docs/DeploymentsVersionsAPI.md#canceldeploymentversionbuild) | **Post** /deployments/{deployment_id}/versions/{version_id}/cancel | Cancel an in-flight deployment version build
+*DeploymentsVersionsAPI* | [**ListDeploymentVersions**](docs/DeploymentsVersionsAPI.md#listdeploymentversions) | **Get** /deployments/{deployment_id}/versions | List deployment versions
+*DeploymentsVersionsAPI* | [**RetrieveDeploymentVersion**](docs/DeploymentsVersionsAPI.md#retrievedeploymentversion) | **Get** /deployments/{deployment_id}/versions/{version_id} | Retrieve a deployment version
+*DeploymentsVersionsAPI* | [**RevertDeploymentVersion**](docs/DeploymentsVersionsAPI.md#revertdeploymentversion) | **Post** /deployments/{deployment_id}/versions/{version_id}/revert | Revert to a deployment version
 *DigitalCertificatesCertificateRevocationListsAPI* | [**CreateCertificateRevocationList**](docs/DigitalCertificatesCertificateRevocationListsAPI.md#createcertificaterevocationlist) | **Post** /workspace/tls/crls | Create a certificate revocation lists (CRL)
 *DigitalCertificatesCertificateRevocationListsAPI* | [**DeleteCertificateRevocationList**](docs/DigitalCertificatesCertificateRevocationListsAPI.md#deletecertificaterevocationlist) | **Delete** /workspace/tls/crls/{crl_id} | Delete a certificate revocation list
 *DigitalCertificatesCertificateRevocationListsAPI* | [**ListCertificateRevocationLists**](docs/DigitalCertificatesCertificateRevocationListsAPI.md#listcertificaterevocationlists) | **Get** /workspace/tls/crls | List certificate revocation lists (CRL)
-*DigitalCertificatesCertificateRevocationListsAPI* | [**PartialUpdateCertificateRevocationList**](docs/DigitalCertificatesCertificateRevocationListsAPI.md#partialupdatecertificaterevocationlist) | **Patch** /workspace/tls/crls/{crl_id} | Update a certificate revocation lists (CRL)
+*DigitalCertificatesCertificateRevocationListsAPI* | [**PartialUpdateCertificateRevocationList**](docs/DigitalCertificatesCertificateRevocationListsAPI.md#partialupdatecertificaterevocationlist) | **Patch** /workspace/tls/crls/{crl_id} | Partially update a certificate revocation list
 *DigitalCertificatesCertificateRevocationListsAPI* | [**RetrieveCertificateRevocationList**](docs/DigitalCertificatesCertificateRevocationListsAPI.md#retrievecertificaterevocationlist) | **Get** /workspace/tls/crls/{crl_id} | Retrieve details from a certificate revocation lists (CRL)
 *DigitalCertificatesCertificateRevocationListsAPI* | [**UpdateCertificateRevocationList**](docs/DigitalCertificatesCertificateRevocationListsAPI.md#updatecertificaterevocationlist) | **Put** /workspace/tls/crls/{crl_id} | Update a certificate revocation lists (CRL)
 *DigitalCertificatesCertificateSigningRequestsAPI* | [**CreateCertificateSigningRequest**](docs/DigitalCertificatesCertificateSigningRequestsAPI.md#createcertificatesigningrequest) | **Post** /workspace/tls/csr | Create a certificate signing request (CSR)
@@ -201,7 +225,6 @@ Class | Method | HTTP request | Description
 *DigitalCertificatesCertificatesAPI* | [**RetrieveCertificate**](docs/DigitalCertificatesCertificatesAPI.md#retrievecertificate) | **Get** /workspace/tls/certificates/{certificate_id} | Retrieve details from a certificate
 *DigitalCertificatesCertificatesAPI* | [**UpdateCertificate**](docs/DigitalCertificatesCertificatesAPI.md#updatecertificate) | **Put** /workspace/tls/certificates/{certificate_id} | Update a certificate
 *DigitalCertificatesRequestACertificateAPI* | [**RequestCertificate**](docs/DigitalCertificatesRequestACertificateAPI.md#requestcertificate) | **Post** /workspace/tls/certificates/request | Request a certificate
-*EnvironmentsAPI* | [**ArchiveEnvironment**](docs/EnvironmentsAPI.md#archiveenvironment) | **Post** /environments/{environment_id}/archive | Archive an environment
 *EnvironmentsAPI* | [**CreateEnvironment**](docs/EnvironmentsAPI.md#createenvironment) | **Post** /environments | Create an Environment
 *EnvironmentsAPI* | [**DeleteEnvironment**](docs/EnvironmentsAPI.md#deleteenvironment) | **Delete** /environments/{environment_id} | Delete an Environment
 *EnvironmentsAPI* | [**ListEnvironments**](docs/EnvironmentsAPI.md#listenvironments) | **Get** /environments | List Environments
@@ -289,6 +312,10 @@ Class | Method | HTTP request | Description
 *StorageBucketsAPI* | [**ListBuckets**](docs/StorageBucketsAPI.md#listbuckets) | **Get** /workspace/storage/buckets | List buckets
 *StorageBucketsAPI* | [**PartialUpdateBucket**](docs/StorageBucketsAPI.md#partialupdatebucket) | **Patch** /workspace/storage/buckets/{bucket_name} | Update bucket info
 *StorageBucketsAPI* | [**RetrieveBucket**](docs/StorageBucketsAPI.md#retrievebucket) | **Get** /workspace/storage/buckets/{bucket_name} | Retrieve a bucket
+*StorageCredentialsAPI* | [**CreateCredential**](docs/StorageCredentialsAPI.md#createcredential) | **Post** /workspace/storage/credentials | Create a new credential
+*StorageCredentialsAPI* | [**DeleteCredential**](docs/StorageCredentialsAPI.md#deletecredential) | **Delete** /workspace/storage/credentials/{credential_id} | Delete a credential
+*StorageCredentialsAPI* | [**ListCredentials**](docs/StorageCredentialsAPI.md#listcredentials) | **Get** /workspace/storage/credentials | List credentials
+*StorageCredentialsAPI* | [**RetrieveCredential**](docs/StorageCredentialsAPI.md#retrievecredential) | **Get** /workspace/storage/credentials/{credential_id} | Retrieve details from a credential
 *StorageObjectsAPI* | [**CopyObject**](docs/StorageObjectsAPI.md#copyobject) | **Post** /workspace/storage/buckets/{bucket_name}/objects/{object_key}/copy/{new_object_key} | Copy object to new key
 *StorageObjectsAPI* | [**CreateObject**](docs/StorageObjectsAPI.md#createobject) | **Post** /workspace/storage/buckets/{bucket_name}/objects/{object_key} | Create new object key.
 *StorageObjectsAPI* | [**DeleteObject**](docs/StorageObjectsAPI.md#deleteobject) | **Delete** /workspace/storage/buckets/{bucket_name}/objects/{object_key} | Delete object key
@@ -296,15 +323,15 @@ Class | Method | HTTP request | Description
 *StorageObjectsAPI* | [**RetrieveObject**](docs/StorageObjectsAPI.md#retrieveobject) | **Get** /workspace/storage/buckets/{bucket_name}/objects/{object_key} | Download object
 *StorageObjectsAPI* | [**UpdateObject**](docs/StorageObjectsAPI.md#updateobject) | **Put** /workspace/storage/buckets/{bucket_name}/objects/{object_key} | Update the object key.
 *VariableVersionsAPI* | [**ListVariableVersions**](docs/VariableVersionsAPI.md#listvariableversions) | **Get** /variables/{variable_id}/versions | List Variable Versions
-*VariableVersionsAPI* | [**RetrieveVariableVersion**](docs/VariableVersionsAPI.md#retrievevariableversion) | **Get** /variables/{variable_id}/versions/{id} | Retrieve details of a Variable Version
-*VariableVersionsAPI* | [**RevertVariableVersion**](docs/VariableVersionsAPI.md#revertvariableversion) | **Post** /variables/{variable_id}/revert/{id} | Revert to a Variable Version
+*VariableVersionsAPI* | [**RetrieveVariableVersion**](docs/VariableVersionsAPI.md#retrievevariableversion) | **Get** /variables/{variable_id}/versions/{version_id} | Retrieve details of a Variable Version
+*VariableVersionsAPI* | [**RevertVariableVersion**](docs/VariableVersionsAPI.md#revertvariableversion) | **Post** /variables/{variable_id}/revert/{version_id} | Revert to a Variable Version
 *VariablesAPI* | [**BatchVariables**](docs/VariablesAPI.md#batchvariables) | **Post** /variables/batch | Create, update and delete Variables in one request
 *VariablesAPI* | [**CreateVariable**](docs/VariablesAPI.md#createvariable) | **Post** /variables | Create a Variable
-*VariablesAPI* | [**DeleteVariable**](docs/VariablesAPI.md#deletevariable) | **Delete** /variables/{uuid} | Delete a Variable
+*VariablesAPI* | [**DeleteVariable**](docs/VariablesAPI.md#deletevariable) | **Delete** /variables/{variable_id} | Delete a Variable
 *VariablesAPI* | [**ListVariables**](docs/VariablesAPI.md#listvariables) | **Get** /variables | List Variables
-*VariablesAPI* | [**PartialUpdateVariable**](docs/VariablesAPI.md#partialupdatevariable) | **Patch** /variables/{uuid} | Partially update a Variable
-*VariablesAPI* | [**RetrieveVariable**](docs/VariablesAPI.md#retrievevariable) | **Get** /variables/{uuid} | Retrieve details of a Variable
-*VariablesAPI* | [**UpdateVariable**](docs/VariablesAPI.md#updatevariable) | **Put** /variables/{uuid} | Update a Variable
+*VariablesAPI* | [**PartialUpdateVariable**](docs/VariablesAPI.md#partialupdatevariable) | **Patch** /variables/{variable_id} | Partially update a Variable
+*VariablesAPI* | [**RetrieveVariable**](docs/VariablesAPI.md#retrievevariable) | **Get** /variables/{variable_id} | Retrieve details of a Variable
+*VariablesAPI* | [**UpdateVariable**](docs/VariablesAPI.md#updatevariable) | **Put** /variables/{variable_id} | Update a Variable
 *WAFVersionsAPI* | [**ArchiveWafVersion**](docs/WAFVersionsAPI.md#archivewafversion) | **Post** /workspace/wafs/{waf_id}/versions/{version_id}/archive | Archive a WAF version
 *WAFVersionsAPI* | [**BuildWafVersion**](docs/WAFVersionsAPI.md#buildwafversion) | **Post** /workspace/wafs/{waf_id}/versions/{version_id}/build | Build a WAF version
 *WAFVersionsAPI* | [**CancelWafVersionBuild**](docs/WAFVersionsAPI.md#cancelwafversionbuild) | **Post** /workspace/wafs/{waf_id}/versions/{version_id}/cancel | Cancel a WAF version build
@@ -332,12 +359,6 @@ Class | Method | HTTP request | Description
 *WAFsExceptionsAPI* | [**RetrieveWafVersionException**](docs/WAFsExceptionsAPI.md#retrievewafversionexception) | **Get** /workspace/wafs/{waf_id}/versions/{version_id}/exceptions/{exception_id} | Retrieve details of an Exception from a Web Application Firewall (WAF)
 *WAFsExceptionsAPI* | [**UpdateWafException**](docs/WAFsExceptionsAPI.md#updatewafexception) | **Put** /workspace/wafs/{waf_id}/exceptions/{exception_id} | Update an Exception for a Web Application Firewall (WAF)
 *WAFsExceptionsAPI* | [**UpdateWafVersionException**](docs/WAFsExceptionsAPI.md#updatewafversionexception) | **Put** /workspace/wafs/{waf_id}/versions/{version_id}/exceptions/{exception_id} | Update an Exception for a Web Application Firewall (WAF)
-*WorkloadDeploymentsAPI* | [**CreateWorkloadDeployment**](docs/WorkloadDeploymentsAPI.md#createworkloaddeployment) | **Post** /workspace/workloads/{workload_id}/deployments | Create a Workload Deployment
-*WorkloadDeploymentsAPI* | [**DeleteWorkloadDeployment**](docs/WorkloadDeploymentsAPI.md#deleteworkloaddeployment) | **Delete** /workspace/workloads/{workload_id}/deployments/{deployment_id} | Delete a Workload Deployment
-*WorkloadDeploymentsAPI* | [**ListWorkloadDeployments**](docs/WorkloadDeploymentsAPI.md#listworkloaddeployments) | **Get** /workspace/workloads/{workload_id}/deployments | List Workload Deployments
-*WorkloadDeploymentsAPI* | [**PartialUpdateWorkloadDeployment**](docs/WorkloadDeploymentsAPI.md#partialupdateworkloaddeployment) | **Patch** /workspace/workloads/{workload_id}/deployments/{deployment_id} | Partially update a Workload Deployment
-*WorkloadDeploymentsAPI* | [**RetrieveWorkloadDeployment**](docs/WorkloadDeploymentsAPI.md#retrieveworkloaddeployment) | **Get** /workspace/workloads/{workload_id}/deployments/{deployment_id} | Retrieve details of a Workload Deployment
-*WorkloadDeploymentsAPI* | [**UpdateWorkloadDeployment**](docs/WorkloadDeploymentsAPI.md#updateworkloaddeployment) | **Put** /workspace/workloads/{workload_id}/deployments/{deployment_id} | Update a Workload Deployment
 *WorkloadVersionsAPI* | [**ListWorkloadVersions**](docs/WorkloadVersionsAPI.md#listworkloadversions) | **Get** /workspace/workloads/{workload_id}/versions | List Workload versions
 *WorkloadVersionsAPI* | [**RetrieveWorkloadVersion**](docs/WorkloadVersionsAPI.md#retrieveworkloadversion) | **Get** /workspace/workloads/{workload_id}/versions/{version_id} | Retrieve a Workload version
 *WorkloadVersionsAPI* | [**RevertWorkloadVersion**](docs/WorkloadVersionsAPI.md#revertworkloadversion) | **Post** /workspace/workloads/{workload_id}/versions/{version_id}/revert | Revert to a Workload version
@@ -355,6 +376,8 @@ Class | Method | HTTP request | Description
  - [AWS4HMACAttributes](docs/AWS4HMACAttributes.md)
  - [AWS4HMACAttributesRequest](docs/AWS4HMACAttributesRequest.md)
  - [AWS4HMACRequest](docs/AWS4HMACRequest.md)
+ - [AccountRelease](docs/AccountRelease.md)
+ - [ActivateReleaseRequest](docs/ActivateReleaseRequest.md)
  - [Address](docs/Address.md)
  - [AddressLoadBalancerModule](docs/AddressLoadBalancerModule.md)
  - [AddressLoadBalancerModuleRequest](docs/AddressLoadBalancerModuleRequest.md)
@@ -364,7 +387,6 @@ Class | Method | HTTP request | Description
  - [Application](docs/Application.md)
  - [ApplicationAcceleratorModule](docs/ApplicationAcceleratorModule.md)
  - [ApplicationAcceleratorModuleRequest](docs/ApplicationAcceleratorModuleRequest.md)
- - [ApplicationAsyncResponse](docs/ApplicationAsyncResponse.md)
  - [ApplicationCriterionArgument](docs/ApplicationCriterionArgument.md)
  - [ApplicationCriterionArgumentRequest](docs/ApplicationCriterionArgumentRequest.md)
  - [ApplicationCriterionField](docs/ApplicationCriterionField.md)
@@ -373,6 +395,7 @@ Class | Method | HTTP request | Description
  - [ApplicationModulesRequest](docs/ApplicationModulesRequest.md)
  - [ApplicationRequest](docs/ApplicationRequest.md)
  - [ApplicationRequestPhaseRuleEngineOrderRequest](docs/ApplicationRequestPhaseRuleEngineOrderRequest.md)
+ - [ApplicationResponse](docs/ApplicationResponse.md)
  - [ApplicationResponsePhaseRuleEngineOrderRequest](docs/ApplicationResponsePhaseRuleEngineOrderRequest.md)
  - [ApplicationRetrieveResponse](docs/ApplicationRetrieveResponse.md)
  - [ApplicationVersion](docs/ApplicationVersion.md)
@@ -384,9 +407,7 @@ Class | Method | HTTP request | Description
  - [ApplicationVersionDependenciesInnerValueInnerVersionsInner](docs/ApplicationVersionDependenciesInnerValueInnerVersionsInner.md)
  - [ApplicationVersionList](docs/ApplicationVersionList.md)
  - [ApplicationVersionMeta](docs/ApplicationVersionMeta.md)
- - [ArchiveEnvironmentRequest](docs/ArchiveEnvironmentRequest.md)
- - [ArchiveEnvironmentResponse](docs/ArchiveEnvironmentResponse.md)
- - [ArchiveEnvironmentResponseData](docs/ArchiveEnvironmentResponseData.md)
+ - [ArchiveReleaseRequest](docs/ArchiveReleaseRequest.md)
  - [BehaviorArgs](docs/BehaviorArgs.md)
  - [BehaviorArgsAttributes](docs/BehaviorArgsAttributes.md)
  - [BehaviorArgsAttributesValue](docs/BehaviorArgsAttributesValue.md)
@@ -397,7 +418,6 @@ Class | Method | HTTP request | Description
  - [BrowserCacheModuleRequest](docs/BrowserCacheModuleRequest.md)
  - [Bucket](docs/Bucket.md)
  - [BucketCreate](docs/BucketCreate.md)
- - [BucketCreateAsyncResponse](docs/BucketCreateAsyncResponse.md)
  - [BucketCreateRequest](docs/BucketCreateRequest.md)
  - [BucketCreateResponse](docs/BucketCreateResponse.md)
  - [BucketObject](docs/BucketObject.md)
@@ -421,6 +441,7 @@ Class | Method | HTTP request | Description
  - [CacheVaryByDevicesModuleRequest](docs/CacheVaryByDevicesModuleRequest.md)
  - [CacheVaryByQuerystringModule](docs/CacheVaryByQuerystringModule.md)
  - [CacheVaryByQuerystringModuleRequest](docs/CacheVaryByQuerystringModuleRequest.md)
+ - [CancelReleaseRequest](docs/CancelReleaseRequest.md)
  - [Certificate](docs/Certificate.md)
  - [CertificateRequest](docs/CertificateRequest.md)
  - [CertificateResponse](docs/CertificateResponse.md)
@@ -428,9 +449,16 @@ Class | Method | HTTP request | Description
  - [CertificateRevocationList](docs/CertificateRevocationList.md)
  - [CertificateRevocationListResponse](docs/CertificateRevocationListResponse.md)
  - [CertificateRevocationListRetrieveResponse](docs/CertificateRevocationListRetrieveResponse.md)
+ - [CertificateRevocationListVersion](docs/CertificateRevocationListVersion.md)
+ - [CertificateRevocationListVersionList](docs/CertificateRevocationListVersionList.md)
+ - [CertificateRevocationListVersionMeta](docs/CertificateRevocationListVersionMeta.md)
+ - [CertificateRevocationListVersionRevertRequest](docs/CertificateRevocationListVersionRevertRequest.md)
  - [CertificateSigningRequest](docs/CertificateSigningRequest.md)
+ - [CertificateVersion](docs/CertificateVersion.md)
+ - [CertificateVersionList](docs/CertificateVersionList.md)
+ - [CertificateVersionMeta](docs/CertificateVersionMeta.md)
+ - [CertificateVersionRevertRequest](docs/CertificateVersionRevertRequest.md)
  - [Connector](docs/Connector.md)
- - [ConnectorAsyncResponse](docs/ConnectorAsyncResponse.md)
  - [ConnectorHTTP](docs/ConnectorHTTP.md)
  - [ConnectorHTTPAttributes](docs/ConnectorHTTPAttributes.md)
  - [ConnectorHTTPAttributesRequest](docs/ConnectorHTTPAttributesRequest.md)
@@ -446,6 +474,7 @@ Class | Method | HTTP request | Description
  - [ConnectorLiveIngestRequest](docs/ConnectorLiveIngestRequest.md)
  - [ConnectorLiveIngestVersion](docs/ConnectorLiveIngestVersion.md)
  - [ConnectorRequest](docs/ConnectorRequest.md)
+ - [ConnectorResponse](docs/ConnectorResponse.md)
  - [ConnectorRetrieveResponse](docs/ConnectorRetrieveResponse.md)
  - [ConnectorStorage](docs/ConnectorStorage.md)
  - [ConnectorStorageAttributes](docs/ConnectorStorageAttributes.md)
@@ -462,9 +491,12 @@ Class | Method | HTTP request | Description
  - [ConnectorVersionCreateRequestAttributes](docs/ConnectorVersionCreateRequestAttributes.md)
  - [ConnectorVersionList](docs/ConnectorVersionList.md)
  - [ConnectorVersionMeta](docs/ConnectorVersionMeta.md)
+ - [Credential](docs/Credential.md)
+ - [CredentialCreateRequest](docs/CredentialCreateRequest.md)
+ - [CredentialResponse](docs/CredentialResponse.md)
  - [CustomPage](docs/CustomPage.md)
- - [CustomPageAsyncResponse](docs/CustomPageAsyncResponse.md)
  - [CustomPageRequest](docs/CustomPageRequest.md)
+ - [CustomPageResponse](docs/CustomPageResponse.md)
  - [CustomPageRetrieveResponse](docs/CustomPageRetrieveResponse.md)
  - [CustomPageVersion](docs/CustomPageVersion.md)
  - [CustomPageVersionArchiveRequest](docs/CustomPageVersionArchiveRequest.md)
@@ -473,18 +505,23 @@ Class | Method | HTTP request | Description
  - [CustomPageVersionCreateRequest](docs/CustomPageVersionCreateRequest.md)
  - [CustomPageVersionList](docs/CustomPageVersionList.md)
  - [CustomPageVersionMeta](docs/CustomPageVersionMeta.md)
- - [DefaultDeploymentStrategy](docs/DefaultDeploymentStrategy.md)
- - [DefaultDeploymentStrategyAttrs](docs/DefaultDeploymentStrategyAttrs.md)
- - [DefaultDeploymentStrategyAttrsRequest](docs/DefaultDeploymentStrategyAttrsRequest.md)
- - [DefaultDeploymentStrategyRequest](docs/DefaultDeploymentStrategyRequest.md)
- - [DeleteAsyncResponse](docs/DeleteAsyncResponse.md)
- - [DeleteResponse](docs/DeleteResponse.md)
- - [DeploymentStrategyDefaultDeploymentStrategy](docs/DeploymentStrategyDefaultDeploymentStrategy.md)
- - [DeploymentStrategyDefaultDeploymentStrategyRequest](docs/DeploymentStrategyDefaultDeploymentStrategyRequest.md)
- - [DeploymentStrategyShared](docs/DeploymentStrategyShared.md)
+ - [DependencyEntry](docs/DependencyEntry.md)
+ - [DependencyEntryRequest](docs/DependencyEntryRequest.md)
+ - [Deployment](docs/Deployment.md)
+ - [DeploymentCreateRequest](docs/DeploymentCreateRequest.md)
+ - [DeploymentRequest](docs/DeploymentRequest.md)
+ - [DeploymentResponse](docs/DeploymentResponse.md)
+ - [DeploymentRetrieveResponse](docs/DeploymentRetrieveResponse.md)
+ - [DeploymentStrategyDefaults](docs/DeploymentStrategyDefaults.md)
+ - [DeploymentStrategyDefaultsSkewProtection](docs/DeploymentStrategyDefaultsSkewProtection.md)
+ - [DeploymentVersion](docs/DeploymentVersion.md)
+ - [DeploymentVersionCancelRequest](docs/DeploymentVersionCancelRequest.md)
+ - [DeploymentVersionList](docs/DeploymentVersionList.md)
+ - [DeploymentVersionMeta](docs/DeploymentVersionMeta.md)
+ - [DeploymentVersionRevertRequest](docs/DeploymentVersionRevertRequest.md)
  - [DeviceGroup](docs/DeviceGroup.md)
- - [DeviceGroupAsyncResponse](docs/DeviceGroupAsyncResponse.md)
  - [DeviceGroupRequest](docs/DeviceGroupRequest.md)
+ - [DeviceGroupResponse](docs/DeviceGroupResponse.md)
  - [DeviceGroupRetrieveResponse](docs/DeviceGroupRetrieveResponse.md)
  - [Environment](docs/Environment.md)
  - [EnvironmentBranchTracking](docs/EnvironmentBranchTracking.md)
@@ -508,7 +545,6 @@ Class | Method | HTTP request | Description
  - [EnvironmentVersionRevertRequest](docs/EnvironmentVersionRevertRequest.md)
  - [ErrorResponse](docs/ErrorResponse.md)
  - [Firewall](docs/Firewall.md)
- - [FirewallAsyncResponse](docs/FirewallAsyncResponse.md)
  - [FirewallBehavior](docs/FirewallBehavior.md)
  - [FirewallBehaviorArgs](docs/FirewallBehaviorArgs.md)
  - [FirewallBehaviorArgsRequest](docs/FirewallBehaviorArgsRequest.md)
@@ -532,19 +568,20 @@ Class | Method | HTTP request | Description
  - [FirewallCriterionField](docs/FirewallCriterionField.md)
  - [FirewallCriterionFieldRequest](docs/FirewallCriterionFieldRequest.md)
  - [FirewallFunctionInstance](docs/FirewallFunctionInstance.md)
- - [FirewallFunctionInstanceAsyncResponse](docs/FirewallFunctionInstanceAsyncResponse.md)
  - [FirewallFunctionInstanceRequest](docs/FirewallFunctionInstanceRequest.md)
+ - [FirewallFunctionInstanceResponse](docs/FirewallFunctionInstanceResponse.md)
  - [FirewallFunctionInstanceRetrieveResponse](docs/FirewallFunctionInstanceRetrieveResponse.md)
  - [FirewallModule](docs/FirewallModule.md)
  - [FirewallModuleRequest](docs/FirewallModuleRequest.md)
  - [FirewallModules](docs/FirewallModules.md)
  - [FirewallModulesRequest](docs/FirewallModulesRequest.md)
  - [FirewallRequest](docs/FirewallRequest.md)
+ - [FirewallResponse](docs/FirewallResponse.md)
  - [FirewallRetrieveResponse](docs/FirewallRetrieveResponse.md)
  - [FirewallRule](docs/FirewallRule.md)
- - [FirewallRuleAsyncResponse](docs/FirewallRuleAsyncResponse.md)
  - [FirewallRuleEngineOrderRequest](docs/FirewallRuleEngineOrderRequest.md)
  - [FirewallRuleRequest](docs/FirewallRuleRequest.md)
+ - [FirewallRuleResponse](docs/FirewallRuleResponse.md)
  - [FirewallRuleRetrieveResponse](docs/FirewallRuleRetrieveResponse.md)
  - [FirewallVersion](docs/FirewallVersion.md)
  - [FirewallVersionArchiveRequest](docs/FirewallVersionArchiveRequest.md)
@@ -553,14 +590,14 @@ Class | Method | HTTP request | Description
  - [FirewallVersionCreateRequest](docs/FirewallVersionCreateRequest.md)
  - [FirewallVersionList](docs/FirewallVersionList.md)
  - [FirewallVersionMeta](docs/FirewallVersionMeta.md)
- - [FunctionAsyncResponse](docs/FunctionAsyncResponse.md)
  - [FunctionInstance](docs/FunctionInstance.md)
- - [FunctionInstanceAsyncResponse](docs/FunctionInstanceAsyncResponse.md)
  - [FunctionInstanceRequest](docs/FunctionInstanceRequest.md)
+ - [FunctionInstanceResponse](docs/FunctionInstanceResponse.md)
  - [FunctionInstanceRetrieveResponse](docs/FunctionInstanceRetrieveResponse.md)
  - [FunctionModule](docs/FunctionModule.md)
  - [FunctionModuleRequest](docs/FunctionModuleRequest.md)
  - [FunctionRequest](docs/FunctionRequest.md)
+ - [FunctionResponse](docs/FunctionResponse.md)
  - [FunctionRetrieveResponse](docs/FunctionRetrieveResponse.md)
  - [FunctionSummary](docs/FunctionSummary.md)
  - [FunctionVersion](docs/FunctionVersion.md)
@@ -609,7 +646,6 @@ Class | Method | HTTP request | Description
  - [NetworkListVersionCreateRequest](docs/NetworkListVersionCreateRequest.md)
  - [NetworkListVersionList](docs/NetworkListVersionList.md)
  - [NetworkListVersionMeta](docs/NetworkListVersionMeta.md)
- - [ObjectResponseAsyncData](docs/ObjectResponseAsyncData.md)
  - [ObjectResponseData](docs/ObjectResponseData.md)
  - [OriginIPACL](docs/OriginIPACL.md)
  - [OriginIPACLRequest](docs/OriginIPACLRequest.md)
@@ -625,16 +661,22 @@ Class | Method | HTTP request | Description
  - [PageConnectorBaseRequest](docs/PageConnectorBaseRequest.md)
  - [PageConnectorRequest](docs/PageConnectorRequest.md)
  - [PageRequest](docs/PageRequest.md)
+ - [PaginatedAccountReleaseList](docs/PaginatedAccountReleaseList.md)
  - [PaginatedApplicationList](docs/PaginatedApplicationList.md)
  - [PaginatedApplicationVersionList](docs/PaginatedApplicationVersionList.md)
  - [PaginatedBucketList](docs/PaginatedBucketList.md)
  - [PaginatedCacheSettingList](docs/PaginatedCacheSettingList.md)
  - [PaginatedCertificateList](docs/PaginatedCertificateList.md)
  - [PaginatedCertificateRevocationList](docs/PaginatedCertificateRevocationList.md)
+ - [PaginatedCertificateRevocationListVersionList](docs/PaginatedCertificateRevocationListVersionList.md)
+ - [PaginatedCertificateVersionList](docs/PaginatedCertificateVersionList.md)
  - [PaginatedConnectorList](docs/PaginatedConnectorList.md)
  - [PaginatedConnectorVersionList](docs/PaginatedConnectorVersionList.md)
+ - [PaginatedCredentialList](docs/PaginatedCredentialList.md)
  - [PaginatedCustomPageList](docs/PaginatedCustomPageList.md)
  - [PaginatedCustomPageVersionList](docs/PaginatedCustomPageVersionList.md)
+ - [PaginatedDeploymentList](docs/PaginatedDeploymentList.md)
+ - [PaginatedDeploymentVersionList](docs/PaginatedDeploymentVersionList.md)
  - [PaginatedDeviceGroupList](docs/PaginatedDeviceGroupList.md)
  - [PaginatedEnvironmentList](docs/PaginatedEnvironmentList.md)
  - [PaginatedEnvironmentVersionList](docs/PaginatedEnvironmentVersionList.md)
@@ -647,14 +689,15 @@ Class | Method | HTTP request | Description
  - [PaginatedFunctionVersionList](docs/PaginatedFunctionVersionList.md)
  - [PaginatedNetworkListSummaryList](docs/PaginatedNetworkListSummaryList.md)
  - [PaginatedNetworkListVersionList](docs/PaginatedNetworkListVersionList.md)
+ - [PaginatedReleaseList](docs/PaginatedReleaseList.md)
  - [PaginatedRequestPhaseRuleList](docs/PaginatedRequestPhaseRuleList.md)
+ - [PaginatedResourceUsageList](docs/PaginatedResourceUsageList.md)
  - [PaginatedResponsePhaseRuleList](docs/PaginatedResponsePhaseRuleList.md)
  - [PaginatedVariableList](docs/PaginatedVariableList.md)
  - [PaginatedVariableVersionListItemList](docs/PaginatedVariableVersionListItemList.md)
  - [PaginatedWAFList](docs/PaginatedWAFList.md)
  - [PaginatedWAFRuleList](docs/PaginatedWAFRuleList.md)
  - [PaginatedWAFVersionList](docs/PaginatedWAFVersionList.md)
- - [PaginatedWorkloadDeploymentList](docs/PaginatedWorkloadDeploymentList.md)
  - [PaginatedWorkloadList](docs/PaginatedWorkloadList.md)
  - [PaginatedWorkloadVersionList](docs/PaginatedWorkloadVersionList.md)
  - [PatchedAWS4HMACAttributesRequest](docs/PatchedAWS4HMACAttributesRequest.md)
@@ -689,6 +732,7 @@ Class | Method | HTTP request | Description
  - [PatchedConnectorStorageBaseRequest](docs/PatchedConnectorStorageBaseRequest.md)
  - [PatchedConnectorStorageRequest](docs/PatchedConnectorStorageRequest.md)
  - [PatchedCustomPageRequest](docs/PatchedCustomPageRequest.md)
+ - [PatchedDeploymentRequest](docs/PatchedDeploymentRequest.md)
  - [PatchedDeviceGroupRequest](docs/PatchedDeviceGroupRequest.md)
  - [PatchedEnvironmentRequest](docs/PatchedEnvironmentRequest.md)
  - [PatchedFirewallFunctionInstanceRequest](docs/PatchedFirewallFunctionInstanceRequest.md)
@@ -719,9 +763,9 @@ Class | Method | HTTP request | Description
  - [PatchedPageConnectorRequest](docs/PatchedPageConnectorRequest.md)
  - [PatchedPageRequest](docs/PatchedPageRequest.md)
  - [PatchedProtocolsRequest](docs/PatchedProtocolsRequest.md)
+ - [PatchedReleaseRequest](docs/PatchedReleaseRequest.md)
  - [PatchedRequestPhaseRuleRequest](docs/PatchedRequestPhaseRuleRequest.md)
  - [PatchedResponsePhaseRuleRequest](docs/PatchedResponsePhaseRuleRequest.md)
- - [PatchedScopeItemRequest](docs/PatchedScopeItemRequest.md)
  - [PatchedStateCacheModuleRequest](docs/PatchedStateCacheModuleRequest.md)
  - [PatchedTLSWorkloadRequest](docs/PatchedTLSWorkloadRequest.md)
  - [PatchedVariableVersionUpdateInputRequest](docs/PatchedVariableVersionUpdateInputRequest.md)
@@ -735,31 +779,48 @@ Class | Method | HTTP request | Description
  - [PatchedWAFRuleRequest](docs/PatchedWAFRuleRequest.md)
  - [PatchedWorkloadBindingRequest](docs/PatchedWorkloadBindingRequest.md)
  - [PatchedWorkloadBindingRequestDomainsInner](docs/PatchedWorkloadBindingRequestDomainsInner.md)
- - [PatchedWorkloadDeploymentRequest](docs/PatchedWorkloadDeploymentRequest.md)
  - [PatchedWorkloadRequest](docs/PatchedWorkloadRequest.md)
+ - [PromoteReleaseRequest](docs/PromoteReleaseRequest.md)
  - [Protocols](docs/Protocols.md)
  - [ProtocolsRequest](docs/ProtocolsRequest.md)
  - [Purge](docs/Purge.md)
  - [PurgeRequest](docs/PurgeRequest.md)
  - [PurgeResponse](docs/PurgeResponse.md)
+ - [Release](docs/Release.md)
+ - [ReleaseAsyncResponse](docs/ReleaseAsyncResponse.md)
+ - [ReleaseAsyncResponseData](docs/ReleaseAsyncResponseData.md)
+ - [ReleaseCreateRequest](docs/ReleaseCreateRequest.md)
+ - [ReleaseCreateRequestResourcesInner](docs/ReleaseCreateRequestResourcesInner.md)
+ - [ReleaseLastError](docs/ReleaseLastError.md)
+ - [ReleaseOrigin](docs/ReleaseOrigin.md)
+ - [ReleaseRequest](docs/ReleaseRequest.md)
+ - [ReleaseResourcesInner](docs/ReleaseResourcesInner.md)
+ - [ReleaseResponse](docs/ReleaseResponse.md)
+ - [ReleaseRetrieveResponse](docs/ReleaseRetrieveResponse.md)
  - [RequestPhaseBehavior](docs/RequestPhaseBehavior.md)
  - [RequestPhaseBehaviorRequest](docs/RequestPhaseBehaviorRequest.md)
  - [RequestPhaseRule](docs/RequestPhaseRule.md)
- - [RequestPhaseRuleAsyncResponse](docs/RequestPhaseRuleAsyncResponse.md)
  - [RequestPhaseRuleRequest](docs/RequestPhaseRuleRequest.md)
+ - [RequestPhaseRuleResponse](docs/RequestPhaseRuleResponse.md)
+ - [ResourceHierarchyResponse](docs/ResourceHierarchyResponse.md)
+ - [ResourceHierarchyResponseData](docs/ResourceHierarchyResponseData.md)
+ - [ResourceHierarchyResponseDataResources](docs/ResourceHierarchyResponseDataResources.md)
+ - [ResourceHierarchyResponseDataResourcesApplication](docs/ResourceHierarchyResponseDataResourcesApplication.md)
+ - [ResourceHierarchyResponseDataResourcesWafInner](docs/ResourceHierarchyResponseDataResourcesWafInner.md)
+ - [ResourceUsage](docs/ResourceUsage.md)
+ - [ResourceUsageResourcesInner](docs/ResourceUsageResourcesInner.md)
  - [ResponseBucketObject](docs/ResponseBucketObject.md)
  - [ResponsePhaseBehavior](docs/ResponsePhaseBehavior.md)
  - [ResponsePhaseBehaviorRequest](docs/ResponsePhaseBehaviorRequest.md)
  - [ResponsePhaseRule](docs/ResponsePhaseRule.md)
- - [ResponsePhaseRuleAsyncResponse](docs/ResponsePhaseRuleAsyncResponse.md)
  - [ResponsePhaseRuleRequest](docs/ResponsePhaseRuleRequest.md)
+ - [ResponsePhaseRuleResponse](docs/ResponsePhaseRuleResponse.md)
  - [ResponsePhaseRuleRetrieveResponse](docs/ResponsePhaseRuleRetrieveResponse.md)
  - [ScopeItem](docs/ScopeItem.md)
  - [ScopeItemRequest](docs/ScopeItemRequest.md)
  - [StateCacheModule](docs/StateCacheModule.md)
  - [StateCacheModuleRequest](docs/StateCacheModuleRequest.md)
  - [SuccessObjectOperation](docs/SuccessObjectOperation.md)
- - [SuccessObjectOperationAsync](docs/SuccessObjectOperationAsync.md)
  - [TLSWorkload](docs/TLSWorkload.md)
  - [TLSWorkloadRequest](docs/TLSWorkloadRequest.md)
  - [ThresholdsConfigField](docs/ThresholdsConfigField.md)
@@ -771,9 +832,7 @@ Class | Method | HTTP request | Description
  - [VariableVersionCreateInputRequest](docs/VariableVersionCreateInputRequest.md)
  - [VariableVersionListItem](docs/VariableVersionListItem.md)
  - [VariableVersionUpdateInputRequest](docs/VariableVersionUpdateInputRequest.md)
- - [VersionRevert](docs/VersionRevert.md)
  - [WAF](docs/WAF.md)
- - [WAFAsyncResponse](docs/WAFAsyncResponse.md)
  - [WAFEngineSettingsAttributesField](docs/WAFEngineSettingsAttributesField.md)
  - [WAFEngineSettingsAttributesFieldRequest](docs/WAFEngineSettingsAttributesFieldRequest.md)
  - [WAFEngineSettingsField](docs/WAFEngineSettingsField.md)
@@ -787,10 +846,11 @@ Class | Method | HTTP request | Description
  - [WAFExceptionSpecificConditionOnValue](docs/WAFExceptionSpecificConditionOnValue.md)
  - [WAFExceptionSpecificConditionOnValueRequest](docs/WAFExceptionSpecificConditionOnValueRequest.md)
  - [WAFRequest](docs/WAFRequest.md)
+ - [WAFResponse](docs/WAFResponse.md)
  - [WAFRetrieveResponse](docs/WAFRetrieveResponse.md)
  - [WAFRule](docs/WAFRule.md)
- - [WAFRuleAsyncResponse](docs/WAFRuleAsyncResponse.md)
  - [WAFRuleRequest](docs/WAFRuleRequest.md)
+ - [WAFRuleResponse](docs/WAFRuleResponse.md)
  - [WAFRuleRetrieveResponse](docs/WAFRuleRetrieveResponse.md)
  - [WAFVersion](docs/WAFVersion.md)
  - [WAFVersionArchiveRequest](docs/WAFVersionArchiveRequest.md)
@@ -800,14 +860,10 @@ Class | Method | HTTP request | Description
  - [WAFVersionList](docs/WAFVersionList.md)
  - [WAFVersionMeta](docs/WAFVersionMeta.md)
  - [Workload](docs/Workload.md)
- - [WorkloadAsyncResponse](docs/WorkloadAsyncResponse.md)
  - [WorkloadBinding](docs/WorkloadBinding.md)
  - [WorkloadBindingRequest](docs/WorkloadBindingRequest.md)
- - [WorkloadDeployment](docs/WorkloadDeployment.md)
- - [WorkloadDeploymentAsyncResponse](docs/WorkloadDeploymentAsyncResponse.md)
- - [WorkloadDeploymentRequest](docs/WorkloadDeploymentRequest.md)
- - [WorkloadDeploymentRetrieveResponse](docs/WorkloadDeploymentRetrieveResponse.md)
  - [WorkloadRequest](docs/WorkloadRequest.md)
+ - [WorkloadResponse](docs/WorkloadResponse.md)
  - [WorkloadRetrieveResponse](docs/WorkloadRetrieveResponse.md)
  - [WorkloadVersion](docs/WorkloadVersion.md)
  - [WorkloadVersionList](docs/WorkloadVersionList.md)
