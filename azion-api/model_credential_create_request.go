@@ -27,6 +27,7 @@ type CredentialCreateRequest struct {
 	Capabilities []string `json:"capabilities"`
 	// List of bucket names to associate with this credential.
 	Buckets []string `json:"buckets,omitempty"`
+	// Expiration date and time. Must be in the future and no more than 1000 days from the time of the request. If omitted, the credential does not expire. Exceeding the limit returns HTTP 400 with error code 17010.
 	ExpirationDate *time.Time `json:"expiration_date,omitempty"`
 }
 

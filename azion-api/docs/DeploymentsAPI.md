@@ -1,6 +1,6 @@
 # \DeploymentsAPI
 
-All URIs are relative to *https://api.azion.com/v6*
+All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -149,7 +149,7 @@ Name | Type | Description  | Notes
 
 ## ListDeployments
 
-> PaginatedDeploymentList ListDeployments(ctx).BindingPolicy(bindingPolicy).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).DeploymentPolicy(deploymentPolicy).Fields(fields).IdIn(idIn).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).State(state).Execute()
+> PaginatedDeploymentList ListDeployments(ctx).BindingPolicy(bindingPolicy).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).DeploymentPolicy(deploymentPolicy).Fields(fields).Id(id).IdIn(idIn).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).State(state).Execute()
 
 List deployments
 
@@ -174,7 +174,8 @@ func main() {
 	createdAtLte := time.Now() // time.Time | Filter by creation date (less than or equal). (optional)
 	deploymentPolicy := "deploymentPolicy_example" // string | Filter by deployment policy. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	idIn := []string{"Inner_example"} // []string | Filter by deployment short_ids, comma-separated (`id__in=A,B`). (optional)
+	id := []string{"Inner_example"} // []string | Filter by deployment short_ids, comma-separated (`id=A,B`). (optional)
+	idIn := []string{"Inner_example"} // []string | Filter by deployment short_ids, comma-separated (`id__in=A,B`). Combined with `id`, both sets must match. (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modification date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modification date (less than or equal). (optional)
 	name := "name_example" // string | Filter by deployment name (case-insensitive, partial match). (optional)
@@ -186,7 +187,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeploymentsAPI.ListDeployments(context.Background()).BindingPolicy(bindingPolicy).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).DeploymentPolicy(deploymentPolicy).Fields(fields).IdIn(idIn).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).State(state).Execute()
+	resp, r, err := apiClient.DeploymentsAPI.ListDeployments(context.Background()).BindingPolicy(bindingPolicy).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).DeploymentPolicy(deploymentPolicy).Fields(fields).Id(id).IdIn(idIn).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).State(state).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeploymentsAPI.ListDeployments``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -212,7 +213,8 @@ Name | Type | Description  | Notes
  **createdAtLte** | **time.Time** | Filter by creation date (less than or equal). | 
  **deploymentPolicy** | **string** | Filter by deployment policy. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **idIn** | **[]string** | Filter by deployment short_ids, comma-separated (&#x60;id__in&#x3D;A,B&#x60;). | 
+ **id** | **[]string** | Filter by deployment short_ids, comma-separated (&#x60;id&#x3D;A,B&#x60;). | 
+ **idIn** | **[]string** | Filter by deployment short_ids, comma-separated (&#x60;id__in&#x3D;A,B&#x60;). Combined with &#x60;id&#x60;, both sets must match. | 
  **lastModifiedGte** | **time.Time** | Filter by last modification date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modification date (less than or equal). | 
  **name** | **string** | Filter by deployment name (case-insensitive, partial match). | 

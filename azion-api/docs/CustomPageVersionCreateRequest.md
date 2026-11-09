@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** |  | [optional] 
-**Active** | Pointer to **bool** |  | [optional] 
 **Pages** | Pointer to [**[]PageRequest**](PageRequest.md) |  | [optional] 
 **SourceVersion** | Pointer to **NullableString** | ID of the version to clone from. If omitted, clones latest ready. | [optional] 
 **Comment** | Pointer to **string** | Accepted and not stored. | [optional] 
@@ -53,31 +52,6 @@ SetName sets Name field to given value.
 `func (o *CustomPageVersionCreateRequest) HasName() bool`
 
 HasName returns a boolean if a field has been set.
-
-### GetActive
-
-`func (o *CustomPageVersionCreateRequest) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *CustomPageVersionCreateRequest) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *CustomPageVersionCreateRequest) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *CustomPageVersionCreateRequest) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
 
 ### GetPages
 

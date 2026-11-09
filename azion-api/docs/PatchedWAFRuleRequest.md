@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **Path** | Pointer to **NullableString** |  | [optional] 
 **Conditions** | Pointer to [**[]PatchedWAFExceptionConditionRequest**](PatchedWAFExceptionConditionRequest.md) |  | [optional] 
 **Operator** | Pointer to **string** | * &#x60;regex&#x60; - regex * &#x60;contains&#x60; - contains | [optional] 
-**Active** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -164,31 +163,6 @@ SetOperator sets Operator field to given value.
 `func (o *PatchedWAFRuleRequest) HasOperator() bool`
 
 HasOperator returns a boolean if a field has been set.
-
-### GetActive
-
-`func (o *PatchedWAFRuleRequest) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *PatchedWAFRuleRequest) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *PatchedWAFRuleRequest) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *PatchedWAFRuleRequest) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
