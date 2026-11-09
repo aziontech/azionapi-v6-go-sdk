@@ -76,6 +76,16 @@ type APIClient struct {
 
 	CustomPagesAPI *CustomPagesAPIService
 
+	DeploymentsAPI *DeploymentsAPIService
+
+	DeploymentsReleaseRoutingAPI *DeploymentsReleaseRoutingAPIService
+
+	DeploymentsReleasesAPI *DeploymentsReleasesAPIService
+
+	DeploymentsResourceUsageAPI *DeploymentsResourceUsageAPIService
+
+	DeploymentsVersionsAPI *DeploymentsVersionsAPIService
+
 	DigitalCertificatesCertificateRevocationListsAPI *DigitalCertificatesCertificateRevocationListsAPIService
 
 	DigitalCertificatesCertificateSigningRequestsAPI *DigitalCertificatesCertificateSigningRequestsAPIService
@@ -108,6 +118,8 @@ type APIClient struct {
 
 	StorageBucketsAPI *StorageBucketsAPIService
 
+	StorageCredentialsAPI *StorageCredentialsAPIService
+
 	StorageObjectsAPI *StorageObjectsAPIService
 
 	VariableVersionsAPI *VariableVersionsAPIService
@@ -119,8 +131,6 @@ type APIClient struct {
 	WAFsAPI *WAFsAPIService
 
 	WAFsExceptionsAPI *WAFsExceptionsAPIService
-
-	WorkloadDeploymentsAPI *WorkloadDeploymentsAPIService
 
 	WorkloadVersionsAPI *WorkloadVersionsAPIService
 
@@ -156,6 +166,11 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ConnectorsAPI = (*ConnectorsAPIService)(&c.common)
 	c.CustomPageVersionsAPI = (*CustomPageVersionsAPIService)(&c.common)
 	c.CustomPagesAPI = (*CustomPagesAPIService)(&c.common)
+	c.DeploymentsAPI = (*DeploymentsAPIService)(&c.common)
+	c.DeploymentsReleaseRoutingAPI = (*DeploymentsReleaseRoutingAPIService)(&c.common)
+	c.DeploymentsReleasesAPI = (*DeploymentsReleasesAPIService)(&c.common)
+	c.DeploymentsResourceUsageAPI = (*DeploymentsResourceUsageAPIService)(&c.common)
+	c.DeploymentsVersionsAPI = (*DeploymentsVersionsAPIService)(&c.common)
 	c.DigitalCertificatesCertificateRevocationListsAPI = (*DigitalCertificatesCertificateRevocationListsAPIService)(&c.common)
 	c.DigitalCertificatesCertificateSigningRequestsAPI = (*DigitalCertificatesCertificateSigningRequestsAPIService)(&c.common)
 	c.DigitalCertificatesCertificatesAPI = (*DigitalCertificatesCertificatesAPIService)(&c.common)
@@ -172,13 +187,13 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.NetworkListsAPI = (*NetworkListsAPIService)(&c.common)
 	c.PurgeAPI = (*PurgeAPIService)(&c.common)
 	c.StorageBucketsAPI = (*StorageBucketsAPIService)(&c.common)
+	c.StorageCredentialsAPI = (*StorageCredentialsAPIService)(&c.common)
 	c.StorageObjectsAPI = (*StorageObjectsAPIService)(&c.common)
 	c.VariableVersionsAPI = (*VariableVersionsAPIService)(&c.common)
 	c.VariablesAPI = (*VariablesAPIService)(&c.common)
 	c.WAFVersionsAPI = (*WAFVersionsAPIService)(&c.common)
 	c.WAFsAPI = (*WAFsAPIService)(&c.common)
 	c.WAFsExceptionsAPI = (*WAFsExceptionsAPIService)(&c.common)
-	c.WorkloadDeploymentsAPI = (*WorkloadDeploymentsAPIService)(&c.common)
 	c.WorkloadVersionsAPI = (*WorkloadVersionsAPIService)(&c.common)
 	c.WorkloadsAPI = (*WorkloadsAPIService)(&c.common)
 

@@ -27,24 +27,9 @@ type CertificateVersionsAPIService service
 type ApiListCertificateVersionsRequest struct {
 	ctx context.Context
 	ApiService *CertificateVersionsAPIService
-	resourcePk int64
-	fields *string
-	ordering *string
+	certificateId int64
 	page *int64
 	pageSize *int32
-	search *string
-}
-
-// Comma-separated list of field names to include in the response.
-func (r ApiListCertificateVersionsRequest) Fields(fields string) ApiListCertificateVersionsRequest {
-	r.fields = &fields
-	return r
-}
-
-// Which field to use when ordering the results.
-func (r ApiListCertificateVersionsRequest) Ordering(ordering string) ApiListCertificateVersionsRequest {
-	r.ordering = &ordering
-	return r
 }
 
 // A page number within the paginated result set.
@@ -59,13 +44,7 @@ func (r ApiListCertificateVersionsRequest) PageSize(pageSize int32) ApiListCerti
 	return r
 }
 
-// A search term.
-func (r ApiListCertificateVersionsRequest) Search(search string) ApiListCertificateVersionsRequest {
-	r.search = &search
-	return r
-}
-
-func (r ApiListCertificateVersionsRequest) Execute() (*PaginatedCertificateList, *http.Response, error) {
+func (r ApiListCertificateVersionsRequest) Execute() (*PaginatedCertificateVersionList, *http.Response, error) {
 	return r.ApiService.ListCertificateVersionsExecute(r)
 }
 
@@ -75,25 +54,25 @@ ListCertificateVersions List certificate versions
 List all versions of a specific certificate.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param resourcePk The ID of the certificate resource.
+ @param certificateId A unique value identifying the certificate.
  @return ApiListCertificateVersionsRequest
 */
-func (a *CertificateVersionsAPIService) ListCertificateVersions(ctx context.Context, resourcePk int64) ApiListCertificateVersionsRequest {
+func (a *CertificateVersionsAPIService) ListCertificateVersions(ctx context.Context, certificateId int64) ApiListCertificateVersionsRequest {
 	return ApiListCertificateVersionsRequest{
 		ApiService: a,
 		ctx: ctx,
-		resourcePk: resourcePk,
+		certificateId: certificateId,
 	}
 }
 
 // Execute executes the request
-//  @return PaginatedCertificateList
-func (a *CertificateVersionsAPIService) ListCertificateVersionsExecute(r ApiListCertificateVersionsRequest) (*PaginatedCertificateList, *http.Response, error) {
+//  @return PaginatedCertificateVersionList
+func (a *CertificateVersionsAPIService) ListCertificateVersionsExecute(r ApiListCertificateVersionsRequest) (*PaginatedCertificateVersionList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *PaginatedCertificateList
+		localVarReturnValue  *PaginatedCertificateVersionList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CertificateVersionsAPIService.ListCertificateVersions")
@@ -101,27 +80,18 @@ func (a *CertificateVersionsAPIService) ListCertificateVersionsExecute(r ApiList
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/workspace/tls/certificates/{resource_pk}/versions"
-	localVarPath = strings.Replace(localVarPath, "{"+"resource_pk"+"}", url.PathEscape(parameterValueToString(r.resourcePk, "resourcePk")), -1)
+	localVarPath := localBasePath + "/workspace/tls/certificates/{certificate_id}/versions"
+	localVarPath = strings.Replace(localVarPath, "{"+"certificate_id"+"}", url.PathEscape(parameterValueToString(r.certificateId, "certificateId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.fields != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
-	}
-	if r.ordering != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "ordering", r.ordering, "form", "")
-	}
 	if r.page != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	}
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
-	}
-	if r.search != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -176,7 +146,7 @@ func (a *CertificateVersionsAPIService) ListCertificateVersionsExecute(r ApiList
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
+		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -187,7 +157,29 @@ func (a *CertificateVersionsAPIService) ListCertificateVersionsExecute(r ApiList
 					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		if localVarHTTPResponse.StatusCode == 403 {
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -237,9 +229,23 @@ func (a *CertificateVersionsAPIService) ListCertificateVersionsExecute(r ApiList
 type ApiRetrieveCertificateVersionRequest struct {
 	ctx context.Context
 	ApiService *CertificateVersionsAPIService
-	id string
-	resourcePk int64
+	certificateId int64
+	versionId string
+	dependencies *bool
+	dependencyStates *[]string
 	fields *string
+}
+
+// Include the resources this version references.
+func (r ApiRetrieveCertificateVersionRequest) Dependencies(dependencies bool) ApiRetrieveCertificateVersionRequest {
+	r.dependencies = &dependencies
+	return r
+}
+
+// Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true.
+func (r ApiRetrieveCertificateVersionRequest) DependencyStates(dependencyStates []string) ApiRetrieveCertificateVersionRequest {
+	r.dependencyStates = &dependencyStates
+	return r
 }
 
 // Comma-separated list of field names to include in the response.
@@ -248,7 +254,7 @@ func (r ApiRetrieveCertificateVersionRequest) Fields(fields string) ApiRetrieveC
 	return r
 }
 
-func (r ApiRetrieveCertificateVersionRequest) Execute() (*Certificate, *http.Response, error) {
+func (r ApiRetrieveCertificateVersionRequest) Execute() (*CertificateVersion, *http.Response, error) {
 	return r.ApiService.RetrieveCertificateVersionExecute(r)
 }
 
@@ -258,27 +264,27 @@ RetrieveCertificateVersion Retrieve a certificate version
 Retrieve details of a specific version.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id The ULID identifier of the version.
- @param resourcePk The ID of the certificate resource.
+ @param certificateId A unique value identifying the certificate.
+ @param versionId A unique value identifying the version.
  @return ApiRetrieveCertificateVersionRequest
 */
-func (a *CertificateVersionsAPIService) RetrieveCertificateVersion(ctx context.Context, id string, resourcePk int64) ApiRetrieveCertificateVersionRequest {
+func (a *CertificateVersionsAPIService) RetrieveCertificateVersion(ctx context.Context, certificateId int64, versionId string) ApiRetrieveCertificateVersionRequest {
 	return ApiRetrieveCertificateVersionRequest{
 		ApiService: a,
 		ctx: ctx,
-		id: id,
-		resourcePk: resourcePk,
+		certificateId: certificateId,
+		versionId: versionId,
 	}
 }
 
 // Execute executes the request
-//  @return Certificate
-func (a *CertificateVersionsAPIService) RetrieveCertificateVersionExecute(r ApiRetrieveCertificateVersionRequest) (*Certificate, *http.Response, error) {
+//  @return CertificateVersion
+func (a *CertificateVersionsAPIService) RetrieveCertificateVersionExecute(r ApiRetrieveCertificateVersionRequest) (*CertificateVersion, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *Certificate
+		localVarReturnValue  *CertificateVersion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CertificateVersionsAPIService.RetrieveCertificateVersion")
@@ -286,14 +292,20 @@ func (a *CertificateVersionsAPIService) RetrieveCertificateVersionExecute(r ApiR
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/workspace/tls/certificates/{resource_pk}/versions/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"resource_pk"+"}", url.PathEscape(parameterValueToString(r.resourcePk, "resourcePk")), -1)
+	localVarPath := localBasePath + "/workspace/tls/certificates/{certificate_id}/versions/{version_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"certificate_id"+"}", url.PathEscape(parameterValueToString(r.certificateId, "certificateId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"version_id"+"}", url.PathEscape(parameterValueToString(r.versionId, "versionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.dependencies != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "dependencies", r.dependencies, "form", "")
+	}
+	if r.dependencyStates != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "dependency_states", r.dependencyStates, "form", "csv")
+	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
@@ -350,7 +362,7 @@ func (a *CertificateVersionsAPIService) RetrieveCertificateVersionExecute(r ApiR
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
+		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -361,7 +373,29 @@ func (a *CertificateVersionsAPIService) RetrieveCertificateVersionExecute(r ApiR
 					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
-		if localVarHTTPResponse.StatusCode == 403 {
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -411,17 +445,17 @@ func (a *CertificateVersionsAPIService) RetrieveCertificateVersionExecute(r ApiR
 type ApiRevertCertificateVersionRequest struct {
 	ctx context.Context
 	ApiService *CertificateVersionsAPIService
-	id string
-	resourcePk int64
-	versionRevert *VersionRevert
+	certificateId int64
+	versionId string
+	certificateVersionRevertRequest *CertificateVersionRevertRequest
 }
 
-func (r ApiRevertCertificateVersionRequest) VersionRevert(versionRevert VersionRevert) ApiRevertCertificateVersionRequest {
-	r.versionRevert = &versionRevert
+func (r ApiRevertCertificateVersionRequest) CertificateVersionRevertRequest(certificateVersionRevertRequest CertificateVersionRevertRequest) ApiRevertCertificateVersionRequest {
+	r.certificateVersionRevertRequest = &certificateVersionRevertRequest
 	return r
 }
 
-func (r ApiRevertCertificateVersionRequest) Execute() (*http.Response, error) {
+func (r ApiRevertCertificateVersionRequest) Execute() (*CertificateVersionMeta, *http.Response, error) {
 	return r.ApiService.RevertCertificateVersionExecute(r)
 }
 
@@ -431,35 +465,37 @@ RevertCertificateVersion Revert to a certificate version
 Clone an archived version and promote it to active.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id The ULID identifier of the version.
- @param resourcePk The ID of the certificate resource.
+ @param certificateId A unique value identifying the certificate.
+ @param versionId A unique value identifying the version.
  @return ApiRevertCertificateVersionRequest
 */
-func (a *CertificateVersionsAPIService) RevertCertificateVersion(ctx context.Context, id string, resourcePk int64) ApiRevertCertificateVersionRequest {
+func (a *CertificateVersionsAPIService) RevertCertificateVersion(ctx context.Context, certificateId int64, versionId string) ApiRevertCertificateVersionRequest {
 	return ApiRevertCertificateVersionRequest{
 		ApiService: a,
 		ctx: ctx,
-		id: id,
-		resourcePk: resourcePk,
+		certificateId: certificateId,
+		versionId: versionId,
 	}
 }
 
 // Execute executes the request
-func (a *CertificateVersionsAPIService) RevertCertificateVersionExecute(r ApiRevertCertificateVersionRequest) (*http.Response, error) {
+//  @return CertificateVersionMeta
+func (a *CertificateVersionsAPIService) RevertCertificateVersionExecute(r ApiRevertCertificateVersionRequest) (*CertificateVersionMeta, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
+		localVarReturnValue  *CertificateVersionMeta
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CertificateVersionsAPIService.RevertCertificateVersion")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/workspace/tls/certificates/{resource_pk}/versions/{id}/revert"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"resource_pk"+"}", url.PathEscape(parameterValueToString(r.resourcePk, "resourcePk")), -1)
+	localVarPath := localBasePath + "/workspace/tls/certificates/{certificate_id}/versions/{version_id}/revert"
+	localVarPath = strings.Replace(localVarPath, "{"+"certificate_id"+"}", url.PathEscape(parameterValueToString(r.certificateId, "certificateId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"version_id"+"}", url.PathEscape(parameterValueToString(r.versionId, "versionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -483,7 +519,7 @@ func (a *CertificateVersionsAPIService) RevertCertificateVersionExecute(r ApiRev
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.versionRevert
+	localVarPostBody = r.certificateVersionRevertRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -500,19 +536,19 @@ func (a *CertificateVersionsAPIService) RevertCertificateVersionExecute(r ApiRev
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -520,51 +556,93 @@ func (a *CertificateVersionsAPIService) RevertCertificateVersionExecute(r ApiRev
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }

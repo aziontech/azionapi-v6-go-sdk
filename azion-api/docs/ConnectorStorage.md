@@ -11,7 +11,6 @@ Name | Type | Description | Notes
 **LastEditor** | Pointer to **string** |  | [optional] 
 **LastModified** | Pointer to **time.Time** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
-**Active** | Pointer to **bool** |  | [optional] 
 **ProductVersion** | Pointer to **string** |  | [optional] 
 **Type** | **string** |  | 
 **Attributes** | Pointer to [**ConnectorStorageAttributes**](ConnectorStorageAttributes.md) |  | [optional] 
@@ -229,31 +228,6 @@ SetCreatedAt sets CreatedAt field to given value.
 `func (o *ConnectorStorage) HasCreatedAt() bool`
 
 HasCreatedAt returns a boolean if a field has been set.
-
-### GetActive
-
-`func (o *ConnectorStorage) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *ConnectorStorage) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *ConnectorStorage) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *ConnectorStorage) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
 
 ### GetProductVersion
 

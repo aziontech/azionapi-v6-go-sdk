@@ -36,7 +36,7 @@ func (r ApiCreateWorkloadRequest) WorkloadRequest(workloadRequest WorkloadReques
 	return r
 }
 
-func (r ApiCreateWorkloadRequest) Execute() (*WorkloadAsyncResponse, *http.Response, error) {
+func (r ApiCreateWorkloadRequest) Execute() (*WorkloadResponse, *http.Response, error) {
 	return r.ApiService.CreateWorkloadExecute(r)
 }
 
@@ -56,13 +56,13 @@ func (a *WorkloadsAPIService) CreateWorkload(ctx context.Context) ApiCreateWorkl
 }
 
 // Execute executes the request
-//  @return WorkloadAsyncResponse
-func (a *WorkloadsAPIService) CreateWorkloadExecute(r ApiCreateWorkloadRequest) (*WorkloadAsyncResponse, *http.Response, error) {
+//  @return WorkloadResponse
+func (a *WorkloadsAPIService) CreateWorkloadExecute(r ApiCreateWorkloadRequest) (*WorkloadResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *WorkloadAsyncResponse
+		localVarReturnValue  *WorkloadResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkloadsAPIService.CreateWorkload")
@@ -242,7 +242,7 @@ type ApiDeleteWorkloadRequest struct {
 	workloadId int64
 }
 
-func (r ApiDeleteWorkloadRequest) Execute() (*DeleteAsyncResponse, *http.Response, error) {
+func (r ApiDeleteWorkloadRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteWorkloadExecute(r)
 }
 
@@ -264,18 +264,16 @@ func (a *WorkloadsAPIService) DeleteWorkload(ctx context.Context, workloadId int
 }
 
 // Execute executes the request
-//  @return DeleteAsyncResponse
-func (a *WorkloadsAPIService) DeleteWorkloadExecute(r ApiDeleteWorkloadRequest) (*DeleteAsyncResponse, *http.Response, error) {
+func (a *WorkloadsAPIService) DeleteWorkloadExecute(r ApiDeleteWorkloadRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeleteAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkloadsAPIService.DeleteWorkload")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/workspace/workloads/{workload_id}"
@@ -318,19 +316,19 @@ func (a *WorkloadsAPIService) DeleteWorkloadExecute(r ApiDeleteWorkloadRequest) 
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -343,107 +341,97 @@ func (a *WorkloadsAPIService) DeleteWorkloadExecute(r ApiDeleteWorkloadRequest) 
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type ApiListWorkloadsRequest struct {
 	ctx context.Context
 	ApiService *WorkloadsAPIService
-	active *bool
 	digitalCertificateId *int64
 	fields *string
 	id *int64
@@ -458,12 +446,6 @@ type ApiListWorkloadsRequest struct {
 	page *int64
 	pageSize *int32
 	search *string
-}
-
-// Filter by active status.
-func (r ApiListWorkloadsRequest) Active(active bool) ApiListWorkloadsRequest {
-	r.active = &active
-	return r
 }
 
 // Filter by digital certificate id (accepts comma-separated values).
@@ -526,7 +508,7 @@ func (r ApiListWorkloadsRequest) Name(name string) ApiListWorkloadsRequest {
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, active, last_editor, last_modified)
+// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified)
 func (r ApiListWorkloadsRequest) Ordering(ordering string) ApiListWorkloadsRequest {
 	r.ordering = &ordering
 	return r
@@ -590,9 +572,6 @@ func (a *WorkloadsAPIService) ListWorkloadsExecute(r ApiListWorkloadsRequest) (*
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.active != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "active", r.active, "form", "")
-	}
 	if r.digitalCertificateId != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "digital_certificate_id", r.digitalCertificateId, "form", "")
 	}
@@ -802,7 +781,7 @@ func (r ApiPartialUpdateWorkloadRequest) PatchedWorkloadRequest(patchedWorkloadR
 	return r
 }
 
-func (r ApiPartialUpdateWorkloadRequest) Execute() (*WorkloadAsyncResponse, *http.Response, error) {
+func (r ApiPartialUpdateWorkloadRequest) Execute() (*WorkloadResponse, *http.Response, error) {
 	return r.ApiService.PartialUpdateWorkloadExecute(r)
 }
 
@@ -824,13 +803,13 @@ func (a *WorkloadsAPIService) PartialUpdateWorkload(ctx context.Context, workloa
 }
 
 // Execute executes the request
-//  @return WorkloadAsyncResponse
-func (a *WorkloadsAPIService) PartialUpdateWorkloadExecute(r ApiPartialUpdateWorkloadRequest) (*WorkloadAsyncResponse, *http.Response, error) {
+//  @return WorkloadResponse
+func (a *WorkloadsAPIService) PartialUpdateWorkloadExecute(r ApiPartialUpdateWorkloadRequest) (*WorkloadResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *WorkloadAsyncResponse
+		localVarReturnValue  *WorkloadResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkloadsAPIService.PartialUpdateWorkload")
@@ -1228,7 +1207,7 @@ func (r ApiUpdateWorkloadRequest) WorkloadRequest(workloadRequest WorkloadReques
 	return r
 }
 
-func (r ApiUpdateWorkloadRequest) Execute() (*WorkloadAsyncResponse, *http.Response, error) {
+func (r ApiUpdateWorkloadRequest) Execute() (*WorkloadResponse, *http.Response, error) {
 	return r.ApiService.UpdateWorkloadExecute(r)
 }
 
@@ -1250,13 +1229,13 @@ func (a *WorkloadsAPIService) UpdateWorkload(ctx context.Context, workloadId int
 }
 
 // Execute executes the request
-//  @return WorkloadAsyncResponse
-func (a *WorkloadsAPIService) UpdateWorkloadExecute(r ApiUpdateWorkloadRequest) (*WorkloadAsyncResponse, *http.Response, error) {
+//  @return WorkloadResponse
+func (a *WorkloadsAPIService) UpdateWorkloadExecute(r ApiUpdateWorkloadRequest) (*WorkloadResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *WorkloadAsyncResponse
+		localVarReturnValue  *WorkloadResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkloadsAPIService.UpdateWorkload")

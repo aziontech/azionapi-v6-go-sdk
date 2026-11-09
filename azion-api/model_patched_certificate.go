@@ -28,16 +28,13 @@ type PatchedCertificate struct {
 	Issuer NullableString `json:"issuer,omitempty"`
 	SubjectName []string `json:"subject_name,omitempty"`
 	Validity NullableString `json:"validity,omitempty"`
-	// The value can't be changed after the certificate creation.  * `edge_certificate` - Edge Certificate * `trusted_ca_certificate` - Trusted CA Certificate
+	// The value can't be changed after the certificate creation.  * `edge_certificate` - Certificate * `trusted_ca_certificate` - Trusted CA Certificate
 	Type *string `json:"type,omitempty"`
 	Managed *bool `json:"managed,omitempty"`
-	Status *string `json:"status,omitempty"`
-	StatusDetail *string `json:"status_detail,omitempty"`
 	Csr NullableString `json:"csr,omitempty"`
 	Challenge *string `json:"challenge,omitempty"`
 	Authority *string `json:"authority,omitempty"`
 	KeyAlgorithm *string `json:"key_algorithm,omitempty"`
-	Active *bool `json:"active,omitempty"`
 	ProductVersion *string `json:"product_version,omitempty"`
 	LastEditor *string `json:"last_editor,omitempty"`
 	// Timestamp of the certificate creation on the platform.
@@ -397,70 +394,6 @@ func (o *PatchedCertificate) SetManaged(v bool) {
 	o.Managed = &v
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise.
-func (o *PatchedCertificate) GetStatus() string {
-	if o == nil || IsNil(o.Status) {
-		var ret string
-		return ret
-	}
-	return *o.Status
-}
-
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PatchedCertificate) GetStatusOk() (*string, bool) {
-	if o == nil || IsNil(o.Status) {
-		return nil, false
-	}
-	return o.Status, true
-}
-
-// HasStatus returns a boolean if a field has been set.
-func (o *PatchedCertificate) HasStatus() bool {
-	if o != nil && !IsNil(o.Status) {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *PatchedCertificate) SetStatus(v string) {
-	o.Status = &v
-}
-
-// GetStatusDetail returns the StatusDetail field value if set, zero value otherwise.
-func (o *PatchedCertificate) GetStatusDetail() string {
-	if o == nil || IsNil(o.StatusDetail) {
-		var ret string
-		return ret
-	}
-	return *o.StatusDetail
-}
-
-// GetStatusDetailOk returns a tuple with the StatusDetail field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PatchedCertificate) GetStatusDetailOk() (*string, bool) {
-	if o == nil || IsNil(o.StatusDetail) {
-		return nil, false
-	}
-	return o.StatusDetail, true
-}
-
-// HasStatusDetail returns a boolean if a field has been set.
-func (o *PatchedCertificate) HasStatusDetail() bool {
-	if o != nil && !IsNil(o.StatusDetail) {
-		return true
-	}
-
-	return false
-}
-
-// SetStatusDetail gets a reference to the given string and assigns it to the StatusDetail field.
-func (o *PatchedCertificate) SetStatusDetail(v string) {
-	o.StatusDetail = &v
-}
-
 // GetCsr returns the Csr field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PatchedCertificate) GetCsr() string {
 	if o == nil || IsNil(o.Csr.Get()) {
@@ -597,38 +530,6 @@ func (o *PatchedCertificate) HasKeyAlgorithm() bool {
 // SetKeyAlgorithm gets a reference to the given string and assigns it to the KeyAlgorithm field.
 func (o *PatchedCertificate) SetKeyAlgorithm(v string) {
 	o.KeyAlgorithm = &v
-}
-
-// GetActive returns the Active field value if set, zero value otherwise.
-func (o *PatchedCertificate) GetActive() bool {
-	if o == nil || IsNil(o.Active) {
-		var ret bool
-		return ret
-	}
-	return *o.Active
-}
-
-// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PatchedCertificate) GetActiveOk() (*bool, bool) {
-	if o == nil || IsNil(o.Active) {
-		return nil, false
-	}
-	return o.Active, true
-}
-
-// HasActive returns a boolean if a field has been set.
-func (o *PatchedCertificate) HasActive() bool {
-	if o != nil && !IsNil(o.Active) {
-		return true
-	}
-
-	return false
-}
-
-// SetActive gets a reference to the given bool and assigns it to the Active field.
-func (o *PatchedCertificate) SetActive(v bool) {
-	o.Active = &v
 }
 
 // GetProductVersion returns the ProductVersion field value if set, zero value otherwise.
@@ -932,12 +833,6 @@ func (o PatchedCertificate) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Managed) {
 		toSerialize["managed"] = o.Managed
 	}
-	if !IsNil(o.Status) {
-		toSerialize["status"] = o.Status
-	}
-	if !IsNil(o.StatusDetail) {
-		toSerialize["status_detail"] = o.StatusDetail
-	}
 	if o.Csr.IsSet() {
 		toSerialize["csr"] = o.Csr.Get()
 	}
@@ -949,9 +844,6 @@ func (o PatchedCertificate) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.KeyAlgorithm) {
 		toSerialize["key_algorithm"] = o.KeyAlgorithm
-	}
-	if !IsNil(o.Active) {
-		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.ProductVersion) {
 		toSerialize["product_version"] = o.ProductVersion

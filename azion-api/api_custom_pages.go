@@ -36,7 +36,7 @@ func (r ApiCreateCustomPageRequest) CustomPageRequest(customPageRequest CustomPa
 	return r
 }
 
-func (r ApiCreateCustomPageRequest) Execute() (*CustomPageAsyncResponse, *http.Response, error) {
+func (r ApiCreateCustomPageRequest) Execute() (*CustomPageResponse, *http.Response, error) {
 	return r.ApiService.CreateCustomPageExecute(r)
 }
 
@@ -56,13 +56,13 @@ func (a *CustomPagesAPIService) CreateCustomPage(ctx context.Context) ApiCreateC
 }
 
 // Execute executes the request
-//  @return CustomPageAsyncResponse
-func (a *CustomPagesAPIService) CreateCustomPageExecute(r ApiCreateCustomPageRequest) (*CustomPageAsyncResponse, *http.Response, error) {
+//  @return CustomPageResponse
+func (a *CustomPagesAPIService) CreateCustomPageExecute(r ApiCreateCustomPageRequest) (*CustomPageResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *CustomPageAsyncResponse
+		localVarReturnValue  *CustomPageResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomPagesAPIService.CreateCustomPage")
@@ -242,7 +242,7 @@ type ApiDeleteCustomPageRequest struct {
 	customPageId int64
 }
 
-func (r ApiDeleteCustomPageRequest) Execute() (*DeleteAsyncResponse, *http.Response, error) {
+func (r ApiDeleteCustomPageRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteCustomPageExecute(r)
 }
 
@@ -264,18 +264,16 @@ func (a *CustomPagesAPIService) DeleteCustomPage(ctx context.Context, customPage
 }
 
 // Execute executes the request
-//  @return DeleteAsyncResponse
-func (a *CustomPagesAPIService) DeleteCustomPageExecute(r ApiDeleteCustomPageRequest) (*DeleteAsyncResponse, *http.Response, error) {
+func (a *CustomPagesAPIService) DeleteCustomPageExecute(r ApiDeleteCustomPageRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeleteAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomPagesAPIService.DeleteCustomPage")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/workspace/custom_pages/{custom_page_id}"
@@ -318,19 +316,19 @@ func (a *CustomPagesAPIService) DeleteCustomPageExecute(r ApiDeleteCustomPageReq
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -343,107 +341,97 @@ func (a *CustomPagesAPIService) DeleteCustomPageExecute(r ApiDeleteCustomPageReq
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type ApiListCustomPagesRequest struct {
 	ctx context.Context
 	ApiService *CustomPagesAPIService
-	active *bool
 	fields *string
 	id *int64
 	lastEditor *string
@@ -454,12 +442,6 @@ type ApiListCustomPagesRequest struct {
 	page *int64
 	pageSize *int32
 	search *string
-}
-
-// Filter by active status.
-func (r ApiListCustomPagesRequest) Active(active bool) ApiListCustomPagesRequest {
-	r.active = &active
-	return r
 }
 
 // Comma-separated list of field names to include in the response.
@@ -498,7 +480,7 @@ func (r ApiListCustomPagesRequest) Name(name string) ApiListCustomPagesRequest {
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, active)
+// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified)
 func (r ApiListCustomPagesRequest) Ordering(ordering string) ApiListCustomPagesRequest {
 	r.ordering = &ordering
 	return r
@@ -516,7 +498,7 @@ func (r ApiListCustomPagesRequest) PageSize(pageSize int32) ApiListCustomPagesRe
 	return r
 }
 
-// A search term to filter results. Searches across the following fields: id, name, last_editor, last_modified, active.
+// A search term to filter results. Searches across the following fields: id, name, last_editor, last_modified.
 func (r ApiListCustomPagesRequest) Search(search string) ApiListCustomPagesRequest {
 	r.search = &search
 	return r
@@ -562,9 +544,6 @@ func (a *CustomPagesAPIService) ListCustomPagesExecute(r ApiListCustomPagesReque
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.active != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "active", r.active, "form", "")
-	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
@@ -762,7 +741,7 @@ func (r ApiPartialUpdateCustomPageRequest) PatchedCustomPageRequest(patchedCusto
 	return r
 }
 
-func (r ApiPartialUpdateCustomPageRequest) Execute() (*CustomPageAsyncResponse, *http.Response, error) {
+func (r ApiPartialUpdateCustomPageRequest) Execute() (*CustomPageResponse, *http.Response, error) {
 	return r.ApiService.PartialUpdateCustomPageExecute(r)
 }
 
@@ -784,13 +763,13 @@ func (a *CustomPagesAPIService) PartialUpdateCustomPage(ctx context.Context, cus
 }
 
 // Execute executes the request
-//  @return CustomPageAsyncResponse
-func (a *CustomPagesAPIService) PartialUpdateCustomPageExecute(r ApiPartialUpdateCustomPageRequest) (*CustomPageAsyncResponse, *http.Response, error) {
+//  @return CustomPageResponse
+func (a *CustomPagesAPIService) PartialUpdateCustomPageExecute(r ApiPartialUpdateCustomPageRequest) (*CustomPageResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *CustomPageAsyncResponse
+		localVarReturnValue  *CustomPageResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomPagesAPIService.PartialUpdateCustomPage")
@@ -1188,7 +1167,7 @@ func (r ApiUpdateCustomPageRequest) CustomPageRequest(customPageRequest CustomPa
 	return r
 }
 
-func (r ApiUpdateCustomPageRequest) Execute() (*CustomPageAsyncResponse, *http.Response, error) {
+func (r ApiUpdateCustomPageRequest) Execute() (*CustomPageResponse, *http.Response, error) {
 	return r.ApiService.UpdateCustomPageExecute(r)
 }
 
@@ -1210,13 +1189,13 @@ func (a *CustomPagesAPIService) UpdateCustomPage(ctx context.Context, customPage
 }
 
 // Execute executes the request
-//  @return CustomPageAsyncResponse
-func (a *CustomPagesAPIService) UpdateCustomPageExecute(r ApiUpdateCustomPageRequest) (*CustomPageAsyncResponse, *http.Response, error) {
+//  @return CustomPageResponse
+func (a *CustomPagesAPIService) UpdateCustomPageExecute(r ApiUpdateCustomPageRequest) (*CustomPageResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *CustomPageAsyncResponse
+		localVarReturnValue  *CustomPageResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomPagesAPIService.UpdateCustomPage")
