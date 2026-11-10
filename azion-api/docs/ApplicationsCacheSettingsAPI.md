@@ -1,6 +1,6 @@
 # \ApplicationsCacheSettingsAPI
 
-All URIs are relative to *https://api.azion.com/v6*
+All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## DeleteApplicationVersionCacheSetting
 
-> DeleteResponse DeleteApplicationVersionCacheSetting(ctx, applicationId, cacheSettingId, versionId).Execute()
+> DeleteApplicationVersionCacheSetting(ctx, applicationId, cacheSettingId, versionId).Execute()
 
 Delete an Applications Cache Setting
 
@@ -193,13 +193,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationsCacheSettingsAPI.DeleteApplicationVersionCacheSetting(context.Background(), applicationId, cacheSettingId, versionId).Execute()
+	r, err := apiClient.ApplicationsCacheSettingsAPI.DeleteApplicationVersionCacheSetting(context.Background(), applicationId, cacheSettingId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsCacheSettingsAPI.DeleteApplicationVersionCacheSetting``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteApplicationVersionCacheSetting`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationsCacheSettingsAPI.DeleteApplicationVersionCacheSetting`: %v\n", resp)
 }
 ```
 
@@ -226,7 +224,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -244,7 +242,7 @@ Name | Type | Description  | Notes
 
 ## DeleteCacheSetting
 
-> DeleteResponse DeleteCacheSetting(ctx, applicationId, cacheSettingId).Execute()
+> DeleteCacheSetting(ctx, applicationId, cacheSettingId).Execute()
 
 Delete an Applications Cache Setting
 
@@ -268,13 +266,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationsCacheSettingsAPI.DeleteCacheSetting(context.Background(), applicationId, cacheSettingId).Execute()
+	r, err := apiClient.ApplicationsCacheSettingsAPI.DeleteCacheSetting(context.Background(), applicationId, cacheSettingId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsCacheSettingsAPI.DeleteCacheSetting``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteCacheSetting`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationsCacheSettingsAPI.DeleteCacheSetting`: %v\n", resp)
 }
 ```
 
@@ -299,7 +295,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 

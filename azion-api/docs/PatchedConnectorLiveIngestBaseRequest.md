@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** |  | [optional] 
-**Active** | Pointer to **bool** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
 **Attributes** | Pointer to [**PatchedConnectorLiveIngestAttributesRequest**](PatchedConnectorLiveIngestAttributesRequest.md) |  | [optional] 
 
@@ -52,31 +51,6 @@ SetName sets Name field to given value.
 `func (o *PatchedConnectorLiveIngestBaseRequest) HasName() bool`
 
 HasName returns a boolean if a field has been set.
-
-### GetActive
-
-`func (o *PatchedConnectorLiveIngestBaseRequest) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *PatchedConnectorLiveIngestBaseRequest) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *PatchedConnectorLiveIngestBaseRequest) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *PatchedConnectorLiveIngestBaseRequest) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
 
 ### GetType
 

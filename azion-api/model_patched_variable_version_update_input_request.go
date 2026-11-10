@@ -18,12 +18,11 @@ import (
 // checks if the PatchedVariableVersionUpdateInputRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PatchedVariableVersionUpdateInputRequest{}
 
-// PatchedVariableVersionUpdateInputRequest Input for PUT/PATCH /api/variables/{variable_id} (v6).  `scope` is IMMUTABLE after POST. PUT/PATCH only mutate `key`/`value`/`secret`. Attempting to send `scope` in the payload returns 400 `PROTECTED_FIELD_OVERRIDE` — the previous \"C path\" (swap scope set in place) was retired because:    - Cascade DELETE from peer services already removes the M2M link     when a referenced resource is deleted, so \"scope went away\"     doesn't get stuck.   - Without scope mutation, the per-version history in     `VariableVersion` (which doesn't carry scope) is a complete     snapshot of what can change — revert is fully consistent.  Real scope migration (move variable from env-A to env-B) goes via DELETE + new POST. This matches the v5 contract and the original v6 docstring on `VariableVersion` (\"scope is set on POST and immutable afterward\").
+// PatchedVariableVersionUpdateInputRequest Changes to a Variable. The scope set is fixed at creation and cannot change.
 type PatchedVariableVersionUpdateInputRequest struct {
 	Key *string `json:"key,omitempty"`
 	Value *string `json:"value,omitempty"`
 	Secret *bool `json:"secret,omitempty"`
-	Scope []PatchedScopeItemRequest `json:"scope,omitempty"`
 }
 
 // NewPatchedVariableVersionUpdateInputRequest instantiates a new PatchedVariableVersionUpdateInputRequest object
@@ -139,38 +138,6 @@ func (o *PatchedVariableVersionUpdateInputRequest) SetSecret(v bool) {
 	o.Secret = &v
 }
 
-// GetScope returns the Scope field value if set, zero value otherwise.
-func (o *PatchedVariableVersionUpdateInputRequest) GetScope() []PatchedScopeItemRequest {
-	if o == nil || IsNil(o.Scope) {
-		var ret []PatchedScopeItemRequest
-		return ret
-	}
-	return o.Scope
-}
-
-// GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PatchedVariableVersionUpdateInputRequest) GetScopeOk() ([]PatchedScopeItemRequest, bool) {
-	if o == nil || IsNil(o.Scope) {
-		return nil, false
-	}
-	return o.Scope, true
-}
-
-// HasScope returns a boolean if a field has been set.
-func (o *PatchedVariableVersionUpdateInputRequest) HasScope() bool {
-	if o != nil && !IsNil(o.Scope) {
-		return true
-	}
-
-	return false
-}
-
-// SetScope gets a reference to the given []PatchedScopeItemRequest and assigns it to the Scope field.
-func (o *PatchedVariableVersionUpdateInputRequest) SetScope(v []PatchedScopeItemRequest) {
-	o.Scope = v
-}
-
 func (o PatchedVariableVersionUpdateInputRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -189,9 +156,6 @@ func (o PatchedVariableVersionUpdateInputRequest) ToMap() (map[string]interface{
 	}
 	if !IsNil(o.Secret) {
 		toSerialize["secret"] = o.Secret
-	}
-	if !IsNil(o.Scope) {
-		toSerialize["scope"] = o.Scope
 	}
 	return toSerialize, nil
 }
