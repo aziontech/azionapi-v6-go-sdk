@@ -11,15 +11,12 @@ Name | Type | Description | Notes
 **Issuer** | Pointer to **NullableString** |  | [optional] 
 **SubjectName** | Pointer to **[]string** |  | [optional] 
 **Validity** | Pointer to **NullableString** |  | [optional] 
-**Type** | Pointer to **string** | The value can&#39;t be changed after the certificate creation.  * &#x60;edge_certificate&#x60; - Edge Certificate * &#x60;trusted_ca_certificate&#x60; - Trusted CA Certificate | [optional] 
+**Type** | Pointer to **string** | The value can&#39;t be changed after the certificate creation.  * &#x60;edge_certificate&#x60; - Certificate * &#x60;trusted_ca_certificate&#x60; - Trusted CA Certificate | [optional] 
 **Managed** | Pointer to **bool** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**StatusDetail** | Pointer to **string** |  | [optional] 
 **Csr** | Pointer to **NullableString** |  | [optional] 
 **Challenge** | **string** |  | 
 **Authority** | **string** |  | 
 **KeyAlgorithm** | Pointer to **string** |  | [optional] 
-**Active** | Pointer to **bool** |  | [optional] 
 **ProductVersion** | Pointer to **string** |  | [optional] 
 **LastEditor** | Pointer to **string** |  | [optional] 
 **CreatedAt** | Pointer to **NullableTime** | Timestamp of the certificate creation on the platform. | [optional] 
@@ -308,56 +305,6 @@ SetManaged sets Managed field to given value.
 
 HasManaged returns a boolean if a field has been set.
 
-### GetStatus
-
-`func (o *CertificateRequest) GetStatus() string`
-
-GetStatus returns the Status field if non-nil, zero value otherwise.
-
-### GetStatusOk
-
-`func (o *CertificateRequest) GetStatusOk() (*string, bool)`
-
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStatus
-
-`func (o *CertificateRequest) SetStatus(v string)`
-
-SetStatus sets Status field to given value.
-
-### HasStatus
-
-`func (o *CertificateRequest) HasStatus() bool`
-
-HasStatus returns a boolean if a field has been set.
-
-### GetStatusDetail
-
-`func (o *CertificateRequest) GetStatusDetail() string`
-
-GetStatusDetail returns the StatusDetail field if non-nil, zero value otherwise.
-
-### GetStatusDetailOk
-
-`func (o *CertificateRequest) GetStatusDetailOk() (*string, bool)`
-
-GetStatusDetailOk returns a tuple with the StatusDetail field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStatusDetail
-
-`func (o *CertificateRequest) SetStatusDetail(v string)`
-
-SetStatusDetail sets StatusDetail field to given value.
-
-### HasStatusDetail
-
-`func (o *CertificateRequest) HasStatusDetail() bool`
-
-HasStatusDetail returns a boolean if a field has been set.
-
 ### GetCsr
 
 `func (o *CertificateRequest) GetCsr() string`
@@ -457,31 +404,6 @@ SetKeyAlgorithm sets KeyAlgorithm field to given value.
 `func (o *CertificateRequest) HasKeyAlgorithm() bool`
 
 HasKeyAlgorithm returns a boolean if a field has been set.
-
-### GetActive
-
-`func (o *CertificateRequest) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *CertificateRequest) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *CertificateRequest) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *CertificateRequest) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
 
 ### GetProductVersion
 

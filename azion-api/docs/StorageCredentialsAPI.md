@@ -1,6 +1,6 @@
 # \StorageCredentialsAPI
 
-All URIs are relative to *https://api.azion.com/v6*
+All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 
 ## DeleteCredential
 
-> DeleteResponse DeleteCredential(ctx, credentialId).Execute()
+> DeleteCredential(ctx, credentialId).Execute()
 
 Delete a credential
 
@@ -102,13 +102,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StorageCredentialsAPI.DeleteCredential(context.Background(), credentialId).Execute()
+	r, err := apiClient.StorageCredentialsAPI.DeleteCredential(context.Background(), credentialId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StorageCredentialsAPI.DeleteCredential``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteCredential`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `StorageCredentialsAPI.DeleteCredential`: %v\n", resp)
 }
 ```
 
@@ -131,7 +129,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 

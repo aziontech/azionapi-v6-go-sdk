@@ -1,6 +1,6 @@
 # \StorageBucketsAPI
 
-All URIs are relative to *https://api.azion.com/v6*
+All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## DeleteBucket
 
-> DeleteResponse DeleteBucket(ctx, bucketName).Execute()
+> DeleteBucket(ctx, bucketName).Execute()
 
 Delete a bucket
 
@@ -103,13 +103,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StorageBucketsAPI.DeleteBucket(context.Background(), bucketName).Execute()
+	r, err := apiClient.StorageBucketsAPI.DeleteBucket(context.Background(), bucketName).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StorageBucketsAPI.DeleteBucket``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteBucket`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `StorageBucketsAPI.DeleteBucket`: %v\n", resp)
 }
 ```
 
@@ -132,7 +130,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 

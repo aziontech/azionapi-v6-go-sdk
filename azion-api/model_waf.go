@@ -22,7 +22,6 @@ var _ MappedNullable = &WAF{}
 // WAF struct for WAF
 type WAF struct {
 	Id *int64 `json:"id,omitempty"`
-	Active *bool `json:"active,omitempty"`
 	Name *string `json:"name,omitempty"`
 	LastEditor *string `json:"last_editor,omitempty"`
 	LastModified *time.Time `json:"last_modified,omitempty"`
@@ -81,38 +80,6 @@ func (o *WAF) HasId() bool {
 // SetId gets a reference to the given int64 and assigns it to the Id field.
 func (o *WAF) SetId(v int64) {
 	o.Id = &v
-}
-
-// GetActive returns the Active field value if set, zero value otherwise.
-func (o *WAF) GetActive() bool {
-	if o == nil || IsNil(o.Active) {
-		var ret bool
-		return ret
-	}
-	return *o.Active
-}
-
-// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *WAF) GetActiveOk() (*bool, bool) {
-	if o == nil || IsNil(o.Active) {
-		return nil, false
-	}
-	return o.Active, true
-}
-
-// HasActive returns a boolean if a field has been set.
-func (o *WAF) HasActive() bool {
-	if o != nil && !IsNil(o.Active) {
-		return true
-	}
-
-	return false
-}
-
-// SetActive gets a reference to the given bool and assigns it to the Active field.
-func (o *WAF) SetActive(v bool) {
-	o.Active = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -381,9 +348,6 @@ func (o WAF) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Active) {
-		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name

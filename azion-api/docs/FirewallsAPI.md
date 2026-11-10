@@ -1,6 +1,6 @@
 # \FirewallsAPI
 
-All URIs are relative to *https://api.azion.com/v6*
+All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## CreateFirewall
 
-> FirewallAsyncResponse CreateFirewall(ctx).FirewallRequest(firewallRequest).Execute()
+> FirewallResponse CreateFirewall(ctx).FirewallRequest(firewallRequest).Execute()
 
 Create a Firewall
 
@@ -43,7 +43,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsAPI.CreateFirewall``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateFirewall`: FirewallAsyncResponse
+	// response from `CreateFirewall`: FirewallResponse
 	fmt.Fprintf(os.Stdout, "Response from `FirewallsAPI.CreateFirewall`: %v\n", resp)
 }
 ```
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirewallAsyncResponse**](FirewallAsyncResponse.md)
+[**FirewallResponse**](FirewallResponse.md)
 
 ### Authorization
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## DeleteFirewall
 
-> DeleteAsyncResponse DeleteFirewall(ctx, firewallId).Execute()
+> DeleteFirewall(ctx, firewallId).Execute()
 
 Delete a Firewall
 
@@ -104,13 +104,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FirewallsAPI.DeleteFirewall(context.Background(), firewallId).Execute()
+	r, err := apiClient.FirewallsAPI.DeleteFirewall(context.Background(), firewallId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsAPI.DeleteFirewall``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteFirewall`: DeleteAsyncResponse
-	fmt.Fprintf(os.Stdout, "Response from `FirewallsAPI.DeleteFirewall`: %v\n", resp)
 }
 ```
 
@@ -133,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -151,7 +149,7 @@ Name | Type | Description  | Notes
 
 ## ListFirewalls
 
-> PaginatedFirewallList ListFirewalls(ctx).Active(active).Debug(debug).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+> PaginatedFirewallList ListFirewalls(ctx).Debug(debug).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
 
 List Firewalls
 
@@ -171,7 +169,6 @@ import (
 )
 
 func main() {
-	active := true // bool | Filter by active status. (optional)
 	debug := true // bool | Filter by debug rules status. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 	id := int64(789) // int64 | Filter by id (accepts comma-separated values). (optional)
@@ -179,14 +176,14 @@ func main() {
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
 	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, active, debug) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, debug) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	search := "search_example" // string | A search term to filter results. Searches across the following fields: id, name, last_editor. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FirewallsAPI.ListFirewalls(context.Background()).Active(active).Debug(debug).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+	resp, r, err := apiClient.FirewallsAPI.ListFirewalls(context.Background()).Debug(debug).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsAPI.ListFirewalls``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -207,7 +204,6 @@ Other parameters are passed through a pointer to a apiListFirewallsRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **active** | **bool** | Filter by active status. | 
  **debug** | **bool** | Filter by debug rules status. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
  **id** | **int64** | Filter by id (accepts comma-separated values). | 
@@ -215,7 +211,7 @@ Name | Type | Description  | Notes
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
  **name** | **string** | Filter by name (case-insensitive, partial match). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, active, debug) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, debug) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **search** | **string** | A search term to filter results. Searches across the following fields: id, name, last_editor. | 
@@ -240,7 +236,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateFirewall
 
-> FirewallAsyncResponse PartialUpdateFirewall(ctx, firewallId).PatchedFirewallRequest(patchedFirewallRequest).Execute()
+> FirewallResponse PartialUpdateFirewall(ctx, firewallId).PatchedFirewallRequest(patchedFirewallRequest).Execute()
 
 Partially update a Firewall
 
@@ -269,7 +265,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsAPI.PartialUpdateFirewall``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateFirewall`: FirewallAsyncResponse
+	// response from `PartialUpdateFirewall`: FirewallResponse
 	fmt.Fprintf(os.Stdout, "Response from `FirewallsAPI.PartialUpdateFirewall`: %v\n", resp)
 }
 ```
@@ -294,7 +290,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirewallAsyncResponse**](FirewallAsyncResponse.md)
+[**FirewallResponse**](FirewallResponse.md)
 
 ### Authorization
 
@@ -384,7 +380,7 @@ Name | Type | Description  | Notes
 
 ## UpdateFirewall
 
-> FirewallAsyncResponse UpdateFirewall(ctx, firewallId).FirewallRequest(firewallRequest).Execute()
+> FirewallResponse UpdateFirewall(ctx, firewallId).FirewallRequest(firewallRequest).Execute()
 
 Update a Firewall
 
@@ -413,7 +409,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `FirewallsAPI.UpdateFirewall``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateFirewall`: FirewallAsyncResponse
+	// response from `UpdateFirewall`: FirewallResponse
 	fmt.Fprintf(os.Stdout, "Response from `FirewallsAPI.UpdateFirewall`: %v\n", resp)
 }
 ```
@@ -438,7 +434,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**FirewallAsyncResponse**](FirewallAsyncResponse.md)
+[**FirewallResponse**](FirewallResponse.md)
 
 ### Authorization
 

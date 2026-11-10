@@ -32,7 +32,6 @@ type ConnectorHTTP struct {
 	LastEditor *string `json:"last_editor,omitempty"`
 	LastModified *time.Time `json:"last_modified,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
-	Active *bool `json:"active,omitempty"`
 	ProductVersion *string `json:"product_version,omitempty"`
 	Type string `json:"type"`
 	Attributes *ConnectorHTTPAttributes `json:"attributes,omitempty"`
@@ -302,38 +301,6 @@ func (o *ConnectorHTTP) SetCreatedAt(v time.Time) {
 	o.CreatedAt = &v
 }
 
-// GetActive returns the Active field value if set, zero value otherwise.
-func (o *ConnectorHTTP) GetActive() bool {
-	if o == nil || IsNil(o.Active) {
-		var ret bool
-		return ret
-	}
-	return *o.Active
-}
-
-// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ConnectorHTTP) GetActiveOk() (*bool, bool) {
-	if o == nil || IsNil(o.Active) {
-		return nil, false
-	}
-	return o.Active, true
-}
-
-// HasActive returns a boolean if a field has been set.
-func (o *ConnectorHTTP) HasActive() bool {
-	if o != nil && !IsNil(o.Active) {
-		return true
-	}
-
-	return false
-}
-
-// SetActive gets a reference to the given bool and assigns it to the Active field.
-func (o *ConnectorHTTP) SetActive(v bool) {
-	o.Active = &v
-}
-
 // GetProductVersion returns the ProductVersion field value if set, zero value otherwise.
 func (o *ConnectorHTTP) GetProductVersion() string {
 	if o == nil || IsNil(o.ProductVersion) {
@@ -452,9 +419,6 @@ func (o ConnectorHTTP) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
-	}
-	if !IsNil(o.Active) {
-		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.ProductVersion) {
 		toSerialize["product_version"] = o.ProductVersion

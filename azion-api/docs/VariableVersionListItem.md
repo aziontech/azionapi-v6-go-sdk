@@ -9,10 +9,10 @@ Name | Type | Description | Notes
 **Action** | Pointer to **string** |  | [optional] 
 **Key** | Pointer to **string** |  | [optional] 
 **LastEditor** | Pointer to **string** |  | [optional] 
-**CreatedAt** | **time.Time** |  | 
+**CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **SourceVersionId** | Pointer to **NullableString** |  | [optional] 
 **BuildResourceVersion** | Pointer to **NullableString** |  | [optional] 
-**BuildStatus** | Pointer to **NullableString** |  | [optional] 
+**BuildStatus** | Pointer to **NullableString** | Deploy state of the build of this version: &#x60;pending&#x60;, &#x60;succeeded&#x60; or &#x60;error&#x60;. Null when the version has no build. | [optional] 
 **VersionState** | Pointer to **string** |  | [optional] 
 **TraceId** | Pointer to **string** |  | [optional] 
 
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 
 ### NewVariableVersionListItem
 
-`func NewVariableVersionListItem(createdAt time.Time, ) *VariableVersionListItem`
+`func NewVariableVersionListItem() *VariableVersionListItem`
 
 NewVariableVersionListItem instantiates a new VariableVersionListItem object
 This constructor will assign default values to properties that have it defined,
@@ -179,6 +179,11 @@ and a boolean to check if the value has been set.
 
 SetCreatedAt sets CreatedAt field to given value.
 
+### HasCreatedAt
+
+`func (o *VariableVersionListItem) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
 
 ### GetSourceVersionId
 
