@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Name** | **string** |  | 
 **Capabilities** | **[]string** |  | 
 **Buckets** | Pointer to **[]string** | List of bucket names to associate with this credential. | [optional] 
-**ExpirationDate** | Pointer to **time.Time** |  | [optional] 
+**ExpirationDate** | Pointer to **time.Time** | Expiration date and time. Must be in the future and no more than 1000 days from the time of the request. If omitted, the credential does not expire. Exceeding the limit returns HTTP 400 with error code 17010. | [optional] 
 
 ## Methods
 

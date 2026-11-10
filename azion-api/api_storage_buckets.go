@@ -481,7 +481,7 @@ func (r ApiListBucketsRequest) Name(name string) ApiListBucketsRequest {
 	return r
 }
 
-// Which field to use when ordering the results.
+// Which field to use when ordering the results. (Valid fields: name, workloads_access, last_editor, last_modified, product_version)
 func (r ApiListBucketsRequest) Ordering(ordering string) ApiListBucketsRequest {
 	r.ordering = &ordering
 	return r
