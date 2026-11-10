@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Active** | Pointer to **bool** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **EngineSettings** | Pointer to [**PatchedWAFEngineSettingsFieldRequest**](PatchedWAFEngineSettingsFieldRequest.md) |  | [optional] 
 
@@ -26,31 +25,6 @@ will change when the set of required properties is changed
 NewPatchedWAFRequestWithDefaults instantiates a new PatchedWAFRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetActive
-
-`func (o *PatchedWAFRequest) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *PatchedWAFRequest) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *PatchedWAFRequest) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *PatchedWAFRequest) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
 
 ### GetName
 

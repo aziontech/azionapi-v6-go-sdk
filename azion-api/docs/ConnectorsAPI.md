@@ -1,6 +1,6 @@
 # \ConnectorsAPI
 
-All URIs are relative to *https://api.azion.com/v6*
+All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## CreateConnector
 
-> ConnectorAsyncResponse CreateConnector(ctx).ConnectorRequest(connectorRequest).Execute()
+> ConnectorResponse CreateConnector(ctx).ConnectorRequest(connectorRequest).Execute()
 
 Create a Connector
 
@@ -43,7 +43,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.CreateConnector``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateConnector`: ConnectorAsyncResponse
+	// response from `CreateConnector`: ConnectorResponse
 	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.CreateConnector`: %v\n", resp)
 }
 ```
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConnectorAsyncResponse**](ConnectorAsyncResponse.md)
+[**ConnectorResponse**](ConnectorResponse.md)
 
 ### Authorization
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## DeleteConnector
 
-> DeleteAsyncResponse DeleteConnector(ctx, connectorId).Execute()
+> DeleteConnector(ctx, connectorId).Execute()
 
 Delete a Connector
 
@@ -104,13 +104,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorsAPI.DeleteConnector(context.Background(), connectorId).Execute()
+	r, err := apiClient.ConnectorsAPI.DeleteConnector(context.Background(), connectorId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.DeleteConnector``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteConnector`: DeleteAsyncResponse
-	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.DeleteConnector`: %v\n", resp)
 }
 ```
 
@@ -133,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -151,7 +149,7 @@ Name | Type | Description  | Notes
 
 ## ListConnectors
 
-> PaginatedConnectorList ListConnectors(ctx).Active(active).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).TypeIn(typeIn).Execute()
+> PaginatedConnectorList ListConnectors(ctx).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).TypeIn(typeIn).Execute()
 
 List Connectors
 
@@ -171,22 +169,21 @@ import (
 )
 
 func main() {
-	active := true // bool | Filter by active status. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	id := int64(789) // int64 | Filter by id (accepts comma-separated values). (optional)
+	id := []int64{int64(123)} // []int64 | Filter by id (accepts comma-separated values). (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
 	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, type, last_editor, last_modified, active) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, type, last_editor, last_modified) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
-	search := "search_example" // string | A search term to filter results. Searches across the following fields: id, name, type, last_editor, last_modified, active. (optional)
-	typeIn := "typeIn_example" // string | Filter by type (accepts comma-separated values). (optional)
+	search := "search_example" // string | A search term to filter results. Searches across the following fields: id, name, type, last_editor, last_modified. (optional)
+	typeIn := []string{"Inner_example"} // []string | Filter by type (accepts comma-separated values). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ConnectorsAPI.ListConnectors(context.Background()).Active(active).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).TypeIn(typeIn).Execute()
+	resp, r, err := apiClient.ConnectorsAPI.ListConnectors(context.Background()).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).TypeIn(typeIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.ListConnectors``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -207,18 +204,17 @@ Other parameters are passed through a pointer to a apiListConnectorsRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **active** | **bool** | Filter by active status. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **id** | **int64** | Filter by id (accepts comma-separated values). | 
+ **id** | **[]int64** | Filter by id (accepts comma-separated values). | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
  **name** | **string** | Filter by name (case-insensitive, partial match). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, type, last_editor, last_modified, active) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, type, last_editor, last_modified) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
- **search** | **string** | A search term to filter results. Searches across the following fields: id, name, type, last_editor, last_modified, active. | 
- **typeIn** | **string** | Filter by type (accepts comma-separated values). | 
+ **search** | **string** | A search term to filter results. Searches across the following fields: id, name, type, last_editor, last_modified. | 
+ **typeIn** | **[]string** | Filter by type (accepts comma-separated values). | 
 
 ### Return type
 
@@ -240,7 +236,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateConnector
 
-> ConnectorAsyncResponse PartialUpdateConnector(ctx, connectorId).PatchedConnectorRequest(patchedConnectorRequest).Execute()
+> ConnectorResponse PartialUpdateConnector(ctx, connectorId).PatchedConnectorRequest(patchedConnectorRequest).Execute()
 
 Partially update a Connector
 
@@ -269,7 +265,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.PartialUpdateConnector``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateConnector`: ConnectorAsyncResponse
+	// response from `PartialUpdateConnector`: ConnectorResponse
 	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.PartialUpdateConnector`: %v\n", resp)
 }
 ```
@@ -294,7 +290,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConnectorAsyncResponse**](ConnectorAsyncResponse.md)
+[**ConnectorResponse**](ConnectorResponse.md)
 
 ### Authorization
 
@@ -384,7 +380,7 @@ Name | Type | Description  | Notes
 
 ## UpdateConnector
 
-> ConnectorAsyncResponse UpdateConnector(ctx, connectorId).ConnectorRequest(connectorRequest).Execute()
+> ConnectorResponse UpdateConnector(ctx, connectorId).ConnectorRequest(connectorRequest).Execute()
 
 Update a Connector
 
@@ -413,7 +409,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ConnectorsAPI.UpdateConnector``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateConnector`: ConnectorAsyncResponse
+	// response from `UpdateConnector`: ConnectorResponse
 	fmt.Fprintf(os.Stdout, "Response from `ConnectorsAPI.UpdateConnector`: %v\n", resp)
 }
 ```
@@ -438,7 +434,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ConnectorAsyncResponse**](ConnectorAsyncResponse.md)
+[**ConnectorResponse**](ConnectorResponse.md)
 
 ### Authorization
 

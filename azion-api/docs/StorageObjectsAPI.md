@@ -1,6 +1,6 @@
 # \StorageObjectsAPI
 
-All URIs are relative to *https://api.azion.com/v6*
+All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -170,7 +170,7 @@ Name | Type | Description  | Notes
 
 ## DeleteObject
 
-> DeleteResponse DeleteObject(ctx, bucketName, objectKey).Execute()
+> DeleteObject(ctx, bucketName, objectKey).Execute()
 
 Delete object key
 
@@ -194,13 +194,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StorageObjectsAPI.DeleteObject(context.Background(), bucketName, objectKey).Execute()
+	r, err := apiClient.StorageObjectsAPI.DeleteObject(context.Background(), bucketName, objectKey).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StorageObjectsAPI.DeleteObject``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteObject`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `StorageObjectsAPI.DeleteObject`: %v\n", resp)
 }
 ```
 
@@ -225,7 +223,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 

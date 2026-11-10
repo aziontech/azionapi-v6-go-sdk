@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **Path** | Pointer to **NullableString** |  | [optional] 
 **Conditions** | Pointer to [**[]WAFExceptionCondition**](WAFExceptionCondition.md) |  | [optional] 
 **Operator** | Pointer to **string** | * &#x60;regex&#x60; - regex * &#x60;contains&#x60; - contains | [optional] 
-**Active** | Pointer to **bool** |  | [optional] 
 **LastEditor** | Pointer to **string** |  | [optional] 
 **LastModified** | Pointer to **time.Time** |  | [optional] 
 
@@ -192,31 +191,6 @@ SetOperator sets Operator field to given value.
 `func (o *WAFRule) HasOperator() bool`
 
 HasOperator returns a boolean if a field has been set.
-
-### GetActive
-
-`func (o *WAFRule) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *WAFRule) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *WAFRule) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *WAFRule) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
 
 ### GetLastEditor
 

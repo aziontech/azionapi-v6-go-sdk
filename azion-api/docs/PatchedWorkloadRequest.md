@@ -5,12 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** |  | [optional] 
-**Active** | Pointer to **bool** |  | [optional] 
 **Infrastructure** | Pointer to **int32** | * &#x60;1&#x60; - Production Infrastructure (All Locations) * &#x60;2&#x60; - Staging Infrastructure | [optional] 
 **Tls** | Pointer to [**PatchedTLSWorkloadRequest**](PatchedTLSWorkloadRequest.md) |  | [optional] 
 **Protocols** | Pointer to [**PatchedProtocolsRequest**](PatchedProtocolsRequest.md) |  | [optional] 
 **Mtls** | Pointer to [**PatchedMTLSRequest**](PatchedMTLSRequest.md) |  | [optional] 
-**WorkloadDomainAllowAccess** | Pointer to **bool** |  | [optional] 
+**WorkloadDomainAllowAccess** | Pointer to **bool** | true requires the workload to be bound to a single-version environment, that is, an environment whose policy is not versioned_urls. | [optional] 
 **Bindings** | Pointer to [**[]PatchedWorkloadBindingRequest**](PatchedWorkloadBindingRequest.md) |  | [optional] 
 
 ## Methods
@@ -56,31 +55,6 @@ SetName sets Name field to given value.
 `func (o *PatchedWorkloadRequest) HasName() bool`
 
 HasName returns a boolean if a field has been set.
-
-### GetActive
-
-`func (o *PatchedWorkloadRequest) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *PatchedWorkloadRequest) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *PatchedWorkloadRequest) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *PatchedWorkloadRequest) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
 
 ### GetInfrastructure
 

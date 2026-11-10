@@ -1,16 +1,16 @@
 # \VariablesAPI
 
-All URIs are relative to *https://api.azion.com/v6*
+All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**BatchVariables**](VariablesAPI.md#BatchVariables) | **Post** /variables/batch | Create, update and delete Variables in one request
 [**CreateVariable**](VariablesAPI.md#CreateVariable) | **Post** /variables | Create a Variable
-[**DeleteVariable**](VariablesAPI.md#DeleteVariable) | **Delete** /variables/{uuid} | Delete a Variable
+[**DeleteVariable**](VariablesAPI.md#DeleteVariable) | **Delete** /variables/{variable_id} | Delete a Variable
 [**ListVariables**](VariablesAPI.md#ListVariables) | **Get** /variables | List Variables
-[**PartialUpdateVariable**](VariablesAPI.md#PartialUpdateVariable) | **Patch** /variables/{uuid} | Partially update a Variable
-[**RetrieveVariable**](VariablesAPI.md#RetrieveVariable) | **Get** /variables/{uuid} | Retrieve details of a Variable
-[**UpdateVariable**](VariablesAPI.md#UpdateVariable) | **Put** /variables/{uuid} | Update a Variable
+[**PartialUpdateVariable**](VariablesAPI.md#PartialUpdateVariable) | **Patch** /variables/{variable_id} | Partially update a Variable
+[**RetrieveVariable**](VariablesAPI.md#RetrieveVariable) | **Get** /variables/{variable_id} | Retrieve details of a Variable
+[**UpdateVariable**](VariablesAPI.md#UpdateVariable) | **Put** /variables/{variable_id} | Update a Variable
 
 
 
@@ -148,7 +148,7 @@ Name | Type | Description  | Notes
 
 ## DeleteVariable
 
-> DeleteVariable(ctx, uuid).Execute()
+> DeleteVariable(ctx, variableId).Execute()
 
 Delete a Variable
 
@@ -167,11 +167,11 @@ import (
 )
 
 func main() {
-	uuid := "uuid_example" // string | 
+	variableId := "variableId_example" // string | A unique value identifying the variable.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.VariablesAPI.DeleteVariable(context.Background(), uuid).Execute()
+	r, err := apiClient.VariablesAPI.DeleteVariable(context.Background(), variableId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `VariablesAPI.DeleteVariable``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -185,7 +185,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**uuid** | **string** |  | 
+**variableId** | **string** | A unique value identifying the variable. | 
 
 ### Other Parameters
 
@@ -246,8 +246,8 @@ func main() {
 	resourceId := []string{"Inner_example"} // []string | Filter by scope resource id (the external id of the resource_type). Accepts comma-separated values, unless `resource_type` also holds several values. (optional)
 	resourceType := []string{"Inner_example"} // []string | Filter by scope resource type (global, environment, deployment, application, firewall). Accepts comma-separated values. Combined with `resource_id`, both must match the same scope, and only one of the two may hold several values. Use `scope` to ask for several type and id pairs. (optional)
 	scope := []string{"Inner_example"} // []string | Filter by scope. Comma-separated selectors, each `global` or `<resource_type>:<resource_id>` (e.g. `global,environment:AJQ6CZJE`). Returns variables bound to any selector. Up to 50 selectors. Sending `scope` without any selector is rejected. (optional)
-	scopeId := "scopeId_example" // string | Deprecated alias for `resource_id`. (optional)
-	scopeType := "scopeType_example" // string | Deprecated alias for `resource_type`. (optional)
+	scopeId := []string{"Inner_example"} // []string | Deprecated alias for `resource_id`. (optional)
+	scopeType := []string{"Inner_example"} // []string | Deprecated alias for `resource_type`. (optional)
 	search := "search_example" // string | A search term. (optional)
 	secret := true // bool | Filter by secret status (true for secret variables, false for non-secret variables). (optional)
 	updatedAtGte := time.Now() // time.Time | Filter by updated date (greater than or equal). (optional)
@@ -287,8 +287,8 @@ Name | Type | Description  | Notes
  **resourceId** | **[]string** | Filter by scope resource id (the external id of the resource_type). Accepts comma-separated values, unless &#x60;resource_type&#x60; also holds several values. | 
  **resourceType** | **[]string** | Filter by scope resource type (global, environment, deployment, application, firewall). Accepts comma-separated values. Combined with &#x60;resource_id&#x60;, both must match the same scope, and only one of the two may hold several values. Use &#x60;scope&#x60; to ask for several type and id pairs. | 
  **scope** | **[]string** | Filter by scope. Comma-separated selectors, each &#x60;global&#x60; or &#x60;&lt;resource_type&gt;:&lt;resource_id&gt;&#x60; (e.g. &#x60;global,environment:AJQ6CZJE&#x60;). Returns variables bound to any selector. Up to 50 selectors. Sending &#x60;scope&#x60; without any selector is rejected. | 
- **scopeId** | **string** | Deprecated alias for &#x60;resource_id&#x60;. | 
- **scopeType** | **string** | Deprecated alias for &#x60;resource_type&#x60;. | 
+ **scopeId** | **[]string** | Deprecated alias for &#x60;resource_id&#x60;. | 
+ **scopeType** | **[]string** | Deprecated alias for &#x60;resource_type&#x60;. | 
  **search** | **string** | A search term. | 
  **secret** | **bool** | Filter by secret status (true for secret variables, false for non-secret variables). | 
  **updatedAtGte** | **time.Time** | Filter by updated date (greater than or equal). | 
@@ -315,7 +315,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateVariable
 
-> Variable PartialUpdateVariable(ctx, uuid).PatchedVariableVersionUpdateInputRequest(patchedVariableVersionUpdateInputRequest).Execute()
+> Variable PartialUpdateVariable(ctx, variableId).PatchedVariableVersionUpdateInputRequest(patchedVariableVersionUpdateInputRequest).Execute()
 
 Partially update a Variable
 
@@ -334,12 +334,12 @@ import (
 )
 
 func main() {
-	uuid := "uuid_example" // string | 
+	variableId := "variableId_example" // string | A unique value identifying the variable.
 	patchedVariableVersionUpdateInputRequest := *openapiclient.NewPatchedVariableVersionUpdateInputRequest() // PatchedVariableVersionUpdateInputRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.VariablesAPI.PartialUpdateVariable(context.Background(), uuid).PatchedVariableVersionUpdateInputRequest(patchedVariableVersionUpdateInputRequest).Execute()
+	resp, r, err := apiClient.VariablesAPI.PartialUpdateVariable(context.Background(), variableId).PatchedVariableVersionUpdateInputRequest(patchedVariableVersionUpdateInputRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `VariablesAPI.PartialUpdateVariable``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -355,7 +355,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**uuid** | **string** |  | 
+**variableId** | **string** | A unique value identifying the variable. | 
 
 ### Other Parameters
 
@@ -387,7 +387,7 @@ Name | Type | Description  | Notes
 
 ## RetrieveVariable
 
-> Variable RetrieveVariable(ctx, uuid).Execute()
+> Variable RetrieveVariable(ctx, variableId).Execute()
 
 Retrieve details of a Variable
 
@@ -406,11 +406,11 @@ import (
 )
 
 func main() {
-	uuid := "uuid_example" // string | 
+	variableId := "variableId_example" // string | A unique value identifying the variable.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.VariablesAPI.RetrieveVariable(context.Background(), uuid).Execute()
+	resp, r, err := apiClient.VariablesAPI.RetrieveVariable(context.Background(), variableId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `VariablesAPI.RetrieveVariable``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -426,7 +426,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**uuid** | **string** |  | 
+**variableId** | **string** | A unique value identifying the variable. | 
 
 ### Other Parameters
 
@@ -457,7 +457,7 @@ Name | Type | Description  | Notes
 
 ## UpdateVariable
 
-> Variable UpdateVariable(ctx, uuid).VariableVersionUpdateInputRequest(variableVersionUpdateInputRequest).Execute()
+> Variable UpdateVariable(ctx, variableId).VariableVersionUpdateInputRequest(variableVersionUpdateInputRequest).Execute()
 
 Update a Variable
 
@@ -476,12 +476,12 @@ import (
 )
 
 func main() {
-	uuid := "uuid_example" // string | 
-	variableVersionUpdateInputRequest := *openapiclient.NewVariableVersionUpdateInputRequest() // VariableVersionUpdateInputRequest |  (optional)
+	variableId := "variableId_example" // string | A unique value identifying the variable.
+	variableVersionUpdateInputRequest := *openapiclient.NewVariableVersionUpdateInputRequest("Key_example", "Value_example") // VariableVersionUpdateInputRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.VariablesAPI.UpdateVariable(context.Background(), uuid).VariableVersionUpdateInputRequest(variableVersionUpdateInputRequest).Execute()
+	resp, r, err := apiClient.VariablesAPI.UpdateVariable(context.Background(), variableId).VariableVersionUpdateInputRequest(variableVersionUpdateInputRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `VariablesAPI.UpdateVariable``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -497,7 +497,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**uuid** | **string** |  | 
+**variableId** | **string** | A unique value identifying the variable. | 
 
 ### Other Parameters
 

@@ -1,9 +1,10 @@
 # \WorkloadsAPI
 
-All URIs are relative to *https://api.azion.com/v6*
+All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**CheckWorkloadDomainAvailability**](WorkloadsAPI.md#CheckWorkloadDomainAvailability) | **Get** /workspace/workloads/domains/availability | Check the availability of a Workload domain
 [**CreateWorkload**](WorkloadsAPI.md#CreateWorkload) | **Post** /workspace/workloads | Create an Workload
 [**DeleteWorkload**](WorkloadsAPI.md#DeleteWorkload) | **Delete** /workspace/workloads/{workload_id} | Delete an Workload
 [**ListWorkloads**](WorkloadsAPI.md#ListWorkloads) | **Get** /workspace/workloads | List Workloads
@@ -13,9 +14,77 @@ Method | HTTP request | Description
 
 
 
+## CheckWorkloadDomainAvailability
+
+> WorkloadDomainAvailabilityRetrieveResponse CheckWorkloadDomainAvailability(ctx).Domain(domain).Fields(fields).Execute()
+
+Check the availability of a Workload domain
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	domain := "domain_example" // string | The domain to check, under the Azion workload suffix.
+	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.WorkloadsAPI.CheckWorkloadDomainAvailability(context.Background()).Domain(domain).Fields(fields).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WorkloadsAPI.CheckWorkloadDomainAvailability``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CheckWorkloadDomainAvailability`: WorkloadDomainAvailabilityRetrieveResponse
+	fmt.Fprintf(os.Stdout, "Response from `WorkloadsAPI.CheckWorkloadDomainAvailability`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCheckWorkloadDomainAvailabilityRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **domain** | **string** | The domain to check, under the Azion workload suffix. | 
+ **fields** | **string** | Comma-separated list of field names to include in the response. | 
+
+### Return type
+
+[**WorkloadDomainAvailabilityRetrieveResponse**](WorkloadDomainAvailabilityRetrieveResponse.md)
+
+### Authorization
+
+[TokenAuth](../README.md#TokenAuth), [BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## CreateWorkload
 
-> WorkloadAsyncResponse CreateWorkload(ctx).WorkloadRequest(workloadRequest).Execute()
+> WorkloadResponse CreateWorkload(ctx).WorkloadRequest(workloadRequest).Execute()
 
 Create an Workload
 
@@ -43,7 +112,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WorkloadsAPI.CreateWorkload``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateWorkload`: WorkloadAsyncResponse
+	// response from `CreateWorkload`: WorkloadResponse
 	fmt.Fprintf(os.Stdout, "Response from `WorkloadsAPI.CreateWorkload`: %v\n", resp)
 }
 ```
@@ -63,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WorkloadAsyncResponse**](WorkloadAsyncResponse.md)
+[**WorkloadResponse**](WorkloadResponse.md)
 
 ### Authorization
 
@@ -81,7 +150,7 @@ Name | Type | Description  | Notes
 
 ## DeleteWorkload
 
-> DeleteAsyncResponse DeleteWorkload(ctx, workloadId).Execute()
+> DeleteWorkload(ctx, workloadId).Execute()
 
 Delete an Workload
 
@@ -104,13 +173,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WorkloadsAPI.DeleteWorkload(context.Background(), workloadId).Execute()
+	r, err := apiClient.WorkloadsAPI.DeleteWorkload(context.Background(), workloadId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WorkloadsAPI.DeleteWorkload``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteWorkload`: DeleteAsyncResponse
-	fmt.Fprintf(os.Stdout, "Response from `WorkloadsAPI.DeleteWorkload`: %v\n", resp)
 }
 ```
 
@@ -133,7 +200,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -151,7 +218,7 @@ Name | Type | Description  | Notes
 
 ## ListWorkloads
 
-> PaginatedWorkloadList ListWorkloads(ctx).Active(active).DigitalCertificateId(digitalCertificateId).Fields(fields).Id(id).Infrastructure(infrastructure).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).MapName(mapName).MtlsTrustedCaCertificateId(mtlsTrustedCaCertificateId).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+> PaginatedWorkloadList ListWorkloads(ctx).DigitalCertificateId(digitalCertificateId).Fields(fields).Id(id).Infrastructure(infrastructure).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).MapName(mapName).MtlsTrustedCaCertificateId(mtlsTrustedCaCertificateId).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
 
 List Workloads
 
@@ -171,25 +238,24 @@ import (
 )
 
 func main() {
-	active := true // bool | Filter by active status. (optional)
-	digitalCertificateId := int64(789) // int64 | Filter by digital certificate id (accepts comma-separated values). (optional)
+	digitalCertificateId := []int64{int64(123)} // []int64 | Filter by digital certificate id (accepts comma-separated values). (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	id := int64(789) // int64 | Filter by id (accepts comma-separated values). (optional)
-	infrastructure := "infrastructure_example" // string | Filter by infrastructure (accepts comma-separated values). (optional)
+	id := []int64{int64(123)} // []int64 | Filter by id (accepts comma-separated values). (optional)
+	infrastructure := []int64{int64(123)} // []int64 | Filter by infrastructure (accepts comma-separated values). (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
 	mapName := "mapName_example" // string | Filter by map name (case-insensitive, partial match). (optional)
-	mtlsTrustedCaCertificateId := int64(789) // int64 | Filter by mTLS trusted CA certificate id (accepts comma-separated values). (optional)
+	mtlsTrustedCaCertificateId := []int64{int64(123)} // []int64 | Filter by mTLS trusted CA certificate id (accepts comma-separated values). (optional)
 	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, active, last_editor, last_modified) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	search := "search_example" // string | A search term to filter results. Searches across the following fields: id, name, last_editor. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WorkloadsAPI.ListWorkloads(context.Background()).Active(active).DigitalCertificateId(digitalCertificateId).Fields(fields).Id(id).Infrastructure(infrastructure).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).MapName(mapName).MtlsTrustedCaCertificateId(mtlsTrustedCaCertificateId).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+	resp, r, err := apiClient.WorkloadsAPI.ListWorkloads(context.Background()).DigitalCertificateId(digitalCertificateId).Fields(fields).Id(id).Infrastructure(infrastructure).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).MapName(mapName).MtlsTrustedCaCertificateId(mtlsTrustedCaCertificateId).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WorkloadsAPI.ListWorkloads``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -210,18 +276,17 @@ Other parameters are passed through a pointer to a apiListWorkloadsRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **active** | **bool** | Filter by active status. | 
- **digitalCertificateId** | **int64** | Filter by digital certificate id (accepts comma-separated values). | 
+ **digitalCertificateId** | **[]int64** | Filter by digital certificate id (accepts comma-separated values). | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **id** | **int64** | Filter by id (accepts comma-separated values). | 
- **infrastructure** | **string** | Filter by infrastructure (accepts comma-separated values). | 
+ **id** | **[]int64** | Filter by id (accepts comma-separated values). | 
+ **infrastructure** | **[]int64** | Filter by infrastructure (accepts comma-separated values). | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
  **mapName** | **string** | Filter by map name (case-insensitive, partial match). | 
- **mtlsTrustedCaCertificateId** | **int64** | Filter by mTLS trusted CA certificate id (accepts comma-separated values). | 
+ **mtlsTrustedCaCertificateId** | **[]int64** | Filter by mTLS trusted CA certificate id (accepts comma-separated values). | 
  **name** | **string** | Filter by name (case-insensitive, partial match). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, active, last_editor, last_modified) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **search** | **string** | A search term to filter results. Searches across the following fields: id, name, last_editor. | 
@@ -246,7 +311,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateWorkload
 
-> WorkloadAsyncResponse PartialUpdateWorkload(ctx, workloadId).PatchedWorkloadRequest(patchedWorkloadRequest).Execute()
+> WorkloadResponse PartialUpdateWorkload(ctx, workloadId).PatchedWorkloadRequest(patchedWorkloadRequest).Execute()
 
 Partially update an Workload
 
@@ -275,7 +340,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WorkloadsAPI.PartialUpdateWorkload``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateWorkload`: WorkloadAsyncResponse
+	// response from `PartialUpdateWorkload`: WorkloadResponse
 	fmt.Fprintf(os.Stdout, "Response from `WorkloadsAPI.PartialUpdateWorkload`: %v\n", resp)
 }
 ```
@@ -300,7 +365,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WorkloadAsyncResponse**](WorkloadAsyncResponse.md)
+[**WorkloadResponse**](WorkloadResponse.md)
 
 ### Authorization
 
@@ -390,7 +455,7 @@ Name | Type | Description  | Notes
 
 ## UpdateWorkload
 
-> WorkloadAsyncResponse UpdateWorkload(ctx, workloadId).WorkloadRequest(workloadRequest).Execute()
+> WorkloadResponse UpdateWorkload(ctx, workloadId).WorkloadRequest(workloadRequest).Execute()
 
 Update an Workload
 
@@ -419,7 +484,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WorkloadsAPI.UpdateWorkload``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateWorkload`: WorkloadAsyncResponse
+	// response from `UpdateWorkload`: WorkloadResponse
 	fmt.Fprintf(os.Stdout, "Response from `WorkloadsAPI.UpdateWorkload`: %v\n", resp)
 }
 ```
@@ -444,7 +509,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WorkloadAsyncResponse**](WorkloadAsyncResponse.md)
+[**WorkloadResponse**](WorkloadResponse.md)
 
 ### Authorization
 

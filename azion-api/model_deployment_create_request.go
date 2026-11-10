@@ -26,7 +26,7 @@ type DeploymentCreateRequest struct {
 	Description NullableString `json:"description,omitempty"`
 	// * `STRICT` - STRICT * `FLEXIBLE` - FLEXIBLE
 	BindingPolicy string `json:"binding_policy"`
-	// * `single_version` - single_version * `versioned_urls` - versioned_urls
+	// * `single_version` - single_version * `versioned_urls` - versioned_urls * `latest` - latest
 	DeploymentPolicy *string `json:"deployment_policy,omitempty"`
 	StrategyDefaults *DeploymentStrategyDefaults `json:"strategy_defaults,omitempty"`
 }

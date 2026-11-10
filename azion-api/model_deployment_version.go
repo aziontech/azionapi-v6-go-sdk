@@ -27,7 +27,7 @@ type DeploymentVersion struct {
 	Description NullableString `json:"description,omitempty"`
 	// * `STRICT` - STRICT * `FLEXIBLE` - FLEXIBLE
 	BindingPolicy *string `json:"binding_policy,omitempty"`
-	// * `single_version` - single_version * `versioned_urls` - versioned_urls
+	// * `single_version` - single_version * `versioned_urls` - versioned_urls * `latest` - latest
 	DeploymentPolicy *string `json:"deployment_policy,omitempty"`
 	StrategyDefaults *DeploymentStrategyDefaults `json:"strategy_defaults,omitempty"`
 	// Current lifecycle state of the version.  * `draft` - draft * `queued` - queued * `building` - building * `ready` - ready * `error` - error * `canceled` - canceled * `archiving` - archiving * `archived` - archived * `deleting` - deleting * `deleted` - deleted

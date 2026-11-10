@@ -9,8 +9,8 @@ Name | Type | Description | Notes
 **Value** | Pointer to **NullableString** | Variable value. Null when the variable is secret. | [optional] 
 **Secret** | Pointer to **bool** |  | [optional] 
 **LastEditor** | Pointer to **string** |  | [optional] 
-**CreatedAt** | **time.Time** |  | 
-**UpdatedAt** | **time.Time** |  | 
+**CreatedAt** | Pointer to **time.Time** |  | [optional] 
+**UpdatedAt** | Pointer to **time.Time** |  | [optional] 
 **Scope** | Pointer to [**[]ScopeItem**](ScopeItem.md) | Scopes the variable is bound to. | [optional] 
 **VersionId** | Pointer to **string** |  | [optional] 
 **VersionState** | Pointer to **string** |  | [optional] 
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 
 ### NewVariable
 
-`func NewVariable(createdAt time.Time, updatedAt time.Time, ) *Variable`
+`func NewVariable() *Variable`
 
 NewVariable instantiates a new Variable object
 This constructor will assign default values to properties that have it defined,
@@ -189,6 +189,11 @@ and a boolean to check if the value has been set.
 
 SetCreatedAt sets CreatedAt field to given value.
 
+### HasCreatedAt
+
+`func (o *Variable) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
 
 ### GetUpdatedAt
 
@@ -209,6 +214,11 @@ and a boolean to check if the value has been set.
 
 SetUpdatedAt sets UpdatedAt field to given value.
 
+### HasUpdatedAt
+
+`func (o *Variable) HasUpdatedAt() bool`
+
+HasUpdatedAt returns a boolean if a field has been set.
 
 ### GetScope
 

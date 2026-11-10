@@ -36,7 +36,7 @@ func (r ApiCreateConnectorRequest) ConnectorRequest(connectorRequest ConnectorRe
 	return r
 }
 
-func (r ApiCreateConnectorRequest) Execute() (*ConnectorAsyncResponse, *http.Response, error) {
+func (r ApiCreateConnectorRequest) Execute() (*ConnectorResponse, *http.Response, error) {
 	return r.ApiService.CreateConnectorExecute(r)
 }
 
@@ -56,13 +56,13 @@ func (a *ConnectorsAPIService) CreateConnector(ctx context.Context) ApiCreateCon
 }
 
 // Execute executes the request
-//  @return ConnectorAsyncResponse
-func (a *ConnectorsAPIService) CreateConnectorExecute(r ApiCreateConnectorRequest) (*ConnectorAsyncResponse, *http.Response, error) {
+//  @return ConnectorResponse
+func (a *ConnectorsAPIService) CreateConnectorExecute(r ApiCreateConnectorRequest) (*ConnectorResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ConnectorAsyncResponse
+		localVarReturnValue  *ConnectorResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConnectorsAPIService.CreateConnector")
@@ -239,7 +239,7 @@ type ApiDeleteConnectorRequest struct {
 	connectorId int64
 }
 
-func (r ApiDeleteConnectorRequest) Execute() (*DeleteAsyncResponse, *http.Response, error) {
+func (r ApiDeleteConnectorRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteConnectorExecute(r)
 }
 
@@ -261,18 +261,16 @@ func (a *ConnectorsAPIService) DeleteConnector(ctx context.Context, connectorId 
 }
 
 // Execute executes the request
-//  @return DeleteAsyncResponse
-func (a *ConnectorsAPIService) DeleteConnectorExecute(r ApiDeleteConnectorRequest) (*DeleteAsyncResponse, *http.Response, error) {
+func (a *ConnectorsAPIService) DeleteConnectorExecute(r ApiDeleteConnectorRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeleteAsyncResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConnectorsAPIService.DeleteConnector")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/workspace/connectors/{connector_id}"
@@ -315,19 +313,19 @@ func (a *ConnectorsAPIService) DeleteConnectorExecute(r ApiDeleteConnectorReques
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -340,109 +338,99 @@ func (a *ConnectorsAPIService) DeleteConnectorExecute(r ApiDeleteConnectorReques
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type ApiListConnectorsRequest struct {
 	ctx context.Context
 	ApiService *ConnectorsAPIService
-	active *bool
 	fields *string
-	id *int64
+	id *[]int64
 	lastEditor *string
 	lastModifiedGte *time.Time
 	lastModifiedLte *time.Time
@@ -451,13 +439,7 @@ type ApiListConnectorsRequest struct {
 	page *int64
 	pageSize *int32
 	search *string
-	typeIn *string
-}
-
-// Filter by active status.
-func (r ApiListConnectorsRequest) Active(active bool) ApiListConnectorsRequest {
-	r.active = &active
-	return r
+	typeIn *[]string
 }
 
 // Comma-separated list of field names to include in the response.
@@ -467,7 +449,7 @@ func (r ApiListConnectorsRequest) Fields(fields string) ApiListConnectorsRequest
 }
 
 // Filter by id (accepts comma-separated values).
-func (r ApiListConnectorsRequest) Id(id int64) ApiListConnectorsRequest {
+func (r ApiListConnectorsRequest) Id(id []int64) ApiListConnectorsRequest {
 	r.id = &id
 	return r
 }
@@ -496,7 +478,7 @@ func (r ApiListConnectorsRequest) Name(name string) ApiListConnectorsRequest {
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, type, last_editor, last_modified, active)
+// Which field to use when ordering the results. (Valid fields: id, name, type, last_editor, last_modified)
 func (r ApiListConnectorsRequest) Ordering(ordering string) ApiListConnectorsRequest {
 	r.ordering = &ordering
 	return r
@@ -514,14 +496,14 @@ func (r ApiListConnectorsRequest) PageSize(pageSize int32) ApiListConnectorsRequ
 	return r
 }
 
-// A search term to filter results. Searches across the following fields: id, name, type, last_editor, last_modified, active.
+// A search term to filter results. Searches across the following fields: id, name, type, last_editor, last_modified.
 func (r ApiListConnectorsRequest) Search(search string) ApiListConnectorsRequest {
 	r.search = &search
 	return r
 }
 
 // Filter by type (accepts comma-separated values).
-func (r ApiListConnectorsRequest) TypeIn(typeIn string) ApiListConnectorsRequest {
+func (r ApiListConnectorsRequest) TypeIn(typeIn []string) ApiListConnectorsRequest {
 	r.typeIn = &typeIn
 	return r
 }
@@ -566,14 +548,11 @@ func (a *ConnectorsAPIService) ListConnectorsExecute(r ApiListConnectorsRequest)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.active != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "active", r.active, "form", "")
-	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	}
 	if r.lastEditor != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "last_editor", r.lastEditor, "form", "")
@@ -600,7 +579,7 @@ func (a *ConnectorsAPIService) ListConnectorsExecute(r ApiListConnectorsRequest)
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
 	}
 	if r.typeIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "type__in", r.typeIn, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "type__in", r.typeIn, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -769,7 +748,7 @@ func (r ApiPartialUpdateConnectorRequest) PatchedConnectorRequest(patchedConnect
 	return r
 }
 
-func (r ApiPartialUpdateConnectorRequest) Execute() (*ConnectorAsyncResponse, *http.Response, error) {
+func (r ApiPartialUpdateConnectorRequest) Execute() (*ConnectorResponse, *http.Response, error) {
 	return r.ApiService.PartialUpdateConnectorExecute(r)
 }
 
@@ -791,13 +770,13 @@ func (a *ConnectorsAPIService) PartialUpdateConnector(ctx context.Context, conne
 }
 
 // Execute executes the request
-//  @return ConnectorAsyncResponse
-func (a *ConnectorsAPIService) PartialUpdateConnectorExecute(r ApiPartialUpdateConnectorRequest) (*ConnectorAsyncResponse, *http.Response, error) {
+//  @return ConnectorResponse
+func (a *ConnectorsAPIService) PartialUpdateConnectorExecute(r ApiPartialUpdateConnectorRequest) (*ConnectorResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ConnectorAsyncResponse
+		localVarReturnValue  *ConnectorResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConnectorsAPIService.PartialUpdateConnector")
@@ -1195,7 +1174,7 @@ func (r ApiUpdateConnectorRequest) ConnectorRequest(connectorRequest ConnectorRe
 	return r
 }
 
-func (r ApiUpdateConnectorRequest) Execute() (*ConnectorAsyncResponse, *http.Response, error) {
+func (r ApiUpdateConnectorRequest) Execute() (*ConnectorResponse, *http.Response, error) {
 	return r.ApiService.UpdateConnectorExecute(r)
 }
 
@@ -1217,13 +1196,13 @@ func (a *ConnectorsAPIService) UpdateConnector(ctx context.Context, connectorId 
 }
 
 // Execute executes the request
-//  @return ConnectorAsyncResponse
-func (a *ConnectorsAPIService) UpdateConnectorExecute(r ApiUpdateConnectorRequest) (*ConnectorAsyncResponse, *http.Response, error) {
+//  @return ConnectorResponse
+func (a *ConnectorsAPIService) UpdateConnectorExecute(r ApiUpdateConnectorRequest) (*ConnectorResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ConnectorAsyncResponse
+		localVarReturnValue  *ConnectorResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ConnectorsAPIService.UpdateConnector")

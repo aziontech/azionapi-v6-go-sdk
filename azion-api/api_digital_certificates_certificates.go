@@ -28,11 +28,11 @@ type DigitalCertificatesCertificatesAPIService service
 type ApiCreateCertificateRequest struct {
 	ctx context.Context
 	ApiService *DigitalCertificatesCertificatesAPIService
-	certificate *Certificate
+	certificateCreate *CertificateCreate
 }
 
-func (r ApiCreateCertificateRequest) Certificate(certificate Certificate) ApiCreateCertificateRequest {
-	r.certificate = &certificate
+func (r ApiCreateCertificateRequest) CertificateCreate(certificateCreate CertificateCreate) ApiCreateCertificateRequest {
+	r.certificateCreate = &certificateCreate
 	return r
 }
 
@@ -75,8 +75,8 @@ func (a *DigitalCertificatesCertificatesAPIService) CreateCertificateExecute(r A
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.certificate == nil {
-		return localVarReturnValue, nil, reportError("certificate is required and must be specified")
+	if r.certificateCreate == nil {
+		return localVarReturnValue, nil, reportError("certificateCreate is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -97,7 +97,7 @@ func (a *DigitalCertificatesCertificatesAPIService) CreateCertificateExecute(r A
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.certificate
+	localVarPostBody = r.certificateCreate
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -242,7 +242,7 @@ type ApiDeleteCertificateRequest struct {
 	certificateId int64
 }
 
-func (r ApiDeleteCertificateRequest) Execute() (*DeleteResponse, *http.Response, error) {
+func (r ApiDeleteCertificateRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteCertificateExecute(r)
 }
 
@@ -264,18 +264,16 @@ func (a *DigitalCertificatesCertificatesAPIService) DeleteCertificate(ctx contex
 }
 
 // Execute executes the request
-//  @return DeleteResponse
-func (a *DigitalCertificatesCertificatesAPIService) DeleteCertificateExecute(r ApiDeleteCertificateRequest) (*DeleteResponse, *http.Response, error) {
+func (a *DigitalCertificatesCertificatesAPIService) DeleteCertificateExecute(r ApiDeleteCertificateRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeleteResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DigitalCertificatesCertificatesAPIService.DeleteCertificate")
 	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/workspace/tls/certificates/{certificate_id}"
@@ -318,19 +316,19 @@ func (a *DigitalCertificatesCertificatesAPIService) DeleteCertificateExecute(r A
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -343,109 +341,100 @@ func (a *DigitalCertificatesCertificatesAPIService) DeleteCertificateExecute(r A
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
+				return localVarHTTPResponse, newErr
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type ApiListCertificatesRequest struct {
 	ctx context.Context
 	ApiService *DigitalCertificatesCertificatesAPIService
-	certificateType *string
+	certificateType *[]int64
 	fields *string
-	id *int64
+	id *[]int64
 	issuer *string
 	lastModified *time.Time
 	lastModifiedGte *time.Time
@@ -462,7 +451,7 @@ type ApiListCertificatesRequest struct {
 }
 
 // Filter by certificate type (accepts comma-separated values).
-func (r ApiListCertificatesRequest) CertificateType(certificateType string) ApiListCertificatesRequest {
+func (r ApiListCertificatesRequest) CertificateType(certificateType []int64) ApiListCertificatesRequest {
 	r.certificateType = &certificateType
 	return r
 }
@@ -474,7 +463,7 @@ func (r ApiListCertificatesRequest) Fields(fields string) ApiListCertificatesReq
 }
 
 // Filter by certificate ID (accepts comma-separated values).
-func (r ApiListCertificatesRequest) Id(id int64) ApiListCertificatesRequest {
+func (r ApiListCertificatesRequest) Id(id []int64) ApiListCertificatesRequest {
 	r.id = &id
 	return r
 }
@@ -598,13 +587,13 @@ func (a *DigitalCertificatesCertificatesAPIService) ListCertificatesExecute(r Ap
 	localVarFormParams := url.Values{}
 
 	if r.certificateType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "certificate_type", r.certificateType, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "certificate_type", r.certificateType, "form", "csv")
 	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	}
 	if r.issuer != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "issuer", r.issuer, "form", "")

@@ -1,6 +1,6 @@
 # \WAFsAPI
 
-All URIs are relative to *https://api.azion.com/v6*
+All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## CreateWaf
 
-> WAFAsyncResponse CreateWaf(ctx).WAFRequest(wAFRequest).Execute()
+> WAFResponse CreateWaf(ctx).WAFRequest(wAFRequest).Execute()
 
 Create a Web Application Firewall (WAF)
 
@@ -43,7 +43,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WAFsAPI.CreateWaf``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateWaf`: WAFAsyncResponse
+	// response from `CreateWaf`: WAFResponse
 	fmt.Fprintf(os.Stdout, "Response from `WAFsAPI.CreateWaf`: %v\n", resp)
 }
 ```
@@ -63,7 +63,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WAFAsyncResponse**](WAFAsyncResponse.md)
+[**WAFResponse**](WAFResponse.md)
 
 ### Authorization
 
@@ -81,7 +81,7 @@ Name | Type | Description  | Notes
 
 ## DeleteWaf
 
-> DeleteAsyncResponse DeleteWaf(ctx, wafId).Execute()
+> DeleteWaf(ctx, wafId).Execute()
 
 Delete a Web Application Firewall (WAF)
 
@@ -104,13 +104,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WAFsAPI.DeleteWaf(context.Background(), wafId).Execute()
+	r, err := apiClient.WAFsAPI.DeleteWaf(context.Background(), wafId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WAFsAPI.DeleteWaf``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteWaf`: DeleteAsyncResponse
-	fmt.Fprintf(os.Stdout, "Response from `WAFsAPI.DeleteWaf`: %v\n", resp)
 }
 ```
 
@@ -133,7 +131,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -171,7 +169,7 @@ import (
 
 func main() {
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	id := int64(789) // int64 | Filter by id (accepts comma-separated values). (optional)
+	id := []int64{int64(123)} // []int64 | Filter by id (accepts comma-separated values). (optional)
 	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
 	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
@@ -202,7 +200,7 @@ Other parameters are passed through a pointer to a apiListWafsRequest struct via
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **id** | **int64** | Filter by id (accepts comma-separated values). | 
+ **id** | **[]int64** | Filter by id (accepts comma-separated values). | 
  **name** | **string** | Filter by name (case-insensitive, partial match). | 
  **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name) | 
  **page** | **int64** | A page number within the paginated result set. | 
@@ -229,7 +227,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateWaf
 
-> WAFAsyncResponse PartialUpdateWaf(ctx, wafId).PatchedWAFRequest(patchedWAFRequest).Execute()
+> WAFResponse PartialUpdateWaf(ctx, wafId).PatchedWAFRequest(patchedWAFRequest).Execute()
 
 Partially update a Web Application Firewall (WAF)
 
@@ -258,7 +256,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WAFsAPI.PartialUpdateWaf``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateWaf`: WAFAsyncResponse
+	// response from `PartialUpdateWaf`: WAFResponse
 	fmt.Fprintf(os.Stdout, "Response from `WAFsAPI.PartialUpdateWaf`: %v\n", resp)
 }
 ```
@@ -283,7 +281,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WAFAsyncResponse**](WAFAsyncResponse.md)
+[**WAFResponse**](WAFResponse.md)
 
 ### Authorization
 
@@ -373,7 +371,7 @@ Name | Type | Description  | Notes
 
 ## UpdateWaf
 
-> WAFAsyncResponse UpdateWaf(ctx, wafId).WAFRequest(wAFRequest).Execute()
+> WAFResponse UpdateWaf(ctx, wafId).WAFRequest(wAFRequest).Execute()
 
 Update a Web Application Firewall (WAF)
 
@@ -402,7 +400,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WAFsAPI.UpdateWaf``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateWaf`: WAFAsyncResponse
+	// response from `UpdateWaf`: WAFResponse
 	fmt.Fprintf(os.Stdout, "Response from `WAFsAPI.UpdateWaf`: %v\n", resp)
 }
 ```
@@ -427,7 +425,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WAFAsyncResponse**](WAFAsyncResponse.md)
+[**WAFResponse**](WAFResponse.md)
 
 ### Authorization
 

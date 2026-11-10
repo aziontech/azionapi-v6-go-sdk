@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Enabled** | Pointer to **bool** |  | [optional] 
+**Enabled** | Pointer to **bool** | The cache module cannot be disabled. Only true is accepted. | [optional] 
 
 ## Methods
 

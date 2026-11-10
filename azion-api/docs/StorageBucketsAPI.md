@@ -1,6 +1,6 @@
 # \StorageBucketsAPI
 
-All URIs are relative to *https://api.azion.com/v6*
+All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ## DeleteBucket
 
-> DeleteResponse DeleteBucket(ctx, bucketName).Execute()
+> DeleteBucket(ctx, bucketName).Execute()
 
 Delete a bucket
 
@@ -103,13 +103,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.StorageBucketsAPI.DeleteBucket(context.Background(), bucketName).Execute()
+	r, err := apiClient.StorageBucketsAPI.DeleteBucket(context.Background(), bucketName).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `StorageBucketsAPI.DeleteBucket``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteBucket`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `StorageBucketsAPI.DeleteBucket`: %v\n", resp)
 }
 ```
 
@@ -132,7 +130,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -176,7 +174,7 @@ func main() {
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
 	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: name, workloads_access, last_editor, last_modified, product_version) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	search := "search_example" // string | A search term. (optional)
@@ -211,7 +209,7 @@ Name | Type | Description  | Notes
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
  **name** | **string** | Filter by name (case-insensitive, partial match). | 
- **ordering** | **string** | Which field to use when ordering the results. | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: name, workloads_access, last_editor, last_modified, product_version) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **search** | **string** | A search term. | 

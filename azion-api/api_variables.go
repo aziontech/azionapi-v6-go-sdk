@@ -131,6 +131,28 @@ func (a *VariablesAPIService) BatchVariablesExecute(r ApiBatchVariablesRequest) 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -298,6 +320,28 @@ func (a *VariablesAPIService) CreateVariableExecute(r ApiCreateVariableRequest) 
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -359,7 +403,7 @@ func (a *VariablesAPIService) CreateVariableExecute(r ApiCreateVariableRequest) 
 type ApiDeleteVariableRequest struct {
 	ctx context.Context
 	ApiService *VariablesAPIService
-	uuid string
+	variableId string
 }
 
 func (r ApiDeleteVariableRequest) Execute() (*http.Response, error) {
@@ -372,14 +416,14 @@ DeleteVariable Delete a Variable
 Delete a Variable by its UUID. Appends a tombstone version and queues a build.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param uuid
+ @param variableId A unique value identifying the variable.
  @return ApiDeleteVariableRequest
 */
-func (a *VariablesAPIService) DeleteVariable(ctx context.Context, uuid string) ApiDeleteVariableRequest {
+func (a *VariablesAPIService) DeleteVariable(ctx context.Context, variableId string) ApiDeleteVariableRequest {
 	return ApiDeleteVariableRequest{
 		ApiService: a,
 		ctx: ctx,
-		uuid: uuid,
+		variableId: variableId,
 	}
 }
 
@@ -396,8 +440,8 @@ func (a *VariablesAPIService) DeleteVariableExecute(r ApiDeleteVariableRequest) 
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/variables/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath := localBasePath + "/variables/{variable_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"variable_id"+"}", url.PathEscape(parameterValueToString(r.variableId, "variableId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -455,6 +499,39 @@ func (a *VariablesAPIService) DeleteVariableExecute(r ApiDeleteVariableRequest) 
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
@@ -518,8 +595,8 @@ type ApiListVariablesRequest struct {
 	resourceId *[]string
 	resourceType *[]string
 	scope *[]string
-	scopeId *string
-	scopeType *string
+	scopeId *[]string
+	scopeType *[]string
 	search *string
 	secret *bool
 	updatedAtGte *time.Time
@@ -589,14 +666,14 @@ func (r ApiListVariablesRequest) Scope(scope []string) ApiListVariablesRequest {
 
 // Deprecated alias for &#x60;resource_id&#x60;.
 // Deprecated
-func (r ApiListVariablesRequest) ScopeId(scopeId string) ApiListVariablesRequest {
+func (r ApiListVariablesRequest) ScopeId(scopeId []string) ApiListVariablesRequest {
 	r.scopeId = &scopeId
 	return r
 }
 
 // Deprecated alias for &#x60;resource_type&#x60;.
 // Deprecated
-func (r ApiListVariablesRequest) ScopeType(scopeType string) ApiListVariablesRequest {
+func (r ApiListVariablesRequest) ScopeType(scopeType []string) ApiListVariablesRequest {
 	r.scopeType = &scopeType
 	return r
 }
@@ -702,10 +779,10 @@ func (a *VariablesAPIService) ListVariablesExecute(r ApiListVariablesRequest) (*
 		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
 	}
 	if r.scopeId != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope_id", r.scopeId, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "scope_id", r.scopeId, "form", "csv")
 	}
 	if r.scopeType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope_type", r.scopeType, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "scope_type", r.scopeType, "form", "csv")
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
@@ -775,6 +852,39 @@ func (a *VariablesAPIService) ListVariablesExecute(r ApiListVariablesRequest) (*
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -836,7 +946,7 @@ func (a *VariablesAPIService) ListVariablesExecute(r ApiListVariablesRequest) (*
 type ApiPartialUpdateVariableRequest struct {
 	ctx context.Context
 	ApiService *VariablesAPIService
-	uuid string
+	variableId string
 	patchedVariableVersionUpdateInputRequest *PatchedVariableVersionUpdateInputRequest
 }
 
@@ -855,14 +965,14 @@ PartialUpdateVariable Partially update a Variable
 Change only the attributes sent; the rest keep their current values. Scope is immutable and a `scope` field in the payload is rejected.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param uuid
+ @param variableId A unique value identifying the variable.
  @return ApiPartialUpdateVariableRequest
 */
-func (a *VariablesAPIService) PartialUpdateVariable(ctx context.Context, uuid string) ApiPartialUpdateVariableRequest {
+func (a *VariablesAPIService) PartialUpdateVariable(ctx context.Context, variableId string) ApiPartialUpdateVariableRequest {
 	return ApiPartialUpdateVariableRequest{
 		ApiService: a,
 		ctx: ctx,
-		uuid: uuid,
+		variableId: variableId,
 	}
 }
 
@@ -881,8 +991,8 @@ func (a *VariablesAPIService) PartialUpdateVariableExecute(r ApiPartialUpdateVar
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/variables/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath := localBasePath + "/variables/{variable_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"variable_id"+"}", url.PathEscape(parameterValueToString(r.variableId, "variableId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -942,6 +1052,39 @@ func (a *VariablesAPIService) PartialUpdateVariableExecute(r ApiPartialUpdateVar
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
@@ -1004,7 +1147,7 @@ func (a *VariablesAPIService) PartialUpdateVariableExecute(r ApiPartialUpdateVar
 type ApiRetrieveVariableRequest struct {
 	ctx context.Context
 	ApiService *VariablesAPIService
-	uuid string
+	variableId string
 }
 
 func (r ApiRetrieveVariableRequest) Execute() (*Variable, *http.Response, error) {
@@ -1017,14 +1160,14 @@ RetrieveVariable Retrieve details of a Variable
 Retrieve a Variable by its UUID, with its scope set and the state of its latest version.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param uuid
+ @param variableId A unique value identifying the variable.
  @return ApiRetrieveVariableRequest
 */
-func (a *VariablesAPIService) RetrieveVariable(ctx context.Context, uuid string) ApiRetrieveVariableRequest {
+func (a *VariablesAPIService) RetrieveVariable(ctx context.Context, variableId string) ApiRetrieveVariableRequest {
 	return ApiRetrieveVariableRequest{
 		ApiService: a,
 		ctx: ctx,
-		uuid: uuid,
+		variableId: variableId,
 	}
 }
 
@@ -1043,8 +1186,8 @@ func (a *VariablesAPIService) RetrieveVariableExecute(r ApiRetrieveVariableReque
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/variables/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath := localBasePath + "/variables/{variable_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"variable_id"+"}", url.PathEscape(parameterValueToString(r.variableId, "variableId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1102,6 +1245,39 @@ func (a *VariablesAPIService) RetrieveVariableExecute(r ApiRetrieveVariableReque
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
@@ -1164,7 +1340,7 @@ func (a *VariablesAPIService) RetrieveVariableExecute(r ApiRetrieveVariableReque
 type ApiUpdateVariableRequest struct {
 	ctx context.Context
 	ApiService *VariablesAPIService
-	uuid string
+	variableId string
 	variableVersionUpdateInputRequest *VariableVersionUpdateInputRequest
 }
 
@@ -1183,14 +1359,14 @@ UpdateVariable Update a Variable
 Overwrite the editable attributes of a Variable, keeping its UUID. <br><ul><li>Scope is immutable: a `scope` field in the payload is rejected.</li><li>"secret" is one-way — sending "secret": false on a secret Variable returns 400. Reverting to an older non-secret version restores that value but keeps the Variable secret.</li><li>Appends a new version and queues a build.</li></ul>
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param uuid
+ @param variableId A unique value identifying the variable.
  @return ApiUpdateVariableRequest
 */
-func (a *VariablesAPIService) UpdateVariable(ctx context.Context, uuid string) ApiUpdateVariableRequest {
+func (a *VariablesAPIService) UpdateVariable(ctx context.Context, variableId string) ApiUpdateVariableRequest {
 	return ApiUpdateVariableRequest{
 		ApiService: a,
 		ctx: ctx,
-		uuid: uuid,
+		variableId: variableId,
 	}
 }
 
@@ -1209,12 +1385,15 @@ func (a *VariablesAPIService) UpdateVariableExecute(r ApiUpdateVariableRequest) 
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/variables/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath := localBasePath + "/variables/{variable_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"variable_id"+"}", url.PathEscape(parameterValueToString(r.variableId, "variableId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.variableVersionUpdateInputRequest == nil {
+		return localVarReturnValue, nil, reportError("variableVersionUpdateInputRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -1270,6 +1449,39 @@ func (a *VariablesAPIService) UpdateVariableExecute(r ApiUpdateVariableRequest) 
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrorResponse
