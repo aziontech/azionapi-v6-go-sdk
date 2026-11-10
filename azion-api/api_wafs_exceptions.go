@@ -865,7 +865,7 @@ type ApiListWafExceptionsRequest struct {
 	createdAtLte *time.Time
 	description *string
 	fields *string
-	id *int64
+	id *[]int64
 	lastEditor *string
 	lastModifiedGte *time.Time
 	lastModifiedLte *time.Time
@@ -901,7 +901,7 @@ func (r ApiListWafExceptionsRequest) Fields(fields string) ApiListWafExceptionsR
 }
 
 // Filter by id (accepts comma-separated values).
-func (r ApiListWafExceptionsRequest) Id(id int64) ApiListWafExceptionsRequest {
+func (r ApiListWafExceptionsRequest) Id(id []int64) ApiListWafExceptionsRequest {
 	r.id = &id
 	return r
 }
@@ -1010,7 +1010,7 @@ func (a *WAFsExceptionsAPIService) ListWafExceptionsExecute(r ApiListWafExceptio
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	}
 	if r.lastEditor != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "last_editor", r.lastEditor, "form", "")
@@ -1200,7 +1200,7 @@ type ApiListWafVersionExceptionsRequest struct {
 	createdAtLte *time.Time
 	description *string
 	fields *string
-	id *int64
+	id *[]int64
 	lastEditor *string
 	lastModifiedGte *time.Time
 	lastModifiedLte *time.Time
@@ -1236,7 +1236,7 @@ func (r ApiListWafVersionExceptionsRequest) Fields(fields string) ApiListWafVers
 }
 
 // Filter by id (accepts comma-separated values).
-func (r ApiListWafVersionExceptionsRequest) Id(id int64) ApiListWafVersionExceptionsRequest {
+func (r ApiListWafVersionExceptionsRequest) Id(id []int64) ApiListWafVersionExceptionsRequest {
 	r.id = &id
 	return r
 }
@@ -1348,7 +1348,7 @@ func (a *WAFsExceptionsAPIService) ListWafVersionExceptionsExecute(r ApiListWafV
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	}
 	if r.lastEditor != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "last_editor", r.lastEditor, "form", "")

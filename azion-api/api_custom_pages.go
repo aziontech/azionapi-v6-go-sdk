@@ -433,7 +433,7 @@ type ApiListCustomPagesRequest struct {
 	ctx context.Context
 	ApiService *CustomPagesAPIService
 	fields *string
-	id *int64
+	id *[]int64
 	lastEditor *string
 	lastModifiedGte *time.Time
 	lastModifiedLte *time.Time
@@ -451,7 +451,7 @@ func (r ApiListCustomPagesRequest) Fields(fields string) ApiListCustomPagesReque
 }
 
 // Filter by id (accepts comma-separated values).
-func (r ApiListCustomPagesRequest) Id(id int64) ApiListCustomPagesRequest {
+func (r ApiListCustomPagesRequest) Id(id []int64) ApiListCustomPagesRequest {
 	r.id = &id
 	return r
 }
@@ -548,7 +548,7 @@ func (a *CustomPagesAPIService) ListCustomPagesExecute(r ApiListCustomPagesReque
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	}
 	if r.lastEditor != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "last_editor", r.lastEditor, "form", "")

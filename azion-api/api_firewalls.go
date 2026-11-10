@@ -434,7 +434,7 @@ type ApiListFirewallsRequest struct {
 	ApiService *FirewallsAPIService
 	debug *bool
 	fields *string
-	id *int64
+	id *[]int64
 	lastEditor *string
 	lastModifiedGte *time.Time
 	lastModifiedLte *time.Time
@@ -458,7 +458,7 @@ func (r ApiListFirewallsRequest) Fields(fields string) ApiListFirewallsRequest {
 }
 
 // Filter by id (accepts comma-separated values).
-func (r ApiListFirewallsRequest) Id(id int64) ApiListFirewallsRequest {
+func (r ApiListFirewallsRequest) Id(id []int64) ApiListFirewallsRequest {
 	r.id = &id
 	return r
 }
@@ -558,7 +558,7 @@ func (a *FirewallsAPIService) ListFirewallsExecute(r ApiListFirewallsRequest) (*
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	}
 	if r.lastEditor != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "last_editor", r.lastEditor, "form", "")

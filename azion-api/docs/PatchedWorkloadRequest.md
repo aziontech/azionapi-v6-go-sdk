@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Tls** | Pointer to [**PatchedTLSWorkloadRequest**](PatchedTLSWorkloadRequest.md) |  | [optional] 
 **Protocols** | Pointer to [**PatchedProtocolsRequest**](PatchedProtocolsRequest.md) |  | [optional] 
 **Mtls** | Pointer to [**PatchedMTLSRequest**](PatchedMTLSRequest.md) |  | [optional] 
-**WorkloadDomainAllowAccess** | Pointer to **bool** |  | [optional] 
+**WorkloadDomainAllowAccess** | Pointer to **bool** | true requires the workload to be bound to a single-version environment, that is, an environment whose policy is not versioned_urls. | [optional] 
 **Bindings** | Pointer to [**[]PatchedWorkloadBindingRequest**](PatchedWorkloadBindingRequest.md) |  | [optional] 
 
 ## Methods

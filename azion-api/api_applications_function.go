@@ -862,7 +862,7 @@ type ApiListApplicationFunctionInstancesRequest struct {
 	ApiService *ApplicationsFunctionAPIService
 	applicationId int64
 	fields *string
-	id *int64
+	id *[]int64
 	lastEditor *string
 	lastModifiedGte *time.Time
 	lastModifiedLte *time.Time
@@ -880,7 +880,7 @@ func (r ApiListApplicationFunctionInstancesRequest) Fields(fields string) ApiLis
 }
 
 // Filter by id (accepts comma-separated values).
-func (r ApiListApplicationFunctionInstancesRequest) Id(id int64) ApiListApplicationFunctionInstancesRequest {
+func (r ApiListApplicationFunctionInstancesRequest) Id(id []int64) ApiListApplicationFunctionInstancesRequest {
 	r.id = &id
 	return r
 }
@@ -980,7 +980,7 @@ func (a *ApplicationsFunctionAPIService) ListApplicationFunctionInstancesExecute
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	}
 	if r.lastEditor != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "last_editor", r.lastEditor, "form", "")
@@ -1167,7 +1167,7 @@ type ApiListApplicationVersionFunctionsRequest struct {
 	applicationId int64
 	versionId string
 	fields *string
-	id *int64
+	id *[]int64
 	lastEditor *string
 	lastModifiedGte *time.Time
 	lastModifiedLte *time.Time
@@ -1185,7 +1185,7 @@ func (r ApiListApplicationVersionFunctionsRequest) Fields(fields string) ApiList
 }
 
 // Filter by id (accepts comma-separated values).
-func (r ApiListApplicationVersionFunctionsRequest) Id(id int64) ApiListApplicationVersionFunctionsRequest {
+func (r ApiListApplicationVersionFunctionsRequest) Id(id []int64) ApiListApplicationVersionFunctionsRequest {
 	r.id = &id
 	return r
 }
@@ -1288,7 +1288,7 @@ func (a *ApplicationsFunctionAPIService) ListApplicationVersionFunctionsExecute(
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	}
 	if r.lastEditor != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "last_editor", r.lastEditor, "form", "")

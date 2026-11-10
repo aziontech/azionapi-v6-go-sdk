@@ -862,7 +862,7 @@ type ApiListApplicationVersionCacheSettingsRequest struct {
 	applicationId int64
 	versionId string
 	fields *string
-	id *int64
+	id *[]int64
 	name *string
 	ordering *string
 	page *int64
@@ -877,7 +877,7 @@ func (r ApiListApplicationVersionCacheSettingsRequest) Fields(fields string) Api
 }
 
 // Filter by id (accepts comma-separated values).
-func (r ApiListApplicationVersionCacheSettingsRequest) Id(id int64) ApiListApplicationVersionCacheSettingsRequest {
+func (r ApiListApplicationVersionCacheSettingsRequest) Id(id []int64) ApiListApplicationVersionCacheSettingsRequest {
 	r.id = &id
 	return r
 }
@@ -962,7 +962,7 @@ func (a *ApplicationsCacheSettingsAPIService) ListApplicationVersionCacheSetting
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	}
 	if r.name != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")
@@ -1139,7 +1139,7 @@ type ApiListCacheSettingsRequest struct {
 	ApiService *ApplicationsCacheSettingsAPIService
 	applicationId int64
 	fields *string
-	id *int64
+	id *[]int64
 	name *string
 	ordering *string
 	page *int64
@@ -1154,7 +1154,7 @@ func (r ApiListCacheSettingsRequest) Fields(fields string) ApiListCacheSettingsR
 }
 
 // Filter by id (accepts comma-separated values).
-func (r ApiListCacheSettingsRequest) Id(id int64) ApiListCacheSettingsRequest {
+func (r ApiListCacheSettingsRequest) Id(id []int64) ApiListCacheSettingsRequest {
 	r.id = &id
 	return r
 }
@@ -1236,7 +1236,7 @@ func (a *ApplicationsCacheSettingsAPIService) ListCacheSettingsExecute(r ApiList
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	}
 	if r.name != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")

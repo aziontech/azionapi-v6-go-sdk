@@ -433,7 +433,7 @@ type ApiListApplicationsRequest struct {
 	ctx context.Context
 	ApiService *ApplicationsAPIService
 	fields *string
-	id *int64
+	id *[]int64
 	lastEditor *string
 	lastModifiedGte *time.Time
 	lastModifiedLte *time.Time
@@ -451,7 +451,7 @@ func (r ApiListApplicationsRequest) Fields(fields string) ApiListApplicationsReq
 }
 
 // Filter by id (accepts comma-separated values).
-func (r ApiListApplicationsRequest) Id(id int64) ApiListApplicationsRequest {
+func (r ApiListApplicationsRequest) Id(id []int64) ApiListApplicationsRequest {
 	r.id = &id
 	return r
 }
@@ -548,7 +548,7 @@ func (a *ApplicationsAPIService) ListApplicationsExecute(r ApiListApplicationsRe
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	}
 	if r.lastEditor != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "last_editor", r.lastEditor, "form", "")

@@ -862,7 +862,7 @@ type ApiListApplicationVersionDeviceGroupsRequest struct {
 	applicationId int64
 	versionId string
 	fields *string
-	id *int64
+	id *[]int64
 	name *string
 	ordering *string
 	page *int64
@@ -878,7 +878,7 @@ func (r ApiListApplicationVersionDeviceGroupsRequest) Fields(fields string) ApiL
 }
 
 // Filter by id (accepts comma-separated values).
-func (r ApiListApplicationVersionDeviceGroupsRequest) Id(id int64) ApiListApplicationVersionDeviceGroupsRequest {
+func (r ApiListApplicationVersionDeviceGroupsRequest) Id(id []int64) ApiListApplicationVersionDeviceGroupsRequest {
 	r.id = &id
 	return r
 }
@@ -969,7 +969,7 @@ func (a *ApplicationsDeviceGroupsAPIService) ListApplicationVersionDeviceGroupsE
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	}
 	if r.name != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")
@@ -1149,7 +1149,7 @@ type ApiListDeviceGroupsRequest struct {
 	ApiService *ApplicationsDeviceGroupsAPIService
 	applicationId int64
 	fields *string
-	id *int64
+	id *[]int64
 	name *string
 	ordering *string
 	page *int64
@@ -1165,7 +1165,7 @@ func (r ApiListDeviceGroupsRequest) Fields(fields string) ApiListDeviceGroupsReq
 }
 
 // Filter by id (accepts comma-separated values).
-func (r ApiListDeviceGroupsRequest) Id(id int64) ApiListDeviceGroupsRequest {
+func (r ApiListDeviceGroupsRequest) Id(id []int64) ApiListDeviceGroupsRequest {
 	r.id = &id
 	return r
 }
@@ -1253,7 +1253,7 @@ func (a *ApplicationsDeviceGroupsAPIService) ListDeviceGroupsExecute(r ApiListDe
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	}
 	if r.name != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")

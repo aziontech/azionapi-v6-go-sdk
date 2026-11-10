@@ -433,11 +433,11 @@ type ApiListNetworkListsRequest struct {
 	ctx context.Context
 	ApiService *NetworkListsAPIService
 	fields *string
-	id *int64
+	id *[]int64
 	lastEditor *string
 	lastModifiedGte *time.Time
 	lastModifiedLte *time.Time
-	listTypeIn *string
+	listTypeIn *[]string
 	name *string
 	ordering *string
 	page *int64
@@ -452,7 +452,7 @@ func (r ApiListNetworkListsRequest) Fields(fields string) ApiListNetworkListsReq
 }
 
 // Filter by id (accepts comma-separated values).
-func (r ApiListNetworkListsRequest) Id(id int64) ApiListNetworkListsRequest {
+func (r ApiListNetworkListsRequest) Id(id []int64) ApiListNetworkListsRequest {
 	r.id = &id
 	return r
 }
@@ -476,7 +476,7 @@ func (r ApiListNetworkListsRequest) LastModifiedLte(lastModifiedLte time.Time) A
 }
 
 // Filter by list type (accepts comma-separated values).
-func (r ApiListNetworkListsRequest) ListTypeIn(listTypeIn string) ApiListNetworkListsRequest {
+func (r ApiListNetworkListsRequest) ListTypeIn(listTypeIn []string) ApiListNetworkListsRequest {
 	r.listTypeIn = &listTypeIn
 	return r
 }
@@ -555,7 +555,7 @@ func (a *NetworkListsAPIService) ListNetworkListsExecute(r ApiListNetworkListsRe
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	}
 	if r.lastEditor != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "last_editor", r.lastEditor, "form", "")
@@ -567,7 +567,7 @@ func (a *NetworkListsAPIService) ListNetworkListsExecute(r ApiListNetworkListsRe
 		parameterAddToHeaderOrQuery(localVarQueryParams, "last_modified__lte", r.lastModifiedLte, "form", "")
 	}
 	if r.listTypeIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "list_type__in", r.listTypeIn, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "list_type__in", r.listTypeIn, "form", "csv")
 	}
 	if r.name != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")

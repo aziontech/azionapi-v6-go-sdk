@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Tls** | Pointer to [**TLSWorkload**](TLSWorkload.md) |  | [optional] 
 **Protocols** | Pointer to [**Protocols**](Protocols.md) |  | [optional] 
 **Mtls** | Pointer to [**MTLS**](MTLS.md) |  | [optional] 
-**WorkloadDomainAllowAccess** | Pointer to **bool** |  | [optional] 
+**WorkloadDomainAllowAccess** | Pointer to **bool** | true requires the workload to be bound to a single-version environment, that is, an environment whose policy is not versioned_urls. | [optional] 
 **WorkloadDomain** | Pointer to **string** |  | [optional] 
 **Bindings** | Pointer to [**[]WorkloadBinding**](WorkloadBinding.md) |  | [optional] 
 **ProductVersion** | Pointer to **string** |  | [optional] 
