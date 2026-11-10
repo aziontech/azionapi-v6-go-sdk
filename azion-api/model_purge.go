@@ -23,7 +23,7 @@ var _ MappedNullable = &Purge{}
 // Purge Serialize the incoming purge request.
 type Purge struct {
 	Items []string `json:"items"`
-	// * `cache` - Cache * `tiered_cache` - Tiered Cache
+	// * `cache` - Cache
 	Layer *string `json:"layer,omitempty"`
 }
 

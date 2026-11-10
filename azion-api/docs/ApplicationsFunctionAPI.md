@@ -335,7 +335,7 @@ import (
 func main() {
 	applicationId := int64(789) // int64 | A unique integer value identifying the application.
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	id := int64(789) // int64 | Filter by id (accepts comma-separated values). (optional)
+	id := []int64{int64(123)} // []int64 | Filter by id (accepts comma-separated values). (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
@@ -374,7 +374,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **id** | **int64** | Filter by id (accepts comma-separated values). | 
+ **id** | **[]int64** | Filter by id (accepts comma-separated values). | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
@@ -427,7 +427,7 @@ func main() {
 	applicationId := int64(789) // int64 | A unique integer value identifying the application.
 	versionId := "versionId_example" // string | The ULID identifier of the version.
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	id := int64(789) // int64 | Filter by id (accepts comma-separated values). (optional)
+	id := []int64{int64(123)} // []int64 | Filter by id (accepts comma-separated values). (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
@@ -468,7 +468,7 @@ Name | Type | Description  | Notes
 
 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **id** | **int64** | Filter by id (accepts comma-separated values). | 
+ **id** | **[]int64** | Filter by id (accepts comma-separated values). | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 

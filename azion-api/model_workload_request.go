@@ -28,6 +28,7 @@ type WorkloadRequest struct {
 	Tls *TLSWorkloadRequest `json:"tls,omitempty"`
 	Protocols *ProtocolsRequest `json:"protocols,omitempty"`
 	Mtls *MTLSRequest `json:"mtls,omitempty"`
+	// true requires the workload to be bound to a single-version environment, that is, an environment whose policy is not versioned_urls.
 	WorkloadDomainAllowAccess *bool `json:"workload_domain_allow_access,omitempty"`
 	Bindings []WorkloadBindingRequest `json:"bindings,omitempty"`
 }

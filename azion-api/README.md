@@ -362,6 +362,7 @@ Class | Method | HTTP request | Description
 *WorkloadVersionsAPI* | [**ListWorkloadVersions**](docs/WorkloadVersionsAPI.md#listworkloadversions) | **Get** /workspace/workloads/{workload_id}/versions | List Workload versions
 *WorkloadVersionsAPI* | [**RetrieveWorkloadVersion**](docs/WorkloadVersionsAPI.md#retrieveworkloadversion) | **Get** /workspace/workloads/{workload_id}/versions/{version_id} | Retrieve a Workload version
 *WorkloadVersionsAPI* | [**RevertWorkloadVersion**](docs/WorkloadVersionsAPI.md#revertworkloadversion) | **Post** /workspace/workloads/{workload_id}/versions/{version_id}/revert | Revert to a Workload version
+*WorkloadsAPI* | [**CheckWorkloadDomainAvailability**](docs/WorkloadsAPI.md#checkworkloaddomainavailability) | **Get** /workspace/workloads/domains/availability | Check the availability of a Workload domain
 *WorkloadsAPI* | [**CreateWorkload**](docs/WorkloadsAPI.md#createworkload) | **Post** /workspace/workloads | Create an Workload
 *WorkloadsAPI* | [**DeleteWorkload**](docs/WorkloadsAPI.md#deleteworkload) | **Delete** /workspace/workloads/{workload_id} | Delete an Workload
 *WorkloadsAPI* | [**ListWorkloads**](docs/WorkloadsAPI.md#listworkloads) | **Get** /workspace/workloads | List Workloads
@@ -863,6 +864,8 @@ Class | Method | HTTP request | Description
  - [Workload](docs/Workload.md)
  - [WorkloadBinding](docs/WorkloadBinding.md)
  - [WorkloadBindingRequest](docs/WorkloadBindingRequest.md)
+ - [WorkloadDomainAvailability](docs/WorkloadDomainAvailability.md)
+ - [WorkloadDomainAvailabilityRetrieveResponse](docs/WorkloadDomainAvailabilityRetrieveResponse.md)
  - [WorkloadRequest](docs/WorkloadRequest.md)
  - [WorkloadResponse](docs/WorkloadResponse.md)
  - [WorkloadRetrieveResponse](docs/WorkloadRetrieveResponse.md)

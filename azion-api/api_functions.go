@@ -433,8 +433,8 @@ type ApiListFunctionsRequest struct {
 	ctx context.Context
 	ApiService *FunctionsAPIService
 	fields *string
-	id *int64
-	languageIn *string
+	id *[]int64
+	languageIn *[]string
 	lastEditor *string
 	lastModifiedGte *time.Time
 	lastModifiedLte *time.Time
@@ -442,7 +442,7 @@ type ApiListFunctionsRequest struct {
 	ordering *string
 	page *int64
 	pageSize *int32
-	runtimeEnvironmentIn *string
+	runtimeEnvironmentIn *[]string
 	search *string
 }
 
@@ -453,13 +453,13 @@ func (r ApiListFunctionsRequest) Fields(fields string) ApiListFunctionsRequest {
 }
 
 // Filter by id (accepts comma-separated values).
-func (r ApiListFunctionsRequest) Id(id int64) ApiListFunctionsRequest {
+func (r ApiListFunctionsRequest) Id(id []int64) ApiListFunctionsRequest {
 	r.id = &id
 	return r
 }
 
 // Filter by language (accepts comma-separated values).
-func (r ApiListFunctionsRequest) LanguageIn(languageIn string) ApiListFunctionsRequest {
+func (r ApiListFunctionsRequest) LanguageIn(languageIn []string) ApiListFunctionsRequest {
 	r.languageIn = &languageIn
 	return r
 }
@@ -507,7 +507,7 @@ func (r ApiListFunctionsRequest) PageSize(pageSize int32) ApiListFunctionsReques
 }
 
 // Filter by runtime environment (accepts comma-separated values).
-func (r ApiListFunctionsRequest) RuntimeEnvironmentIn(runtimeEnvironmentIn string) ApiListFunctionsRequest {
+func (r ApiListFunctionsRequest) RuntimeEnvironmentIn(runtimeEnvironmentIn []string) ApiListFunctionsRequest {
 	r.runtimeEnvironmentIn = &runtimeEnvironmentIn
 	return r
 }
@@ -562,10 +562,10 @@ func (a *FunctionsAPIService) ListFunctionsExecute(r ApiListFunctionsRequest) (*
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	}
 	if r.languageIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "language__in", r.languageIn, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "language__in", r.languageIn, "form", "csv")
 	}
 	if r.lastEditor != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "last_editor", r.lastEditor, "form", "")
@@ -589,7 +589,7 @@ func (a *FunctionsAPIService) ListFunctionsExecute(r ApiListFunctionsRequest) (*
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
 	}
 	if r.runtimeEnvironmentIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "runtime_environment__in", r.runtimeEnvironmentIn, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "runtime_environment__in", r.runtimeEnvironmentIn, "form", "csv")
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")

@@ -20,6 +20,7 @@ var _ MappedNullable = &PatchedCacheModuleRequest{}
 
 // PatchedCacheModuleRequest struct for PatchedCacheModuleRequest
 type PatchedCacheModuleRequest struct {
+	// The cache module cannot be disabled. Only true is accepted.
 	Enabled *bool `json:"enabled,omitempty"`
 }
 

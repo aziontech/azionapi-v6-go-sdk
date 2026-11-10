@@ -170,8 +170,8 @@ import (
 
 func main() {
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	id := int64(789) // int64 | Filter by id (accepts comma-separated values). (optional)
-	languageIn := "languageIn_example" // string | Filter by language (accepts comma-separated values). (optional)
+	id := []int64{int64(123)} // []int64 | Filter by id (accepts comma-separated values). (optional)
+	languageIn := []string{"Inner_example"} // []string | Filter by language (accepts comma-separated values). (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
@@ -179,7 +179,7 @@ func main() {
 	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, language, runtime_environment, last_editor, last_modified) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
-	runtimeEnvironmentIn := "runtimeEnvironmentIn_example" // string | Filter by runtime environment (accepts comma-separated values). (optional)
+	runtimeEnvironmentIn := []string{"Inner_example"} // []string | Filter by runtime environment (accepts comma-separated values). (optional)
 	search := "search_example" // string | A search term to filter results. Searches across the following fields: name, last_editor, language, runtime_environment. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -206,8 +206,8 @@ Other parameters are passed through a pointer to a apiListFunctionsRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **id** | **int64** | Filter by id (accepts comma-separated values). | 
- **languageIn** | **string** | Filter by language (accepts comma-separated values). | 
+ **id** | **[]int64** | Filter by id (accepts comma-separated values). | 
+ **languageIn** | **[]string** | Filter by language (accepts comma-separated values). | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
@@ -215,7 +215,7 @@ Name | Type | Description  | Notes
  **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, language, runtime_environment, last_editor, last_modified) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
- **runtimeEnvironmentIn** | **string** | Filter by runtime environment (accepts comma-separated values). | 
+ **runtimeEnvironmentIn** | **[]string** | Filter by runtime environment (accepts comma-separated values). | 
  **search** | **string** | A search term to filter results. Searches across the following fields: name, last_editor, language, runtime_environment. | 
 
 ### Return type

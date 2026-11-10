@@ -430,7 +430,7 @@ type ApiListConnectorsRequest struct {
 	ctx context.Context
 	ApiService *ConnectorsAPIService
 	fields *string
-	id *int64
+	id *[]int64
 	lastEditor *string
 	lastModifiedGte *time.Time
 	lastModifiedLte *time.Time
@@ -439,7 +439,7 @@ type ApiListConnectorsRequest struct {
 	page *int64
 	pageSize *int32
 	search *string
-	typeIn *string
+	typeIn *[]string
 }
 
 // Comma-separated list of field names to include in the response.
@@ -449,7 +449,7 @@ func (r ApiListConnectorsRequest) Fields(fields string) ApiListConnectorsRequest
 }
 
 // Filter by id (accepts comma-separated values).
-func (r ApiListConnectorsRequest) Id(id int64) ApiListConnectorsRequest {
+func (r ApiListConnectorsRequest) Id(id []int64) ApiListConnectorsRequest {
 	r.id = &id
 	return r
 }
@@ -503,7 +503,7 @@ func (r ApiListConnectorsRequest) Search(search string) ApiListConnectorsRequest
 }
 
 // Filter by type (accepts comma-separated values).
-func (r ApiListConnectorsRequest) TypeIn(typeIn string) ApiListConnectorsRequest {
+func (r ApiListConnectorsRequest) TypeIn(typeIn []string) ApiListConnectorsRequest {
 	r.typeIn = &typeIn
 	return r
 }
@@ -552,7 +552,7 @@ func (a *ConnectorsAPIService) ListConnectorsExecute(r ApiListConnectorsRequest)
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	}
 	if r.lastEditor != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "last_editor", r.lastEditor, "form", "")
@@ -579,7 +579,7 @@ func (a *ConnectorsAPIService) ListConnectorsExecute(r ApiListConnectorsRequest)
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
 	}
 	if r.typeIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "type__in", r.typeIn, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "type__in", r.typeIn, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
