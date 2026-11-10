@@ -11,15 +11,12 @@ Name | Type | Description | Notes
 **Issuer** | Pointer to **NullableString** |  | [optional] 
 **SubjectName** | Pointer to **[]string** |  | [optional] 
 **Validity** | Pointer to **NullableString** |  | [optional] 
-**Type** | Pointer to **string** | The value can&#39;t be changed after the certificate creation.  * &#x60;edge_certificate&#x60; - Edge Certificate * &#x60;trusted_ca_certificate&#x60; - Trusted CA Certificate | [optional] 
+**Type** | Pointer to **string** | The value can&#39;t be changed after the certificate creation.  * &#x60;edge_certificate&#x60; - Certificate * &#x60;trusted_ca_certificate&#x60; - Trusted CA Certificate | [optional] 
 **Managed** | Pointer to **bool** |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
-**StatusDetail** | Pointer to **string** |  | [optional] 
 **Csr** | Pointer to **NullableString** |  | [optional] 
 **Challenge** | Pointer to **string** |  | [optional] 
 **Authority** | Pointer to **string** |  | [optional] 
 **KeyAlgorithm** | Pointer to **string** |  | [optional] 
-**Active** | Pointer to **bool** |  | [optional] 
 **ProductVersion** | Pointer to **string** |  | [optional] 
 **LastEditor** | Pointer to **string** |  | [optional] 
 **CreatedAt** | Pointer to **NullableTime** | Timestamp of the certificate creation on the platform. | [optional] 
@@ -33,6 +30,8 @@ Name | Type | Description | Notes
 **Organization** | **string** |  | 
 **OrganizationUnity** | **string** |  | 
 **Email** | **string** |  | 
+**VersionId** | Pointer to **NullableString** | ID of the version metadata (use in /versions/{id} URLs) | [optional] 
+**VersionState** | Pointer to **NullableString** | Build state of this version (queued, building, ready, error, ...) | [optional] 
 
 ## Methods
 
@@ -313,56 +312,6 @@ SetManaged sets Managed field to given value.
 
 HasManaged returns a boolean if a field has been set.
 
-### GetStatus
-
-`func (o *CertificateSigningRequest) GetStatus() string`
-
-GetStatus returns the Status field if non-nil, zero value otherwise.
-
-### GetStatusOk
-
-`func (o *CertificateSigningRequest) GetStatusOk() (*string, bool)`
-
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStatus
-
-`func (o *CertificateSigningRequest) SetStatus(v string)`
-
-SetStatus sets Status field to given value.
-
-### HasStatus
-
-`func (o *CertificateSigningRequest) HasStatus() bool`
-
-HasStatus returns a boolean if a field has been set.
-
-### GetStatusDetail
-
-`func (o *CertificateSigningRequest) GetStatusDetail() string`
-
-GetStatusDetail returns the StatusDetail field if non-nil, zero value otherwise.
-
-### GetStatusDetailOk
-
-`func (o *CertificateSigningRequest) GetStatusDetailOk() (*string, bool)`
-
-GetStatusDetailOk returns a tuple with the StatusDetail field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStatusDetail
-
-`func (o *CertificateSigningRequest) SetStatusDetail(v string)`
-
-SetStatusDetail sets StatusDetail field to given value.
-
-### HasStatusDetail
-
-`func (o *CertificateSigningRequest) HasStatusDetail() bool`
-
-HasStatusDetail returns a boolean if a field has been set.
-
 ### GetCsr
 
 `func (o *CertificateSigningRequest) GetCsr() string`
@@ -472,31 +421,6 @@ SetKeyAlgorithm sets KeyAlgorithm field to given value.
 `func (o *CertificateSigningRequest) HasKeyAlgorithm() bool`
 
 HasKeyAlgorithm returns a boolean if a field has been set.
-
-### GetActive
-
-`func (o *CertificateSigningRequest) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *CertificateSigningRequest) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *CertificateSigningRequest) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *CertificateSigningRequest) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
 
 ### GetProductVersion
 
@@ -808,6 +732,76 @@ and a boolean to check if the value has been set.
 SetEmail sets Email field to given value.
 
 
+### GetVersionId
+
+`func (o *CertificateSigningRequest) GetVersionId() string`
+
+GetVersionId returns the VersionId field if non-nil, zero value otherwise.
+
+### GetVersionIdOk
+
+`func (o *CertificateSigningRequest) GetVersionIdOk() (*string, bool)`
+
+GetVersionIdOk returns a tuple with the VersionId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersionId
+
+`func (o *CertificateSigningRequest) SetVersionId(v string)`
+
+SetVersionId sets VersionId field to given value.
+
+### HasVersionId
+
+`func (o *CertificateSigningRequest) HasVersionId() bool`
+
+HasVersionId returns a boolean if a field has been set.
+
+### SetVersionIdNil
+
+`func (o *CertificateSigningRequest) SetVersionIdNil(b bool)`
+
+ SetVersionIdNil sets the value for VersionId to be an explicit nil
+
+### UnsetVersionId
+`func (o *CertificateSigningRequest) UnsetVersionId()`
+
+UnsetVersionId ensures that no value is present for VersionId, not even an explicit nil
+### GetVersionState
+
+`func (o *CertificateSigningRequest) GetVersionState() string`
+
+GetVersionState returns the VersionState field if non-nil, zero value otherwise.
+
+### GetVersionStateOk
+
+`func (o *CertificateSigningRequest) GetVersionStateOk() (*string, bool)`
+
+GetVersionStateOk returns a tuple with the VersionState field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersionState
+
+`func (o *CertificateSigningRequest) SetVersionState(v string)`
+
+SetVersionState sets VersionState field to given value.
+
+### HasVersionState
+
+`func (o *CertificateSigningRequest) HasVersionState() bool`
+
+HasVersionState returns a boolean if a field has been set.
+
+### SetVersionStateNil
+
+`func (o *CertificateSigningRequest) SetVersionStateNil(b bool)`
+
+ SetVersionStateNil sets the value for VersionState to be an explicit nil
+
+### UnsetVersionState
+`func (o *CertificateSigningRequest) UnsetVersionState()`
+
+UnsetVersionState ensures that no value is present for VersionState, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

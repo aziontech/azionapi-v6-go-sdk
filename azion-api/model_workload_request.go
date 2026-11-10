@@ -23,12 +23,12 @@ var _ MappedNullable = &WorkloadRequest{}
 // WorkloadRequest struct for WorkloadRequest
 type WorkloadRequest struct {
 	Name string `json:"name"`
-	Active *bool `json:"active,omitempty"`
 	// * `1` - Production Infrastructure (All Locations) * `2` - Staging Infrastructure
 	Infrastructure *int32 `json:"infrastructure,omitempty"`
 	Tls *TLSWorkloadRequest `json:"tls,omitempty"`
 	Protocols *ProtocolsRequest `json:"protocols,omitempty"`
 	Mtls *MTLSRequest `json:"mtls,omitempty"`
+	// true requires the workload to be bound to a single-version environment, that is, an environment whose policy is not versioned_urls.
 	WorkloadDomainAllowAccess *bool `json:"workload_domain_allow_access,omitempty"`
 	Bindings []WorkloadBindingRequest `json:"bindings,omitempty"`
 }
@@ -75,38 +75,6 @@ func (o *WorkloadRequest) GetNameOk() (*string, bool) {
 // SetName sets field value
 func (o *WorkloadRequest) SetName(v string) {
 	o.Name = v
-}
-
-// GetActive returns the Active field value if set, zero value otherwise.
-func (o *WorkloadRequest) GetActive() bool {
-	if o == nil || IsNil(o.Active) {
-		var ret bool
-		return ret
-	}
-	return *o.Active
-}
-
-// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *WorkloadRequest) GetActiveOk() (*bool, bool) {
-	if o == nil || IsNil(o.Active) {
-		return nil, false
-	}
-	return o.Active, true
-}
-
-// HasActive returns a boolean if a field has been set.
-func (o *WorkloadRequest) HasActive() bool {
-	if o != nil && !IsNil(o.Active) {
-		return true
-	}
-
-	return false
-}
-
-// SetActive gets a reference to the given bool and assigns it to the Active field.
-func (o *WorkloadRequest) SetActive(v bool) {
-	o.Active = &v
 }
 
 // GetInfrastructure returns the Infrastructure field value if set, zero value otherwise.
@@ -312,9 +280,6 @@ func (o WorkloadRequest) MarshalJSON() ([]byte, error) {
 func (o WorkloadRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
-	if !IsNil(o.Active) {
-		toSerialize["active"] = o.Active
-	}
 	if !IsNil(o.Infrastructure) {
 		toSerialize["infrastructure"] = o.Infrastructure
 	}

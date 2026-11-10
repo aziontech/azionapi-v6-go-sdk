@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Versions** | Pointer to **[]string** |  | [optional] 
+**Versions** | Pointer to **[]string** | Must include http1, http2. | [optional] 
 **HttpPorts** | Pointer to **[]int64** |  | [optional] 
 **HttpsPorts** | Pointer to **[]int64** |  | [optional] 
 **QuicPorts** | Pointer to **[]int64** |  | [optional] 

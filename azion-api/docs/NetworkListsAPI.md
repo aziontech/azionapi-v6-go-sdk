@@ -1,6 +1,6 @@
 # \NetworkListsAPI
 
-All URIs are relative to *https://api.azion.com/v6*
+All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ## DeleteNetworkList
 
-> DeleteResponse DeleteNetworkList(ctx, networkListId).Execute()
+> DeleteNetworkList(ctx, networkListId).Execute()
 
 Delete a Network List
 
@@ -105,13 +105,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NetworkListsAPI.DeleteNetworkList(context.Background(), networkListId).Execute()
+	r, err := apiClient.NetworkListsAPI.DeleteNetworkList(context.Background(), networkListId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkListsAPI.DeleteNetworkList``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteNetworkList`: DeleteResponse
-	fmt.Fprintf(os.Stdout, "Response from `NetworkListsAPI.DeleteNetworkList`: %v\n", resp)
 }
 ```
 
@@ -134,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteResponse**](DeleteResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -173,11 +171,11 @@ import (
 
 func main() {
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	id := int64(789) // int64 | Filter by id (accepts comma-separated values). (optional)
+	id := []int64{int64(123)} // []int64 | Filter by id (accepts comma-separated values). (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
-	listTypeIn := "listTypeIn_example" // string | Filter by list type (accepts comma-separated values). (optional)
+	listTypeIn := []string{"Inner_example"} // []string | Filter by list type (accepts comma-separated values). (optional)
 	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
 	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, list_type) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
@@ -208,11 +206,11 @@ Other parameters are passed through a pointer to a apiListNetworkListsRequest st
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **id** | **int64** | Filter by id (accepts comma-separated values). | 
+ **id** | **[]int64** | Filter by id (accepts comma-separated values). | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
- **listTypeIn** | **string** | Filter by list type (accepts comma-separated values). | 
+ **listTypeIn** | **[]string** | Filter by list type (accepts comma-separated values). | 
  **name** | **string** | Filter by name (case-insensitive, partial match). | 
  **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, list_type) | 
  **page** | **int64** | A page number within the paginated result set. | 

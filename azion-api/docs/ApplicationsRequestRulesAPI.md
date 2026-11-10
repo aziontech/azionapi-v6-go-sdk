@@ -1,6 +1,6 @@
 # \ApplicationsRequestRulesAPI
 
-All URIs are relative to *https://api.azion.com/v6*
+All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 ## CreateApplicationRequestRule
 
-> RequestPhaseRuleAsyncResponse CreateApplicationRequestRule(ctx, applicationId).RequestPhaseRuleRequest(requestPhaseRuleRequest).Execute()
+> RequestPhaseRuleResponse CreateApplicationRequestRule(ctx, applicationId).RequestPhaseRuleRequest(requestPhaseRuleRequest).Execute()
 
 Create an Application Request Rule
 
@@ -52,7 +52,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsRequestRulesAPI.CreateApplicationRequestRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateApplicationRequestRule`: RequestPhaseRuleAsyncResponse
+	// response from `CreateApplicationRequestRule`: RequestPhaseRuleResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsRequestRulesAPI.CreateApplicationRequestRule`: %v\n", resp)
 }
 ```
@@ -77,7 +77,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RequestPhaseRuleAsyncResponse**](RequestPhaseRuleAsyncResponse.md)
+[**RequestPhaseRuleResponse**](RequestPhaseRuleResponse.md)
 
 ### Authorization
 
@@ -95,7 +95,7 @@ Name | Type | Description  | Notes
 
 ## CreateApplicationVersionRequestRules
 
-> RequestPhaseRuleAsyncResponse CreateApplicationVersionRequestRules(ctx, applicationId, versionId).RequestPhaseRuleRequest(requestPhaseRuleRequest).Execute()
+> RequestPhaseRuleResponse CreateApplicationVersionRequestRules(ctx, applicationId, versionId).RequestPhaseRuleRequest(requestPhaseRuleRequest).Execute()
 
 Create an Application Request Rule
 
@@ -125,7 +125,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsRequestRulesAPI.CreateApplicationVersionRequestRules``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateApplicationVersionRequestRules`: RequestPhaseRuleAsyncResponse
+	// response from `CreateApplicationVersionRequestRules`: RequestPhaseRuleResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsRequestRulesAPI.CreateApplicationVersionRequestRules`: %v\n", resp)
 }
 ```
@@ -152,7 +152,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RequestPhaseRuleAsyncResponse**](RequestPhaseRuleAsyncResponse.md)
+[**RequestPhaseRuleResponse**](RequestPhaseRuleResponse.md)
 
 ### Authorization
 
@@ -170,7 +170,7 @@ Name | Type | Description  | Notes
 
 ## DeleteApplicationRequestRule
 
-> DeleteAsyncResponse DeleteApplicationRequestRule(ctx, applicationId, requestRuleId).Execute()
+> DeleteApplicationRequestRule(ctx, applicationId, requestRuleId).Execute()
 
 Delete an Application Request Rule
 
@@ -194,13 +194,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationsRequestRulesAPI.DeleteApplicationRequestRule(context.Background(), applicationId, requestRuleId).Execute()
+	r, err := apiClient.ApplicationsRequestRulesAPI.DeleteApplicationRequestRule(context.Background(), applicationId, requestRuleId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsRequestRulesAPI.DeleteApplicationRequestRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteApplicationRequestRule`: DeleteAsyncResponse
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationsRequestRulesAPI.DeleteApplicationRequestRule`: %v\n", resp)
 }
 ```
 
@@ -225,7 +223,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -243,7 +241,7 @@ Name | Type | Description  | Notes
 
 ## DeleteApplicationVersionRequestRule
 
-> DeleteAsyncResponse DeleteApplicationVersionRequestRule(ctx, applicationId, requestRuleId, versionId).Execute()
+> DeleteApplicationVersionRequestRule(ctx, applicationId, requestRuleId, versionId).Execute()
 
 Delete an Application Request Rule
 
@@ -268,13 +266,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationsRequestRulesAPI.DeleteApplicationVersionRequestRule(context.Background(), applicationId, requestRuleId, versionId).Execute()
+	r, err := apiClient.ApplicationsRequestRulesAPI.DeleteApplicationVersionRequestRule(context.Background(), applicationId, requestRuleId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsRequestRulesAPI.DeleteApplicationVersionRequestRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteApplicationVersionRequestRule`: DeleteAsyncResponse
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationsRequestRulesAPI.DeleteApplicationVersionRequestRule`: %v\n", resp)
 }
 ```
 
@@ -301,7 +297,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -342,7 +338,7 @@ func main() {
 	applicationId := int64(789) // int64 | A unique integer value identifying the application.
 	description := "description_example" // string | Filter by description (case-insensitive, partial match). (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	id := int64(789) // int64 | Filter by id (accepts comma-separated values). (optional)
+	id := []int64{int64(123)} // []int64 | Filter by id (accepts comma-separated values). (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
@@ -384,7 +380,7 @@ Name | Type | Description  | Notes
 
  **description** | **string** | Filter by description (case-insensitive, partial match). | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **id** | **int64** | Filter by id (accepts comma-separated values). | 
+ **id** | **[]int64** | Filter by id (accepts comma-separated values). | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
@@ -440,7 +436,7 @@ func main() {
 	versionId := "versionId_example" // string | The ULID identifier of the version.
 	description := "description_example" // string | Filter by description (case-insensitive, partial match). (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	id := int64(789) // int64 | Filter by id (accepts comma-separated values). (optional)
+	id := []int64{int64(123)} // []int64 | Filter by id (accepts comma-separated values). (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
@@ -484,7 +480,7 @@ Name | Type | Description  | Notes
 
  **description** | **string** | Filter by description (case-insensitive, partial match). | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **id** | **int64** | Filter by id (accepts comma-separated values). | 
+ **id** | **[]int64** | Filter by id (accepts comma-separated values). | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
@@ -516,7 +512,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateApplicationRequestRule
 
-> RequestPhaseRuleAsyncResponse PartialUpdateApplicationRequestRule(ctx, applicationId, requestRuleId).PatchedRequestPhaseRuleRequest(patchedRequestPhaseRuleRequest).Execute()
+> RequestPhaseRuleResponse PartialUpdateApplicationRequestRule(ctx, applicationId, requestRuleId).PatchedRequestPhaseRuleRequest(patchedRequestPhaseRuleRequest).Execute()
 
 Partially update an Application Request Rule
 
@@ -546,7 +542,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsRequestRulesAPI.PartialUpdateApplicationRequestRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateApplicationRequestRule`: RequestPhaseRuleAsyncResponse
+	// response from `PartialUpdateApplicationRequestRule`: RequestPhaseRuleResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsRequestRulesAPI.PartialUpdateApplicationRequestRule`: %v\n", resp)
 }
 ```
@@ -573,7 +569,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RequestPhaseRuleAsyncResponse**](RequestPhaseRuleAsyncResponse.md)
+[**RequestPhaseRuleResponse**](RequestPhaseRuleResponse.md)
 
 ### Authorization
 
@@ -591,7 +587,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateApplicationVersionRequestRule
 
-> RequestPhaseRuleAsyncResponse PartialUpdateApplicationVersionRequestRule(ctx, applicationId, requestRuleId, versionId).PatchedRequestPhaseRuleRequest(patchedRequestPhaseRuleRequest).Execute()
+> RequestPhaseRuleResponse PartialUpdateApplicationVersionRequestRule(ctx, applicationId, requestRuleId, versionId).PatchedRequestPhaseRuleRequest(patchedRequestPhaseRuleRequest).Execute()
 
 Partially update an Application Request Rule
 
@@ -622,7 +618,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsRequestRulesAPI.PartialUpdateApplicationVersionRequestRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateApplicationVersionRequestRule`: RequestPhaseRuleAsyncResponse
+	// response from `PartialUpdateApplicationVersionRequestRule`: RequestPhaseRuleResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsRequestRulesAPI.PartialUpdateApplicationVersionRequestRule`: %v\n", resp)
 }
 ```
@@ -651,7 +647,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RequestPhaseRuleAsyncResponse**](RequestPhaseRuleAsyncResponse.md)
+[**RequestPhaseRuleResponse**](RequestPhaseRuleResponse.md)
 
 ### Authorization
 
@@ -822,7 +818,7 @@ Name | Type | Description  | Notes
 
 ## UpdateApplicationRequestRule
 
-> RequestPhaseRuleAsyncResponse UpdateApplicationRequestRule(ctx, applicationId, requestRuleId).RequestPhaseRuleRequest(requestPhaseRuleRequest).Execute()
+> RequestPhaseRuleResponse UpdateApplicationRequestRule(ctx, applicationId, requestRuleId).RequestPhaseRuleRequest(requestPhaseRuleRequest).Execute()
 
 Update an Application Request Rule
 
@@ -852,7 +848,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsRequestRulesAPI.UpdateApplicationRequestRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateApplicationRequestRule`: RequestPhaseRuleAsyncResponse
+	// response from `UpdateApplicationRequestRule`: RequestPhaseRuleResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsRequestRulesAPI.UpdateApplicationRequestRule`: %v\n", resp)
 }
 ```
@@ -879,7 +875,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RequestPhaseRuleAsyncResponse**](RequestPhaseRuleAsyncResponse.md)
+[**RequestPhaseRuleResponse**](RequestPhaseRuleResponse.md)
 
 ### Authorization
 
@@ -971,7 +967,7 @@ Name | Type | Description  | Notes
 
 ## UpdateApplicationVersionRequestRule
 
-> RequestPhaseRuleAsyncResponse UpdateApplicationVersionRequestRule(ctx, applicationId, requestRuleId, versionId).RequestPhaseRuleRequest(requestPhaseRuleRequest).Execute()
+> RequestPhaseRuleResponse UpdateApplicationVersionRequestRule(ctx, applicationId, requestRuleId, versionId).RequestPhaseRuleRequest(requestPhaseRuleRequest).Execute()
 
 Update an Application Request Rule
 
@@ -1002,7 +998,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsRequestRulesAPI.UpdateApplicationVersionRequestRule``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateApplicationVersionRequestRule`: RequestPhaseRuleAsyncResponse
+	// response from `UpdateApplicationVersionRequestRule`: RequestPhaseRuleResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsRequestRulesAPI.UpdateApplicationVersionRequestRule`: %v\n", resp)
 }
 ```
@@ -1031,7 +1027,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RequestPhaseRuleAsyncResponse**](RequestPhaseRuleAsyncResponse.md)
+[**RequestPhaseRuleResponse**](RequestPhaseRuleResponse.md)
 
 ### Authorization
 

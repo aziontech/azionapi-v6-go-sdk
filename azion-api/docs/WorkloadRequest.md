@@ -5,12 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
-**Active** | Pointer to **bool** |  | [optional] 
 **Infrastructure** | Pointer to **int32** | * &#x60;1&#x60; - Production Infrastructure (All Locations) * &#x60;2&#x60; - Staging Infrastructure | [optional] 
 **Tls** | Pointer to [**TLSWorkloadRequest**](TLSWorkloadRequest.md) |  | [optional] 
 **Protocols** | Pointer to [**ProtocolsRequest**](ProtocolsRequest.md) |  | [optional] 
 **Mtls** | Pointer to [**MTLSRequest**](MTLSRequest.md) |  | [optional] 
-**WorkloadDomainAllowAccess** | Pointer to **bool** |  | [optional] 
+**WorkloadDomainAllowAccess** | Pointer to **bool** | true requires the workload to be bound to a single-version environment, that is, an environment whose policy is not versioned_urls. | [optional] 
 **Bindings** | Pointer to [**[]WorkloadBindingRequest**](WorkloadBindingRequest.md) |  | [optional] 
 
 ## Methods
@@ -51,31 +50,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-
-### GetActive
-
-`func (o *WorkloadRequest) GetActive() bool`
-
-GetActive returns the Active field if non-nil, zero value otherwise.
-
-### GetActiveOk
-
-`func (o *WorkloadRequest) GetActiveOk() (*bool, bool)`
-
-GetActiveOk returns a tuple with the Active field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetActive
-
-`func (o *WorkloadRequest) SetActive(v bool)`
-
-SetActive sets Active field to given value.
-
-### HasActive
-
-`func (o *WorkloadRequest) HasActive() bool`
-
-HasActive returns a boolean if a field has been set.
 
 ### GetInfrastructure
 

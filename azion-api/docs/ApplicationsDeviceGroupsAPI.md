@@ -1,6 +1,6 @@
 # \ApplicationsDeviceGroupsAPI
 
-All URIs are relative to *https://api.azion.com/v6*
+All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 ## CreateApplicationVersionDeviceGroups
 
-> DeviceGroupAsyncResponse CreateApplicationVersionDeviceGroups(ctx, applicationId, versionId).DeviceGroupRequest(deviceGroupRequest).Execute()
+> DeviceGroupResponse CreateApplicationVersionDeviceGroups(ctx, applicationId, versionId).DeviceGroupRequest(deviceGroupRequest).Execute()
 
 Create an Applications Device Group
 
@@ -51,7 +51,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsDeviceGroupsAPI.CreateApplicationVersionDeviceGroups``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateApplicationVersionDeviceGroups`: DeviceGroupAsyncResponse
+	// response from `CreateApplicationVersionDeviceGroups`: DeviceGroupResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsDeviceGroupsAPI.CreateApplicationVersionDeviceGroups`: %v\n", resp)
 }
 ```
@@ -78,7 +78,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceGroupAsyncResponse**](DeviceGroupAsyncResponse.md)
+[**DeviceGroupResponse**](DeviceGroupResponse.md)
 
 ### Authorization
 
@@ -96,7 +96,7 @@ Name | Type | Description  | Notes
 
 ## CreateDeviceGroup
 
-> DeviceGroupAsyncResponse CreateDeviceGroup(ctx, applicationId).DeviceGroupRequest(deviceGroupRequest).Execute()
+> DeviceGroupResponse CreateDeviceGroup(ctx, applicationId).DeviceGroupRequest(deviceGroupRequest).Execute()
 
 Create an Applications Device Group
 
@@ -125,7 +125,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsDeviceGroupsAPI.CreateDeviceGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateDeviceGroup`: DeviceGroupAsyncResponse
+	// response from `CreateDeviceGroup`: DeviceGroupResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsDeviceGroupsAPI.CreateDeviceGroup`: %v\n", resp)
 }
 ```
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceGroupAsyncResponse**](DeviceGroupAsyncResponse.md)
+[**DeviceGroupResponse**](DeviceGroupResponse.md)
 
 ### Authorization
 
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## DeleteApplicationVersionDeviceGroup
 
-> DeleteAsyncResponse DeleteApplicationVersionDeviceGroup(ctx, applicationId, deviceGroupId, versionId).Execute()
+> DeleteApplicationVersionDeviceGroup(ctx, applicationId, deviceGroupId, versionId).Execute()
 
 Delete an Applications Device Group
 
@@ -193,13 +193,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationsDeviceGroupsAPI.DeleteApplicationVersionDeviceGroup(context.Background(), applicationId, deviceGroupId, versionId).Execute()
+	r, err := apiClient.ApplicationsDeviceGroupsAPI.DeleteApplicationVersionDeviceGroup(context.Background(), applicationId, deviceGroupId, versionId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsDeviceGroupsAPI.DeleteApplicationVersionDeviceGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteApplicationVersionDeviceGroup`: DeleteAsyncResponse
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationsDeviceGroupsAPI.DeleteApplicationVersionDeviceGroup`: %v\n", resp)
 }
 ```
 
@@ -226,7 +224,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -244,7 +242,7 @@ Name | Type | Description  | Notes
 
 ## DeleteDeviceGroup
 
-> DeleteAsyncResponse DeleteDeviceGroup(ctx, applicationId, deviceGroupId).Execute()
+> DeleteDeviceGroup(ctx, applicationId, deviceGroupId).Execute()
 
 Delete an Applications Device Group
 
@@ -268,13 +266,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationsDeviceGroupsAPI.DeleteDeviceGroup(context.Background(), applicationId, deviceGroupId).Execute()
+	r, err := apiClient.ApplicationsDeviceGroupsAPI.DeleteDeviceGroup(context.Background(), applicationId, deviceGroupId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsDeviceGroupsAPI.DeleteDeviceGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteDeviceGroup`: DeleteAsyncResponse
-	fmt.Fprintf(os.Stdout, "Response from `ApplicationsDeviceGroupsAPI.DeleteDeviceGroup`: %v\n", resp)
 }
 ```
 
@@ -299,7 +295,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -339,7 +335,7 @@ func main() {
 	applicationId := int64(789) // int64 | A unique integer value identifying the application.
 	versionId := "versionId_example" // string | The ULID identifier of the version.
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	id := int64(789) // int64 | Filter by id (accepts comma-separated values). (optional)
+	id := []int64{int64(123)} // []int64 | Filter by id (accepts comma-separated values). (optional)
 	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
 	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, user_agent) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
@@ -378,7 +374,7 @@ Name | Type | Description  | Notes
 
 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **id** | **int64** | Filter by id (accepts comma-separated values). | 
+ **id** | **[]int64** | Filter by id (accepts comma-separated values). | 
  **name** | **string** | Filter by name (case-insensitive, partial match). | 
  **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, user_agent) | 
  **page** | **int64** | A page number within the paginated result set. | 
@@ -427,7 +423,7 @@ import (
 func main() {
 	applicationId := int64(789) // int64 | A unique integer value identifying the application.
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	id := int64(789) // int64 | Filter by id (accepts comma-separated values). (optional)
+	id := []int64{int64(123)} // []int64 | Filter by id (accepts comma-separated values). (optional)
 	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
 	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, user_agent) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
@@ -464,7 +460,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **id** | **int64** | Filter by id (accepts comma-separated values). | 
+ **id** | **[]int64** | Filter by id (accepts comma-separated values). | 
  **name** | **string** | Filter by name (case-insensitive, partial match). | 
  **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, user_agent) | 
  **page** | **int64** | A page number within the paginated result set. | 
@@ -492,7 +488,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateApplicationVersionDeviceGroup
 
-> DeviceGroupAsyncResponse PartialUpdateApplicationVersionDeviceGroup(ctx, applicationId, deviceGroupId, versionId).PatchedDeviceGroupRequest(patchedDeviceGroupRequest).Execute()
+> DeviceGroupResponse PartialUpdateApplicationVersionDeviceGroup(ctx, applicationId, deviceGroupId, versionId).PatchedDeviceGroupRequest(patchedDeviceGroupRequest).Execute()
 
 Partially update an Applications Device Group
 
@@ -523,7 +519,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsDeviceGroupsAPI.PartialUpdateApplicationVersionDeviceGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateApplicationVersionDeviceGroup`: DeviceGroupAsyncResponse
+	// response from `PartialUpdateApplicationVersionDeviceGroup`: DeviceGroupResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsDeviceGroupsAPI.PartialUpdateApplicationVersionDeviceGroup`: %v\n", resp)
 }
 ```
@@ -552,7 +548,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceGroupAsyncResponse**](DeviceGroupAsyncResponse.md)
+[**DeviceGroupResponse**](DeviceGroupResponse.md)
 
 ### Authorization
 
@@ -570,7 +566,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateDeviceGroup
 
-> DeviceGroupAsyncResponse PartialUpdateDeviceGroup(ctx, applicationId, deviceGroupId).PatchedDeviceGroupRequest(patchedDeviceGroupRequest).Execute()
+> DeviceGroupResponse PartialUpdateDeviceGroup(ctx, applicationId, deviceGroupId).PatchedDeviceGroupRequest(patchedDeviceGroupRequest).Execute()
 
 Partially update an Applications Device Group
 
@@ -600,7 +596,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsDeviceGroupsAPI.PartialUpdateDeviceGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateDeviceGroup`: DeviceGroupAsyncResponse
+	// response from `PartialUpdateDeviceGroup`: DeviceGroupResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsDeviceGroupsAPI.PartialUpdateDeviceGroup`: %v\n", resp)
 }
 ```
@@ -627,7 +623,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceGroupAsyncResponse**](DeviceGroupAsyncResponse.md)
+[**DeviceGroupResponse**](DeviceGroupResponse.md)
 
 ### Authorization
 
@@ -798,7 +794,7 @@ Name | Type | Description  | Notes
 
 ## UpdateApplicationVersionDeviceGroup
 
-> DeviceGroupAsyncResponse UpdateApplicationVersionDeviceGroup(ctx, applicationId, deviceGroupId, versionId).DeviceGroupRequest(deviceGroupRequest).Execute()
+> DeviceGroupResponse UpdateApplicationVersionDeviceGroup(ctx, applicationId, deviceGroupId, versionId).DeviceGroupRequest(deviceGroupRequest).Execute()
 
 Update an Applications Device Group
 
@@ -829,7 +825,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsDeviceGroupsAPI.UpdateApplicationVersionDeviceGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateApplicationVersionDeviceGroup`: DeviceGroupAsyncResponse
+	// response from `UpdateApplicationVersionDeviceGroup`: DeviceGroupResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsDeviceGroupsAPI.UpdateApplicationVersionDeviceGroup`: %v\n", resp)
 }
 ```
@@ -858,7 +854,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceGroupAsyncResponse**](DeviceGroupAsyncResponse.md)
+[**DeviceGroupResponse**](DeviceGroupResponse.md)
 
 ### Authorization
 
@@ -876,7 +872,7 @@ Name | Type | Description  | Notes
 
 ## UpdateDeviceGroup
 
-> DeviceGroupAsyncResponse UpdateDeviceGroup(ctx, applicationId, deviceGroupId).DeviceGroupRequest(deviceGroupRequest).Execute()
+> DeviceGroupResponse UpdateDeviceGroup(ctx, applicationId, deviceGroupId).DeviceGroupRequest(deviceGroupRequest).Execute()
 
 Update an Applications Device Group
 
@@ -906,7 +902,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsDeviceGroupsAPI.UpdateDeviceGroup``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateDeviceGroup`: DeviceGroupAsyncResponse
+	// response from `UpdateDeviceGroup`: DeviceGroupResponse
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationsDeviceGroupsAPI.UpdateDeviceGroup`: %v\n", resp)
 }
 ```
@@ -933,7 +929,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeviceGroupAsyncResponse**](DeviceGroupAsyncResponse.md)
+[**DeviceGroupResponse**](DeviceGroupResponse.md)
 
 ### Authorization
 

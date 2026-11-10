@@ -21,7 +21,7 @@ import (
 // checks if the CertificateSigningRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &CertificateSigningRequest{}
 
-// CertificateSigningRequest struct for CertificateSigningRequest
+// CertificateSigningRequest Signing request payload with build state fields (``version_id``, ``version_state``).
 type CertificateSigningRequest struct {
 	Id *int64 `json:"id,omitempty"`
 	Name string `json:"name"`
@@ -30,16 +30,13 @@ type CertificateSigningRequest struct {
 	Issuer NullableString `json:"issuer,omitempty"`
 	SubjectName []string `json:"subject_name,omitempty"`
 	Validity NullableString `json:"validity,omitempty"`
-	// The value can't be changed after the certificate creation.  * `edge_certificate` - Edge Certificate * `trusted_ca_certificate` - Trusted CA Certificate
+	// The value can't be changed after the certificate creation.  * `edge_certificate` - Certificate * `trusted_ca_certificate` - Trusted CA Certificate
 	Type *string `json:"type,omitempty"`
 	Managed *bool `json:"managed,omitempty"`
-	Status *string `json:"status,omitempty"`
-	StatusDetail *string `json:"status_detail,omitempty"`
 	Csr NullableString `json:"csr,omitempty"`
 	Challenge *string `json:"challenge,omitempty"`
 	Authority *string `json:"authority,omitempty"`
 	KeyAlgorithm *string `json:"key_algorithm,omitempty"`
-	Active *bool `json:"active,omitempty"`
 	ProductVersion *string `json:"product_version,omitempty"`
 	LastEditor *string `json:"last_editor,omitempty"`
 	// Timestamp of the certificate creation on the platform.
@@ -56,6 +53,10 @@ type CertificateSigningRequest struct {
 	Organization string `json:"organization"`
 	OrganizationUnity string `json:"organization_unity"`
 	Email string `json:"email"`
+	// ID of the version metadata (use in /versions/{id} URLs)
+	VersionId NullableString `json:"version_id,omitempty"`
+	// Build state of this version (queued, building, ready, error, ...)
+	VersionState NullableString `json:"version_state,omitempty"`
 }
 
 type _CertificateSigningRequest CertificateSigningRequest
@@ -405,70 +406,6 @@ func (o *CertificateSigningRequest) SetManaged(v bool) {
 	o.Managed = &v
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise.
-func (o *CertificateSigningRequest) GetStatus() string {
-	if o == nil || IsNil(o.Status) {
-		var ret string
-		return ret
-	}
-	return *o.Status
-}
-
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CertificateSigningRequest) GetStatusOk() (*string, bool) {
-	if o == nil || IsNil(o.Status) {
-		return nil, false
-	}
-	return o.Status, true
-}
-
-// HasStatus returns a boolean if a field has been set.
-func (o *CertificateSigningRequest) HasStatus() bool {
-	if o != nil && !IsNil(o.Status) {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *CertificateSigningRequest) SetStatus(v string) {
-	o.Status = &v
-}
-
-// GetStatusDetail returns the StatusDetail field value if set, zero value otherwise.
-func (o *CertificateSigningRequest) GetStatusDetail() string {
-	if o == nil || IsNil(o.StatusDetail) {
-		var ret string
-		return ret
-	}
-	return *o.StatusDetail
-}
-
-// GetStatusDetailOk returns a tuple with the StatusDetail field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CertificateSigningRequest) GetStatusDetailOk() (*string, bool) {
-	if o == nil || IsNil(o.StatusDetail) {
-		return nil, false
-	}
-	return o.StatusDetail, true
-}
-
-// HasStatusDetail returns a boolean if a field has been set.
-func (o *CertificateSigningRequest) HasStatusDetail() bool {
-	if o != nil && !IsNil(o.StatusDetail) {
-		return true
-	}
-
-	return false
-}
-
-// SetStatusDetail gets a reference to the given string and assigns it to the StatusDetail field.
-func (o *CertificateSigningRequest) SetStatusDetail(v string) {
-	o.StatusDetail = &v
-}
-
 // GetCsr returns the Csr field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CertificateSigningRequest) GetCsr() string {
 	if o == nil || IsNil(o.Csr.Get()) {
@@ -605,38 +542,6 @@ func (o *CertificateSigningRequest) HasKeyAlgorithm() bool {
 // SetKeyAlgorithm gets a reference to the given string and assigns it to the KeyAlgorithm field.
 func (o *CertificateSigningRequest) SetKeyAlgorithm(v string) {
 	o.KeyAlgorithm = &v
-}
-
-// GetActive returns the Active field value if set, zero value otherwise.
-func (o *CertificateSigningRequest) GetActive() bool {
-	if o == nil || IsNil(o.Active) {
-		var ret bool
-		return ret
-	}
-	return *o.Active
-}
-
-// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CertificateSigningRequest) GetActiveOk() (*bool, bool) {
-	if o == nil || IsNil(o.Active) {
-		return nil, false
-	}
-	return o.Active, true
-}
-
-// HasActive returns a boolean if a field has been set.
-func (o *CertificateSigningRequest) HasActive() bool {
-	if o != nil && !IsNil(o.Active) {
-		return true
-	}
-
-	return false
-}
-
-// SetActive gets a reference to the given bool and assigns it to the Active field.
-func (o *CertificateSigningRequest) SetActive(v bool) {
-	o.Active = &v
 }
 
 // GetProductVersion returns the ProductVersion field value if set, zero value otherwise.
@@ -1019,6 +924,90 @@ func (o *CertificateSigningRequest) SetEmail(v string) {
 	o.Email = v
 }
 
+// GetVersionId returns the VersionId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CertificateSigningRequest) GetVersionId() string {
+	if o == nil || IsNil(o.VersionId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.VersionId.Get()
+}
+
+// GetVersionIdOk returns a tuple with the VersionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CertificateSigningRequest) GetVersionIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.VersionId.Get(), o.VersionId.IsSet()
+}
+
+// HasVersionId returns a boolean if a field has been set.
+func (o *CertificateSigningRequest) HasVersionId() bool {
+	if o != nil && o.VersionId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetVersionId gets a reference to the given NullableString and assigns it to the VersionId field.
+func (o *CertificateSigningRequest) SetVersionId(v string) {
+	o.VersionId.Set(&v)
+}
+// SetVersionIdNil sets the value for VersionId to be an explicit nil
+func (o *CertificateSigningRequest) SetVersionIdNil() {
+	o.VersionId.Set(nil)
+}
+
+// UnsetVersionId ensures that no value is present for VersionId, not even an explicit nil
+func (o *CertificateSigningRequest) UnsetVersionId() {
+	o.VersionId.Unset()
+}
+
+// GetVersionState returns the VersionState field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CertificateSigningRequest) GetVersionState() string {
+	if o == nil || IsNil(o.VersionState.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.VersionState.Get()
+}
+
+// GetVersionStateOk returns a tuple with the VersionState field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CertificateSigningRequest) GetVersionStateOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.VersionState.Get(), o.VersionState.IsSet()
+}
+
+// HasVersionState returns a boolean if a field has been set.
+func (o *CertificateSigningRequest) HasVersionState() bool {
+	if o != nil && o.VersionState.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetVersionState gets a reference to the given NullableString and assigns it to the VersionState field.
+func (o *CertificateSigningRequest) SetVersionState(v string) {
+	o.VersionState.Set(&v)
+}
+// SetVersionStateNil sets the value for VersionState to be an explicit nil
+func (o *CertificateSigningRequest) SetVersionStateNil() {
+	o.VersionState.Set(nil)
+}
+
+// UnsetVersionState ensures that no value is present for VersionState, not even an explicit nil
+func (o *CertificateSigningRequest) UnsetVersionState() {
+	o.VersionState.Unset()
+}
+
 func (o CertificateSigningRequest) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -1054,12 +1043,6 @@ func (o CertificateSigningRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Managed) {
 		toSerialize["managed"] = o.Managed
 	}
-	if !IsNil(o.Status) {
-		toSerialize["status"] = o.Status
-	}
-	if !IsNil(o.StatusDetail) {
-		toSerialize["status_detail"] = o.StatusDetail
-	}
 	if o.Csr.IsSet() {
 		toSerialize["csr"] = o.Csr.Get()
 	}
@@ -1071,9 +1054,6 @@ func (o CertificateSigningRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.KeyAlgorithm) {
 		toSerialize["key_algorithm"] = o.KeyAlgorithm
-	}
-	if !IsNil(o.Active) {
-		toSerialize["active"] = o.Active
 	}
 	if !IsNil(o.ProductVersion) {
 		toSerialize["product_version"] = o.ProductVersion
@@ -1100,6 +1080,12 @@ func (o CertificateSigningRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["organization"] = o.Organization
 	toSerialize["organization_unity"] = o.OrganizationUnity
 	toSerialize["email"] = o.Email
+	if o.VersionId.IsSet() {
+		toSerialize["version_id"] = o.VersionId.Get()
+	}
+	if o.VersionState.IsSet() {
+		toSerialize["version_state"] = o.VersionState.Get()
+	}
 	return toSerialize, nil
 }
 

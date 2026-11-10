@@ -20,6 +20,7 @@ var _ MappedNullable = &PatchedHttpProtocolRequest{}
 
 // PatchedHttpProtocolRequest struct for PatchedHttpProtocolRequest
 type PatchedHttpProtocolRequest struct {
+	// Must include http1, http2.
 	Versions []string `json:"versions,omitempty"`
 	HttpPorts []int64 `json:"http_ports,omitempty"`
 	HttpsPorts []int64 `json:"https_ports,omitempty"`

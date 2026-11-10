@@ -1,6 +1,6 @@
 # \WAFsExceptionsAPI
 
-All URIs are relative to *https://api.azion.com/v6*
+All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 ## CreateWafException
 
-> WAFRuleAsyncResponse CreateWafException(ctx, wafId).WAFRuleRequest(wAFRuleRequest).Execute()
+> WAFRuleResponse CreateWafException(ctx, wafId).WAFRuleRequest(wAFRuleRequest).Execute()
 
 Create an Exception for a Web Application Firewall (WAF)
 
@@ -50,7 +50,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WAFsExceptionsAPI.CreateWafException``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateWafException`: WAFRuleAsyncResponse
+	// response from `CreateWafException`: WAFRuleResponse
 	fmt.Fprintf(os.Stdout, "Response from `WAFsExceptionsAPI.CreateWafException`: %v\n", resp)
 }
 ```
@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WAFRuleAsyncResponse**](WAFRuleAsyncResponse.md)
+[**WAFRuleResponse**](WAFRuleResponse.md)
 
 ### Authorization
 
@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 
 ## CreateWafVersionExceptions
 
-> WAFRuleAsyncResponse CreateWafVersionExceptions(ctx, versionId, wafId).WAFRuleRequest(wAFRuleRequest).Execute()
+> WAFRuleResponse CreateWafVersionExceptions(ctx, versionId, wafId).WAFRuleRequest(wAFRuleRequest).Execute()
 
 Create an Exception for a Web Application Firewall (WAF)
 
@@ -123,7 +123,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WAFsExceptionsAPI.CreateWafVersionExceptions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateWafVersionExceptions`: WAFRuleAsyncResponse
+	// response from `CreateWafVersionExceptions`: WAFRuleResponse
 	fmt.Fprintf(os.Stdout, "Response from `WAFsExceptionsAPI.CreateWafVersionExceptions`: %v\n", resp)
 }
 ```
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WAFRuleAsyncResponse**](WAFRuleAsyncResponse.md)
+[**WAFRuleResponse**](WAFRuleResponse.md)
 
 ### Authorization
 
@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 ## DeleteWafException
 
-> DeleteAsyncResponse DeleteWafException(ctx, exceptionId, wafId).Execute()
+> DeleteWafException(ctx, exceptionId, wafId).Execute()
 
 Delete an Exception from a Web Application Firewall (WAF)
 
@@ -192,13 +192,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WAFsExceptionsAPI.DeleteWafException(context.Background(), exceptionId, wafId).Execute()
+	r, err := apiClient.WAFsExceptionsAPI.DeleteWafException(context.Background(), exceptionId, wafId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WAFsExceptionsAPI.DeleteWafException``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteWafException`: DeleteAsyncResponse
-	fmt.Fprintf(os.Stdout, "Response from `WAFsExceptionsAPI.DeleteWafException`: %v\n", resp)
 }
 ```
 
@@ -223,7 +221,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -241,7 +239,7 @@ Name | Type | Description  | Notes
 
 ## DeleteWafVersionException
 
-> DeleteAsyncResponse DeleteWafVersionException(ctx, exceptionId, versionId, wafId).Execute()
+> DeleteWafVersionException(ctx, exceptionId, versionId, wafId).Execute()
 
 Delete an Exception from a Web Application Firewall (WAF)
 
@@ -266,13 +264,11 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WAFsExceptionsAPI.DeleteWafVersionException(context.Background(), exceptionId, versionId, wafId).Execute()
+	r, err := apiClient.WAFsExceptionsAPI.DeleteWafVersionException(context.Background(), exceptionId, versionId, wafId).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WAFsExceptionsAPI.DeleteWafVersionException``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeleteWafVersionException`: DeleteAsyncResponse
-	fmt.Fprintf(os.Stdout, "Response from `WAFsExceptionsAPI.DeleteWafVersionException`: %v\n", resp)
 }
 ```
 
@@ -299,7 +295,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**DeleteAsyncResponse**](DeleteAsyncResponse.md)
+ (empty response body)
 
 ### Authorization
 
@@ -342,7 +338,7 @@ func main() {
 	createdAtLte := time.Now() // time.Time | Filter by creation date (less than or equal). (optional)
 	description := "description_example" // string | Filter by description (case-insensitive, partial match). (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	id := int64(789) // int64 | Filter by id (accepts comma-separated values). (optional)
+	id := []int64{int64(123)} // []int64 | Filter by id (accepts comma-separated values). (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
@@ -384,7 +380,7 @@ Name | Type | Description  | Notes
  **createdAtLte** | **time.Time** | Filter by creation date (less than or equal). | 
  **description** | **string** | Filter by description (case-insensitive, partial match). | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **id** | **int64** | Filter by id (accepts comma-separated values). | 
+ **id** | **[]int64** | Filter by id (accepts comma-separated values). | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
@@ -440,7 +436,7 @@ func main() {
 	createdAtLte := time.Now() // time.Time | Filter by creation date (less than or equal). (optional)
 	description := "description_example" // string | Filter by description (case-insensitive, partial match). (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	id := int64(789) // int64 | Filter by id (accepts comma-separated values). (optional)
+	id := []int64{int64(123)} // []int64 | Filter by id (accepts comma-separated values). (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
@@ -484,7 +480,7 @@ Name | Type | Description  | Notes
  **createdAtLte** | **time.Time** | Filter by creation date (less than or equal). | 
  **description** | **string** | Filter by description (case-insensitive, partial match). | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **id** | **int64** | Filter by id (accepts comma-separated values). | 
+ **id** | **[]int64** | Filter by id (accepts comma-separated values). | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
@@ -514,7 +510,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateWafException
 
-> WAFRuleAsyncResponse PartialUpdateWafException(ctx, exceptionId, wafId).PatchedWAFRuleRequest(patchedWAFRuleRequest).Execute()
+> WAFRuleResponse PartialUpdateWafException(ctx, exceptionId, wafId).PatchedWAFRuleRequest(patchedWAFRuleRequest).Execute()
 
 Partially update an Exception for a Web Application Firewall (WAF)
 
@@ -544,7 +540,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WAFsExceptionsAPI.PartialUpdateWafException``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateWafException`: WAFRuleAsyncResponse
+	// response from `PartialUpdateWafException`: WAFRuleResponse
 	fmt.Fprintf(os.Stdout, "Response from `WAFsExceptionsAPI.PartialUpdateWafException`: %v\n", resp)
 }
 ```
@@ -571,7 +567,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WAFRuleAsyncResponse**](WAFRuleAsyncResponse.md)
+[**WAFRuleResponse**](WAFRuleResponse.md)
 
 ### Authorization
 
@@ -589,7 +585,7 @@ Name | Type | Description  | Notes
 
 ## PartialUpdateWafVersionException
 
-> WAFRuleAsyncResponse PartialUpdateWafVersionException(ctx, exceptionId, versionId, wafId).PatchedWAFRuleRequest(patchedWAFRuleRequest).Execute()
+> WAFRuleResponse PartialUpdateWafVersionException(ctx, exceptionId, versionId, wafId).PatchedWAFRuleRequest(patchedWAFRuleRequest).Execute()
 
 Partially update an Exception for a Web Application Firewall (WAF)
 
@@ -620,7 +616,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WAFsExceptionsAPI.PartialUpdateWafVersionException``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `PartialUpdateWafVersionException`: WAFRuleAsyncResponse
+	// response from `PartialUpdateWafVersionException`: WAFRuleResponse
 	fmt.Fprintf(os.Stdout, "Response from `WAFsExceptionsAPI.PartialUpdateWafVersionException`: %v\n", resp)
 }
 ```
@@ -649,7 +645,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WAFRuleAsyncResponse**](WAFRuleAsyncResponse.md)
+[**WAFRuleResponse**](WAFRuleResponse.md)
 
 ### Authorization
 
@@ -820,7 +816,7 @@ Name | Type | Description  | Notes
 
 ## UpdateWafException
 
-> WAFRuleAsyncResponse UpdateWafException(ctx, exceptionId, wafId).WAFRuleRequest(wAFRuleRequest).Execute()
+> WAFRuleResponse UpdateWafException(ctx, exceptionId, wafId).WAFRuleRequest(wAFRuleRequest).Execute()
 
 Update an Exception for a Web Application Firewall (WAF)
 
@@ -850,7 +846,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WAFsExceptionsAPI.UpdateWafException``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateWafException`: WAFRuleAsyncResponse
+	// response from `UpdateWafException`: WAFRuleResponse
 	fmt.Fprintf(os.Stdout, "Response from `WAFsExceptionsAPI.UpdateWafException`: %v\n", resp)
 }
 ```
@@ -877,7 +873,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WAFRuleAsyncResponse**](WAFRuleAsyncResponse.md)
+[**WAFRuleResponse**](WAFRuleResponse.md)
 
 ### Authorization
 
@@ -895,7 +891,7 @@ Name | Type | Description  | Notes
 
 ## UpdateWafVersionException
 
-> WAFRuleAsyncResponse UpdateWafVersionException(ctx, exceptionId, versionId, wafId).WAFRuleRequest(wAFRuleRequest).Execute()
+> WAFRuleResponse UpdateWafVersionException(ctx, exceptionId, versionId, wafId).WAFRuleRequest(wAFRuleRequest).Execute()
 
 Update an Exception for a Web Application Firewall (WAF)
 
@@ -926,7 +922,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `WAFsExceptionsAPI.UpdateWafVersionException``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateWafVersionException`: WAFRuleAsyncResponse
+	// response from `UpdateWafVersionException`: WAFRuleResponse
 	fmt.Fprintf(os.Stdout, "Response from `WAFsExceptionsAPI.UpdateWafVersionException`: %v\n", resp)
 }
 ```
@@ -955,7 +951,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**WAFRuleAsyncResponse**](WAFRuleAsyncResponse.md)
+[**WAFRuleResponse**](WAFRuleResponse.md)
 
 ### Authorization
 
