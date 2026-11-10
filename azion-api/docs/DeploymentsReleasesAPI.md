@@ -417,7 +417,7 @@ func main() {
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	search := "search_example" // string | A search term to filter results. Searches across the following fields: id, deployment_name. (optional)
 	state := []string{"Inner_example"} // []string | Filter by one or more lifecycle states, comma-separated (`state=ready,building`). `deleted` is never listed. `deleting` stays listed so a stuck delete can be found. (optional)
-	trafficRole := "trafficRole_example" // string | `active` returns the releases currently serving traffic, resolved per parent `deployment_policy`: `single_version` → ACTIVE/CANDIDATE, `versioned_urls` → ACTIVE/VALID_URL. Any other value matches nothing. (optional)
+	trafficRole := "trafficRole_example" // string | `active` returns the releases currently serving traffic, resolved per parent `deployment_policy`: `single_version` → ACTIVE/CANDIDATE, `versioned_urls` → ACTIVE/VALID_URL, `latest` → ACTIVE. Any other value matches nothing. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -451,7 +451,7 @@ Name | Type | Description  | Notes
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **search** | **string** | A search term to filter results. Searches across the following fields: id, deployment_name. | 
  **state** | **[]string** | Filter by one or more lifecycle states, comma-separated (&#x60;state&#x3D;ready,building&#x60;). &#x60;deleted&#x60; is never listed. &#x60;deleting&#x60; stays listed so a stuck delete can be found. | 
- **trafficRole** | **string** | &#x60;active&#x60; returns the releases currently serving traffic, resolved per parent &#x60;deployment_policy&#x60;: &#x60;single_version&#x60; → ACTIVE/CANDIDATE, &#x60;versioned_urls&#x60; → ACTIVE/VALID_URL. Any other value matches nothing. | 
+ **trafficRole** | **string** | &#x60;active&#x60; returns the releases currently serving traffic, resolved per parent &#x60;deployment_policy&#x60;: &#x60;single_version&#x60; → ACTIVE/CANDIDATE, &#x60;versioned_urls&#x60; → ACTIVE/VALID_URL, &#x60;latest&#x60; → ACTIVE. Any other value matches nothing. | 
 
 ### Return type
 
@@ -498,7 +498,7 @@ func main() {
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	state := []string{"Inner_example"} // []string | Filter by one or more lifecycle states, comma-separated (`state=ready,building`). `deleted` is never listed. `deleting` stays listed so a stuck delete can be found. (optional)
-	trafficRole := "trafficRole_example" // string | `active` returns the releases currently serving traffic, resolved per parent `deployment_policy`: `single_version` → ACTIVE/CANDIDATE, `versioned_urls` → ACTIVE/VALID_URL. Any other value matches nothing. (optional)
+	trafficRole := "trafficRole_example" // string | `active` returns the releases currently serving traffic, resolved per parent `deployment_policy`: `single_version` → ACTIVE/CANDIDATE, `versioned_urls` → ACTIVE/VALID_URL, `latest` → ACTIVE. Any other value matches nothing. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -533,7 +533,7 @@ Name | Type | Description  | Notes
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **state** | **[]string** | Filter by one or more lifecycle states, comma-separated (&#x60;state&#x3D;ready,building&#x60;). &#x60;deleted&#x60; is never listed. &#x60;deleting&#x60; stays listed so a stuck delete can be found. | 
- **trafficRole** | **string** | &#x60;active&#x60; returns the releases currently serving traffic, resolved per parent &#x60;deployment_policy&#x60;: &#x60;single_version&#x60; → ACTIVE/CANDIDATE, &#x60;versioned_urls&#x60; → ACTIVE/VALID_URL. Any other value matches nothing. | 
+ **trafficRole** | **string** | &#x60;active&#x60; returns the releases currently serving traffic, resolved per parent &#x60;deployment_policy&#x60;: &#x60;single_version&#x60; → ACTIVE/CANDIDATE, &#x60;versioned_urls&#x60; → ACTIVE/VALID_URL, &#x60;latest&#x60; → ACTIVE. Any other value matches nothing. | 
 
 ### Return type
 

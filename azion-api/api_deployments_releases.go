@@ -1225,7 +1225,7 @@ func (r ApiListAccountReleasesRequest) State(state []string) ApiListAccountRelea
 	return r
 }
 
-// &#x60;active&#x60; returns the releases currently serving traffic, resolved per parent &#x60;deployment_policy&#x60;: &#x60;single_version&#x60; → ACTIVE/CANDIDATE, &#x60;versioned_urls&#x60; → ACTIVE/VALID_URL. Any other value matches nothing.
+// &#x60;active&#x60; returns the releases currently serving traffic, resolved per parent &#x60;deployment_policy&#x60;: &#x60;single_version&#x60; → ACTIVE/CANDIDATE, &#x60;versioned_urls&#x60; → ACTIVE/VALID_URL, &#x60;latest&#x60; → ACTIVE. Any other value matches nothing.
 func (r ApiListAccountReleasesRequest) TrafficRole(trafficRole string) ApiListAccountReleasesRequest {
 	r.trafficRole = &trafficRole
 	return r
@@ -1487,7 +1487,7 @@ func (r ApiListReleasesRequest) State(state []string) ApiListReleasesRequest {
 	return r
 }
 
-// &#x60;active&#x60; returns the releases currently serving traffic, resolved per parent &#x60;deployment_policy&#x60;: &#x60;single_version&#x60; → ACTIVE/CANDIDATE, &#x60;versioned_urls&#x60; → ACTIVE/VALID_URL. Any other value matches nothing.
+// &#x60;active&#x60; returns the releases currently serving traffic, resolved per parent &#x60;deployment_policy&#x60;: &#x60;single_version&#x60; → ACTIVE/CANDIDATE, &#x60;versioned_urls&#x60; → ACTIVE/VALID_URL, &#x60;latest&#x60; → ACTIVE. Any other value matches nothing.
 func (r ApiListReleasesRequest) TrafficRole(trafficRole string) ApiListReleasesRequest {
 	r.trafficRole = &trafficRole
 	return r

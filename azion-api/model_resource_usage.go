@@ -24,7 +24,7 @@ type ResourceUsage struct {
 	Name *string `json:"name,omitempty"`
 	// * `draft` - draft * `queued` - queued * `building` - building * `ready` - ready * `error` - error * `canceled` - canceled * `archiving` - archiving * `archived` - archived * `deleting` - deleting * `deleted` - deleted
 	VersionState *string `json:"version_state,omitempty"`
-	// * `single_version` - single_version * `versioned_urls` - versioned_urls
+	// * `single_version` - single_version * `versioned_urls` - versioned_urls * `latest` - latest
 	DeploymentPolicy *string `json:"deployment_policy,omitempty"`
 	Resources []ResourceUsageResourcesInner `json:"resources,omitempty"`
 }
