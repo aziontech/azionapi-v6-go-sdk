@@ -443,6 +443,7 @@ Class | Method | HTTP request | Description
  - [CacheVaryByQuerystringModuleRequest](docs/CacheVaryByQuerystringModuleRequest.md)
  - [CancelReleaseRequest](docs/CancelReleaseRequest.md)
  - [Certificate](docs/Certificate.md)
+ - [CertificateCreate](docs/CertificateCreate.md)
  - [CertificateRequest](docs/CertificateRequest.md)
  - [CertificateResponse](docs/CertificateResponse.md)
  - [CertificateRetrieveResponse](docs/CertificateRetrieveResponse.md)

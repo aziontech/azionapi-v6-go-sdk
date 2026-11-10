@@ -28,11 +28,11 @@ type DigitalCertificatesCertificatesAPIService service
 type ApiCreateCertificateRequest struct {
 	ctx context.Context
 	ApiService *DigitalCertificatesCertificatesAPIService
-	certificate *Certificate
+	certificateCreate *CertificateCreate
 }
 
-func (r ApiCreateCertificateRequest) Certificate(certificate Certificate) ApiCreateCertificateRequest {
-	r.certificate = &certificate
+func (r ApiCreateCertificateRequest) CertificateCreate(certificateCreate CertificateCreate) ApiCreateCertificateRequest {
+	r.certificateCreate = &certificateCreate
 	return r
 }
 
@@ -75,8 +75,8 @@ func (a *DigitalCertificatesCertificatesAPIService) CreateCertificateExecute(r A
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.certificate == nil {
-		return localVarReturnValue, nil, reportError("certificate is required and must be specified")
+	if r.certificateCreate == nil {
+		return localVarReturnValue, nil, reportError("certificateCreate is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -97,7 +97,7 @@ func (a *DigitalCertificatesCertificatesAPIService) CreateCertificateExecute(r A
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.certificate
+	localVarPostBody = r.certificateCreate
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
@@ -432,9 +432,9 @@ func (a *DigitalCertificatesCertificatesAPIService) DeleteCertificateExecute(r A
 type ApiListCertificatesRequest struct {
 	ctx context.Context
 	ApiService *DigitalCertificatesCertificatesAPIService
-	certificateType *string
+	certificateType *[]int64
 	fields *string
-	id *int64
+	id *[]int64
 	issuer *string
 	lastModified *time.Time
 	lastModifiedGte *time.Time
@@ -451,7 +451,7 @@ type ApiListCertificatesRequest struct {
 }
 
 // Filter by certificate type (accepts comma-separated values).
-func (r ApiListCertificatesRequest) CertificateType(certificateType string) ApiListCertificatesRequest {
+func (r ApiListCertificatesRequest) CertificateType(certificateType []int64) ApiListCertificatesRequest {
 	r.certificateType = &certificateType
 	return r
 }
@@ -463,7 +463,7 @@ func (r ApiListCertificatesRequest) Fields(fields string) ApiListCertificatesReq
 }
 
 // Filter by certificate ID (accepts comma-separated values).
-func (r ApiListCertificatesRequest) Id(id int64) ApiListCertificatesRequest {
+func (r ApiListCertificatesRequest) Id(id []int64) ApiListCertificatesRequest {
 	r.id = &id
 	return r
 }
@@ -587,13 +587,13 @@ func (a *DigitalCertificatesCertificatesAPIService) ListCertificatesExecute(r Ap
 	localVarFormParams := url.Values{}
 
 	if r.certificateType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "certificate_type", r.certificateType, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "certificate_type", r.certificateType, "form", "csv")
 	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	}
 	if r.issuer != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "issuer", r.issuer, "form", "")

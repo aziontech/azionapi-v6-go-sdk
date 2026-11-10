@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## CreateCertificate
 
-> CertificateResponse CreateCertificate(ctx).Certificate(certificate).Execute()
+> CertificateResponse CreateCertificate(ctx).CertificateCreate(certificateCreate).Execute()
 
 Create a certificate
 
@@ -34,11 +34,11 @@ import (
 )
 
 func main() {
-	certificate := *openapiclient.NewCertificate("Name_example") // Certificate | 
+	certificateCreate := *openapiclient.NewCertificateCreate("Name_example", "Certificate_example") // CertificateCreate | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DigitalCertificatesCertificatesAPI.CreateCertificate(context.Background()).Certificate(certificate).Execute()
+	resp, r, err := apiClient.DigitalCertificatesCertificatesAPI.CreateCertificate(context.Background()).CertificateCreate(certificateCreate).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DigitalCertificatesCertificatesAPI.CreateCertificate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiCreateCertificateRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **certificate** | [**Certificate**](Certificate.md) |  | 
+ **certificateCreate** | [**CertificateCreate**](CertificateCreate.md) |  | 
 
 ### Return type
 
@@ -169,9 +169,9 @@ import (
 )
 
 func main() {
-	certificateType := "certificateType_example" // string | Filter by certificate type (accepts comma-separated values). (optional)
+	certificateType := []int64{int64(123)} // []int64 | Filter by certificate type (accepts comma-separated values). (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	id := int64(789) // int64 | Filter by certificate ID (accepts comma-separated values). (optional)
+	id := []int64{int64(123)} // []int64 | Filter by certificate ID (accepts comma-separated values). (optional)
 	issuer := "issuer_example" // string | Filter by issuer (case-insensitive, partial match). (optional)
 	lastModified := time.Now() // time.Time | Filter by exact last modified date and time. (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
@@ -209,9 +209,9 @@ Other parameters are passed through a pointer to a apiListCertificatesRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **certificateType** | **string** | Filter by certificate type (accepts comma-separated values). | 
+ **certificateType** | **[]int64** | Filter by certificate type (accepts comma-separated values). | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **id** | **int64** | Filter by certificate ID (accepts comma-separated values). | 
+ **id** | **[]int64** | Filter by certificate ID (accepts comma-separated values). | 
  **issuer** | **string** | Filter by issuer (case-insensitive, partial match). | 
  **lastModified** | **time.Time** | Filter by exact last modified date and time. | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 

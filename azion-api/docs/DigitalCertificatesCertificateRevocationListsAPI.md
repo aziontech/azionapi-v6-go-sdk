@@ -170,7 +170,7 @@ import (
 
 func main() {
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	id := int64(789) // int64 | Filter by CRL ID (accepts comma-separated values). (optional)
+	id := []int64{int64(123)} // []int64 | Filter by CRL ID (accepts comma-separated values). (optional)
 	issuer := "issuer_example" // string | Filter by issuer (case-insensitive, partial match). (optional)
 	lastModified := time.Now() // time.Time | Filter by exact last modified date and time. (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
@@ -211,7 +211,7 @@ Other parameters are passed through a pointer to a apiListCertificateRevocationL
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **id** | **int64** | Filter by CRL ID (accepts comma-separated values). | 
+ **id** | **[]int64** | Filter by CRL ID (accepts comma-separated values). | 
  **issuer** | **string** | Filter by issuer (case-insensitive, partial match). | 
  **lastModified** | **time.Time** | Filter by exact last modified date and time. | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 

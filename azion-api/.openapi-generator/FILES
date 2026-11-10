@@ -126,6 +126,7 @@ docs/CacheVaryByQuerystringModule.md
 docs/CacheVaryByQuerystringModuleRequest.md
 docs/CancelReleaseRequest.md
 docs/Certificate.md
+docs/CertificateCreate.md
 docs/CertificateRequest.md
 docs/CertificateResponse.md
 docs/CertificateRetrieveResponse.md
@@ -661,6 +662,7 @@ model_cache_vary_by_querystring_module.go
 model_cache_vary_by_querystring_module_request.go
 model_cancel_release_request.go
 model_certificate.go
+model_certificate_create.go
 model_certificate_request.go
 model_certificate_response.go
 model_certificate_retrieve_response.go

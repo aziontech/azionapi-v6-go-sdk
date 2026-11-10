@@ -433,7 +433,7 @@ type ApiListCertificateRevocationListsRequest struct {
 	ctx context.Context
 	ApiService *DigitalCertificatesCertificateRevocationListsAPIService
 	fields *string
-	id *int64
+	id *[]int64
 	issuer *string
 	lastModified *time.Time
 	lastModifiedGte *time.Time
@@ -458,7 +458,7 @@ func (r ApiListCertificateRevocationListsRequest) Fields(fields string) ApiListC
 }
 
 // Filter by CRL ID (accepts comma-separated values).
-func (r ApiListCertificateRevocationListsRequest) Id(id int64) ApiListCertificateRevocationListsRequest {
+func (r ApiListCertificateRevocationListsRequest) Id(id []int64) ApiListCertificateRevocationListsRequest {
 	r.id = &id
 	return r
 }
@@ -597,7 +597,7 @@ func (a *DigitalCertificatesCertificateRevocationListsAPIService) ListCertificat
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "")
+		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	}
 	if r.issuer != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "issuer", r.issuer, "form", "")

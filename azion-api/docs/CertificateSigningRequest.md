@@ -30,6 +30,8 @@ Name | Type | Description | Notes
 **Organization** | **string** |  | 
 **OrganizationUnity** | **string** |  | 
 **Email** | **string** |  | 
+**VersionId** | Pointer to **NullableString** | ID of the version metadata (use in /versions/{id} URLs) | [optional] 
+**VersionState** | Pointer to **NullableString** | Build state of this version (queued, building, ready, error, ...) | [optional] 
 
 ## Methods
 
@@ -730,6 +732,76 @@ and a boolean to check if the value has been set.
 SetEmail sets Email field to given value.
 
 
+### GetVersionId
+
+`func (o *CertificateSigningRequest) GetVersionId() string`
+
+GetVersionId returns the VersionId field if non-nil, zero value otherwise.
+
+### GetVersionIdOk
+
+`func (o *CertificateSigningRequest) GetVersionIdOk() (*string, bool)`
+
+GetVersionIdOk returns a tuple with the VersionId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersionId
+
+`func (o *CertificateSigningRequest) SetVersionId(v string)`
+
+SetVersionId sets VersionId field to given value.
+
+### HasVersionId
+
+`func (o *CertificateSigningRequest) HasVersionId() bool`
+
+HasVersionId returns a boolean if a field has been set.
+
+### SetVersionIdNil
+
+`func (o *CertificateSigningRequest) SetVersionIdNil(b bool)`
+
+ SetVersionIdNil sets the value for VersionId to be an explicit nil
+
+### UnsetVersionId
+`func (o *CertificateSigningRequest) UnsetVersionId()`
+
+UnsetVersionId ensures that no value is present for VersionId, not even an explicit nil
+### GetVersionState
+
+`func (o *CertificateSigningRequest) GetVersionState() string`
+
+GetVersionState returns the VersionState field if non-nil, zero value otherwise.
+
+### GetVersionStateOk
+
+`func (o *CertificateSigningRequest) GetVersionStateOk() (*string, bool)`
+
+GetVersionStateOk returns a tuple with the VersionState field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersionState
+
+`func (o *CertificateSigningRequest) SetVersionState(v string)`
+
+SetVersionState sets VersionState field to given value.
+
+### HasVersionState
+
+`func (o *CertificateSigningRequest) HasVersionState() bool`
+
+HasVersionState returns a boolean if a field has been set.
+
+### SetVersionStateNil
+
+`func (o *CertificateSigningRequest) SetVersionStateNil(b bool)`
+
+ SetVersionStateNil sets the value for VersionState to be an explicit nil
+
+### UnsetVersionState
+`func (o *CertificateSigningRequest) UnsetVersionState()`
+
+UnsetVersionState ensures that no value is present for VersionState, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
