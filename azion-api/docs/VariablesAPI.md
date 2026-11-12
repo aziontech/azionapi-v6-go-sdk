@@ -240,7 +240,7 @@ func main() {
 	createdAtLte := time.Now() // time.Time | Filter by creation date (less than or equal). (optional)
 	key := "key_example" // string | Filter by key (case-insensitive, partial match). (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: key, created_at, updated_at, last_editor) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: key, created_at, updated_at, last_editor) `last_modified` is an alias of `updated_at`. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	resourceId := []string{"Inner_example"} // []string | Filter by scope resource id (the external id of the resource_type). Accepts comma-separated values, unless `resource_type` also holds several values. (optional)
@@ -281,7 +281,7 @@ Name | Type | Description  | Notes
  **createdAtLte** | **time.Time** | Filter by creation date (less than or equal). | 
  **key** | **string** | Filter by key (case-insensitive, partial match). | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: key, created_at, updated_at, last_editor) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: key, created_at, updated_at, last_editor) &#x60;last_modified&#x60; is an alias of &#x60;updated_at&#x60;. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **resourceId** | **[]string** | Filter by scope resource id (the external id of the resource_type). Accepts comma-separated values, unless &#x60;resource_type&#x60; also holds several values. | 

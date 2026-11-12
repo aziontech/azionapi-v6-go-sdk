@@ -628,7 +628,7 @@ func (r ApiListVariablesRequest) LastEditor(lastEditor string) ApiListVariablesR
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: key, created_at, updated_at, last_editor)
+// Which field to use when ordering the results. (Valid fields: key, created_at, updated_at, last_editor) &#x60;last_modified&#x60; is an alias of &#x60;updated_at&#x60;.
 func (r ApiListVariablesRequest) Ordering(ordering string) ApiListVariablesRequest {
 	r.ordering = &ordering
 	return r
