@@ -149,7 +149,7 @@ Name | Type | Description  | Notes
 
 ## ListCertificateRevocationLists
 
-> PaginatedCertificateRevocationList ListCertificateRevocationLists(ctx).Fields(fields).Id(id).Issuer(issuer).LastModified(lastModified).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).LastUpdate(lastUpdate).LastUpdateGte(lastUpdateGte).LastUpdateLte(lastUpdateLte).Name(name).NextUpdate(nextUpdate).NextUpdateGte(nextUpdateGte).NextUpdateLte(nextUpdateLte).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+> PaginatedCertificateRevocationList ListCertificateRevocationLists(ctx).CreatedAt(createdAt).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Fields(fields).Id(id).Issuer(issuer).LastModified(lastModified).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).LastUpdate(lastUpdate).LastUpdateGte(lastUpdateGte).LastUpdateLte(lastUpdateLte).Name(name).NextUpdate(nextUpdate).NextUpdateGte(nextUpdateGte).NextUpdateLte(nextUpdateLte).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
 
 List certificate revocation lists (CRL)
 
@@ -169,6 +169,9 @@ import (
 )
 
 func main() {
+	createdAt := time.Now() // time.Time | Filter by exact creation date and time. (optional)
+	createdAtGte := time.Now() // time.Time | Filter by creation date (greater than or equal). (optional)
+	createdAtLte := time.Now() // time.Time | Filter by creation date (less than or equal). (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 	id := []int64{int64(123)} // []int64 | Filter by CRL ID (accepts comma-separated values). (optional)
 	issuer := "issuer_example" // string | Filter by issuer (case-insensitive, partial match). (optional)
@@ -182,14 +185,14 @@ func main() {
 	nextUpdate := time.Now() // time.Time | Filter by exact next update date and time. (optional)
 	nextUpdateGte := time.Now() // time.Time | Filter by next update date (greater than or equal). (optional)
 	nextUpdateLte := time.Now() // time.Time | Filter by next update date (less than or equal). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, issuer, last_update, next_update, last_modified) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, last_editor, created_at, last_modified, product_version, issuer, last_update, next_update, crl) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
-	search := "search_example" // string | A search term to filter results. Searches across the following fields: name, issuer. (optional)
+	search := "search_example" // string | A search term to filter results. Searches across the following fields: name, issuer, crl. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DigitalCertificatesCertificateRevocationListsAPI.ListCertificateRevocationLists(context.Background()).Fields(fields).Id(id).Issuer(issuer).LastModified(lastModified).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).LastUpdate(lastUpdate).LastUpdateGte(lastUpdateGte).LastUpdateLte(lastUpdateLte).Name(name).NextUpdate(nextUpdate).NextUpdateGte(nextUpdateGte).NextUpdateLte(nextUpdateLte).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+	resp, r, err := apiClient.DigitalCertificatesCertificateRevocationListsAPI.ListCertificateRevocationLists(context.Background()).CreatedAt(createdAt).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Fields(fields).Id(id).Issuer(issuer).LastModified(lastModified).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).LastUpdate(lastUpdate).LastUpdateGte(lastUpdateGte).LastUpdateLte(lastUpdateLte).Name(name).NextUpdate(nextUpdate).NextUpdateGte(nextUpdateGte).NextUpdateLte(nextUpdateLte).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DigitalCertificatesCertificateRevocationListsAPI.ListCertificateRevocationLists``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -210,6 +213,9 @@ Other parameters are passed through a pointer to a apiListCertificateRevocationL
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **createdAt** | **time.Time** | Filter by exact creation date and time. | 
+ **createdAtGte** | **time.Time** | Filter by creation date (greater than or equal). | 
+ **createdAtLte** | **time.Time** | Filter by creation date (less than or equal). | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
  **id** | **[]int64** | Filter by CRL ID (accepts comma-separated values). | 
  **issuer** | **string** | Filter by issuer (case-insensitive, partial match). | 
@@ -223,10 +229,10 @@ Name | Type | Description  | Notes
  **nextUpdate** | **time.Time** | Filter by exact next update date and time. | 
  **nextUpdateGte** | **time.Time** | Filter by next update date (greater than or equal). | 
  **nextUpdateLte** | **time.Time** | Filter by next update date (less than or equal). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, issuer, last_update, next_update, last_modified) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, last_editor, created_at, last_modified, product_version, issuer, last_update, next_update, crl) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
- **search** | **string** | A search term to filter results. Searches across the following fields: name, issuer. | 
+ **search** | **string** | A search term to filter results. Searches across the following fields: name, issuer, crl. | 
 
 ### Return type
 
