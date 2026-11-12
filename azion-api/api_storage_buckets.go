@@ -457,25 +457,25 @@ func (r ApiListBucketsRequest) LastEditor(lastEditor string) ApiListBucketsReque
 	return r
 }
 
-// Filter by last modified date (exact match).
+// Filter by last modified date (exact match). The value is not validated and is compared as text, ignoring case, with the &#x60;last_modified&#x60; shown in the response.
 func (r ApiListBucketsRequest) LastModified(lastModified time.Time) ApiListBucketsRequest {
 	r.lastModified = &lastModified
 	return r
 }
 
-// Filter by last modified date (greater than or equal).
+// Filter by last modified date (greater than or equal). The value is not validated and is compared as text with the &#x60;last_modified&#x60; shown in the response.
 func (r ApiListBucketsRequest) LastModifiedGte(lastModifiedGte time.Time) ApiListBucketsRequest {
 	r.lastModifiedGte = &lastModifiedGte
 	return r
 }
 
-// Filter by last modified date (less than or equal).
+// Filter by last modified date (less than or equal). The value is not validated and is compared as text with the &#x60;last_modified&#x60; shown in the response.
 func (r ApiListBucketsRequest) LastModifiedLte(lastModifiedLte time.Time) ApiListBucketsRequest {
 	r.lastModifiedLte = &lastModifiedLte
 	return r
 }
 
-// Filter by name (case-insensitive, partial match).
+// Filter by the exact bucket name.
 func (r ApiListBucketsRequest) Name(name string) ApiListBucketsRequest {
 	r.name = &name
 	return r
