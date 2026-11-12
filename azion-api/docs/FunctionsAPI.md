@@ -149,7 +149,7 @@ Name | Type | Description  | Notes
 
 ## ListFunctions
 
-> PaginatedFunctionSummaryList ListFunctions(ctx).Fields(fields).Id(id).LanguageIn(languageIn).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).RuntimeEnvironmentIn(runtimeEnvironmentIn).Search(search).Execute()
+> PaginatedFunctionSummaryList ListFunctions(ctx).DefaultArgs(defaultArgs).ExecutionEnvironment(executionEnvironment).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Runtime(runtime).Search(search).Vendor(vendor).Execute()
 
 List Functions
 
@@ -169,22 +169,24 @@ import (
 )
 
 func main() {
+	defaultArgs := "defaultArgs_example" // string | Filter by default args (case-insensitive, partial match against the stored JSON text). (optional)
+	executionEnvironment := "executionEnvironment_example" // string | Filter by execution environment (single value, exact match). `application` and `firewall` are translated to the stored values `edge_application` and `edge_firewall`. Any other value is compared unchanged with the stored value, so `edge_application` and `edge_firewall` also match. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 	id := []int64{int64(123)} // []int64 | Filter by id (accepts comma-separated values). (optional)
-	languageIn := []string{"Inner_example"} // []string | Filter by language (accepts comma-separated values). (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
 	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, language, runtime_environment, last_editor, last_modified) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, product_version, runtime, execution_environment, default_args) An unknown field returns 400. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
-	runtimeEnvironmentIn := []string{"Inner_example"} // []string | Filter by runtime environment (accepts comma-separated values). (optional)
-	search := "search_example" // string | A search term to filter results. Searches across the following fields: name, last_editor, language, runtime_environment. (optional)
+	runtime := "runtime_example" // string | Filter by runtime (single value, exact match). `azion_js` is translated to the stored value `javascript`. Any other value is compared unchanged with the stored value, so `javascript` and `lua` also match and `azion_lua` matches nothing. (optional)
+	search := "search_example" // string | A search term to filter results. Searches across the following fields: name, last_editor, runtime, execution_environment. runtime and execution_environment are matched by their stored values (`javascript`, `lua`, `edge_application` and `edge_firewall`). (optional)
+	vendor := "vendor_example" // string | Filter by the vendor recorded when the function was bought (case-insensitive, partial match). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionsAPI.ListFunctions(context.Background()).Fields(fields).Id(id).LanguageIn(languageIn).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).RuntimeEnvironmentIn(runtimeEnvironmentIn).Search(search).Execute()
+	resp, r, err := apiClient.FunctionsAPI.ListFunctions(context.Background()).DefaultArgs(defaultArgs).ExecutionEnvironment(executionEnvironment).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Runtime(runtime).Search(search).Vendor(vendor).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionsAPI.ListFunctions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -205,18 +207,20 @@ Other parameters are passed through a pointer to a apiListFunctionsRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **defaultArgs** | **string** | Filter by default args (case-insensitive, partial match against the stored JSON text). | 
+ **executionEnvironment** | **string** | Filter by execution environment (single value, exact match). &#x60;application&#x60; and &#x60;firewall&#x60; are translated to the stored values &#x60;edge_application&#x60; and &#x60;edge_firewall&#x60;. Any other value is compared unchanged with the stored value, so &#x60;edge_application&#x60; and &#x60;edge_firewall&#x60; also match. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
  **id** | **[]int64** | Filter by id (accepts comma-separated values). | 
- **languageIn** | **[]string** | Filter by language (accepts comma-separated values). | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
  **name** | **string** | Filter by name (case-insensitive, partial match). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, language, runtime_environment, last_editor, last_modified) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, product_version, runtime, execution_environment, default_args) An unknown field returns 400. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
- **runtimeEnvironmentIn** | **[]string** | Filter by runtime environment (accepts comma-separated values). | 
- **search** | **string** | A search term to filter results. Searches across the following fields: name, last_editor, language, runtime_environment. | 
+ **runtime** | **string** | Filter by runtime (single value, exact match). &#x60;azion_js&#x60; is translated to the stored value &#x60;javascript&#x60;. Any other value is compared unchanged with the stored value, so &#x60;javascript&#x60; and &#x60;lua&#x60; also match and &#x60;azion_lua&#x60; matches nothing. | 
+ **search** | **string** | A search term to filter results. Searches across the following fields: name, last_editor, runtime, execution_environment. runtime and execution_environment are matched by their stored values (&#x60;javascript&#x60;, &#x60;lua&#x60;, &#x60;edge_application&#x60; and &#x60;edge_firewall&#x60;). | 
+ **vendor** | **string** | Filter by the vendor recorded when the function was bought (case-insensitive, partial match). | 
 
 ### Return type
 
