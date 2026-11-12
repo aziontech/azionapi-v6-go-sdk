@@ -64,6 +64,14 @@ type APIClient struct {
 
 	ApplicationsResponseRulesAPI *ApplicationsResponseRulesAPIService
 
+	AuthLoginAPI *AuthLoginAPIService
+
+	AuthMFATOTPDeviceAPI *AuthMFATOTPDeviceAPIService
+
+	AuthRefreshAccessTokenAPI *AuthRefreshAccessTokenAPIService
+
+	AuthRevokeAPI *AuthRevokeAPIService
+
 	CRLVersionsAPI *CRLVersionsAPIService
 
 	CertificateVersionsAPI *CertificateVersionsAPIService
@@ -75,6 +83,12 @@ type APIClient struct {
 	CustomPageVersionsAPI *CustomPageVersionsAPIService
 
 	CustomPagesAPI *CustomPagesAPIService
+
+	DataStreamDataSourcesAPI *DataStreamDataSourcesAPIService
+
+	DataStreamStreamsAPI *DataStreamStreamsAPIService
+
+	DataStreamTemplatesAPI *DataStreamTemplatesAPIService
 
 	DeploymentsAPI *DeploymentsAPIService
 
@@ -114,7 +128,15 @@ type APIClient struct {
 
 	NetworkListsAPI *NetworkListsAPIService
 
+	PolicyLockoutPolicyAPI *PolicyLockoutPolicyAPIService
+
+	PolicyPoliciesAPI *PolicyPoliciesAPIService
+
+	PolicySessionTimeoutPolicyAPI *PolicySessionTimeoutPolicyAPIService
+
 	PurgeAPI *PurgeAPIService
+
+	SQLDatabaseAPI *SQLDatabaseAPIService
 
 	StorageBucketsAPI *StorageBucketsAPIService
 
@@ -160,12 +182,19 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ApplicationsFunctionAPI = (*ApplicationsFunctionAPIService)(&c.common)
 	c.ApplicationsRequestRulesAPI = (*ApplicationsRequestRulesAPIService)(&c.common)
 	c.ApplicationsResponseRulesAPI = (*ApplicationsResponseRulesAPIService)(&c.common)
+	c.AuthLoginAPI = (*AuthLoginAPIService)(&c.common)
+	c.AuthMFATOTPDeviceAPI = (*AuthMFATOTPDeviceAPIService)(&c.common)
+	c.AuthRefreshAccessTokenAPI = (*AuthRefreshAccessTokenAPIService)(&c.common)
+	c.AuthRevokeAPI = (*AuthRevokeAPIService)(&c.common)
 	c.CRLVersionsAPI = (*CRLVersionsAPIService)(&c.common)
 	c.CertificateVersionsAPI = (*CertificateVersionsAPIService)(&c.common)
 	c.ConnectorVersionsAPI = (*ConnectorVersionsAPIService)(&c.common)
 	c.ConnectorsAPI = (*ConnectorsAPIService)(&c.common)
 	c.CustomPageVersionsAPI = (*CustomPageVersionsAPIService)(&c.common)
 	c.CustomPagesAPI = (*CustomPagesAPIService)(&c.common)
+	c.DataStreamDataSourcesAPI = (*DataStreamDataSourcesAPIService)(&c.common)
+	c.DataStreamStreamsAPI = (*DataStreamStreamsAPIService)(&c.common)
+	c.DataStreamTemplatesAPI = (*DataStreamTemplatesAPIService)(&c.common)
 	c.DeploymentsAPI = (*DeploymentsAPIService)(&c.common)
 	c.DeploymentsReleaseRoutingAPI = (*DeploymentsReleaseRoutingAPIService)(&c.common)
 	c.DeploymentsReleasesAPI = (*DeploymentsReleasesAPIService)(&c.common)
@@ -185,7 +214,11 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.FunctionsAPI = (*FunctionsAPIService)(&c.common)
 	c.NetworkListVersionsAPI = (*NetworkListVersionsAPIService)(&c.common)
 	c.NetworkListsAPI = (*NetworkListsAPIService)(&c.common)
+	c.PolicyLockoutPolicyAPI = (*PolicyLockoutPolicyAPIService)(&c.common)
+	c.PolicyPoliciesAPI = (*PolicyPoliciesAPIService)(&c.common)
+	c.PolicySessionTimeoutPolicyAPI = (*PolicySessionTimeoutPolicyAPIService)(&c.common)
 	c.PurgeAPI = (*PurgeAPIService)(&c.common)
+	c.SQLDatabaseAPI = (*SQLDatabaseAPIService)(&c.common)
 	c.StorageBucketsAPI = (*StorageBucketsAPIService)(&c.common)
 	c.StorageCredentialsAPI = (*StorageCredentialsAPIService)(&c.common)
 	c.StorageObjectsAPI = (*StorageObjectsAPIService)(&c.common)

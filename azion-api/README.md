@@ -151,6 +151,14 @@ Class | Method | HTTP request | Description
 *ApplicationsResponseRulesAPI* | [**UpdateApplicationResponseRulesOrder**](docs/ApplicationsResponseRulesAPI.md#updateapplicationresponserulesorder) | **Put** /workspace/applications/{application_id}/response_rules/order | Ordering Application Response Rules
 *ApplicationsResponseRulesAPI* | [**UpdateApplicationVersionResponseRule**](docs/ApplicationsResponseRulesAPI.md#updateapplicationversionresponserule) | **Put** /workspace/applications/{application_id}/versions/{version_id}/response_rules/{response_rule_id} | Update an Application Response Rule
 *ApplicationsResponseRulesAPI* | [**UpdateApplicationVersionResponseRulesOrder**](docs/ApplicationsResponseRulesAPI.md#updateapplicationversionresponserulesorder) | **Put** /workspace/applications/{application_id}/versions/{version_id}/response_rules/order | Ordering Application Response Rules
+*AuthLoginAPI* | [**AuthUserLogin**](docs/AuthLoginAPI.md#authuserlogin) | **Post** /account/auth/login | User Login – Generate JWT Tokens
+*AuthLoginAPI* | [**AuthUserLoginMethod**](docs/AuthLoginAPI.md#authuserloginmethod) | **Get** /account/auth/login/method | Check User Authentication Method
+*AuthLoginAPI* | [**TotpVerify**](docs/AuthLoginAPI.md#totpverify) | **Post** /account/auth/mfa/totp/verify | Retrieve user JWT tokens by MFA auth
+*AuthMFATOTPDeviceAPI* | [**CreateTotpDevice**](docs/AuthMFATOTPDeviceAPI.md#createtotpdevice) | **Post** /account/auth/mfa/totp | Create a TOTP device
+*AuthMFATOTPDeviceAPI* | [**DeleteTotpDevice**](docs/AuthMFATOTPDeviceAPI.md#deletetotpdevice) | **Delete** /account/auth/mfa/totp/{device_id} | Delete a TOTP device
+*AuthMFATOTPDeviceAPI* | [**ListTotpDevices**](docs/AuthMFATOTPDeviceAPI.md#listtotpdevices) | **Get** /account/auth/mfa/totp | List of TOTP devices
+*AuthRefreshAccessTokenAPI* | [**AuthUserRefreshToken**](docs/AuthRefreshAccessTokenAPI.md#authuserrefreshtoken) | **Post** /account/auth/token | Refresh user JWT access token
+*AuthRevokeAPI* | [**AuthUserRevoke**](docs/AuthRevokeAPI.md#authuserrevoke) | **Post** /account/auth/revoke | Revoke user JWT refresh token
 *CRLVersionsAPI* | [**ListCrlVersions**](docs/CRLVersionsAPI.md#listcrlversions) | **Get** /workspace/tls/crls/{crl_id}/versions | List CRL versions
 *CRLVersionsAPI* | [**RetrieveCrlVersion**](docs/CRLVersionsAPI.md#retrievecrlversion) | **Get** /workspace/tls/crls/{crl_id}/versions/{version_id} | Retrieve a CRL version
 *CRLVersionsAPI* | [**RevertCrlVersion**](docs/CRLVersionsAPI.md#revertcrlversion) | **Post** /workspace/tls/crls/{crl_id}/versions/{version_id}/revert | Revert to a CRL version
@@ -187,6 +195,19 @@ Class | Method | HTTP request | Description
 *CustomPagesAPI* | [**PartialUpdateCustomPage**](docs/CustomPagesAPI.md#partialupdatecustompage) | **Patch** /workspace/custom_pages/{custom_page_id} | Partially update a Custom Page
 *CustomPagesAPI* | [**RetrieveCustomPage**](docs/CustomPagesAPI.md#retrievecustompage) | **Get** /workspace/custom_pages/{custom_page_id} | Retrieve details of a Custom Page
 *CustomPagesAPI* | [**UpdateCustomPage**](docs/CustomPagesAPI.md#updatecustompage) | **Put** /workspace/custom_pages/{custom_page_id} | Update a Custom Page
+*DataStreamDataSourcesAPI* | [**ListDataSources**](docs/DataStreamDataSourcesAPI.md#listdatasources) | **Get** /workspace/stream/data_sources | List of Data Sources
+*DataStreamStreamsAPI* | [**CreateDataStream**](docs/DataStreamStreamsAPI.md#createdatastream) | **Post** /workspace/stream/streams | Create a Data Stream
+*DataStreamStreamsAPI* | [**DeleteDataStream**](docs/DataStreamStreamsAPI.md#deletedatastream) | **Delete** /workspace/stream/streams/{stream_id} | Delete a Data Stream
+*DataStreamStreamsAPI* | [**ListDataStreams**](docs/DataStreamStreamsAPI.md#listdatastreams) | **Get** /workspace/stream/streams | List Data Streams
+*DataStreamStreamsAPI* | [**PartialUpdateDataStream**](docs/DataStreamStreamsAPI.md#partialupdatedatastream) | **Patch** /workspace/stream/streams/{stream_id} | Partially update a Data Stream
+*DataStreamStreamsAPI* | [**RetrieveDataStream**](docs/DataStreamStreamsAPI.md#retrievedatastream) | **Get** /workspace/stream/streams/{stream_id} | Retrieve details of a Data Stream
+*DataStreamStreamsAPI* | [**UpdateDataStream**](docs/DataStreamStreamsAPI.md#updatedatastream) | **Put** /workspace/stream/streams/{stream_id} | Update a Data Stream
+*DataStreamTemplatesAPI* | [**CreateTemplate**](docs/DataStreamTemplatesAPI.md#createtemplate) | **Post** /workspace/stream/templates | Create a Template
+*DataStreamTemplatesAPI* | [**DeleteTemplate**](docs/DataStreamTemplatesAPI.md#deletetemplate) | **Delete** /workspace/stream/templates/{template_id} | Delete a Template
+*DataStreamTemplatesAPI* | [**ListTemplates**](docs/DataStreamTemplatesAPI.md#listtemplates) | **Get** /workspace/stream/templates | List Templates
+*DataStreamTemplatesAPI* | [**PartialUpdateTemplate**](docs/DataStreamTemplatesAPI.md#partialupdatetemplate) | **Patch** /workspace/stream/templates/{template_id} | Partially update a Template
+*DataStreamTemplatesAPI* | [**RetrieveTemplate**](docs/DataStreamTemplatesAPI.md#retrievetemplate) | **Get** /workspace/stream/templates/{template_id} | Retrieve details of a Template
+*DataStreamTemplatesAPI* | [**UpdateTemplate**](docs/DataStreamTemplatesAPI.md#updatetemplate) | **Put** /workspace/stream/templates/{template_id} | Update a Template
 *DeploymentsAPI* | [**CreateDeployment**](docs/DeploymentsAPI.md#createdeployment) | **Post** /deployments | Create a deployment
 *DeploymentsAPI* | [**DeleteDeployment**](docs/DeploymentsAPI.md#deletedeployment) | **Delete** /deployments/{deployment_id} | Delete a deployment
 *DeploymentsAPI* | [**ListDeployments**](docs/DeploymentsAPI.md#listdeployments) | **Get** /deployments | List deployments
@@ -306,7 +327,22 @@ Class | Method | HTTP request | Description
 *NetworkListsAPI* | [**PartialUpdateNetworkList**](docs/NetworkListsAPI.md#partialupdatenetworklist) | **Patch** /workspace/network_lists/{network_list_id} | Partially update a Network List
 *NetworkListsAPI* | [**RetrieveNetworkList**](docs/NetworkListsAPI.md#retrievenetworklist) | **Get** /workspace/network_lists/{network_list_id} | Retrieve details of a Network List
 *NetworkListsAPI* | [**UpdateNetworkList**](docs/NetworkListsAPI.md#updatenetworklist) | **Put** /workspace/network_lists/{network_list_id} | Update a Network List
+*PolicyLockoutPolicyAPI* | [**RetrieveLockoutPolicy**](docs/PolicyLockoutPolicyAPI.md#retrievelockoutpolicy) | **Get** /auth/policies/lockout | Get Lockout Policy
+*PolicyLockoutPolicyAPI* | [**UpdateLockoutPolicy**](docs/PolicyLockoutPolicyAPI.md#updatelockoutpolicy) | **Put** /auth/policies/lockout | Put Lockout Policy
+*PolicyPoliciesAPI* | [**CreatePolicy**](docs/PolicyPoliciesAPI.md#createpolicy) | **Post** /auth/policies | Create a new policy
+*PolicyPoliciesAPI* | [**DeletePolicy**](docs/PolicyPoliciesAPI.md#deletepolicy) | **Delete** /auth/policies/{policy_id} | Delete a policy
+*PolicyPoliciesAPI* | [**ListPolicy**](docs/PolicyPoliciesAPI.md#listpolicy) | **Get** /auth/policies | List of account policies
+*PolicyPoliciesAPI* | [**PartialUpdatePolicy**](docs/PolicyPoliciesAPI.md#partialupdatepolicy) | **Patch** /auth/policies/{policy_id} | Partially update a policy
+*PolicyPoliciesAPI* | [**RetrievePolicy**](docs/PolicyPoliciesAPI.md#retrievepolicy) | **Get** /auth/policies/{policy_id} | Retrieve details from a policy
+*PolicyPoliciesAPI* | [**UpdatePolicy**](docs/PolicyPoliciesAPI.md#updatepolicy) | **Put** /auth/policies/{policy_id} | Update a policy
+*PolicySessionTimeoutPolicyAPI* | [**RetrieveSessionTimeoutPolicy**](docs/PolicySessionTimeoutPolicyAPI.md#retrievesessiontimeoutpolicy) | **Get** /auth/policies/session | Get Session Timeout Policy
+*PolicySessionTimeoutPolicyAPI* | [**UpdateSessionTimeoutPolicy**](docs/PolicySessionTimeoutPolicyAPI.md#updatesessiontimeoutpolicy) | **Put** /auth/policies/session | Put Session Timeout Policy
 *PurgeAPI* | [**CreatePurgeRequest**](docs/PurgeAPI.md#createpurgerequest) | **Post** /workspace/purge/{purge_type} | Create a Purge Request
+*SQLDatabaseAPI* | [**CreateDatabase**](docs/SQLDatabaseAPI.md#createdatabase) | **Post** /workspace/sql/databases | Create a database
+*SQLDatabaseAPI* | [**DeleteDatabase**](docs/SQLDatabaseAPI.md#deletedatabase) | **Delete** /workspace/sql/databases/{database_id} | Delete a database
+*SQLDatabaseAPI* | [**ExecuteQuery**](docs/SQLDatabaseAPI.md#executequery) | **Post** /workspace/sql/databases/{database_id}/query | Execute a query into a database
+*SQLDatabaseAPI* | [**ListDatabases**](docs/SQLDatabaseAPI.md#listdatabases) | **Get** /workspace/sql/databases | List databases
+*SQLDatabaseAPI* | [**RetrieveDatabase**](docs/SQLDatabaseAPI.md#retrievedatabase) | **Get** /workspace/sql/databases/{database_id} | Retrieve details from a database
 *StorageBucketsAPI* | [**CreateBucket**](docs/StorageBucketsAPI.md#createbucket) | **Post** /workspace/storage/buckets | Create a new bucket
 *StorageBucketsAPI* | [**DeleteBucket**](docs/StorageBucketsAPI.md#deletebucket) | **Delete** /workspace/storage/buckets/{bucket_name} | Delete a bucket
 *StorageBucketsAPI* | [**ListBuckets**](docs/StorageBucketsAPI.md#listbuckets) | **Get** /workspace/storage/buckets | List buckets
@@ -377,6 +413,8 @@ Class | Method | HTTP request | Description
  - [AWS4HMACAttributes](docs/AWS4HMACAttributes.md)
  - [AWS4HMACAttributesRequest](docs/AWS4HMACAttributesRequest.md)
  - [AWS4HMACRequest](docs/AWS4HMACRequest.md)
+ - [AWSKinesisFirehoseEndpoint](docs/AWSKinesisFirehoseEndpoint.md)
+ - [AWSKinesisFirehoseEndpointRequest](docs/AWSKinesisFirehoseEndpointRequest.md)
  - [AccountRelease](docs/AccountRelease.md)
  - [ActivateReleaseRequest](docs/ActivateReleaseRequest.md)
  - [Address](docs/Address.md)
@@ -409,12 +447,18 @@ Class | Method | HTTP request | Description
  - [ApplicationVersionList](docs/ApplicationVersionList.md)
  - [ApplicationVersionMeta](docs/ApplicationVersionMeta.md)
  - [ArchiveReleaseRequest](docs/ArchiveReleaseRequest.md)
+ - [AzureBlobStorageEndpoint](docs/AzureBlobStorageEndpoint.md)
+ - [AzureBlobStorageEndpointRequest](docs/AzureBlobStorageEndpointRequest.md)
+ - [AzureMonitorEndpoint](docs/AzureMonitorEndpoint.md)
+ - [AzureMonitorEndpointRequest](docs/AzureMonitorEndpointRequest.md)
  - [BehaviorArgs](docs/BehaviorArgs.md)
  - [BehaviorArgsAttributes](docs/BehaviorArgsAttributes.md)
  - [BehaviorArgsAttributesValue](docs/BehaviorArgsAttributesValue.md)
  - [BehaviorCapture](docs/BehaviorCapture.md)
  - [BehaviorCaptureMatchGroupsAttributes](docs/BehaviorCaptureMatchGroupsAttributes.md)
  - [BehaviorNoArgs](docs/BehaviorNoArgs.md)
+ - [BigQueryEndpoint](docs/BigQueryEndpoint.md)
+ - [BigQueryEndpointRequest](docs/BigQueryEndpointRequest.md)
  - [BrowserCacheModule](docs/BrowserCacheModule.md)
  - [BrowserCacheModuleRequest](docs/BrowserCacheModuleRequest.md)
  - [Bucket](docs/Bucket.md)
@@ -507,6 +551,17 @@ Class | Method | HTTP request | Description
  - [CustomPageVersionCreateRequest](docs/CustomPageVersionCreateRequest.md)
  - [CustomPageVersionList](docs/CustomPageVersionList.md)
  - [CustomPageVersionMeta](docs/CustomPageVersionMeta.md)
+ - [DataSource](docs/DataSource.md)
+ - [DataStream](docs/DataStream.md)
+ - [DataStreamDeleteResponse](docs/DataStreamDeleteResponse.md)
+ - [DataStreamRequest](docs/DataStreamRequest.md)
+ - [DataStreamResponse](docs/DataStreamResponse.md)
+ - [DatabaseDetail](docs/DatabaseDetail.md)
+ - [DatabaseDetailResponse](docs/DatabaseDetailResponse.md)
+ - [DatabaseRequest](docs/DatabaseRequest.md)
+ - [DatadogEndpoint](docs/DatadogEndpoint.md)
+ - [DatadogEndpointRequest](docs/DatadogEndpointRequest.md)
+ - [DeleteResponse](docs/DeleteResponse.md)
  - [DependencyEntry](docs/DependencyEntry.md)
  - [DependencyEntryRequest](docs/DependencyEntryRequest.md)
  - [Deployment](docs/Deployment.md)
@@ -525,6 +580,8 @@ Class | Method | HTTP request | Description
  - [DeviceGroupRequest](docs/DeviceGroupRequest.md)
  - [DeviceGroupResponse](docs/DeviceGroupResponse.md)
  - [DeviceGroupRetrieveResponse](docs/DeviceGroupRetrieveResponse.md)
+ - [ElasticsearchEndpoint](docs/ElasticsearchEndpoint.md)
+ - [ElasticsearchEndpointRequest](docs/ElasticsearchEndpointRequest.md)
  - [Environment](docs/Environment.md)
  - [EnvironmentBranchTracking](docs/EnvironmentBranchTracking.md)
  - [EnvironmentCreateRequest](docs/EnvironmentCreateRequest.md)
@@ -618,18 +675,35 @@ Class | Method | HTTP request | Description
  - [HTTPConnectionOptionsRequest](docs/HTTPConnectionOptionsRequest.md)
  - [HTTPModules](docs/HTTPModules.md)
  - [HTTPModulesRequest](docs/HTTPModulesRequest.md)
+ - [HttpPostEndpoint](docs/HttpPostEndpoint.md)
+ - [HttpPostEndpointRequest](docs/HttpPostEndpointRequest.md)
  - [HttpProtocol](docs/HttpProtocol.md)
  - [HttpProtocolRequest](docs/HttpProtocolRequest.md)
  - [ImageProcessorModule](docs/ImageProcessorModule.md)
  - [ImageProcessorModuleRequest](docs/ImageProcessorModuleRequest.md)
+ - [InputDataSource](docs/InputDataSource.md)
+ - [InputDataSourceAttributes](docs/InputDataSourceAttributes.md)
+ - [InputDataSourceAttributesRequest](docs/InputDataSourceAttributesRequest.md)
+ - [InputDataSourceRequest](docs/InputDataSourceRequest.md)
+ - [InputInputDataSourceAttributes](docs/InputInputDataSourceAttributes.md)
+ - [InputInputDataSourceAttributesRequest](docs/InputInputDataSourceAttributesRequest.md)
+ - [InputShared](docs/InputShared.md)
  - [JSONAPIErrorObject](docs/JSONAPIErrorObject.md)
  - [JSONAPIErrorSource](docs/JSONAPIErrorSource.md)
+ - [KafkaEndpoint](docs/KafkaEndpoint.md)
+ - [KafkaEndpointRequest](docs/KafkaEndpointRequest.md)
  - [LargeFileCacheModule](docs/LargeFileCacheModule.md)
  - [LargeFileCacheModuleRequest](docs/LargeFileCacheModuleRequest.md)
  - [LoadBalancerModule](docs/LoadBalancerModule.md)
  - [LoadBalancerModuleConfig](docs/LoadBalancerModuleConfig.md)
  - [LoadBalancerModuleConfigRequest](docs/LoadBalancerModuleConfigRequest.md)
  - [LoadBalancerModuleRequest](docs/LoadBalancerModuleRequest.md)
+ - [LockoutPolicy](docs/LockoutPolicy.md)
+ - [LockoutPolicyRequest](docs/LockoutPolicyRequest.md)
+ - [LockoutPolicyResponse](docs/LockoutPolicyResponse.md)
+ - [LoginRequest](docs/LoginRequest.md)
+ - [LoginResponse](docs/LoginResponse.md)
+ - [MFAToken](docs/MFAToken.md)
  - [MTLS](docs/MTLS.md)
  - [MTLSConfig](docs/MTLSConfig.md)
  - [MTLSConfigRequest](docs/MTLSConfigRequest.md)
@@ -655,6 +729,30 @@ Class | Method | HTTP request | Description
  - [OriginShieldConfigRequest](docs/OriginShieldConfigRequest.md)
  - [OriginShieldModule](docs/OriginShieldModule.md)
  - [OriginShieldModuleRequest](docs/OriginShieldModuleRequest.md)
+ - [Output](docs/Output.md)
+ - [OutputAWSKinesisFirehoseEndpoint](docs/OutputAWSKinesisFirehoseEndpoint.md)
+ - [OutputAWSKinesisFirehoseEndpointRequest](docs/OutputAWSKinesisFirehoseEndpointRequest.md)
+ - [OutputAzureBlobStorageEndpoint](docs/OutputAzureBlobStorageEndpoint.md)
+ - [OutputAzureBlobStorageEndpointRequest](docs/OutputAzureBlobStorageEndpointRequest.md)
+ - [OutputAzureMonitorEndpoint](docs/OutputAzureMonitorEndpoint.md)
+ - [OutputAzureMonitorEndpointRequest](docs/OutputAzureMonitorEndpointRequest.md)
+ - [OutputBigQueryEndpoint](docs/OutputBigQueryEndpoint.md)
+ - [OutputBigQueryEndpointRequest](docs/OutputBigQueryEndpointRequest.md)
+ - [OutputDatadogEndpoint](docs/OutputDatadogEndpoint.md)
+ - [OutputDatadogEndpointRequest](docs/OutputDatadogEndpointRequest.md)
+ - [OutputElasticsearchEndpoint](docs/OutputElasticsearchEndpoint.md)
+ - [OutputElasticsearchEndpointRequest](docs/OutputElasticsearchEndpointRequest.md)
+ - [OutputHttpPostEndpoint](docs/OutputHttpPostEndpoint.md)
+ - [OutputHttpPostEndpointRequest](docs/OutputHttpPostEndpointRequest.md)
+ - [OutputKafkaEndpoint](docs/OutputKafkaEndpoint.md)
+ - [OutputKafkaEndpointRequest](docs/OutputKafkaEndpointRequest.md)
+ - [OutputQRadarEndpoint](docs/OutputQRadarEndpoint.md)
+ - [OutputQRadarEndpointRequest](docs/OutputQRadarEndpointRequest.md)
+ - [OutputRequest](docs/OutputRequest.md)
+ - [OutputS3Endpoint](docs/OutputS3Endpoint.md)
+ - [OutputS3EndpointRequest](docs/OutputS3EndpointRequest.md)
+ - [OutputSplunkEndpoint](docs/OutputSplunkEndpoint.md)
+ - [OutputSplunkEndpointRequest](docs/OutputSplunkEndpointRequest.md)
  - [Page](docs/Page.md)
  - [PageConnector](docs/PageConnector.md)
  - [PageConnectorAttributes](docs/PageConnectorAttributes.md)
@@ -677,6 +775,9 @@ Class | Method | HTTP request | Description
  - [PaginatedCredentialList](docs/PaginatedCredentialList.md)
  - [PaginatedCustomPageList](docs/PaginatedCustomPageList.md)
  - [PaginatedCustomPageVersionList](docs/PaginatedCustomPageVersionList.md)
+ - [PaginatedDataSourceList](docs/PaginatedDataSourceList.md)
+ - [PaginatedDataStreamList](docs/PaginatedDataStreamList.md)
+ - [PaginatedDatabaseDetailList](docs/PaginatedDatabaseDetailList.md)
  - [PaginatedDeploymentList](docs/PaginatedDeploymentList.md)
  - [PaginatedDeploymentVersionList](docs/PaginatedDeploymentVersionList.md)
  - [PaginatedDeviceGroupList](docs/PaginatedDeviceGroupList.md)
@@ -691,10 +792,13 @@ Class | Method | HTTP request | Description
  - [PaginatedFunctionVersionList](docs/PaginatedFunctionVersionList.md)
  - [PaginatedNetworkListSummaryList](docs/PaginatedNetworkListSummaryList.md)
  - [PaginatedNetworkListVersionList](docs/PaginatedNetworkListVersionList.md)
+ - [PaginatedPolicyList](docs/PaginatedPolicyList.md)
  - [PaginatedReleaseList](docs/PaginatedReleaseList.md)
  - [PaginatedRequestPhaseRuleList](docs/PaginatedRequestPhaseRuleList.md)
  - [PaginatedResourceUsageList](docs/PaginatedResourceUsageList.md)
  - [PaginatedResponsePhaseRuleList](docs/PaginatedResponsePhaseRuleList.md)
+ - [PaginatedTOTPDeviceList](docs/PaginatedTOTPDeviceList.md)
+ - [PaginatedTemplateList](docs/PaginatedTemplateList.md)
  - [PaginatedVariableList](docs/PaginatedVariableList.md)
  - [PaginatedVariableVersionListItemList](docs/PaginatedVariableVersionListItemList.md)
  - [PaginatedWAFList](docs/PaginatedWAFList.md)
@@ -734,6 +838,7 @@ Class | Method | HTTP request | Description
  - [PatchedConnectorStorageBaseRequest](docs/PatchedConnectorStorageBaseRequest.md)
  - [PatchedConnectorStorageRequest](docs/PatchedConnectorStorageRequest.md)
  - [PatchedCustomPageRequest](docs/PatchedCustomPageRequest.md)
+ - [PatchedDataStreamRequest](docs/PatchedDataStreamRequest.md)
  - [PatchedDeploymentRequest](docs/PatchedDeploymentRequest.md)
  - [PatchedDeviceGroupRequest](docs/PatchedDeviceGroupRequest.md)
  - [PatchedEnvironmentRequest](docs/PatchedEnvironmentRequest.md)
@@ -764,12 +869,14 @@ Class | Method | HTTP request | Description
  - [PatchedPageConnectorBaseRequest](docs/PatchedPageConnectorBaseRequest.md)
  - [PatchedPageConnectorRequest](docs/PatchedPageConnectorRequest.md)
  - [PatchedPageRequest](docs/PatchedPageRequest.md)
+ - [PatchedPolicyRequest](docs/PatchedPolicyRequest.md)
  - [PatchedProtocolsRequest](docs/PatchedProtocolsRequest.md)
  - [PatchedReleaseRequest](docs/PatchedReleaseRequest.md)
  - [PatchedRequestPhaseRuleRequest](docs/PatchedRequestPhaseRuleRequest.md)
  - [PatchedResponsePhaseRuleRequest](docs/PatchedResponsePhaseRuleRequest.md)
  - [PatchedStateCacheModuleRequest](docs/PatchedStateCacheModuleRequest.md)
  - [PatchedTLSWorkloadRequest](docs/PatchedTLSWorkloadRequest.md)
+ - [PatchedTemplateRequest](docs/PatchedTemplateRequest.md)
  - [PatchedVariableVersionUpdateInputRequest](docs/PatchedVariableVersionUpdateInputRequest.md)
  - [PatchedWAFEngineSettingsAttributesFieldRequest](docs/PatchedWAFEngineSettingsAttributesFieldRequest.md)
  - [PatchedWAFEngineSettingsFieldRequest](docs/PatchedWAFEngineSettingsFieldRequest.md)
@@ -782,12 +889,21 @@ Class | Method | HTTP request | Description
  - [PatchedWorkloadBindingRequest](docs/PatchedWorkloadBindingRequest.md)
  - [PatchedWorkloadBindingRequestDomainsInner](docs/PatchedWorkloadBindingRequestDomainsInner.md)
  - [PatchedWorkloadRequest](docs/PatchedWorkloadRequest.md)
+ - [Policy](docs/Policy.md)
+ - [PolicyRequest](docs/PolicyRequest.md)
+ - [PolicyResponse](docs/PolicyResponse.md)
+ - [PolicyRule](docs/PolicyRule.md)
+ - [PolicyRuleCondition](docs/PolicyRuleCondition.md)
+ - [PolicyRuleConditionRequest](docs/PolicyRuleConditionRequest.md)
+ - [PolicyRuleRequest](docs/PolicyRuleRequest.md)
  - [PromoteReleaseRequest](docs/PromoteReleaseRequest.md)
  - [Protocols](docs/Protocols.md)
  - [ProtocolsRequest](docs/ProtocolsRequest.md)
  - [Purge](docs/Purge.md)
  - [PurgeRequest](docs/PurgeRequest.md)
  - [PurgeResponse](docs/PurgeResponse.md)
+ - [QRadarEndpoint](docs/QRadarEndpoint.md)
+ - [QRadarEndpointRequest](docs/QRadarEndpointRequest.md)
  - [Release](docs/Release.md)
  - [ReleaseAsyncResponse](docs/ReleaseAsyncResponse.md)
  - [ReleaseAsyncResponseData](docs/ReleaseAsyncResponseData.md)
@@ -812,21 +928,67 @@ Class | Method | HTTP request | Description
  - [ResourceUsage](docs/ResourceUsage.md)
  - [ResourceUsageResourcesInner](docs/ResourceUsageResourcesInner.md)
  - [ResponseBucketObject](docs/ResponseBucketObject.md)
+ - [ResponseLogin](docs/ResponseLogin.md)
  - [ResponsePhaseBehavior](docs/ResponsePhaseBehavior.md)
  - [ResponsePhaseBehaviorRequest](docs/ResponsePhaseBehaviorRequest.md)
  - [ResponsePhaseRule](docs/ResponsePhaseRule.md)
  - [ResponsePhaseRuleRequest](docs/ResponsePhaseRuleRequest.md)
  - [ResponsePhaseRuleResponse](docs/ResponsePhaseRuleResponse.md)
  - [ResponsePhaseRuleRetrieveResponse](docs/ResponsePhaseRuleRetrieveResponse.md)
+ - [S3Endpoint](docs/S3Endpoint.md)
+ - [S3EndpointRequest](docs/S3EndpointRequest.md)
+ - [SQLResult](docs/SQLResult.md)
+ - [SQLResultResponse](docs/SQLResultResponse.md)
+ - [SQLStatementsRequest](docs/SQLStatementsRequest.md)
  - [ScopeItem](docs/ScopeItem.md)
  - [ScopeItemRequest](docs/ScopeItemRequest.md)
+ - [SessionTimeoutPolicy](docs/SessionTimeoutPolicy.md)
+ - [SessionTimeoutPolicyRequest](docs/SessionTimeoutPolicyRequest.md)
+ - [SessionTimeoutPolicyResponse](docs/SessionTimeoutPolicyResponse.md)
+ - [SplunkEndpoint](docs/SplunkEndpoint.md)
+ - [SplunkEndpointRequest](docs/SplunkEndpointRequest.md)
  - [StateCacheModule](docs/StateCacheModule.md)
  - [StateCacheModuleRequest](docs/StateCacheModuleRequest.md)
+ - [StateExecutedResponse](docs/StateExecutedResponse.md)
  - [SuccessObjectOperation](docs/SuccessObjectOperation.md)
  - [TLSWorkload](docs/TLSWorkload.md)
  - [TLSWorkloadRequest](docs/TLSWorkloadRequest.md)
+ - [TOTPDevice](docs/TOTPDevice.md)
+ - [TOTPDeviceList](docs/TOTPDeviceList.md)
+ - [TOTPDeviceResponse](docs/TOTPDeviceResponse.md)
+ - [TOTPVerificationRequest](docs/TOTPVerificationRequest.md)
+ - [Template](docs/Template.md)
+ - [TemplateRequest](docs/TemplateRequest.md)
+ - [TemplateResponse](docs/TemplateResponse.md)
  - [ThresholdsConfigField](docs/ThresholdsConfigField.md)
  - [ThresholdsConfigFieldRequest](docs/ThresholdsConfigFieldRequest.md)
+ - [Token](docs/Token.md)
+ - [TokenPair](docs/TokenPair.md)
+ - [TokenPairResponse](docs/TokenPairResponse.md)
+ - [TokenRequest](docs/TokenRequest.md)
+ - [TokenResponse](docs/TokenResponse.md)
+ - [Transform](docs/Transform.md)
+ - [TransformFilterWorkloads](docs/TransformFilterWorkloads.md)
+ - [TransformFilterWorkloadsAttributes](docs/TransformFilterWorkloadsAttributes.md)
+ - [TransformFilterWorkloadsAttributesRequest](docs/TransformFilterWorkloadsAttributesRequest.md)
+ - [TransformFilterWorkloadsRequest](docs/TransformFilterWorkloadsRequest.md)
+ - [TransformRenderTemplate](docs/TransformRenderTemplate.md)
+ - [TransformRenderTemplateAttributes](docs/TransformRenderTemplateAttributes.md)
+ - [TransformRenderTemplateAttributesRequest](docs/TransformRenderTemplateAttributesRequest.md)
+ - [TransformRenderTemplateRequest](docs/TransformRenderTemplateRequest.md)
+ - [TransformRequest](docs/TransformRequest.md)
+ - [TransformSampling](docs/TransformSampling.md)
+ - [TransformSamplingAttributes](docs/TransformSamplingAttributes.md)
+ - [TransformSamplingAttributesRequest](docs/TransformSamplingAttributesRequest.md)
+ - [TransformSamplingRequest](docs/TransformSamplingRequest.md)
+ - [TransformShared](docs/TransformShared.md)
+ - [TransformTransformFilterWorkloadsAttributes](docs/TransformTransformFilterWorkloadsAttributes.md)
+ - [TransformTransformFilterWorkloadsAttributesRequest](docs/TransformTransformFilterWorkloadsAttributesRequest.md)
+ - [TransformTransformRenderTemplateAttributes](docs/TransformTransformRenderTemplateAttributes.md)
+ - [TransformTransformRenderTemplateAttributesRequest](docs/TransformTransformRenderTemplateAttributesRequest.md)
+ - [TransformTransformSamplingAttributes](docs/TransformTransformSamplingAttributes.md)
+ - [TransformTransformSamplingAttributesRequest](docs/TransformTransformSamplingAttributesRequest.md)
+ - [UserLoginMethodResponse](docs/UserLoginMethodResponse.md)
  - [Variable](docs/Variable.md)
  - [VariableBatchRequest](docs/VariableBatchRequest.md)
  - [VariableBatchResponse](docs/VariableBatchResponse.md)
@@ -908,6 +1070,28 @@ auth := context.WithValue(
 			"TokenAuth": {Key: "API_KEY_STRING"},
 		},
 	)
+r, err := client.Service.Operation(auth, args)
+```
+
+### JwtMfaAuthentication
+
+- **Type**: HTTP Bearer token authentication
+
+Example
+
+```go
+auth := context.WithValue(context.Background(), azionapi.ContextAccessToken, "BEARER_TOKEN_STRING")
+r, err := client.Service.Operation(auth, args)
+```
+
+### JwtRefreshAuthentication
+
+- **Type**: HTTP Bearer token authentication
+
+Example
+
+```go
+auth := context.WithValue(context.Background(), azionapi.ContextAccessToken, "BEARER_TOKEN_STRING")
 r, err := client.Service.Operation(auth, args)
 ```
 
