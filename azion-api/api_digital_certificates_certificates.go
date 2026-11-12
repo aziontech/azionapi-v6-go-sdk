@@ -433,6 +433,9 @@ type ApiListCertificatesRequest struct {
 	ctx context.Context
 	ApiService *DigitalCertificatesCertificatesAPIService
 	certificateType *[]int64
+	createdAt *time.Time
+	createdAtGte *time.Time
+	createdAtLte *time.Time
 	fields *string
 	id *[]int64
 	issuer *string
@@ -448,11 +451,30 @@ type ApiListCertificatesRequest struct {
 	renewedAtGte *time.Time
 	renewedAtLte *time.Time
 	search *string
+	type_ *string
 }
 
-// Filter by certificate type (accepts comma-separated values).
+// Filter by certificate type (accepts comma-separated values). 0 is edge_certificate and 1 is trusted_ca_certificate, the values of type in the response. Any other number matches nothing.
 func (r ApiListCertificatesRequest) CertificateType(certificateType []int64) ApiListCertificatesRequest {
 	r.certificateType = &certificateType
+	return r
+}
+
+// Filter by exact creation date and time.
+func (r ApiListCertificatesRequest) CreatedAt(createdAt time.Time) ApiListCertificatesRequest {
+	r.createdAt = &createdAt
+	return r
+}
+
+// Filter by creation date (greater than or equal).
+func (r ApiListCertificatesRequest) CreatedAtGte(createdAtGte time.Time) ApiListCertificatesRequest {
+	r.createdAtGte = &createdAtGte
+	return r
+}
+
+// Filter by creation date (less than or equal).
+func (r ApiListCertificatesRequest) CreatedAtLte(createdAtLte time.Time) ApiListCertificatesRequest {
+	r.createdAtLte = &createdAtLte
 	return r
 }
 
@@ -504,7 +526,7 @@ func (r ApiListCertificatesRequest) Name(name string) ApiListCertificatesRequest
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, certificate_type, managed, issuer, last_modified, renewed_at)
+// Which field to use when ordering the results. (Valid fields: id, name, certificate, issuer, subject_name, validity, type, managed, csr, challenge, authority, key_algorithm, product_version, last_editor, created_at, last_modified, renewed_at)
 func (r ApiListCertificatesRequest) Ordering(ordering string) ApiListCertificatesRequest {
 	r.ordering = &ordering
 	return r
@@ -540,9 +562,15 @@ func (r ApiListCertificatesRequest) RenewedAtLte(renewedAtLte time.Time) ApiList
 	return r
 }
 
-// A search term to filter results. Searches across the following fields: name, issuer.
+// A search term to filter results. Searches across the following fields: name.
 func (r ApiListCertificatesRequest) Search(search string) ApiListCertificatesRequest {
 	r.search = &search
+	return r
+}
+
+// Filter by certificate type, using the values of type in the response. Accepts a single value. When sent together with certificate_type, this parameter is used and certificate_type is ignored.
+func (r ApiListCertificatesRequest) Type_(type_ string) ApiListCertificatesRequest {
+	r.type_ = &type_
 	return r
 }
 
@@ -589,6 +617,15 @@ func (a *DigitalCertificatesCertificatesAPIService) ListCertificatesExecute(r Ap
 	if r.certificateType != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "certificate_type", r.certificateType, "form", "csv")
 	}
+	if r.createdAt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at", r.createdAt, "form", "")
+	}
+	if r.createdAtGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__gte", r.createdAtGte, "form", "")
+	}
+	if r.createdAtLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__lte", r.createdAtLte, "form", "")
+	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
@@ -633,6 +670,9 @@ func (a *DigitalCertificatesCertificatesAPIService) ListCertificatesExecute(r Ap
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
+	}
+	if r.type_ != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
