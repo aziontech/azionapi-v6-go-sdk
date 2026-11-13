@@ -86,6 +86,9 @@ func (a *WorkloadsAPIService) CheckWorkloadDomainAvailabilityExecute(r ApiCheckW
 	if r.domain == nil {
 		return localVarReturnValue, nil, reportError("domain is required and must be specified")
 	}
+	if strlen(*r.domain) > 253 {
+		return localVarReturnValue, nil, reportError("domain must have less than 253 elements")
+	}
 
 	parameterAddToHeaderOrQuery(localVarQueryParams, "domain", r.domain, "form", "")
 	if r.fields != nil {
@@ -660,16 +663,16 @@ type ApiListWorkloadsRequest struct {
 	lastEditor *string
 	lastModifiedGte *time.Time
 	lastModifiedLte *time.Time
-	mapName *string
 	mtlsTrustedCaCertificateId *[]int64
 	name *string
 	ordering *string
 	page *int64
 	pageSize *int32
 	search *string
+	workloadDomain *string
 }
 
-// Filter by digital certificate id (accepts comma-separated values).
+// Filter by the certificate of any domain shown in &#x60;bindings[].domains[].certificate&#x60; (accepts comma-separated values).
 func (r ApiListWorkloadsRequest) DigitalCertificateId(digitalCertificateId []int64) ApiListWorkloadsRequest {
 	r.digitalCertificateId = &digitalCertificateId
 	return r
@@ -687,7 +690,7 @@ func (r ApiListWorkloadsRequest) Id(id []int64) ApiListWorkloadsRequest {
 	return r
 }
 
-// Filter by infrastructure (accepts comma-separated values).
+// Filter by infrastructure (accepts comma-separated values). 1 is production and 2 is staging, the values of &#x60;infrastructure&#x60; in the response.
 func (r ApiListWorkloadsRequest) Infrastructure(infrastructure []int64) ApiListWorkloadsRequest {
 	r.infrastructure = &infrastructure
 	return r
@@ -711,13 +714,7 @@ func (r ApiListWorkloadsRequest) LastModifiedLte(lastModifiedLte time.Time) ApiL
 	return r
 }
 
-// Filter by map name (case-insensitive, partial match).
-func (r ApiListWorkloadsRequest) MapName(mapName string) ApiListWorkloadsRequest {
-	r.mapName = &mapName
-	return r
-}
-
-// Filter by mTLS trusted CA certificate id (accepts comma-separated values).
+// Filter by mTLS trusted CA certificate id (accepts comma-separated values). It matches &#x60;mtls.config.certificate&#x60;.
 func (r ApiListWorkloadsRequest) MtlsTrustedCaCertificateId(mtlsTrustedCaCertificateId []int64) ApiListWorkloadsRequest {
 	r.mtlsTrustedCaCertificateId = &mtlsTrustedCaCertificateId
 	return r
@@ -747,9 +744,15 @@ func (r ApiListWorkloadsRequest) PageSize(pageSize int32) ApiListWorkloadsReques
 	return r
 }
 
-// A search term to filter results. Searches across the following fields: id, name, last_editor.
+// A search term to filter results. Searches across the following fields: id, name, last_editor, last_modified, workload_domain, and the CNAME domains shown in &#x60;bindings[].domains[].domain&#x60;. The other domains in &#x60;bindings[].domains[].domain&#x60; are not searched.
 func (r ApiListWorkloadsRequest) Search(search string) ApiListWorkloadsRequest {
 	r.search = &search
+	return r
+}
+
+// Filter by workload domain (case-insensitive, partial match).
+func (r ApiListWorkloadsRequest) WorkloadDomain(workloadDomain string) ApiListWorkloadsRequest {
+	r.workloadDomain = &workloadDomain
 	return r
 }
 
@@ -814,9 +817,6 @@ func (a *WorkloadsAPIService) ListWorkloadsExecute(r ApiListWorkloadsRequest) (*
 	if r.lastModifiedLte != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "last_modified__lte", r.lastModifiedLte, "form", "")
 	}
-	if r.mapName != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "map_name", r.mapName, "form", "")
-	}
 	if r.mtlsTrustedCaCertificateId != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "mtls_trusted_ca_certificate_id", r.mtlsTrustedCaCertificateId, "form", "csv")
 	}
@@ -834,6 +834,9 @@ func (a *WorkloadsAPIService) ListWorkloadsExecute(r ApiListWorkloadsRequest) (*
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
+	}
+	if r.workloadDomain != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "workload_domain", r.workloadDomain, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
