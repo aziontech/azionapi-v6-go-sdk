@@ -43,7 +43,7 @@ func (r ApiCreateEnvironmentRequest) Execute() (*EnvironmentResponse, *http.Resp
 /*
 CreateEnvironment Create an Environment
 
-Creates a new environment and immediately builds its first version (save-and-build). The created version's `version_state` is `queued`.
+Create a new Environment in your account.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateEnvironmentRequest
@@ -444,19 +444,19 @@ type ApiListEnvironmentsRequest struct {
 	state *[]string
 }
 
-// Filter by creation date greater than or equal (date-time, as Django parse_datetime reads it)
+// Filter by creation date (greater than or equal).
 func (r ApiListEnvironmentsRequest) CreatedAtGte(createdAtGte time.Time) ApiListEnvironmentsRequest {
 	r.createdAtGte = &createdAtGte
 	return r
 }
 
-// Filter by creation date less than or equal (date-time, as Django parse_datetime reads it)
+// Filter by creation date (less than or equal).
 func (r ApiListEnvironmentsRequest) CreatedAtLte(createdAtLte time.Time) ApiListEnvironmentsRequest {
 	r.createdAtLte = &createdAtLte
 	return r
 }
 
-// Filter by deployment policy
+// Filter by deployment policy.
 func (r ApiListEnvironmentsRequest) DeploymentPolicy(deploymentPolicy string) ApiListEnvironmentsRequest {
 	r.deploymentPolicy = &deploymentPolicy
 	return r
@@ -468,37 +468,37 @@ func (r ApiListEnvironmentsRequest) Fields(fields string) ApiListEnvironmentsReq
 	return r
 }
 
-// Filter by environment ids
+// Filter by id (accepts comma-separated values).
 func (r ApiListEnvironmentsRequest) Id(id []string) ApiListEnvironmentsRequest {
 	r.id = &id
 	return r
 }
 
-// Filter by environment ids, comma-separated (&#x60;id__in&#x3D;A,B&#x60;). Combined with &#x60;id&#x60;, both sets must match.
+// Filter by id (accepts comma-separated values).
 func (r ApiListEnvironmentsRequest) IdIn(idIn []string) ApiListEnvironmentsRequest {
 	r.idIn = &idIn
 	return r
 }
 
-// Filter by the email of the last editor (case-insensitive substring match)
+// Filter by last editor (case-insensitive, partial match).
 func (r ApiListEnvironmentsRequest) LastEditor(lastEditor string) ApiListEnvironmentsRequest {
 	r.lastEditor = &lastEditor
 	return r
 }
 
-// Filter by last-modified date greater than or equal (date-time, as Django parse_datetime reads it)
+// Filter by last modified date (greater than or equal).
 func (r ApiListEnvironmentsRequest) LastModifiedGte(lastModifiedGte time.Time) ApiListEnvironmentsRequest {
 	r.lastModifiedGte = &lastModifiedGte
 	return r
 }
 
-// Filter by last-modified date less than or equal (date-time, as Django parse_datetime reads it)
+// Filter by last modified date (less than or equal).
 func (r ApiListEnvironmentsRequest) LastModifiedLte(lastModifiedLte time.Time) ApiListEnvironmentsRequest {
 	r.lastModifiedLte = &lastModifiedLte
 	return r
 }
 
-// Filter by environment name (case-insensitive substring match)
+// Filter by name (case-insensitive, partial match).
 func (r ApiListEnvironmentsRequest) Name(name string) ApiListEnvironmentsRequest {
 	r.name = &name
 	return r
@@ -528,7 +528,7 @@ func (r ApiListEnvironmentsRequest) Search(search string) ApiListEnvironmentsReq
 	return r
 }
 
-// Filter by lifecycle state. A deleted environment never appears.
+// Filter by state (accepts comma-separated values).
 func (r ApiListEnvironmentsRequest) State(state []string) ApiListEnvironmentsRequest {
 	r.state = &state
 	return r
@@ -782,7 +782,7 @@ func (r ApiPartialUpdateEnvironmentRequest) Execute() (*EnvironmentResponse, *ht
 /*
 PartialUpdateEnvironment Partially update an Environment
 
-Partially updates an environment and immediately builds a new version (save-and-build). `deployment_policy` is immutable: the current value is accepted, any other answers 409.
+Update one or more fields of an existing Environment without affecting other fields.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param environmentId A unique value identifying the environment.
@@ -1209,7 +1209,7 @@ func (r ApiUpdateEnvironmentRequest) Execute() (*EnvironmentResponse, *http.Resp
 /*
 UpdateEnvironment Update an Environment
 
-Full replacement (RFC 9110): the client sends the complete resource representation, every mutable field is required, and a new version is built (save-and-build). `deployment_policy` is immutable: the current value is accepted, any other answers 409. For partial updates use PATCH.
+Update an existing Environment. This replaces the entire Environment with the new values provided.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param environmentId A unique value identifying the environment.

@@ -19,29 +19,29 @@ import (
 // checks if the EnvironmentVersionMeta type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EnvironmentVersionMeta{}
 
-// EnvironmentVersionMeta Lifecycle metadata of an environment version.
+// EnvironmentVersionMeta Metadata of a Version of an Environment.
 type EnvironmentVersionMeta struct {
-	// ID of the version metadata.
+	// Identifier of the version.
 	VersionId *string `json:"version_id,omitempty"`
 	// Current lifecycle state of the version.  * `draft` - draft * `queued` - queued * `building` - building * `ready` - ready * `error` - error * `canceled` - canceled * `archiving` - archiving * `archived` - archived * `deleting` - deleting * `deleted` - deleted
 	VersionState *string `json:"version_state,omitempty"`
 	// Product version string.
 	ProductVersion NullableString `json:"product_version,omitempty"`
-	// ID of the source version if cloned.
+	// Identifier of the version this one was copied from, or null.
 	SourceVersionId NullableString `json:"source_version_id,omitempty"`
-	// JSON snapshot of the version data.
+	// Data of the version.
 	Snapshot map[string]interface{} `json:"snapshot,omitempty"`
 	// When this version was created.
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// When this version became ready.
 	ReadyAt NullableTime `json:"ready_at,omitempty"`
-	// Version description, sent only when the adapter supplies one.
+	// Description of the version.
 	Description NullableString `json:"description,omitempty"`
 	// When a build was triggered.
 	BuildAt NullableTime `json:"build_at,omitempty"`
 	// Comment provided when triggering the build.
 	BuildComment NullableString `json:"build_comment,omitempty"`
-	// When a cancel was triggered.
+	// When the build was canceled.
 	CancelAt NullableTime `json:"cancel_at,omitempty"`
 	// Comment provided when cancelling the build.
 	CancelComment NullableString `json:"cancel_comment,omitempty"`
@@ -51,7 +51,7 @@ type EnvironmentVersionMeta struct {
 	ArchiveComment NullableString `json:"archive_comment,omitempty"`
 	// Last build error details.
 	LastError map[string]interface{} `json:"last_error,omitempty"`
-	// Trace ID of the last outbox event of this version, null when the version never emitted one.
+	// Trace ID of the last operation on this version, or null.
 	TraceId NullableString `json:"trace_id,omitempty"`
 }
 

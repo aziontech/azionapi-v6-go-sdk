@@ -148,9 +148,9 @@ func (r ApiListEnvironmentVersionsRequest) Execute() (*PaginatedEnvironmentVersi
 }
 
 /*
-ListEnvironmentVersions List environment versions
+ListEnvironmentVersions List Environment Versions
 
-Paginated list of version rows under the environment base. Filters version-rows; legacy rows are excluded.
+List all Versions of an Environment.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param environmentId A unique value identifying the environment.
@@ -403,9 +403,9 @@ func (r ApiRetrieveEnvironmentVersionRequest) Execute() (*EnvironmentVersion, *h
 }
 
 /*
-RetrieveEnvironmentVersion Retrieve an environment version
+RetrieveEnvironmentVersion Retrieve details of an Environment Version
 
-Returns a single environment version row with its lifecycle meta.
+Retrieve details of a specific Version of an Environment.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param environmentId A unique value identifying the environment.
@@ -610,9 +610,9 @@ func (r ApiRevertEnvironmentVersionRequest) Execute() (*EnvironmentVersionMeta, 
 }
 
 /*
-RevertEnvironmentVersion Revert to an environment version
+RevertEnvironmentVersion Revert to an Environment Version
 
-Reverts to an environment version by cloning it into a new version and building it (save-and-build): the clone becomes the active version and the prior READY is archived once the clone is ready. **404** when the version does not exist, belongs to another environment or is deleted, or when the environment is archived, archiving or deleted. **409** when the source is queued, building, archiving or deleting, while the latest version of the environment is queued or building, or when the environment is being deleted. The clone copies the source configuration. The environment name and description do not change, because every version shows the current ones. The optional `comment` is persisted as the new version `build_comment` (prefixed with the source version id). Returns the new version meta (flat).
+Create a new Environment Version from a previous one and make it active.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param environmentId A unique value identifying the environment.

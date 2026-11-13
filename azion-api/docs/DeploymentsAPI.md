@@ -4,12 +4,12 @@ All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateDeployment**](DeploymentsAPI.md#CreateDeployment) | **Post** /deployments | Create a deployment
-[**DeleteDeployment**](DeploymentsAPI.md#DeleteDeployment) | **Delete** /deployments/{deployment_id} | Delete a deployment
-[**ListDeployments**](DeploymentsAPI.md#ListDeployments) | **Get** /deployments | List deployments
-[**PartialUpdateDeployment**](DeploymentsAPI.md#PartialUpdateDeployment) | **Patch** /deployments/{deployment_id} | Update a deployment
-[**RetrieveDeployment**](DeploymentsAPI.md#RetrieveDeployment) | **Get** /deployments/{deployment_id} | Get a deployment
-[**UpdateDeployment**](DeploymentsAPI.md#UpdateDeployment) | **Put** /deployments/{deployment_id} | Replace a deployment
+[**CreateDeployment**](DeploymentsAPI.md#CreateDeployment) | **Post** /deployments | Create a Deployment
+[**DeleteDeployment**](DeploymentsAPI.md#DeleteDeployment) | **Delete** /deployments/{deployment_id} | Delete a Deployment
+[**ListDeployments**](DeploymentsAPI.md#ListDeployments) | **Get** /deployments | List Deployments
+[**PartialUpdateDeployment**](DeploymentsAPI.md#PartialUpdateDeployment) | **Patch** /deployments/{deployment_id} | Partially update a Deployment
+[**RetrieveDeployment**](DeploymentsAPI.md#RetrieveDeployment) | **Get** /deployments/{deployment_id} | Retrieve details of a Deployment
+[**UpdateDeployment**](DeploymentsAPI.md#UpdateDeployment) | **Put** /deployments/{deployment_id} | Update a Deployment
 
 
 
@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 > DeploymentResponse CreateDeployment(ctx).DeploymentCreateRequest(deploymentCreateRequest).Execute()
 
-Create a deployment
+Create a Deployment
 
 
 
@@ -83,7 +83,7 @@ Name | Type | Description  | Notes
 
 > DeleteDeployment(ctx, deploymentId).Execute()
 
-Delete a deployment
+Delete a Deployment
 
 
 
@@ -151,7 +151,7 @@ Name | Type | Description  | Notes
 
 > PaginatedDeploymentList ListDeployments(ctx).BindingPolicy(bindingPolicy).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).DeploymentPolicy(deploymentPolicy).Fields(fields).Id(id).IdIn(idIn).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).State(state).Execute()
 
-List deployments
+List Deployments
 
 
 
@@ -174,16 +174,16 @@ func main() {
 	createdAtLte := time.Now() // time.Time | Filter by creation date (less than or equal). (optional)
 	deploymentPolicy := "deploymentPolicy_example" // string | Filter by deployment policy. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	id := []string{"Inner_example"} // []string | Filter by deployment short_ids, comma-separated (`id=A,B`). (optional)
-	idIn := []string{"Inner_example"} // []string | Filter by deployment short_ids, comma-separated (`id__in=A,B`). Combined with `id`, both sets must match. (optional)
-	lastModifiedGte := time.Now() // time.Time | Filter by last modification date (greater than or equal). (optional)
-	lastModifiedLte := time.Now() // time.Time | Filter by last modification date (less than or equal). (optional)
-	name := "name_example" // string | Filter by deployment name (case-insensitive, partial match). (optional)
+	id := []string{"Inner_example"} // []string | Filter by id (accepts comma-separated values). (optional)
+	idIn := []string{"Inner_example"} // []string | Filter by id (accepts comma-separated values). (optional)
+	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
+	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
+	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
 	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	search := "search_example" // string | A search term to filter results. Searches across the following fields: name. (optional)
-	state := []string{"Inner_example"} // []string | Filter by one or more lifecycle states, comma-separated (`state=ready,building`). `deleted` is never listed. `deleting` stays listed so a stuck delete can be found. Matches the state of the resolved version (`version_state`). (optional)
+	state := []string{"Inner_example"} // []string | Filter by state (accepts comma-separated values). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -213,16 +213,16 @@ Name | Type | Description  | Notes
  **createdAtLte** | **time.Time** | Filter by creation date (less than or equal). | 
  **deploymentPolicy** | **string** | Filter by deployment policy. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **id** | **[]string** | Filter by deployment short_ids, comma-separated (&#x60;id&#x3D;A,B&#x60;). | 
- **idIn** | **[]string** | Filter by deployment short_ids, comma-separated (&#x60;id__in&#x3D;A,B&#x60;). Combined with &#x60;id&#x60;, both sets must match. | 
- **lastModifiedGte** | **time.Time** | Filter by last modification date (greater than or equal). | 
- **lastModifiedLte** | **time.Time** | Filter by last modification date (less than or equal). | 
- **name** | **string** | Filter by deployment name (case-insensitive, partial match). | 
+ **id** | **[]string** | Filter by id (accepts comma-separated values). | 
+ **idIn** | **[]string** | Filter by id (accepts comma-separated values). | 
+ **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
+ **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
+ **name** | **string** | Filter by name (case-insensitive, partial match). | 
  **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **search** | **string** | A search term to filter results. Searches across the following fields: name. | 
- **state** | **[]string** | Filter by one or more lifecycle states, comma-separated (&#x60;state&#x3D;ready,building&#x60;). &#x60;deleted&#x60; is never listed. &#x60;deleting&#x60; stays listed so a stuck delete can be found. Matches the state of the resolved version (&#x60;version_state&#x60;). | 
+ **state** | **[]string** | Filter by state (accepts comma-separated values). | 
 
 ### Return type
 
@@ -246,7 +246,7 @@ Name | Type | Description  | Notes
 
 > DeploymentResponse PartialUpdateDeployment(ctx, deploymentId).PatchedDeploymentRequest(patchedDeploymentRequest).Execute()
 
-Update a deployment
+Partially update a Deployment
 
 
 
@@ -318,7 +318,7 @@ Name | Type | Description  | Notes
 
 > DeploymentRetrieveResponse RetrieveDeployment(ctx, deploymentId).Fields(fields).Execute()
 
-Get a deployment
+Retrieve details of a Deployment
 
 
 
@@ -390,7 +390,7 @@ Name | Type | Description  | Notes
 
 > DeploymentResponse UpdateDeployment(ctx, deploymentId).DeploymentRequest(deploymentRequest).Execute()
 
-Replace a deployment
+Update a Deployment
 
 
 

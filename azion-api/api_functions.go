@@ -432,9 +432,10 @@ func (a *FunctionsAPIService) DeleteFunctionExecute(r ApiDeleteFunctionRequest) 
 type ApiListFunctionsRequest struct {
 	ctx context.Context
 	ApiService *FunctionsAPIService
+	defaultArgs *string
+	executionEnvironment *string
 	fields *string
 	id *[]int64
-	languageIn *[]string
 	lastEditor *string
 	lastModifiedGte *time.Time
 	lastModifiedLte *time.Time
@@ -442,8 +443,21 @@ type ApiListFunctionsRequest struct {
 	ordering *string
 	page *int64
 	pageSize *int32
-	runtimeEnvironmentIn *[]string
+	runtime *string
 	search *string
+	vendor *string
+}
+
+// Filter by default args (case-insensitive, partial match against the stored JSON text).
+func (r ApiListFunctionsRequest) DefaultArgs(defaultArgs string) ApiListFunctionsRequest {
+	r.defaultArgs = &defaultArgs
+	return r
+}
+
+// Filter by execution environment (single value, exact match). &#x60;application&#x60; and &#x60;firewall&#x60; are translated to the stored values &#x60;edge_application&#x60; and &#x60;edge_firewall&#x60;. Any other value is compared unchanged with the stored value, so &#x60;edge_application&#x60; and &#x60;edge_firewall&#x60; also match.
+func (r ApiListFunctionsRequest) ExecutionEnvironment(executionEnvironment string) ApiListFunctionsRequest {
+	r.executionEnvironment = &executionEnvironment
+	return r
 }
 
 // Comma-separated list of field names to include in the response.
@@ -455,12 +469,6 @@ func (r ApiListFunctionsRequest) Fields(fields string) ApiListFunctionsRequest {
 // Filter by id (accepts comma-separated values).
 func (r ApiListFunctionsRequest) Id(id []int64) ApiListFunctionsRequest {
 	r.id = &id
-	return r
-}
-
-// Filter by language (accepts comma-separated values).
-func (r ApiListFunctionsRequest) LanguageIn(languageIn []string) ApiListFunctionsRequest {
-	r.languageIn = &languageIn
 	return r
 }
 
@@ -488,7 +496,7 @@ func (r ApiListFunctionsRequest) Name(name string) ApiListFunctionsRequest {
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, language, runtime_environment, last_editor, last_modified)
+// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, product_version, runtime, execution_environment, default_args) An unknown field returns 400.
 func (r ApiListFunctionsRequest) Ordering(ordering string) ApiListFunctionsRequest {
 	r.ordering = &ordering
 	return r
@@ -506,15 +514,21 @@ func (r ApiListFunctionsRequest) PageSize(pageSize int32) ApiListFunctionsReques
 	return r
 }
 
-// Filter by runtime environment (accepts comma-separated values).
-func (r ApiListFunctionsRequest) RuntimeEnvironmentIn(runtimeEnvironmentIn []string) ApiListFunctionsRequest {
-	r.runtimeEnvironmentIn = &runtimeEnvironmentIn
+// Filter by runtime (single value, exact match). &#x60;azion_js&#x60; is translated to the stored value &#x60;javascript&#x60;. Any other value is compared unchanged with the stored value, so &#x60;javascript&#x60; and &#x60;lua&#x60; also match and &#x60;azion_lua&#x60; matches nothing.
+func (r ApiListFunctionsRequest) Runtime(runtime string) ApiListFunctionsRequest {
+	r.runtime = &runtime
 	return r
 }
 
-// A search term to filter results. Searches across the following fields: name, last_editor, language, runtime_environment.
+// A search term to filter results. Searches across the following fields: name, last_editor, runtime, execution_environment. runtime and execution_environment are matched by their stored values (&#x60;javascript&#x60;, &#x60;lua&#x60;, &#x60;edge_application&#x60; and &#x60;edge_firewall&#x60;).
 func (r ApiListFunctionsRequest) Search(search string) ApiListFunctionsRequest {
 	r.search = &search
+	return r
+}
+
+// Filter by the vendor recorded when the function was bought (case-insensitive, partial match).
+func (r ApiListFunctionsRequest) Vendor(vendor string) ApiListFunctionsRequest {
+	r.vendor = &vendor
 	return r
 }
 
@@ -558,14 +572,17 @@ func (a *FunctionsAPIService) ListFunctionsExecute(r ApiListFunctionsRequest) (*
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.defaultArgs != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "default_args", r.defaultArgs, "form", "")
+	}
+	if r.executionEnvironment != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "execution_environment", r.executionEnvironment, "form", "")
+	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.id != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
-	}
-	if r.languageIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "language__in", r.languageIn, "form", "csv")
 	}
 	if r.lastEditor != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "last_editor", r.lastEditor, "form", "")
@@ -588,11 +605,14 @@ func (a *FunctionsAPIService) ListFunctionsExecute(r ApiListFunctionsRequest) (*
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
 	}
-	if r.runtimeEnvironmentIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "runtime_environment__in", r.runtimeEnvironmentIn, "form", "csv")
+	if r.runtime != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "runtime", r.runtime, "form", "")
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
+	}
+	if r.vendor != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "vendor", r.vendor, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

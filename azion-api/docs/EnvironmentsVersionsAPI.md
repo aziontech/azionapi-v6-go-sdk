@@ -4,9 +4,9 @@ All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListEnvironmentVersions**](EnvironmentsVersionsAPI.md#ListEnvironmentVersions) | **Get** /environments/{environment_id}/versions | List environment versions
-[**RetrieveEnvironmentVersion**](EnvironmentsVersionsAPI.md#RetrieveEnvironmentVersion) | **Get** /environments/{environment_id}/versions/{version_id} | Retrieve an environment version
-[**RevertEnvironmentVersion**](EnvironmentsVersionsAPI.md#RevertEnvironmentVersion) | **Post** /environments/{environment_id}/versions/{version_id}/revert | Revert to an environment version
+[**ListEnvironmentVersions**](EnvironmentsVersionsAPI.md#ListEnvironmentVersions) | **Get** /environments/{environment_id}/versions | List Environment Versions
+[**RetrieveEnvironmentVersion**](EnvironmentsVersionsAPI.md#RetrieveEnvironmentVersion) | **Get** /environments/{environment_id}/versions/{version_id} | Retrieve details of an Environment Version
+[**RevertEnvironmentVersion**](EnvironmentsVersionsAPI.md#RevertEnvironmentVersion) | **Post** /environments/{environment_id}/versions/{version_id}/revert | Revert to an Environment Version
 
 
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > PaginatedEnvironmentVersionList ListEnvironmentVersions(ctx, environmentId).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Description(description).Fields(fields).LastEditor(lastEditor).Ordering(ordering).Page(page).PageSize(pageSize).ReadyAtGte(readyAtGte).ReadyAtLte(readyAtLte).Search(search).Version(version).VersionGte(versionGte).VersionLte(versionLte).VersionState(versionState).VersionStateIn(versionStateIn).Execute()
 
-List environment versions
+List Environment Versions
 
 
 
@@ -117,7 +117,7 @@ Name | Type | Description  | Notes
 
 > EnvironmentVersion RetrieveEnvironmentVersion(ctx, environmentId, versionId).Fields(fields).Execute()
 
-Retrieve an environment version
+Retrieve details of an Environment Version
 
 
 
@@ -192,7 +192,7 @@ Name | Type | Description  | Notes
 
 > EnvironmentVersionMeta RevertEnvironmentVersion(ctx, environmentId, versionId).EnvironmentVersionRevertRequest(environmentVersionRevertRequest).Execute()
 
-Revert to an environment version
+Revert to an Environment Version
 
 
 
