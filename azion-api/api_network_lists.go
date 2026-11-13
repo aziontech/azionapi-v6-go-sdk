@@ -437,12 +437,12 @@ type ApiListNetworkListsRequest struct {
 	lastEditor *string
 	lastModifiedGte *time.Time
 	lastModifiedLte *time.Time
-	listTypeIn *[]string
 	name *string
 	ordering *string
 	page *int64
 	pageSize *int32
 	search *string
+	typeIn *[]string
 }
 
 // Comma-separated list of field names to include in the response.
@@ -475,19 +475,13 @@ func (r ApiListNetworkListsRequest) LastModifiedLte(lastModifiedLte time.Time) A
 	return r
 }
 
-// Filter by list type (accepts comma-separated values).
-func (r ApiListNetworkListsRequest) ListTypeIn(listTypeIn []string) ApiListNetworkListsRequest {
-	r.listTypeIn = &listTypeIn
-	return r
-}
-
 // Filter by name (case-insensitive, partial match).
 func (r ApiListNetworkListsRequest) Name(name string) ApiListNetworkListsRequest {
 	r.name = &name
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, list_type)
+// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, type)
 func (r ApiListNetworkListsRequest) Ordering(ordering string) ApiListNetworkListsRequest {
 	r.ordering = &ordering
 	return r
@@ -508,6 +502,12 @@ func (r ApiListNetworkListsRequest) PageSize(pageSize int32) ApiListNetworkLists
 // A search term to filter results. Searches across the following fields: last_editor, list_type, name.
 func (r ApiListNetworkListsRequest) Search(search string) ApiListNetworkListsRequest {
 	r.search = &search
+	return r
+}
+
+// Filter by type (accepts comma-separated values): &#x60;asn&#x60;, &#x60;countries&#x60; or &#x60;ip_cidr&#x60;.
+func (r ApiListNetworkListsRequest) TypeIn(typeIn []string) ApiListNetworkListsRequest {
+	r.typeIn = &typeIn
 	return r
 }
 
@@ -566,9 +566,6 @@ func (a *NetworkListsAPIService) ListNetworkListsExecute(r ApiListNetworkListsRe
 	if r.lastModifiedLte != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "last_modified__lte", r.lastModifiedLte, "form", "")
 	}
-	if r.listTypeIn != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "list_type__in", r.listTypeIn, "form", "csv")
-	}
 	if r.name != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")
 	}
@@ -583,6 +580,9 @@ func (a *NetworkListsAPIService) ListNetworkListsExecute(r ApiListNetworkListsRe
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
+	}
+	if r.typeIn != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "type__in", r.typeIn, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1176,13 +1176,13 @@ func (r ApiRetrieveNetworkListRequest) Fields(fields string) ApiRetrieveNetworkL
 	return r
 }
 
-// Filter by IPv4. Only applicable for network lists of type &#39;ip_cidr&#39;.
+// Keep the IPv4 entries in &#x60;items&#x60;. Only applicable for network lists of type &#39;ip_cidr&#39;. Only &#x60;true&#x60; (case-insensitive) turns a flag on. When only one of ipv4 and ipv6 is sent, the other takes the opposite value. When neither is sent, both are on. When both are off, &#x60;items&#x60; is empty.
 func (r ApiRetrieveNetworkListRequest) Ipv4(ipv4 bool) ApiRetrieveNetworkListRequest {
 	r.ipv4 = &ipv4
 	return r
 }
 
-// Filter by IPv6. Only applicable for network lists of type &#39;ip_cidr&#39;.
+// Keep the IPv6 entries in &#x60;items&#x60;. Only applicable for network lists of type &#39;ip_cidr&#39;. Only &#x60;true&#x60; (case-insensitive) turns a flag on. When only one of ipv4 and ipv6 is sent, the other takes the opposite value. When neither is sent, both are on. When both are off, &#x60;items&#x60; is empty.
 func (r ApiRetrieveNetworkListRequest) Ipv6(ipv6 bool) ApiRetrieveNetworkListRequest {
 	r.ipv6 = &ipv6
 	return r

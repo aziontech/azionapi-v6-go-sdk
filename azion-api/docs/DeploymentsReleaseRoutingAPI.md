@@ -4,7 +4,7 @@ All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ActivateRelease**](DeploymentsReleaseRoutingAPI.md#ActivateRelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/activate | Activate a release
+[**ActivateRelease**](DeploymentsReleaseRoutingAPI.md#ActivateRelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/activate | Activate a Release
 
 
 
@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 > ReleaseAsyncResponse ActivateRelease(ctx, deploymentId, releaseId).ActivateReleaseRequest(activateReleaseRequest).Execute()
 
-Activate a release
+Activate a Release
 
 
 

@@ -502,7 +502,7 @@ func (r ApiListConnectorsRequest) Search(search string) ApiListConnectorsRequest
 	return r
 }
 
-// Filter by type (accepts comma-separated values).
+// Filter by type (accepts comma-separated values). The values are &#x60;http&#x60;, &#x60;edge_storage&#x60; and &#x60;live_ingest&#x60;. &#x60;edge_storage&#x60; is the type the response shows as &#x60;storage&#x60;.
 func (r ApiListConnectorsRequest) TypeIn(typeIn []string) ApiListConnectorsRequest {
 	r.typeIn = &typeIn
 	return r

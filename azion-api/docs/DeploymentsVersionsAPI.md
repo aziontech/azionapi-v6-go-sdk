@@ -4,10 +4,10 @@ All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CancelDeploymentVersionBuild**](DeploymentsVersionsAPI.md#CancelDeploymentVersionBuild) | **Post** /deployments/{deployment_id}/versions/{version_id}/cancel | Cancel an in-flight deployment version build
-[**ListDeploymentVersions**](DeploymentsVersionsAPI.md#ListDeploymentVersions) | **Get** /deployments/{deployment_id}/versions | List deployment versions
-[**RetrieveDeploymentVersion**](DeploymentsVersionsAPI.md#RetrieveDeploymentVersion) | **Get** /deployments/{deployment_id}/versions/{version_id} | Retrieve a deployment version
-[**RevertDeploymentVersion**](DeploymentsVersionsAPI.md#RevertDeploymentVersion) | **Post** /deployments/{deployment_id}/versions/{version_id}/revert | Revert to a deployment version
+[**CancelDeploymentVersionBuild**](DeploymentsVersionsAPI.md#CancelDeploymentVersionBuild) | **Post** /deployments/{deployment_id}/versions/{version_id}/cancel | Cancel a Deployment Version build
+[**ListDeploymentVersions**](DeploymentsVersionsAPI.md#ListDeploymentVersions) | **Get** /deployments/{deployment_id}/versions | List Deployment Versions
+[**RetrieveDeploymentVersion**](DeploymentsVersionsAPI.md#RetrieveDeploymentVersion) | **Get** /deployments/{deployment_id}/versions/{version_id} | Retrieve details of a Deployment Version
+[**RevertDeploymentVersion**](DeploymentsVersionsAPI.md#RevertDeploymentVersion) | **Post** /deployments/{deployment_id}/versions/{version_id}/revert | Revert to a Deployment Version
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > DeploymentVersionMeta CancelDeploymentVersionBuild(ctx, deploymentId, versionId).DeploymentVersionCancelRequest(deploymentVersionCancelRequest).Execute()
 
-Cancel an in-flight deployment version build
+Cancel a Deployment Version build
 
 
 
@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 
 > PaginatedDeploymentVersionList ListDeploymentVersions(ctx, deploymentId).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Description(description).Fields(fields).LastEditor(lastEditor).Ordering(ordering).Page(page).PageSize(pageSize).ReadyAtGte(readyAtGte).ReadyAtLte(readyAtLte).Search(search).Version(version).VersionGte(versionGte).VersionLte(versionLte).VersionState(versionState).VersionStateIn(versionStateIn).Execute()
 
-List deployment versions
+List Deployment Versions
 
 
 
@@ -193,7 +193,7 @@ Name | Type | Description  | Notes
 
 > DeploymentVersion RetrieveDeploymentVersion(ctx, deploymentId, versionId).Fields(fields).Execute()
 
-Retrieve a deployment version
+Retrieve details of a Deployment Version
 
 
 
@@ -268,7 +268,7 @@ Name | Type | Description  | Notes
 
 > DeploymentVersionMeta RevertDeploymentVersion(ctx, deploymentId, versionId).DeploymentVersionRevertRequest(deploymentVersionRevertRequest).Execute()
 
-Revert to a deployment version
+Revert to a Deployment Version
 
 
 
