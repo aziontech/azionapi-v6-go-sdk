@@ -435,6 +435,9 @@ type ApiListCredentialsRequest struct {
 	accessKey *string
 	buckets *string
 	bucketsIn *[]string
+	createdAt *time.Time
+	createdAtGte *time.Time
+	createdAtLte *time.Time
 	fields *string
 	id *[]int64
 	lastEditor *string
@@ -463,6 +466,24 @@ func (r ApiListCredentialsRequest) Buckets(buckets string) ApiListCredentialsReq
 // Filter by multiple bucket names (comma-separated).
 func (r ApiListCredentialsRequest) BucketsIn(bucketsIn []string) ApiListCredentialsRequest {
 	r.bucketsIn = &bucketsIn
+	return r
+}
+
+// Filter by creation date (exact match).
+func (r ApiListCredentialsRequest) CreatedAt(createdAt time.Time) ApiListCredentialsRequest {
+	r.createdAt = &createdAt
+	return r
+}
+
+// Filter by creation date (greater than or equal).
+func (r ApiListCredentialsRequest) CreatedAtGte(createdAtGte time.Time) ApiListCredentialsRequest {
+	r.createdAtGte = &createdAtGte
+	return r
+}
+
+// Filter by creation date (less than or equal).
+func (r ApiListCredentialsRequest) CreatedAtLte(createdAtLte time.Time) ApiListCredentialsRequest {
+	r.createdAtLte = &createdAtLte
 	return r
 }
 
@@ -580,6 +601,15 @@ func (a *StorageCredentialsAPIService) ListCredentialsExecute(r ApiListCredentia
 	}
 	if r.bucketsIn != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "buckets__in", r.bucketsIn, "form", "csv")
+	}
+	if r.createdAt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at", r.createdAt, "form", "")
+	}
+	if r.createdAtGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__gte", r.createdAtGte, "form", "")
+	}
+	if r.createdAtLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__lte", r.createdAtLte, "form", "")
 	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")

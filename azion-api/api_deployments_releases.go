@@ -43,9 +43,9 @@ func (r ApiArchiveReleaseRequest) Execute() (*ReleaseAsyncResponse, *http.Respon
 }
 
 /*
-ArchiveRelease Archive a release
+ArchiveRelease Archive a Release
 
-Archives a ready release. Returns 202 (async).
+Archive a Release of a Deployment.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
@@ -256,6 +256,238 @@ func (a *DeploymentsReleasesAPIService) ArchiveReleaseExecute(r ApiArchiveReleas
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiBuildAndActivateReleaseRequest struct {
+	ctx context.Context
+	ApiService *DeploymentsReleasesAPIService
+	deploymentId string
+	buildAndActivateRequest *BuildAndActivateRequest
+}
+
+func (r ApiBuildAndActivateReleaseRequest) BuildAndActivateRequest(buildAndActivateRequest BuildAndActivateRequest) ApiBuildAndActivateReleaseRequest {
+	r.buildAndActivateRequest = &buildAndActivateRequest
+	return r
+}
+
+func (r ApiBuildAndActivateReleaseRequest) Execute() (*ReleaseAsyncResponse, *http.Response, error) {
+	return r.ApiService.BuildAndActivateReleaseExecute(r)
+}
+
+/*
+BuildAndActivateRelease Create, build and activate a Release
+
+Create a new Release in a Deployment, build it and activate it in a single request.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param deploymentId A unique value identifying the deployment.
+ @return ApiBuildAndActivateReleaseRequest
+*/
+func (a *DeploymentsReleasesAPIService) BuildAndActivateRelease(ctx context.Context, deploymentId string) ApiBuildAndActivateReleaseRequest {
+	return ApiBuildAndActivateReleaseRequest{
+		ApiService: a,
+		ctx: ctx,
+		deploymentId: deploymentId,
+	}
+}
+
+// Execute executes the request
+//  @return ReleaseAsyncResponse
+func (a *DeploymentsReleasesAPIService) BuildAndActivateReleaseExecute(r ApiBuildAndActivateReleaseRequest) (*ReleaseAsyncResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ReleaseAsyncResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeploymentsReleasesAPIService.BuildAndActivateRelease")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/deployments/{deployment_id}/build_and_activate"
+	localVarPath = strings.Replace(localVarPath, "{"+"deployment_id"+"}", url.PathEscape(parameterValueToString(r.deploymentId, "deploymentId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.deploymentId) < 8 {
+		return localVarReturnValue, nil, reportError("deploymentId must have at least 8 elements")
+	}
+	if strlen(r.deploymentId) > 26 {
+		return localVarReturnValue, nil, reportError("deploymentId must have less than 26 elements")
+	}
+	if r.buildAndActivateRequest == nil {
+		return localVarReturnValue, nil, reportError("buildAndActivateRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.buildAndActivateRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["TokenAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 413 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 504 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiBuildReleaseRequest struct {
 	ctx context.Context
 	ApiService *DeploymentsReleasesAPIService
@@ -274,9 +506,9 @@ func (r ApiBuildReleaseRequest) Execute() (*ReleaseAsyncResponse, *http.Response
 }
 
 /*
-BuildRelease Finalize a draft release (send to edge via outbox)
+BuildRelease Build a Release
 
-Transitions a draft release to `state="queued"`. Runs catalog validation + STRICT baseline checks and emits the INSTALL outbox event so the worker can build the artifact at the edge. A refused build leaves the release in `state="error"`. A release in `error` can be edited and built again. Mirrors the `/build` verb used by edge-api for the analogous build-config versioning action.
+Build a draft or failed Release so it can be activated.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
@@ -513,9 +745,9 @@ func (r ApiCancelReleaseRequest) Execute() (*ReleaseResponse, *http.Response, er
 }
 
 /*
-CancelRelease Cancel a release
+CancelRelease Cancel a Release
 
-Cancels a queued or building release. Its `release / install` row and, when the release came from an activation and still holds its routing role, the `deployment / install` row of that activation still `queued` or `running` go `canceled`, and the previous routing is restored with a compensation doc. A doc the worker already read can still be applied by the edge, and the compensation doc comes after it on the same queue.
+Cancel the build of a Release that is queued or building.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
@@ -743,9 +975,9 @@ func (r ApiCreateReleaseRequest) Execute() (*ReleaseAsyncResponse, *http.Respons
 }
 
 /*
-CreateRelease Create a draft release
+CreateRelease Create a Release
 
-Creates a new release in `state="draft"`. A release always holds exactly one `application`, a draft included: `resources` is required, and a composition without an application, or with two of a singleton type (`application`, `firewall`, `custom_page`), is refused with 400 `43002` (`/data/resources`). The global id of the `application` is resolved against the edge-api and no outbox event is emitted. The client refines the release through PATCH `/v6/deployments/{deployment_id}/releases/{release_id}`, which keeps the same composition rule, and builds it with POST `/v6/deployments/{deployment_id}/releases/{release_id}/build`. Limit: 20 drafts per (client_id, deployment_id).
+Create a new draft Release in a Deployment.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
@@ -970,9 +1202,9 @@ func (r ApiDeleteReleaseRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteRelease Delete a release
+DeleteRelease Delete a Release
 
-Deletes a release.
+Delete a specific Release of a Deployment.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
@@ -1171,7 +1403,7 @@ type ApiListAccountReleasesRequest struct {
 	trafficRole *string
 }
 
-// Restrict the listing to these deployments, comma-separated (&#x60;deployment&#x3D;A,B&#x60;). More ids than the per-request cap, 100 by default, answer 400. An id that does not exist, or belongs to another account, yields an empty page rather than a 404.
+// Filter by Deployment id (accepts comma-separated values).
 func (r ApiListAccountReleasesRequest) Deployment(deployment []string) ApiListAccountReleasesRequest {
 	r.deployment = &deployment
 	return r
@@ -1183,13 +1415,13 @@ func (r ApiListAccountReleasesRequest) Fields(fields string) ApiListAccountRelea
 	return r
 }
 
-// Filter by last modification date (greater than or equal).
+// Filter by last modified date (greater than or equal).
 func (r ApiListAccountReleasesRequest) LastModifiedGte(lastModifiedGte time.Time) ApiListAccountReleasesRequest {
 	r.lastModifiedGte = &lastModifiedGte
 	return r
 }
 
-// Filter by last modification date (less than or equal).
+// Filter by last modified date (less than or equal).
 func (r ApiListAccountReleasesRequest) LastModifiedLte(lastModifiedLte time.Time) ApiListAccountReleasesRequest {
 	r.lastModifiedLte = &lastModifiedLte
 	return r
@@ -1219,13 +1451,13 @@ func (r ApiListAccountReleasesRequest) Search(search string) ApiListAccountRelea
 	return r
 }
 
-// Filter by one or more lifecycle states, comma-separated (&#x60;state&#x3D;ready,building&#x60;). &#x60;deleted&#x60; is never listed. &#x60;deleting&#x60; stays listed so a stuck delete can be found.
+// Filter by state (accepts comma-separated values).
 func (r ApiListAccountReleasesRequest) State(state []string) ApiListAccountReleasesRequest {
 	r.state = &state
 	return r
 }
 
-// &#x60;active&#x60; returns the releases currently serving traffic, resolved per parent &#x60;deployment_policy&#x60;: &#x60;single_version&#x60; → ACTIVE/CANDIDATE, &#x60;versioned_urls&#x60; → ACTIVE/VALID_URL, &#x60;latest&#x60; → ACTIVE. Any other value matches nothing.
+// Filter by traffic role. &#x60;active&#x60; returns the Releases that serve traffic.
 func (r ApiListAccountReleasesRequest) TrafficRole(trafficRole string) ApiListAccountReleasesRequest {
 	r.trafficRole = &trafficRole
 	return r
@@ -1236,9 +1468,9 @@ func (r ApiListAccountReleasesRequest) Execute() (*PaginatedAccountReleaseList, 
 }
 
 /*
-ListAccountReleases List every release of the account
+ListAccountReleases List Releases of all Deployments
 
-Returns the releases of all deployments the authenticated account owns, oldest first. Each item carries `deployment_name` so a listing needs no follow-up call to resolve the parent. `traffic_role=active` keeps the releases serving traffic, resolved per parent `deployment_policy`.
+List all Releases of the Deployments owned by your account, oldest first.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListAccountReleasesRequest
@@ -1481,13 +1713,13 @@ func (r ApiListReleasesRequest) PageSize(pageSize int32) ApiListReleasesRequest 
 	return r
 }
 
-// Filter by one or more lifecycle states, comma-separated (&#x60;state&#x3D;ready,building&#x60;). &#x60;deleted&#x60; is never listed. &#x60;deleting&#x60; stays listed so a stuck delete can be found.
+// Filter by state (accepts comma-separated values).
 func (r ApiListReleasesRequest) State(state []string) ApiListReleasesRequest {
 	r.state = &state
 	return r
 }
 
-// &#x60;active&#x60; returns the releases currently serving traffic, resolved per parent &#x60;deployment_policy&#x60;: &#x60;single_version&#x60; → ACTIVE/CANDIDATE, &#x60;versioned_urls&#x60; → ACTIVE/VALID_URL, &#x60;latest&#x60; → ACTIVE. Any other value matches nothing.
+// Filter by traffic role. &#x60;active&#x60; returns the Releases that serve traffic.
 func (r ApiListReleasesRequest) TrafficRole(trafficRole string) ApiListReleasesRequest {
 	r.trafficRole = &trafficRole
 	return r
@@ -1498,9 +1730,9 @@ func (r ApiListReleasesRequest) Execute() (*PaginatedReleaseList, *http.Response
 }
 
 /*
-ListReleases List releases
+ListReleases List Releases
 
-Returns paginated list of releases for a deployment. Supports `?state=<lifecycle>[,<lifecycle>…]` and `?traffic_role=active` (policy-aware semantic filter: single_version → ACTIVE+CANDIDATE; versioned_urls → ACTIVE+VALID_URL).
+List all Releases of a Deployment.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
@@ -1722,9 +1954,9 @@ func (r ApiPartialUpdateReleaseRequest) Execute() (*ReleaseResponse, *http.Respo
 }
 
 /*
-PartialUpdateRelease Patch a release
+PartialUpdateRelease Partially update a Release
 
-Full-replace patch of `resources` and `origin`. A draft release is edited in place. A release in `ready`, `error`, `canceled` or `archived` is cloned into a new draft with the patch applied, and the response carries the new draft. Rollout policy is off-contract — see the Deployments section. Rejects with 409 when the release is `queued`, `building`, `archiving` or `deleting`, when the clone would pass the draft limit, or when the deployment is being deleted.
+Update one or more fields of an existing Release without affecting other fields. A Release that is not a draft is kept, and a new draft Release is created with the changes.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
@@ -1943,6 +2175,248 @@ func (a *DeploymentsReleasesAPIService) PartialUpdateReleaseExecute(r ApiPartial
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiPatchAndActivateReleaseRequest struct {
+	ctx context.Context
+	ApiService *DeploymentsReleasesAPIService
+	deploymentId string
+	releaseId string
+	patchedReleaseRequest *PatchedReleaseRequest
+}
+
+func (r ApiPatchAndActivateReleaseRequest) PatchedReleaseRequest(patchedReleaseRequest PatchedReleaseRequest) ApiPatchAndActivateReleaseRequest {
+	r.patchedReleaseRequest = &patchedReleaseRequest
+	return r
+}
+
+func (r ApiPatchAndActivateReleaseRequest) Execute() (*ReleaseAsyncResponse, *http.Response, error) {
+	return r.ApiService.PatchAndActivateReleaseExecute(r)
+}
+
+/*
+PatchAndActivateRelease Update and activate a Release
+
+Create a new Release from an existing one with the changes provided, build it and activate it. Fields left out are inherited from the existing Release.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param deploymentId A unique value identifying the deployment.
+ @param releaseId A unique value identifying the release.
+ @return ApiPatchAndActivateReleaseRequest
+*/
+func (a *DeploymentsReleasesAPIService) PatchAndActivateRelease(ctx context.Context, deploymentId string, releaseId string) ApiPatchAndActivateReleaseRequest {
+	return ApiPatchAndActivateReleaseRequest{
+		ApiService: a,
+		ctx: ctx,
+		deploymentId: deploymentId,
+		releaseId: releaseId,
+	}
+}
+
+// Execute executes the request
+//  @return ReleaseAsyncResponse
+func (a *DeploymentsReleasesAPIService) PatchAndActivateReleaseExecute(r ApiPatchAndActivateReleaseRequest) (*ReleaseAsyncResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ReleaseAsyncResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DeploymentsReleasesAPIService.PatchAndActivateRelease")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/deployments/{deployment_id}/releases/{release_id}/patch_and_activate"
+	localVarPath = strings.Replace(localVarPath, "{"+"deployment_id"+"}", url.PathEscape(parameterValueToString(r.deploymentId, "deploymentId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"release_id"+"}", url.PathEscape(parameterValueToString(r.releaseId, "releaseId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.deploymentId) < 8 {
+		return localVarReturnValue, nil, reportError("deploymentId must have at least 8 elements")
+	}
+	if strlen(r.deploymentId) > 26 {
+		return localVarReturnValue, nil, reportError("deploymentId must have less than 26 elements")
+	}
+	if strlen(r.releaseId) < 8 {
+		return localVarReturnValue, nil, reportError("releaseId must have at least 8 elements")
+	}
+	if strlen(r.releaseId) > 26 {
+		return localVarReturnValue, nil, reportError("releaseId must have less than 26 elements")
+	}
+	if r.patchedReleaseRequest == nil {
+		return localVarReturnValue, nil, reportError("patchedReleaseRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.patchedReleaseRequest
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["TokenAuth"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 413 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 504 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiPromoteReleaseRequest struct {
 	ctx context.Context
 	ApiService *DeploymentsReleasesAPIService
@@ -1961,9 +2435,9 @@ func (r ApiPromoteReleaseRequest) Execute() (*ReleaseAsyncResponse, *http.Respon
 }
 
 /*
-PromoteRelease Promote a release
+PromoteRelease Promote a Release
 
-Promotes a release to another deployment.
+Promote a Release to another Deployment.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
@@ -2204,9 +2678,9 @@ func (r ApiRetrieveReleaseRequest) Execute() (*ReleaseRetrieveResponse, *http.Re
 }
 
 /*
-RetrieveRelease Get a release
+RetrieveRelease Retrieve details of a Release
 
-Returns a single release by ID.
+Retrieve details of a specific Release of a Deployment.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
@@ -2411,9 +2885,9 @@ func (r ApiUpdateReleaseRequest) Execute() (*ReleaseResponse, *http.Response, er
 }
 
 /*
-UpdateRelease Replace a release
+UpdateRelease Update a Release
 
-Full replace of `resources` and `origin`, both required. A draft release is edited in place. A release in `ready`, `error`, `canceled` or `archived` is cloned into a new draft with the replacement applied, and the response carries the new draft. Rollout policy is off-contract — see the Deployments section. Rejects with 409 when the release is `queued`, `building`, `archiving` or `deleting`, when the clone would pass the draft limit, or when the deployment is being deleted.
+Update an existing Release. This replaces the entire Release with the new values provided. A Release that is not a draft is kept, and a new draft Release is created with the changes.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.

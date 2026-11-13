@@ -19,9 +19,9 @@ import (
 // checks if the EnvironmentVersionList type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EnvironmentVersionList{}
 
-// EnvironmentVersionList Summary of an environment version, as listed.
+// EnvironmentVersionList A Version of an Environment, as listed.
 type EnvironmentVersionList struct {
-	// ID of the version metadata (use in /versions/{version_id} URLs).
+	// Identifier of the version.
 	VersionId *string `json:"version_id,omitempty"`
 	// Current lifecycle state of the version.  * `draft` - draft * `queued` - queued * `building` - building * `ready` - ready * `error` - error * `canceled` - canceled * `archiving` - archiving * `archived` - archived * `deleting` - deleting
 	VersionState *string `json:"version_state,omitempty"`
@@ -29,7 +29,7 @@ type EnvironmentVersionList struct {
 	CreatedAt NullableTime `json:"created_at,omitempty"`
 	// When this version became ready.
 	ReadyAt NullableTime `json:"ready_at,omitempty"`
-	// Version description, sent only when the adapter supplies one.
+	// Description of the version.
 	Description NullableString `json:"description,omitempty"`
 	// Email of the last editor.
 	LastEditor NullableString `json:"last_editor,omitempty"`

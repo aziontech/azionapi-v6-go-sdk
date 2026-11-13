@@ -43,9 +43,9 @@ func (r ApiCancelDeploymentVersionBuildRequest) Execute() (*DeploymentVersionMet
 }
 
 /*
-CancelDeploymentVersionBuild Cancel an in-flight deployment version build
+CancelDeploymentVersionBuild Cancel a Deployment Version build
 
-Cancels an in-flight version build (`queued`/`building` → `canceled`), recording `cancel_comment` and `last_editor`, and stepping the active pointer back to the prior ready version. It does NOT stop the edge build: the version stays `canceled` even if that build completes on the edge. 404 if the deployment is not found, or the version does not exist or belongs to another deployment; 409 if the version is not in a cancellable state. Optional `comment`.
+Cancel the build of a Deployment Version that is queued or building.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
@@ -387,9 +387,9 @@ func (r ApiListDeploymentVersionsRequest) Execute() (*PaginatedDeploymentVersion
 }
 
 /*
-ListDeploymentVersions List deployment versions
+ListDeploymentVersions List Deployment Versions
 
-Paginated list of version rows under the deployment base. Filters version-rows; legacy rows are excluded.
+List all Versions of a Deployment.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
@@ -642,9 +642,9 @@ func (r ApiRetrieveDeploymentVersionRequest) Execute() (*DeploymentVersion, *htt
 }
 
 /*
-RetrieveDeploymentVersion Retrieve a deployment version
+RetrieveDeploymentVersion Retrieve details of a Deployment Version
 
-Returns a single deployment version row with its lifecycle meta. 404 if the version does not exist or belongs to another deployment.
+Retrieve details of a specific Version of a Deployment.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
@@ -849,9 +849,9 @@ func (r ApiRevertDeploymentVersionRequest) Execute() (*DeploymentVersionMeta, *h
 }
 
 /*
-RevertDeploymentVersion Revert to a deployment version
+RevertDeploymentVersion Revert to a Deployment Version
 
-Reverts to a previous deployment version by cloning it into a new version and promoting it (save-and-build): the clone becomes the active READY version. Any version of this deployment is revertable regardless of state — the source snapshot is copied, not reactivated. A version that does not exist or belongs to another deployment returns 404. Body accepts an optional `comment`.
+Create a new Deployment Version from a previous one and make it active.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
