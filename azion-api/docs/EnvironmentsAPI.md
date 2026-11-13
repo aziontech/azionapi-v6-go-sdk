@@ -169,21 +169,21 @@ import (
 )
 
 func main() {
-	createdAtGte := time.Now() // time.Time | Filter by creation date greater than or equal (date-time, as Django parse_datetime reads it) (optional)
-	createdAtLte := time.Now() // time.Time | Filter by creation date less than or equal (date-time, as Django parse_datetime reads it) (optional)
-	deploymentPolicy := "deploymentPolicy_example" // string | Filter by deployment policy (optional)
+	createdAtGte := time.Now() // time.Time | Filter by creation date (greater than or equal). (optional)
+	createdAtLte := time.Now() // time.Time | Filter by creation date (less than or equal). (optional)
+	deploymentPolicy := "deploymentPolicy_example" // string | Filter by deployment policy. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	id := []string{"Inner_example"} // []string | Filter by environment ids (optional)
-	idIn := []string{"Inner_example"} // []string | Filter by environment ids, comma-separated (`id__in=A,B`). Combined with `id`, both sets must match. (optional)
-	lastEditor := "lastEditor_example" // string | Filter by the email of the last editor (case-insensitive substring match) (optional)
-	lastModifiedGte := time.Now() // time.Time | Filter by last-modified date greater than or equal (date-time, as Django parse_datetime reads it) (optional)
-	lastModifiedLte := time.Now() // time.Time | Filter by last-modified date less than or equal (date-time, as Django parse_datetime reads it) (optional)
-	name := "name_example" // string | Filter by environment name (case-insensitive substring match) (optional)
+	id := []string{"Inner_example"} // []string | Filter by id (accepts comma-separated values). (optional)
+	idIn := []string{"Inner_example"} // []string | Filter by id (accepts comma-separated values). (optional)
+	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
+	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
+	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
+	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
 	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state, deployment_policy, last_editor) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	search := "search_example" // string | A search term to filter results. Searches across the following fields: name. (optional)
-	state := []string{"Inner_example"} // []string | Filter by lifecycle state. A deleted environment never appears. (optional)
+	state := []string{"Inner_example"} // []string | Filter by state (accepts comma-separated values). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -208,21 +208,21 @@ Other parameters are passed through a pointer to a apiListEnvironmentsRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createdAtGte** | **time.Time** | Filter by creation date greater than or equal (date-time, as Django parse_datetime reads it) | 
- **createdAtLte** | **time.Time** | Filter by creation date less than or equal (date-time, as Django parse_datetime reads it) | 
- **deploymentPolicy** | **string** | Filter by deployment policy | 
+ **createdAtGte** | **time.Time** | Filter by creation date (greater than or equal). | 
+ **createdAtLte** | **time.Time** | Filter by creation date (less than or equal). | 
+ **deploymentPolicy** | **string** | Filter by deployment policy. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **id** | **[]string** | Filter by environment ids | 
- **idIn** | **[]string** | Filter by environment ids, comma-separated (&#x60;id__in&#x3D;A,B&#x60;). Combined with &#x60;id&#x60;, both sets must match. | 
- **lastEditor** | **string** | Filter by the email of the last editor (case-insensitive substring match) | 
- **lastModifiedGte** | **time.Time** | Filter by last-modified date greater than or equal (date-time, as Django parse_datetime reads it) | 
- **lastModifiedLte** | **time.Time** | Filter by last-modified date less than or equal (date-time, as Django parse_datetime reads it) | 
- **name** | **string** | Filter by environment name (case-insensitive substring match) | 
+ **id** | **[]string** | Filter by id (accepts comma-separated values). | 
+ **idIn** | **[]string** | Filter by id (accepts comma-separated values). | 
+ **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
+ **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
+ **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
+ **name** | **string** | Filter by name (case-insensitive, partial match). | 
  **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state, deployment_policy, last_editor) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **search** | **string** | A search term to filter results. Searches across the following fields: name. | 
- **state** | **[]string** | Filter by lifecycle state. A deleted environment never appears. | 
+ **state** | **[]string** | Filter by state (accepts comma-separated values). | 
 
 ### Return type
 

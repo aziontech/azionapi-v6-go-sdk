@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**VersionId** | Pointer to **string** | ID of the version metadata. | [optional] 
+**VersionId** | Pointer to **string** | Identifier of the version. | [optional] 
 **VersionState** | Pointer to **string** | Current lifecycle state of the version.  * &#x60;draft&#x60; - draft * &#x60;queued&#x60; - queued * &#x60;building&#x60; - building * &#x60;ready&#x60; - ready * &#x60;error&#x60; - error * &#x60;canceled&#x60; - canceled * &#x60;archiving&#x60; - archiving * &#x60;archived&#x60; - archived * &#x60;deleting&#x60; - deleting * &#x60;deleted&#x60; - deleted | [optional] 
 **ProductVersion** | Pointer to **NullableString** | Product version string. | [optional] 
-**SourceVersionId** | Pointer to **NullableString** | ID of the source version if cloned. | [optional] 
-**Snapshot** | Pointer to **map[string]interface{}** | JSON snapshot of the version data. | [optional] 
+**SourceVersionId** | Pointer to **NullableString** | Identifier of the version this one was copied from, or null. | [optional] 
+**Snapshot** | Pointer to **map[string]interface{}** | Data of the version. | [optional] 
 **CreatedAt** | Pointer to **time.Time** | When this version was created. | [optional] 
 **ReadyAt** | Pointer to **NullableTime** | When this version became ready. | [optional] 
-**Description** | Pointer to **NullableString** | Version description, sent only when the adapter supplies one. | [optional] 
+**Description** | Pointer to **NullableString** | Description of the version. | [optional] 
 **BuildAt** | Pointer to **NullableTime** | When a build was triggered. | [optional] 
 **BuildComment** | Pointer to **NullableString** | Comment provided when triggering the build. | [optional] 
-**CancelAt** | Pointer to **NullableTime** | When a cancel was triggered. | [optional] 
+**CancelAt** | Pointer to **NullableTime** | When the build was canceled. | [optional] 
 **CancelComment** | Pointer to **NullableString** | Comment provided when cancelling the build. | [optional] 
 **ArchivedAt** | Pointer to **NullableTime** | When this version was archived. | [optional] 
 **ArchiveComment** | Pointer to **NullableString** | Comment provided when archiving. | [optional] 
 **LastError** | Pointer to **map[string]interface{}** | Last build error details. | [optional] 
-**TraceId** | Pointer to **NullableString** | Trace ID of the last outbox event of this version, null when the version never emitted one. | [optional] 
+**TraceId** | Pointer to **NullableString** | Trace ID of the last operation on this version, or null. | [optional] 
 
 ## Methods
 

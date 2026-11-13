@@ -42,9 +42,9 @@ func (r ApiActivateReleaseRequest) Execute() (*ReleaseAsyncResponse, *http.Respo
 }
 
 /*
-ActivateRelease Activate a release
+ActivateRelease Activate a Release
 
-Activates a release. single_version swaps ACTIVE instantly and demotes the previous one; versioned_urls appends a VALID_URL slot.
+Activate a ready Release of a Deployment.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.

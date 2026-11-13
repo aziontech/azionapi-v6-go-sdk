@@ -41,9 +41,9 @@ func (r ApiCreateDeploymentRequest) Execute() (*DeploymentResponse, *http.Respon
 }
 
 /*
-CreateDeployment Create a deployment
+CreateDeployment Create a Deployment
 
-Creates a new deployment with the specified configuration.
+Create a new Deployment in your account.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateDeploymentRequest
@@ -247,9 +247,9 @@ func (r ApiDeleteDeploymentRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteDeployment Delete a deployment
+DeleteDeployment Delete a Deployment
 
-Deletes a deployment by ID.
+Delete a specific Deployment in your account.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
@@ -474,31 +474,31 @@ func (r ApiListDeploymentsRequest) Fields(fields string) ApiListDeploymentsReque
 	return r
 }
 
-// Filter by deployment short_ids, comma-separated (&#x60;id&#x3D;A,B&#x60;).
+// Filter by id (accepts comma-separated values).
 func (r ApiListDeploymentsRequest) Id(id []string) ApiListDeploymentsRequest {
 	r.id = &id
 	return r
 }
 
-// Filter by deployment short_ids, comma-separated (&#x60;id__in&#x3D;A,B&#x60;). Combined with &#x60;id&#x60;, both sets must match.
+// Filter by id (accepts comma-separated values).
 func (r ApiListDeploymentsRequest) IdIn(idIn []string) ApiListDeploymentsRequest {
 	r.idIn = &idIn
 	return r
 }
 
-// Filter by last modification date (greater than or equal).
+// Filter by last modified date (greater than or equal).
 func (r ApiListDeploymentsRequest) LastModifiedGte(lastModifiedGte time.Time) ApiListDeploymentsRequest {
 	r.lastModifiedGte = &lastModifiedGte
 	return r
 }
 
-// Filter by last modification date (less than or equal).
+// Filter by last modified date (less than or equal).
 func (r ApiListDeploymentsRequest) LastModifiedLte(lastModifiedLte time.Time) ApiListDeploymentsRequest {
 	r.lastModifiedLte = &lastModifiedLte
 	return r
 }
 
-// Filter by deployment name (case-insensitive, partial match).
+// Filter by name (case-insensitive, partial match).
 func (r ApiListDeploymentsRequest) Name(name string) ApiListDeploymentsRequest {
 	r.name = &name
 	return r
@@ -528,7 +528,7 @@ func (r ApiListDeploymentsRequest) Search(search string) ApiListDeploymentsReque
 	return r
 }
 
-// Filter by one or more lifecycle states, comma-separated (&#x60;state&#x3D;ready,building&#x60;). &#x60;deleted&#x60; is never listed. &#x60;deleting&#x60; stays listed so a stuck delete can be found. Matches the state of the resolved version (&#x60;version_state&#x60;).
+// Filter by state (accepts comma-separated values).
 func (r ApiListDeploymentsRequest) State(state []string) ApiListDeploymentsRequest {
 	r.state = &state
 	return r
@@ -539,9 +539,9 @@ func (r ApiListDeploymentsRequest) Execute() (*PaginatedDeploymentList, *http.Re
 }
 
 /*
-ListDeployments List deployments
+ListDeployments List Deployments
 
-Returns a paginated list of deployments. Supports `?state=<lifecycle>[,<lifecycle>…]` filtering on the resolved version state.
+List all Deployments owned by your account.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListDeploymentsRequest
@@ -780,9 +780,9 @@ func (r ApiPartialUpdateDeploymentRequest) Execute() (*DeploymentResponse, *http
 }
 
 /*
-PartialUpdateDeployment Update a deployment
+PartialUpdateDeployment Partially update a Deployment
 
-Partially updates a deployment.
+Update one or more fields of an existing Deployment without affecting other fields.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
@@ -1010,9 +1010,9 @@ func (r ApiRetrieveDeploymentRequest) Execute() (*DeploymentRetrieveResponse, *h
 }
 
 /*
-RetrieveDeployment Get a deployment
+RetrieveDeployment Retrieve details of a Deployment
 
-Returns a single deployment by ID.
+Retrieve details of a specific Deployment in your account.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
@@ -1207,9 +1207,9 @@ func (r ApiUpdateDeploymentRequest) Execute() (*DeploymentResponse, *http.Respon
 }
 
 /*
-UpdateDeployment Replace a deployment
+UpdateDeployment Update a Deployment
 
-Full replace of a deployment (all mutable fields required).
+Update an existing Deployment. This replaces the entire Deployment with the new values provided.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.
