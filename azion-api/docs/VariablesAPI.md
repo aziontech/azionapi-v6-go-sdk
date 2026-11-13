@@ -216,7 +216,7 @@ Name | Type | Description  | Notes
 
 ## ListVariables
 
-> PaginatedVariableList ListVariables(ctx).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Key(key).LastEditor(lastEditor).Ordering(ordering).Page(page).PageSize(pageSize).ResourceId(resourceId).ResourceType(resourceType).Scope(scope).ScopeId(scopeId).ScopeType(scopeType).Search(search).Secret(secret).UpdatedAtGte(updatedAtGte).UpdatedAtLte(updatedAtLte).Uuid(uuid).Execute()
+> PaginatedVariableList ListVariables(ctx).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Key(key).LastEditor(lastEditor).Ordering(ordering).Page(page).PageSize(pageSize).ResourceId(resourceId).ResourceType(resourceType).Scope(scope).Search(search).Secret(secret).UpdatedAtGte(updatedAtGte).UpdatedAtLte(updatedAtLte).Uuid(uuid).Execute()
 
 List Variables
 
@@ -246,8 +246,6 @@ func main() {
 	resourceId := []string{"Inner_example"} // []string | Filter by scope resource id (the external id of the resource_type). Accepts comma-separated values, unless `resource_type` also holds several values. (optional)
 	resourceType := []string{"Inner_example"} // []string | Filter by scope resource type (global, environment, deployment, application, firewall). Accepts comma-separated values. Combined with `resource_id`, both must match the same scope, and only one of the two may hold several values. Use `scope` to ask for several type and id pairs. (optional)
 	scope := []string{"Inner_example"} // []string | Filter by scope. Comma-separated selectors, each `global` or `<resource_type>:<resource_id>` (e.g. `global,environment:AJQ6CZJE`). Returns variables bound to any selector. Up to 50 selectors. Sending `scope` without any selector is rejected. (optional)
-	scopeId := []string{"Inner_example"} // []string | Deprecated alias for `resource_id`. (optional)
-	scopeType := []string{"Inner_example"} // []string | Deprecated alias for `resource_type`. (optional)
 	search := "search_example" // string | A search term. (optional)
 	secret := true // bool | Filter by secret status (true for secret variables, false for non-secret variables). (optional)
 	updatedAtGte := time.Now() // time.Time | Filter by updated date (greater than or equal). (optional)
@@ -256,7 +254,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.VariablesAPI.ListVariables(context.Background()).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Key(key).LastEditor(lastEditor).Ordering(ordering).Page(page).PageSize(pageSize).ResourceId(resourceId).ResourceType(resourceType).Scope(scope).ScopeId(scopeId).ScopeType(scopeType).Search(search).Secret(secret).UpdatedAtGte(updatedAtGte).UpdatedAtLte(updatedAtLte).Uuid(uuid).Execute()
+	resp, r, err := apiClient.VariablesAPI.ListVariables(context.Background()).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Key(key).LastEditor(lastEditor).Ordering(ordering).Page(page).PageSize(pageSize).ResourceId(resourceId).ResourceType(resourceType).Scope(scope).Search(search).Secret(secret).UpdatedAtGte(updatedAtGte).UpdatedAtLte(updatedAtLte).Uuid(uuid).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `VariablesAPI.ListVariables``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -287,8 +285,6 @@ Name | Type | Description  | Notes
  **resourceId** | **[]string** | Filter by scope resource id (the external id of the resource_type). Accepts comma-separated values, unless &#x60;resource_type&#x60; also holds several values. | 
  **resourceType** | **[]string** | Filter by scope resource type (global, environment, deployment, application, firewall). Accepts comma-separated values. Combined with &#x60;resource_id&#x60;, both must match the same scope, and only one of the two may hold several values. Use &#x60;scope&#x60; to ask for several type and id pairs. | 
  **scope** | **[]string** | Filter by scope. Comma-separated selectors, each &#x60;global&#x60; or &#x60;&lt;resource_type&gt;:&lt;resource_id&gt;&#x60; (e.g. &#x60;global,environment:AJQ6CZJE&#x60;). Returns variables bound to any selector. Up to 50 selectors. Sending &#x60;scope&#x60; without any selector is rejected. | 
- **scopeId** | **[]string** | Deprecated alias for &#x60;resource_id&#x60;. | 
- **scopeType** | **[]string** | Deprecated alias for &#x60;resource_type&#x60;. | 
  **search** | **string** | A search term. | 
  **secret** | **bool** | Filter by secret status (true for secret variables, false for non-secret variables). | 
  **updatedAtGte** | **time.Time** | Filter by updated date (greater than or equal). | 
