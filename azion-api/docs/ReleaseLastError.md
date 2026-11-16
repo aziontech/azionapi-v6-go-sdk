@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Operation** | **string** | * &#x60;archive&#x60; - archive | 
 **FromState** | **string** | * &#x60;draft&#x60; - draft * &#x60;queued&#x60; - queued * &#x60;building&#x60; - building * &#x60;ready&#x60; - ready * &#x60;error&#x60; - error * &#x60;canceled&#x60; - canceled * &#x60;archiving&#x60; - archiving * &#x60;archived&#x60; - archived * &#x60;deleting&#x60; - deleting * &#x60;deleted&#x60; - deleted | 
-**Code** | **string** | Stable class of the failure. &#x60;internal&#x60; while the worker reports no classified cause. More values may be added. | 
-**Message** | **string** | Safe, human-readable description of the failure. | 
+**Code** | **string** | Class of the failure, such as &#x60;internal&#x60;. | 
+**Message** | **string** | Description of the failure. | 
 **Timestamp** | **time.Time** |  | 
 
 ## Methods
