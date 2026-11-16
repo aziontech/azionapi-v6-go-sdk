@@ -388,7 +388,7 @@ Name | Type | Description  | Notes
 
 ## ListNetworkListVersions
 
-> PaginatedNetworkListVersionList ListNetworkListVersions(ctx, networkListId).Page(page).PageSize(pageSize).Execute()
+> PaginatedNetworkListVersionList ListNetworkListVersions(ctx, networkListId).Page(page).PageSize(pageSize).Version(version).Execute()
 
 List Network List versions
 
@@ -410,10 +410,11 @@ func main() {
 	networkListId := int64(789) // int64 | The ID of the Network List resource.
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
+	version := "version_example" // string | Narrow the list to one version. `latest`, in any case, answers the published version, or an empty list when none is published. Any other value matches a `version_id` and answers an empty list when none matches. An empty value is no filter. A resource that saves and builds in the same request (save and build) publishes no latest version, and `latest` on it answers 400 with code `10000`. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NetworkListVersionsAPI.ListNetworkListVersions(context.Background(), networkListId).Page(page).PageSize(pageSize).Execute()
+	resp, r, err := apiClient.NetworkListVersionsAPI.ListNetworkListVersions(context.Background(), networkListId).Page(page).PageSize(pageSize).Version(version).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkListVersionsAPI.ListNetworkListVersions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -441,6 +442,7 @@ Name | Type | Description  | Notes
 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
+ **version** | **string** | Narrow the list to one version. &#x60;latest&#x60;, in any case, answers the published version, or an empty list when none is published. Any other value matches a &#x60;version_id&#x60; and answers an empty list when none matches. An empty value is no filter. A resource that saves and builds in the same request (save and build) publishes no latest version, and &#x60;latest&#x60; on it answers 400 with code &#x60;10000&#x60;. | 
 
 ### Return type
 
@@ -537,7 +539,7 @@ Name | Type | Description  | Notes
 
 ## RetrieveNetworkListVersion
 
-> NetworkListVersion RetrieveNetworkListVersion(ctx, networkListId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Execute()
+> NetworkListVersion RetrieveNetworkListVersion(ctx, networkListId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Ipv4(ipv4).Ipv6(ipv6).Execute()
 
 Retrieve a Network List version
 
@@ -559,12 +561,14 @@ func main() {
 	networkListId := int64(789) // int64 | The ID of the Network List resource.
 	versionId := "versionId_example" // string | The identifier of the version.
 	dependencies := true // bool | Include the resources this version references. (optional)
-	dependencyStates := []string{"Inner_example"} // []string | Keep only the dependency versions in these states (comma-separated). Needs dependencies=true. (optional)
+	dependencyStates := []string{"Inner_example"} // []string | Keep only the dependency versions in these states (comma-separated). Needs dependencies=true. Accepted states: `draft`, `queued`, `building`, `ready`, `error`, `canceled`, `archiving`, `archived`. An unknown state matches nothing, `deleting` and `deleted` match nothing because a dependency version in those states is never listed, and the match is case sensitive (`READY` matches nothing). (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
+	ipv4 := true // bool | Keep the IPv4 entries in `items`. Only applicable for network lists of type 'ip_cidr'. Only `true` (case-insensitive) turns a flag on. When only one of ipv4 and ipv6 is sent, the other takes the opposite value. When neither is sent, both are on. When both are off, `items` is empty. (optional)
+	ipv6 := true // bool | Keep the IPv6 entries in `items`. Only applicable for network lists of type 'ip_cidr'. Only `true` (case-insensitive) turns a flag on. When only one of ipv4 and ipv6 is sent, the other takes the opposite value. When neither is sent, both are on. When both are off, `items` is empty. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NetworkListVersionsAPI.RetrieveNetworkListVersion(context.Background(), networkListId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Execute()
+	resp, r, err := apiClient.NetworkListVersionsAPI.RetrieveNetworkListVersion(context.Background(), networkListId, versionId).Dependencies(dependencies).DependencyStates(dependencyStates).Fields(fields).Ipv4(ipv4).Ipv6(ipv6).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkListVersionsAPI.RetrieveNetworkListVersion``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -593,8 +597,10 @@ Name | Type | Description  | Notes
 
 
  **dependencies** | **bool** | Include the resources this version references. | 
- **dependencyStates** | **[]string** | Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true. | 
+ **dependencyStates** | **[]string** | Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true. Accepted states: &#x60;draft&#x60;, &#x60;queued&#x60;, &#x60;building&#x60;, &#x60;ready&#x60;, &#x60;error&#x60;, &#x60;canceled&#x60;, &#x60;archiving&#x60;, &#x60;archived&#x60;. An unknown state matches nothing, &#x60;deleting&#x60; and &#x60;deleted&#x60; match nothing because a dependency version in those states is never listed, and the match is case sensitive (&#x60;READY&#x60; matches nothing). | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
+ **ipv4** | **bool** | Keep the IPv4 entries in &#x60;items&#x60;. Only applicable for network lists of type &#39;ip_cidr&#39;. Only &#x60;true&#x60; (case-insensitive) turns a flag on. When only one of ipv4 and ipv6 is sent, the other takes the opposite value. When neither is sent, both are on. When both are off, &#x60;items&#x60; is empty. | 
+ **ipv6** | **bool** | Keep the IPv6 entries in &#x60;items&#x60;. Only applicable for network lists of type &#39;ip_cidr&#39;. Only &#x60;true&#x60; (case-insensitive) turns a flag on. When only one of ipv4 and ipv6 is sent, the other takes the opposite value. When neither is sent, both are on. When both are off, &#x60;items&#x60; is empty. | 
 
 ### Return type
 

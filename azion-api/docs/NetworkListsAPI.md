@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 ## ListNetworkLists
 
-> PaginatedNetworkListSummaryList ListNetworkLists(ctx).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).ListTypeIn(listTypeIn).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+> PaginatedNetworkListSummaryList ListNetworkLists(ctx).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).TypeIn(typeIn).Execute()
 
 List Network Lists
 
@@ -175,16 +175,16 @@ func main() {
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
-	listTypeIn := []string{"Inner_example"} // []string | Filter by list type (accepts comma-separated values). (optional)
 	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, list_type) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, type) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	search := "search_example" // string | A search term to filter results. Searches across the following fields: last_editor, list_type, name. (optional)
+	typeIn := []string{"Inner_example"} // []string | Filter by type (accepts comma-separated values): `asn`, `countries` or `ip_cidr`. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.NetworkListsAPI.ListNetworkLists(context.Background()).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).ListTypeIn(listTypeIn).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+	resp, r, err := apiClient.NetworkListsAPI.ListNetworkLists(context.Background()).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).TypeIn(typeIn).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `NetworkListsAPI.ListNetworkLists``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -210,12 +210,12 @@ Name | Type | Description  | Notes
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
- **listTypeIn** | **[]string** | Filter by list type (accepts comma-separated values). | 
  **name** | **string** | Filter by name (case-insensitive, partial match). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, list_type) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, type) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **search** | **string** | A search term to filter results. Searches across the following fields: last_editor, list_type, name. | 
+ **typeIn** | **[]string** | Filter by type (accepts comma-separated values): &#x60;asn&#x60;, &#x60;countries&#x60; or &#x60;ip_cidr&#x60;. | 
 
 ### Return type
 
@@ -396,8 +396,8 @@ import (
 func main() {
 	networkListId := int64(789) // int64 | A unique integer value identifying the network list.
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	ipv4 := true // bool | Filter by IPv4. Only applicable for network lists of type 'ip_cidr'. (optional)
-	ipv6 := true // bool | Filter by IPv6. Only applicable for network lists of type 'ip_cidr'. (optional)
+	ipv4 := true // bool | Keep the IPv4 entries in `items`. Only applicable for network lists of type 'ip_cidr'. Only `true` (case-insensitive) turns a flag on. When only one of ipv4 and ipv6 is sent, the other takes the opposite value. When neither is sent, both are on. When both are off, `items` is empty. (optional)
+	ipv6 := true // bool | Keep the IPv6 entries in `items`. Only applicable for network lists of type 'ip_cidr'. Only `true` (case-insensitive) turns a flag on. When only one of ipv4 and ipv6 is sent, the other takes the opposite value. When neither is sent, both are on. When both are off, `items` is empty. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -428,8 +428,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **ipv4** | **bool** | Filter by IPv4. Only applicable for network lists of type &#39;ip_cidr&#39;. | 
- **ipv6** | **bool** | Filter by IPv6. Only applicable for network lists of type &#39;ip_cidr&#39;. | 
+ **ipv4** | **bool** | Keep the IPv4 entries in &#x60;items&#x60;. Only applicable for network lists of type &#39;ip_cidr&#39;. Only &#x60;true&#x60; (case-insensitive) turns a flag on. When only one of ipv4 and ipv6 is sent, the other takes the opposite value. When neither is sent, both are on. When both are off, &#x60;items&#x60; is empty. | 
+ **ipv6** | **bool** | Keep the IPv6 entries in &#x60;items&#x60;. Only applicable for network lists of type &#39;ip_cidr&#39;. Only &#x60;true&#x60; (case-insensitive) turns a flag on. When only one of ipv4 and ipv6 is sent, the other takes the opposite value. When neither is sent, both are on. When both are off, &#x60;items&#x60; is empty. | 
 
 ### Return type
 

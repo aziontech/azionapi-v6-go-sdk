@@ -388,7 +388,7 @@ Name | Type | Description  | Notes
 
 ## ListApplicationVersions
 
-> PaginatedApplicationVersionList ListApplicationVersions(ctx, applicationId).Page(page).PageSize(pageSize).Execute()
+> PaginatedApplicationVersionList ListApplicationVersions(ctx, applicationId).Page(page).PageSize(pageSize).Version(version).Execute()
 
 List Application versions
 
@@ -410,10 +410,11 @@ func main() {
 	applicationId := int64(789) // int64 | The ID (global_id) of the Application resource.
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
+	version := "version_example" // string | Narrow the list to one version. `latest`, in any case, answers the published version, or an empty list when none is published. Any other value matches a `version_id` and answers an empty list when none matches. An empty value is no filter. A resource that saves and builds in the same request (save and build) publishes no latest version, and `latest` on it answers 400 with code `10000`. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationVersionsAPI.ListApplicationVersions(context.Background(), applicationId).Page(page).PageSize(pageSize).Execute()
+	resp, r, err := apiClient.ApplicationVersionsAPI.ListApplicationVersions(context.Background(), applicationId).Page(page).PageSize(pageSize).Version(version).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationVersionsAPI.ListApplicationVersions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -441,6 +442,7 @@ Name | Type | Description  | Notes
 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
+ **version** | **string** | Narrow the list to one version. &#x60;latest&#x60;, in any case, answers the published version, or an empty list when none is published. Any other value matches a &#x60;version_id&#x60; and answers an empty list when none matches. An empty value is no filter. A resource that saves and builds in the same request (save and build) publishes no latest version, and &#x60;latest&#x60; on it answers 400 with code &#x60;10000&#x60;. | 
 
 ### Return type
 
@@ -559,7 +561,7 @@ func main() {
 	applicationId := int64(789) // int64 | The ID (global_id) of the Application resource.
 	versionId := "versionId_example" // string | The identifier of the version.
 	dependencies := true // bool | Include the resources this version references. (optional)
-	dependencyStates := []string{"Inner_example"} // []string | Keep only the dependency versions in these states (comma-separated). Needs dependencies=true. (optional)
+	dependencyStates := []string{"Inner_example"} // []string | Keep only the dependency versions in these states (comma-separated). Needs dependencies=true. Accepted states: `draft`, `queued`, `building`, `ready`, `error`, `canceled`, `archiving`, `archived`. An unknown state matches nothing, `deleting` and `deleted` match nothing because a dependency version in those states is never listed, and the match is case sensitive (`READY` matches nothing). (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -593,7 +595,7 @@ Name | Type | Description  | Notes
 
 
  **dependencies** | **bool** | Include the resources this version references. | 
- **dependencyStates** | **[]string** | Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true. | 
+ **dependencyStates** | **[]string** | Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true. Accepted states: &#x60;draft&#x60;, &#x60;queued&#x60;, &#x60;building&#x60;, &#x60;ready&#x60;, &#x60;error&#x60;, &#x60;canceled&#x60;, &#x60;archiving&#x60;, &#x60;archived&#x60;. An unknown state matches nothing, &#x60;deleting&#x60; and &#x60;deleted&#x60; match nothing because a dependency version in those states is never listed, and the match is case sensitive (&#x60;READY&#x60; matches nothing). | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
 
 ### Return type
