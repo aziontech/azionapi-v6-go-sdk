@@ -261,10 +261,10 @@ import (
 
 func main() {
 	bucketName := "bucketName_example" // string | The name of the bucket
-	allLevels := true // bool | If true, lists objects recursively. If false, lists only the first level using Delimiter='/' (default: true). (optional)
+	allLevels := true // bool | If true, lists objects recursively. If false, lists only the first level using Delimiter='/' (default: true). Only `1`, `true`, `t`, `yes` and `y` count as true, ignoring case, and any other value is false. (optional)
 	continuationToken := "continuationToken_example" // string | A continuation token for the next page of records. (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	maxObjectCount := int64(789) // int64 | Number of results to be returned on the page. Limited to 1000 objects. (optional)
+	maxObjectCount := int64(789) // int64 | Number of results to be returned on the page. Limited to 1000 objects. 0 uses the default page size of 15. A negative value returns 400 with error code 10050. (optional)
 	prefix := "prefix_example" // string | Filter objects by key prefix. If empty, lists from the bucket root (default: empty). (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -295,10 +295,10 @@ Other parameters are passed through a pointer to a apiListObjectsRequest struct 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **allLevels** | **bool** | If true, lists objects recursively. If false, lists only the first level using Delimiter&#x3D;&#39;/&#39; (default: true). | 
+ **allLevels** | **bool** | If true, lists objects recursively. If false, lists only the first level using Delimiter&#x3D;&#39;/&#39; (default: true). Only &#x60;1&#x60;, &#x60;true&#x60;, &#x60;t&#x60;, &#x60;yes&#x60; and &#x60;y&#x60; count as true, ignoring case, and any other value is false. | 
  **continuationToken** | **string** | A continuation token for the next page of records. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **maxObjectCount** | **int64** | Number of results to be returned on the page. Limited to 1000 objects. | 
+ **maxObjectCount** | **int64** | Number of results to be returned on the page. Limited to 1000 objects. 0 uses the default page size of 15. A negative value returns 400 with error code 10050. | 
  **prefix** | **string** | Filter objects by key prefix. If empty, lists from the bucket root (default: empty). | 
 
 ### Return type

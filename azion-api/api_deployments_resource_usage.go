@@ -35,13 +35,13 @@ type ApiListResourceUsageRequest struct {
 	pageSize *int32
 }
 
-// One or more resource ids to look up, comma-separated (&#x60;resource_id&#x3D;a,b&#x60;). For &#x60;application&#x60; this is its &#x60;global_id&#x60;.
+// Filter by resource id (accepts comma-separated values). For an &#x60;application&#x60;, use its &#x60;global_id&#x60;.
 func (r ApiListResourceUsageRequest) ResourceId(resourceId []string) ApiListResourceUsageRequest {
 	r.resourceId = &resourceId
 	return r
 }
 
-// Resource type to look up.
+// Filter by resource type.
 func (r ApiListResourceUsageRequest) ResourceType(resourceType string) ApiListResourceUsageRequest {
 	r.resourceType = &resourceType
 	return r
@@ -76,9 +76,9 @@ func (r ApiListResourceUsageRequest) Execute() (*PaginatedResourceUsageList, *ht
 }
 
 /*
-ListResourceUsage List deployments using a resource
+ListResourceUsage List Deployments using a resource
 
-Returns a paginated list of deployments with an active link to one or more resources (per-policy live roles: single_version → ACTIVE/CANDIDATE; versioned_urls → VALID_URL), each with the matched live occurrences and their active versions. Every resource is looked up by `resource_id` (for `application` this is its `global_id`).
+List all Deployments whose active Releases use the given resources.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListResourceUsageRequest
@@ -293,9 +293,9 @@ func (r ApiRetrieveDeploymentResourceHierarchyRequest) Execute() (*ResourceHiera
 }
 
 /*
-RetrieveDeploymentResourceHierarchy Get a deployment resource hierarchy
+RetrieveDeploymentResourceHierarchy Retrieve the resources of a Deployment
 
-Returns the resource composition of the deployment's ACTIVE release, grouped by type (application, firewall, custom_page, and the waf/function/connector/network_list arrays), each with its active version. Empty groups when the deployment has no ACTIVE release.
+Retrieve the resources of the active Release of a Deployment, grouped by type.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param deploymentId A unique value identifying the deployment.

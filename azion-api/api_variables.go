@@ -595,8 +595,6 @@ type ApiListVariablesRequest struct {
 	resourceId *[]string
 	resourceType *[]string
 	scope *[]string
-	scopeId *[]string
-	scopeType *[]string
 	search *string
 	secret *bool
 	updatedAtGte *time.Time
@@ -661,20 +659,6 @@ func (r ApiListVariablesRequest) ResourceType(resourceType []string) ApiListVari
 // Filter by scope. Comma-separated selectors, each &#x60;global&#x60; or &#x60;&lt;resource_type&gt;:&lt;resource_id&gt;&#x60; (e.g. &#x60;global,environment:AJQ6CZJE&#x60;). Returns variables bound to any selector. Up to 50 selectors. Sending &#x60;scope&#x60; without any selector is rejected.
 func (r ApiListVariablesRequest) Scope(scope []string) ApiListVariablesRequest {
 	r.scope = &scope
-	return r
-}
-
-// Deprecated alias for &#x60;resource_id&#x60;.
-// Deprecated
-func (r ApiListVariablesRequest) ScopeId(scopeId []string) ApiListVariablesRequest {
-	r.scopeId = &scopeId
-	return r
-}
-
-// Deprecated alias for &#x60;resource_type&#x60;.
-// Deprecated
-func (r ApiListVariablesRequest) ScopeType(scopeType []string) ApiListVariablesRequest {
-	r.scopeType = &scopeType
 	return r
 }
 
@@ -777,12 +761,6 @@ func (a *VariablesAPIService) ListVariablesExecute(r ApiListVariablesRequest) (*
 	}
 	if r.scope != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
-	}
-	if r.scopeId != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope_id", r.scopeId, "form", "csv")
-	}
-	if r.scopeType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope_type", r.scopeType, "form", "csv")
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")

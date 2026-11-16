@@ -888,7 +888,7 @@ func (r ApiListApplicationVersionCacheSettingsRequest) Name(name string) ApiList
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, browser_cache_settings, cdn_cache_settings, cache_by_query_string, cache_by_cookies, adaptive_delivery_action, enable_caching_for_post, enable_caching_for_options, enable_stale_cache, l2_caching_enabled)
+// Which field to use when ordering the results. (Valid fields: id, name, created_at)
 func (r ApiListApplicationVersionCacheSettingsRequest) Ordering(ordering string) ApiListApplicationVersionCacheSettingsRequest {
 	r.ordering = &ordering
 	return r
@@ -1165,7 +1165,7 @@ func (r ApiListCacheSettingsRequest) Name(name string) ApiListCacheSettingsReque
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, browser_cache_settings, cdn_cache_settings, cache_by_query_string, cache_by_cookies, adaptive_delivery_action, enable_caching_for_post, enable_caching_for_options, enable_stale_cache, l2_caching_enabled)
+// Which field to use when ordering the results. (Valid fields: id, name, created_at)
 func (r ApiListCacheSettingsRequest) Ordering(ordering string) ApiListCacheSettingsRequest {
 	r.ordering = &ordering
 	return r
