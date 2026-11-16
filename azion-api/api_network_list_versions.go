@@ -1032,6 +1032,7 @@ type ApiListNetworkListVersionsRequest struct {
 	networkListId int64
 	page *int64
 	pageSize *int32
+	version *string
 }
 
 // A page number within the paginated result set.
@@ -1043,6 +1044,12 @@ func (r ApiListNetworkListVersionsRequest) Page(page int64) ApiListNetworkListVe
 // A numeric value that indicates the number of items per page.
 func (r ApiListNetworkListVersionsRequest) PageSize(pageSize int32) ApiListNetworkListVersionsRequest {
 	r.pageSize = &pageSize
+	return r
+}
+
+// Narrow the list to one version. &#x60;latest&#x60;, in any case, answers the published version, or an empty list when none is published. Any other value matches a &#x60;version_id&#x60; and answers an empty list when none matches. An empty value is no filter. A resource that saves and builds in the same request (save and build) publishes no latest version, and &#x60;latest&#x60; on it answers 400 with code &#x60;10000&#x60;.
+func (r ApiListNetworkListVersionsRequest) Version(version string) ApiListNetworkListVersionsRequest {
+	r.version = &version
 	return r
 }
 
@@ -1094,6 +1101,9 @@ func (a *NetworkListVersionsAPIService) ListNetworkListVersionsExecute(r ApiList
 	}
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
+	}
+	if r.version != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "version", r.version, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1441,6 +1451,8 @@ type ApiRetrieveNetworkListVersionRequest struct {
 	dependencies *bool
 	dependencyStates *[]string
 	fields *string
+	ipv4 *bool
+	ipv6 *bool
 }
 
 // Include the resources this version references.
@@ -1449,7 +1461,7 @@ func (r ApiRetrieveNetworkListVersionRequest) Dependencies(dependencies bool) Ap
 	return r
 }
 
-// Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true.
+// Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true. Accepted states: &#x60;draft&#x60;, &#x60;queued&#x60;, &#x60;building&#x60;, &#x60;ready&#x60;, &#x60;error&#x60;, &#x60;canceled&#x60;, &#x60;archiving&#x60;, &#x60;archived&#x60;. An unknown state matches nothing, &#x60;deleting&#x60; and &#x60;deleted&#x60; match nothing because a dependency version in those states is never listed, and the match is case sensitive (&#x60;READY&#x60; matches nothing).
 func (r ApiRetrieveNetworkListVersionRequest) DependencyStates(dependencyStates []string) ApiRetrieveNetworkListVersionRequest {
 	r.dependencyStates = &dependencyStates
 	return r
@@ -1458,6 +1470,18 @@ func (r ApiRetrieveNetworkListVersionRequest) DependencyStates(dependencyStates 
 // Comma-separated list of field names to include in the response.
 func (r ApiRetrieveNetworkListVersionRequest) Fields(fields string) ApiRetrieveNetworkListVersionRequest {
 	r.fields = &fields
+	return r
+}
+
+// Keep the IPv4 entries in &#x60;items&#x60;. Only applicable for network lists of type &#39;ip_cidr&#39;. Only &#x60;true&#x60; (case-insensitive) turns a flag on. When only one of ipv4 and ipv6 is sent, the other takes the opposite value. When neither is sent, both are on. When both are off, &#x60;items&#x60; is empty.
+func (r ApiRetrieveNetworkListVersionRequest) Ipv4(ipv4 bool) ApiRetrieveNetworkListVersionRequest {
+	r.ipv4 = &ipv4
+	return r
+}
+
+// Keep the IPv6 entries in &#x60;items&#x60;. Only applicable for network lists of type &#39;ip_cidr&#39;. Only &#x60;true&#x60; (case-insensitive) turns a flag on. When only one of ipv4 and ipv6 is sent, the other takes the opposite value. When neither is sent, both are on. When both are off, &#x60;items&#x60; is empty.
+func (r ApiRetrieveNetworkListVersionRequest) Ipv6(ipv6 bool) ApiRetrieveNetworkListVersionRequest {
+	r.ipv6 = &ipv6
 	return r
 }
 
@@ -1515,6 +1539,12 @@ func (a *NetworkListVersionsAPIService) RetrieveNetworkListVersionExecute(r ApiR
 	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
+	}
+	if r.ipv4 != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ipv4", r.ipv4, "form", "")
+	}
+	if r.ipv6 != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "ipv6", r.ipv6, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
