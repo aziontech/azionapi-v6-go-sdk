@@ -432,6 +432,9 @@ func (a *DigitalCertificatesCertificateRevocationListsAPIService) DeleteCertific
 type ApiListCertificateRevocationListsRequest struct {
 	ctx context.Context
 	ApiService *DigitalCertificatesCertificateRevocationListsAPIService
+	createdAt *time.Time
+	createdAtGte *time.Time
+	createdAtLte *time.Time
 	fields *string
 	id *[]int64
 	issuer *string
@@ -449,6 +452,24 @@ type ApiListCertificateRevocationListsRequest struct {
 	page *int64
 	pageSize *int32
 	search *string
+}
+
+// Filter by exact creation date and time.
+func (r ApiListCertificateRevocationListsRequest) CreatedAt(createdAt time.Time) ApiListCertificateRevocationListsRequest {
+	r.createdAt = &createdAt
+	return r
+}
+
+// Filter by creation date (greater than or equal).
+func (r ApiListCertificateRevocationListsRequest) CreatedAtGte(createdAtGte time.Time) ApiListCertificateRevocationListsRequest {
+	r.createdAtGte = &createdAtGte
+	return r
+}
+
+// Filter by creation date (less than or equal).
+func (r ApiListCertificateRevocationListsRequest) CreatedAtLte(createdAtLte time.Time) ApiListCertificateRevocationListsRequest {
+	r.createdAtLte = &createdAtLte
+	return r
 }
 
 // Comma-separated list of field names to include in the response.
@@ -529,7 +550,7 @@ func (r ApiListCertificateRevocationListsRequest) NextUpdateLte(nextUpdateLte ti
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, issuer, last_update, next_update, last_modified)
+// Which field to use when ordering the results. (Valid fields: id, name, last_editor, created_at, last_modified, product_version, issuer, last_update, next_update, crl)
 func (r ApiListCertificateRevocationListsRequest) Ordering(ordering string) ApiListCertificateRevocationListsRequest {
 	r.ordering = &ordering
 	return r
@@ -547,7 +568,7 @@ func (r ApiListCertificateRevocationListsRequest) PageSize(pageSize int32) ApiLi
 	return r
 }
 
-// A search term to filter results. Searches across the following fields: name, issuer.
+// A search term to filter results. Searches across the following fields: name, issuer, crl.
 func (r ApiListCertificateRevocationListsRequest) Search(search string) ApiListCertificateRevocationListsRequest {
 	r.search = &search
 	return r
@@ -593,6 +614,15 @@ func (a *DigitalCertificatesCertificateRevocationListsAPIService) ListCertificat
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.createdAt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at", r.createdAt, "form", "")
+	}
+	if r.createdAtGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__gte", r.createdAtGte, "form", "")
+	}
+	if r.createdAtLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__lte", r.createdAtLte, "form", "")
+	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}

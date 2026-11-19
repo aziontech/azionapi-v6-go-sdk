@@ -679,7 +679,7 @@ type ApiListObjectsRequest struct {
 	prefix *string
 }
 
-// If true, lists objects recursively. If false, lists only the first level using Delimiter&#x3D;&#39;/&#39; (default: true).
+// If true, lists objects recursively. If false, lists only the first level using Delimiter&#x3D;&#39;/&#39; (default: true). Only &#x60;1&#x60;, &#x60;true&#x60;, &#x60;t&#x60;, &#x60;yes&#x60; and &#x60;y&#x60; count as true, ignoring case, and any other value is false.
 func (r ApiListObjectsRequest) AllLevels(allLevels bool) ApiListObjectsRequest {
 	r.allLevels = &allLevels
 	return r
@@ -697,7 +697,7 @@ func (r ApiListObjectsRequest) Fields(fields string) ApiListObjectsRequest {
 	return r
 }
 
-// Number of results to be returned on the page. Limited to 1000 objects.
+// Number of results to be returned on the page. Limited to 1000 objects. 0 uses the default page size of 15. A negative value returns 400 with error code 10050.
 func (r ApiListObjectsRequest) MaxObjectCount(maxObjectCount int64) ApiListObjectsRequest {
 	r.maxObjectCount = &maxObjectCount
 	return r

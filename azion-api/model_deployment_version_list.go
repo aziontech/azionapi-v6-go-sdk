@@ -19,9 +19,9 @@ import (
 // checks if the DeploymentVersionList type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DeploymentVersionList{}
 
-// DeploymentVersionList Summary of a deployment version, as listed.
+// DeploymentVersionList A Version of a Deployment, as listed.
 type DeploymentVersionList struct {
-	// ID of the version metadata (use in /versions/{version_id} URLs).
+	// Identifier of the version.
 	VersionId *string `json:"version_id,omitempty"`
 	// Current lifecycle state of the version.  * `draft` - draft * `queued` - queued * `building` - building * `ready` - ready * `error` - error * `canceled` - canceled * `archiving` - archiving * `archived` - archived * `deleting` - deleting
 	VersionState *string `json:"version_state,omitempty"`
@@ -29,7 +29,7 @@ type DeploymentVersionList struct {
 	CreatedAt NullableTime `json:"created_at,omitempty"`
 	// When this version became ready.
 	ReadyAt NullableTime `json:"ready_at,omitempty"`
-	// Version description, sent only when the adapter supplies one.
+	// Description of the version.
 	Description NullableString `json:"description,omitempty"`
 	// Email of the last editor.
 	LastEditor NullableString `json:"last_editor,omitempty"`

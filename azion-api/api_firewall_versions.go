@@ -1032,6 +1032,7 @@ type ApiListFirewallVersionsRequest struct {
 	firewallId int64
 	page *int64
 	pageSize *int32
+	version *string
 }
 
 // A page number within the paginated result set.
@@ -1043,6 +1044,12 @@ func (r ApiListFirewallVersionsRequest) Page(page int64) ApiListFirewallVersions
 // A numeric value that indicates the number of items per page.
 func (r ApiListFirewallVersionsRequest) PageSize(pageSize int32) ApiListFirewallVersionsRequest {
 	r.pageSize = &pageSize
+	return r
+}
+
+// Narrow the list to one version. &#x60;latest&#x60;, in any case, answers the published version, or an empty list when none is published. Any other value matches a &#x60;version_id&#x60; and answers an empty list when none matches. An empty value is no filter. A resource that saves and builds in the same request (save and build) publishes no latest version, and &#x60;latest&#x60; on it answers 400 with code &#x60;10000&#x60;.
+func (r ApiListFirewallVersionsRequest) Version(version string) ApiListFirewallVersionsRequest {
+	r.version = &version
 	return r
 }
 
@@ -1094,6 +1101,9 @@ func (a *FirewallVersionsAPIService) ListFirewallVersionsExecute(r ApiListFirewa
 	}
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
+	}
+	if r.version != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "version", r.version, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1449,7 +1459,7 @@ func (r ApiRetrieveFirewallVersionRequest) Dependencies(dependencies bool) ApiRe
 	return r
 }
 
-// Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true.
+// Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true. Accepted states: &#x60;draft&#x60;, &#x60;queued&#x60;, &#x60;building&#x60;, &#x60;ready&#x60;, &#x60;error&#x60;, &#x60;canceled&#x60;, &#x60;archiving&#x60;, &#x60;archived&#x60;. An unknown state matches nothing, &#x60;deleting&#x60; and &#x60;deleted&#x60; match nothing because a dependency version in those states is never listed, and the match is case sensitive (&#x60;READY&#x60; matches nothing).
 func (r ApiRetrieveFirewallVersionRequest) DependencyStates(dependencyStates []string) ApiRetrieveFirewallVersionRequest {
 	r.dependencyStates = &dependencyStates
 	return r
