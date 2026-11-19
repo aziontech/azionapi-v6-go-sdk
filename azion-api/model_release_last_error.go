@@ -21,15 +21,15 @@ import (
 // checks if the ReleaseLastError type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ReleaseLastError{}
 
-// ReleaseLastError Last operation that failed and left the release in place. Cleared by the next archive request.
+// ReleaseLastError Last operation that failed on the Release.
 type ReleaseLastError struct {
 	// * `archive` - archive
 	Operation string `json:"operation"`
 	// * `draft` - draft * `queued` - queued * `building` - building * `ready` - ready * `error` - error * `canceled` - canceled * `archiving` - archiving * `archived` - archived * `deleting` - deleting * `deleted` - deleted
 	FromState string `json:"from_state"`
-	// Stable class of the failure. `internal` while the worker reports no classified cause. More values may be added.
+	// Class of the failure, such as `internal`.
 	Code string `json:"code"`
-	// Safe, human-readable description of the failure.
+	// Description of the failure.
 	Message string `json:"message"`
 	Timestamp time.Time `json:"timestamp"`
 }
