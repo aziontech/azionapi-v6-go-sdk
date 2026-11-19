@@ -170,10 +170,10 @@ import (
 func main() {
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
-	lastModified := time.Now() // time.Time | Filter by last modified date (exact match). (optional)
-	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
-	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
-	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
+	lastModified := time.Now() // time.Time | Filter by last modified date (exact match). The value is not validated and is compared as text, ignoring case, with the `last_modified` shown in the response. (optional)
+	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). The value is not validated and is compared as text with the `last_modified` shown in the response. (optional)
+	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). The value is not validated and is compared as text with the `last_modified` shown in the response. (optional)
+	name := "name_example" // string | Filter by the exact bucket name. (optional)
 	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: name, workloads_access, last_editor, last_modified, product_version) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
@@ -205,10 +205,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
- **lastModified** | **time.Time** | Filter by last modified date (exact match). | 
- **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
- **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
- **name** | **string** | Filter by name (case-insensitive, partial match). | 
+ **lastModified** | **time.Time** | Filter by last modified date (exact match). The value is not validated and is compared as text, ignoring case, with the &#x60;last_modified&#x60; shown in the response. | 
+ **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). The value is not validated and is compared as text with the &#x60;last_modified&#x60; shown in the response. | 
+ **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). The value is not validated and is compared as text with the &#x60;last_modified&#x60; shown in the response. | 
+ **name** | **string** | Filter by the exact bucket name. | 
  **ordering** | **string** | Which field to use when ordering the results. (Valid fields: name, workloads_access, last_editor, last_modified, product_version) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 

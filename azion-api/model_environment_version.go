@@ -19,9 +19,9 @@ import (
 // checks if the EnvironmentVersion type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &EnvironmentVersion{}
 
-// EnvironmentVersion An environment version: the resource fields and the version metadata in one object, without an envelope.
+// EnvironmentVersion A Version of an Environment.
 type EnvironmentVersion struct {
-	// ID of the version metadata.
+	// Identifier of the version.
 	VersionId *string `json:"version_id,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Description NullableString `json:"description,omitempty"`
@@ -44,9 +44,9 @@ type EnvironmentVersion struct {
 	CreatedBy NullableString `json:"created_by,omitempty"`
 	LastEditor NullableString `json:"last_editor,omitempty"`
 	EnvironmentId *string `json:"environment_id,omitempty"`
-	// ID of the source version if cloned.
+	// Identifier of the version this one was copied from, or null.
 	SourceVersionId NullableString `json:"source_version_id,omitempty"`
-	// JSON snapshot of the version data.
+	// Data of the version.
 	Snapshot map[string]interface{} `json:"snapshot,omitempty"`
 	// When this version became ready.
 	ReadyAt NullableTime `json:"ready_at,omitempty"`
@@ -54,7 +54,7 @@ type EnvironmentVersion struct {
 	BuildAt NullableTime `json:"build_at,omitempty"`
 	// Comment provided when triggering the build.
 	BuildComment NullableString `json:"build_comment,omitempty"`
-	// When a cancel was triggered.
+	// When the build was canceled.
 	CancelAt NullableTime `json:"cancel_at,omitempty"`
 	// Comment provided when cancelling the build.
 	CancelComment NullableString `json:"cancel_comment,omitempty"`
@@ -64,7 +64,7 @@ type EnvironmentVersion struct {
 	ArchiveComment NullableString `json:"archive_comment,omitempty"`
 	// Last build error details.
 	LastError map[string]interface{} `json:"last_error,omitempty"`
-	// Trace ID of the last outbox event of this version, null when the version never emitted one.
+	// Trace ID of the last operation on this version, or null.
 	TraceId NullableString `json:"trace_id,omitempty"`
 }
 

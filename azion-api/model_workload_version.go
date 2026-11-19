@@ -67,7 +67,7 @@ type WorkloadVersion struct {
 	// Trace ID of the last build, for observability. Omitted when unset.
 	TraceId *string `json:"trace_id,omitempty"`
 	// Resources this version references, grouped by resource type. Present only when the request sets dependencies=true.
-	Dependencies []map[string][]ApplicationVersionDependenciesInnerValueInner `json:"dependencies,omitempty"`
+	Dependencies []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner `json:"dependencies,omitempty"`
 }
 
 // NewWorkloadVersion instantiates a new WorkloadVersion object
@@ -1004,9 +1004,9 @@ func (o *WorkloadVersion) SetTraceId(v string) {
 }
 
 // GetDependencies returns the Dependencies field value if set, zero value otherwise.
-func (o *WorkloadVersion) GetDependencies() []map[string][]ApplicationVersionDependenciesInnerValueInner {
+func (o *WorkloadVersion) GetDependencies() []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner {
 	if o == nil || IsNil(o.Dependencies) {
-		var ret []map[string][]ApplicationVersionDependenciesInnerValueInner
+		var ret []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner
 		return ret
 	}
 	return o.Dependencies
@@ -1014,7 +1014,7 @@ func (o *WorkloadVersion) GetDependencies() []map[string][]ApplicationVersionDep
 
 // GetDependenciesOk returns a tuple with the Dependencies field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *WorkloadVersion) GetDependenciesOk() ([]map[string][]ApplicationVersionDependenciesInnerValueInner, bool) {
+func (o *WorkloadVersion) GetDependenciesOk() ([]map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner, bool) {
 	if o == nil || IsNil(o.Dependencies) {
 		return nil, false
 	}
@@ -1030,8 +1030,8 @@ func (o *WorkloadVersion) HasDependencies() bool {
 	return false
 }
 
-// SetDependencies gets a reference to the given []map[string][]ApplicationVersionDependenciesInnerValueInner and assigns it to the Dependencies field.
-func (o *WorkloadVersion) SetDependencies(v []map[string][]ApplicationVersionDependenciesInnerValueInner) {
+// SetDependencies gets a reference to the given []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner and assigns it to the Dependencies field.
+func (o *WorkloadVersion) SetDependencies(v []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner) {
 	o.Dependencies = v
 }
 
