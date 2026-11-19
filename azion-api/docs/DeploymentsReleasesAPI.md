@@ -4,17 +4,19 @@ All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ArchiveRelease**](DeploymentsReleasesAPI.md#ArchiveRelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/archive | Archive a release
-[**BuildRelease**](DeploymentsReleasesAPI.md#BuildRelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/build | Finalize a draft release (send to edge via outbox)
-[**CancelRelease**](DeploymentsReleasesAPI.md#CancelRelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/cancel | Cancel a release
-[**CreateRelease**](DeploymentsReleasesAPI.md#CreateRelease) | **Post** /deployments/{deployment_id}/releases | Create a draft release
-[**DeleteRelease**](DeploymentsReleasesAPI.md#DeleteRelease) | **Delete** /deployments/{deployment_id}/releases/{release_id} | Delete a release
-[**ListAccountReleases**](DeploymentsReleasesAPI.md#ListAccountReleases) | **Get** /deployments/releases | List every release of the account
-[**ListReleases**](DeploymentsReleasesAPI.md#ListReleases) | **Get** /deployments/{deployment_id}/releases | List releases
-[**PartialUpdateRelease**](DeploymentsReleasesAPI.md#PartialUpdateRelease) | **Patch** /deployments/{deployment_id}/releases/{release_id} | Patch a release
-[**PromoteRelease**](DeploymentsReleasesAPI.md#PromoteRelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/promote | Promote a release
-[**RetrieveRelease**](DeploymentsReleasesAPI.md#RetrieveRelease) | **Get** /deployments/{deployment_id}/releases/{release_id} | Get a release
-[**UpdateRelease**](DeploymentsReleasesAPI.md#UpdateRelease) | **Put** /deployments/{deployment_id}/releases/{release_id} | Replace a release
+[**ArchiveRelease**](DeploymentsReleasesAPI.md#ArchiveRelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/archive | Archive a Release
+[**BuildAndActivateRelease**](DeploymentsReleasesAPI.md#BuildAndActivateRelease) | **Post** /deployments/{deployment_id}/build_and_activate | Create, build and activate a Release
+[**BuildRelease**](DeploymentsReleasesAPI.md#BuildRelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/build | Build a Release
+[**CancelRelease**](DeploymentsReleasesAPI.md#CancelRelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/cancel | Cancel a Release
+[**CreateRelease**](DeploymentsReleasesAPI.md#CreateRelease) | **Post** /deployments/{deployment_id}/releases | Create a Release
+[**DeleteRelease**](DeploymentsReleasesAPI.md#DeleteRelease) | **Delete** /deployments/{deployment_id}/releases/{release_id} | Delete a Release
+[**ListAccountReleases**](DeploymentsReleasesAPI.md#ListAccountReleases) | **Get** /deployments/releases | List Releases of all Deployments
+[**ListReleases**](DeploymentsReleasesAPI.md#ListReleases) | **Get** /deployments/{deployment_id}/releases | List Releases
+[**PartialUpdateRelease**](DeploymentsReleasesAPI.md#PartialUpdateRelease) | **Patch** /deployments/{deployment_id}/releases/{release_id} | Partially update a Release
+[**PatchAndActivateRelease**](DeploymentsReleasesAPI.md#PatchAndActivateRelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/patch_and_activate | Update and activate a Release
+[**PromoteRelease**](DeploymentsReleasesAPI.md#PromoteRelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/promote | Promote a Release
+[**RetrieveRelease**](DeploymentsReleasesAPI.md#RetrieveRelease) | **Get** /deployments/{deployment_id}/releases/{release_id} | Retrieve details of a Release
+[**UpdateRelease**](DeploymentsReleasesAPI.md#UpdateRelease) | **Put** /deployments/{deployment_id}/releases/{release_id} | Update a Release
 
 
 
@@ -22,7 +24,7 @@ Method | HTTP request | Description
 
 > ReleaseAsyncResponse ArchiveRelease(ctx, deploymentId, releaseId).ArchiveReleaseRequest(archiveReleaseRequest).Execute()
 
-Archive a release
+Archive a Release
 
 
 
@@ -93,11 +95,83 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## BuildAndActivateRelease
+
+> ReleaseAsyncResponse BuildAndActivateRelease(ctx, deploymentId).BuildAndActivateRequest(buildAndActivateRequest).Execute()
+
+Create, build and activate a Release
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	deploymentId := "deploymentId_example" // string | A unique value identifying the deployment.
+	buildAndActivateRequest := *openapiclient.NewBuildAndActivateRequest([]openapiclient.BuildAndActivateRequestResourcesInner{*openapiclient.NewBuildAndActivateRequestResourcesInner(int64(123), "ResourceType_example")}) // BuildAndActivateRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DeploymentsReleasesAPI.BuildAndActivateRelease(context.Background(), deploymentId).BuildAndActivateRequest(buildAndActivateRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeploymentsReleasesAPI.BuildAndActivateRelease``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `BuildAndActivateRelease`: ReleaseAsyncResponse
+	fmt.Fprintf(os.Stdout, "Response from `DeploymentsReleasesAPI.BuildAndActivateRelease`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**deploymentId** | **string** | A unique value identifying the deployment. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiBuildAndActivateReleaseRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **buildAndActivateRequest** | [**BuildAndActivateRequest**](BuildAndActivateRequest.md) |  | 
+
+### Return type
+
+[**ReleaseAsyncResponse**](ReleaseAsyncResponse.md)
+
+### Authorization
+
+[TokenAuth](../README.md#TokenAuth), [BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## BuildRelease
 
 > ReleaseAsyncResponse BuildRelease(ctx, deploymentId, releaseId).Body(body).Execute()
 
-Finalize a draft release (send to edge via outbox)
+Build a Release
 
 
 
@@ -172,7 +246,7 @@ Name | Type | Description  | Notes
 
 > ReleaseResponse CancelRelease(ctx, deploymentId, releaseId).CancelReleaseRequest(cancelReleaseRequest).Execute()
 
-Cancel a release
+Cancel a Release
 
 
 
@@ -247,7 +321,7 @@ Name | Type | Description  | Notes
 
 > ReleaseAsyncResponse CreateRelease(ctx, deploymentId).ReleaseCreateRequest(releaseCreateRequest).Execute()
 
-Create a draft release
+Create a Release
 
 
 
@@ -319,7 +393,7 @@ Name | Type | Description  | Notes
 
 > DeleteRelease(ctx, deploymentId, releaseId).Execute()
 
-Delete a release
+Delete a Release
 
 
 
@@ -390,7 +464,7 @@ Name | Type | Description  | Notes
 
 > PaginatedAccountReleaseList ListAccountReleases(ctx).Deployment(deployment).Fields(fields).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).State(state).TrafficRole(trafficRole).Execute()
 
-List every release of the account
+List Releases of all Deployments
 
 
 
@@ -408,16 +482,16 @@ import (
 )
 
 func main() {
-	deployment := []string{"Inner_example"} // []string | Restrict the listing to these deployments, comma-separated (`deployment=A,B`). More ids than the per-request cap, 100 by default, answer 400. An id that does not exist, or belongs to another account, yields an empty page rather than a 404. (optional)
+	deployment := []string{"Inner_example"} // []string | Filter by Deployment id (accepts comma-separated values). (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	lastModifiedGte := time.Now() // time.Time | Filter by last modification date (greater than or equal). (optional)
-	lastModifiedLte := time.Now() // time.Time | Filter by last modification date (less than or equal). (optional)
+	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
+	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
 	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	search := "search_example" // string | A search term to filter results. Searches across the following fields: id, deployment_name. (optional)
-	state := []string{"Inner_example"} // []string | Filter by one or more lifecycle states, comma-separated (`state=ready,building`). `deleted` is never listed. `deleting` stays listed so a stuck delete can be found. (optional)
-	trafficRole := "trafficRole_example" // string | `active` returns the releases currently serving traffic, resolved per parent `deployment_policy`: `single_version` → ACTIVE/CANDIDATE, `versioned_urls` → ACTIVE/VALID_URL, `latest` → ACTIVE. Any other value matches nothing. (optional)
+	state := []string{"Inner_example"} // []string | Filter by state (accepts comma-separated values). (optional)
+	trafficRole := "trafficRole_example" // string | Filter by traffic role. `active` returns the Releases that serve traffic. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -442,16 +516,16 @@ Other parameters are passed through a pointer to a apiListAccountReleasesRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **deployment** | **[]string** | Restrict the listing to these deployments, comma-separated (&#x60;deployment&#x3D;A,B&#x60;). More ids than the per-request cap, 100 by default, answer 400. An id that does not exist, or belongs to another account, yields an empty page rather than a 404. | 
+ **deployment** | **[]string** | Filter by Deployment id (accepts comma-separated values). | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **lastModifiedGte** | **time.Time** | Filter by last modification date (greater than or equal). | 
- **lastModifiedLte** | **time.Time** | Filter by last modification date (less than or equal). | 
+ **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
+ **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
  **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **search** | **string** | A search term to filter results. Searches across the following fields: id, deployment_name. | 
- **state** | **[]string** | Filter by one or more lifecycle states, comma-separated (&#x60;state&#x3D;ready,building&#x60;). &#x60;deleted&#x60; is never listed. &#x60;deleting&#x60; stays listed so a stuck delete can be found. | 
- **trafficRole** | **string** | &#x60;active&#x60; returns the releases currently serving traffic, resolved per parent &#x60;deployment_policy&#x60;: &#x60;single_version&#x60; → ACTIVE/CANDIDATE, &#x60;versioned_urls&#x60; → ACTIVE/VALID_URL, &#x60;latest&#x60; → ACTIVE. Any other value matches nothing. | 
+ **state** | **[]string** | Filter by state (accepts comma-separated values). | 
+ **trafficRole** | **string** | Filter by traffic role. &#x60;active&#x60; returns the Releases that serve traffic. | 
 
 ### Return type
 
@@ -475,7 +549,7 @@ Name | Type | Description  | Notes
 
 > PaginatedReleaseList ListReleases(ctx, deploymentId).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).State(state).TrafficRole(trafficRole).Execute()
 
-List releases
+List Releases
 
 
 
@@ -497,8 +571,8 @@ func main() {
 	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
-	state := []string{"Inner_example"} // []string | Filter by one or more lifecycle states, comma-separated (`state=ready,building`). `deleted` is never listed. `deleting` stays listed so a stuck delete can be found. (optional)
-	trafficRole := "trafficRole_example" // string | `active` returns the releases currently serving traffic, resolved per parent `deployment_policy`: `single_version` → ACTIVE/CANDIDATE, `versioned_urls` → ACTIVE/VALID_URL, `latest` → ACTIVE. Any other value matches nothing. (optional)
+	state := []string{"Inner_example"} // []string | Filter by state (accepts comma-separated values). (optional)
+	trafficRole := "trafficRole_example" // string | Filter by traffic role. `active` returns the Releases that serve traffic. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -532,8 +606,8 @@ Name | Type | Description  | Notes
  **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
- **state** | **[]string** | Filter by one or more lifecycle states, comma-separated (&#x60;state&#x3D;ready,building&#x60;). &#x60;deleted&#x60; is never listed. &#x60;deleting&#x60; stays listed so a stuck delete can be found. | 
- **trafficRole** | **string** | &#x60;active&#x60; returns the releases currently serving traffic, resolved per parent &#x60;deployment_policy&#x60;: &#x60;single_version&#x60; → ACTIVE/CANDIDATE, &#x60;versioned_urls&#x60; → ACTIVE/VALID_URL, &#x60;latest&#x60; → ACTIVE. Any other value matches nothing. | 
+ **state** | **[]string** | Filter by state (accepts comma-separated values). | 
+ **trafficRole** | **string** | Filter by traffic role. &#x60;active&#x60; returns the Releases that serve traffic. | 
 
 ### Return type
 
@@ -557,7 +631,7 @@ Name | Type | Description  | Notes
 
 > ReleaseResponse PartialUpdateRelease(ctx, deploymentId, releaseId).PatchedReleaseRequest(patchedReleaseRequest).Execute()
 
-Patch a release
+Partially update a Release
 
 
 
@@ -628,11 +702,86 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## PatchAndActivateRelease
+
+> ReleaseAsyncResponse PatchAndActivateRelease(ctx, deploymentId, releaseId).PatchedReleaseRequest(patchedReleaseRequest).Execute()
+
+Update and activate a Release
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/GIT_USER_ID/GIT_REPO_ID"
+)
+
+func main() {
+	deploymentId := "deploymentId_example" // string | A unique value identifying the deployment.
+	releaseId := "releaseId_example" // string | A unique value identifying the release.
+	patchedReleaseRequest := *openapiclient.NewPatchedReleaseRequest() // PatchedReleaseRequest | 
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DeploymentsReleasesAPI.PatchAndActivateRelease(context.Background(), deploymentId, releaseId).PatchedReleaseRequest(patchedReleaseRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeploymentsReleasesAPI.PatchAndActivateRelease``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchAndActivateRelease`: ReleaseAsyncResponse
+	fmt.Fprintf(os.Stdout, "Response from `DeploymentsReleasesAPI.PatchAndActivateRelease`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**deploymentId** | **string** | A unique value identifying the deployment. | 
+**releaseId** | **string** | A unique value identifying the release. | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchAndActivateReleaseRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **patchedReleaseRequest** | [**PatchedReleaseRequest**](PatchedReleaseRequest.md) |  | 
+
+### Return type
+
+[**ReleaseAsyncResponse**](ReleaseAsyncResponse.md)
+
+### Authorization
+
+[TokenAuth](../README.md#TokenAuth), [BearerAuth](../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## PromoteRelease
 
 > ReleaseAsyncResponse PromoteRelease(ctx, deploymentId, releaseId).PromoteReleaseRequest(promoteReleaseRequest).Execute()
 
-Promote a release
+Promote a Release
 
 
 
@@ -707,7 +856,7 @@ Name | Type | Description  | Notes
 
 > ReleaseRetrieveResponse RetrieveRelease(ctx, deploymentId, releaseId).Fields(fields).Execute()
 
-Get a release
+Retrieve details of a Release
 
 
 
@@ -782,7 +931,7 @@ Name | Type | Description  | Notes
 
 > ReleaseResponse UpdateRelease(ctx, deploymentId, releaseId).ReleaseRequest(releaseRequest).Execute()
 
-Replace a release
+Update a Release
 
 
 

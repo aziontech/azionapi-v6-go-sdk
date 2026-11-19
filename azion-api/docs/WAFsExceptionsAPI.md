@@ -313,7 +313,7 @@ Name | Type | Description  | Notes
 
 ## ListWafExceptions
 
-> PaginatedWAFRuleList ListWafExceptions(ctx, wafId).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Description(description).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Ordering(ordering).Page(page).PageSize(pageSize).Path(path).Search(search).Execute()
+> PaginatedWAFRuleList ListWafExceptions(ctx, wafId).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Path(path).Search(search).Execute()
 
 List Exceptions for a Web Application Firewall (WAF)
 
@@ -334,23 +334,21 @@ import (
 
 func main() {
 	wafId := int64(789) // int64 | A unique integer value identifying the WAF.
-	createdAtGte := time.Now() // time.Time | Filter by creation date (greater than or equal). (optional)
-	createdAtLte := time.Now() // time.Time | Filter by creation date (less than or equal). (optional)
-	description := "description_example" // string | Filter by description (case-insensitive, partial match). (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 	id := []int64{int64(123)} // []int64 | Filter by id (accepts comma-separated values). (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, description, path, last_editor, last_modified, created_at) (optional)
+	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, path, last_editor, last_modified) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	path := "path_example" // string | Filter by path (case-insensitive, partial match). (optional)
-	search := "search_example" // string | A search term to filter results. Searches across the following fields: description, path, last_editor. (optional)
+	search := "search_example" // string | A search term to filter results. Searches across the following fields: description, path, last_editor, rule_id. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WAFsExceptionsAPI.ListWafExceptions(context.Background(), wafId).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Description(description).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Ordering(ordering).Page(page).PageSize(pageSize).Path(path).Search(search).Execute()
+	resp, r, err := apiClient.WAFsExceptionsAPI.ListWafExceptions(context.Background(), wafId).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Path(path).Search(search).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WAFsExceptionsAPI.ListWafExceptions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -376,19 +374,17 @@ Other parameters are passed through a pointer to a apiListWafExceptionsRequest s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **createdAtGte** | **time.Time** | Filter by creation date (greater than or equal). | 
- **createdAtLte** | **time.Time** | Filter by creation date (less than or equal). | 
- **description** | **string** | Filter by description (case-insensitive, partial match). | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
  **id** | **[]int64** | Filter by id (accepts comma-separated values). | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, description, path, last_editor, last_modified, created_at) | 
+ **name** | **string** | Filter by name (case-insensitive, partial match). | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, path, last_editor, last_modified) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **path** | **string** | Filter by path (case-insensitive, partial match). | 
- **search** | **string** | A search term to filter results. Searches across the following fields: description, path, last_editor. | 
+ **search** | **string** | A search term to filter results. Searches across the following fields: description, path, last_editor, rule_id. | 
 
 ### Return type
 
@@ -410,7 +406,7 @@ Name | Type | Description  | Notes
 
 ## ListWafVersionExceptions
 
-> PaginatedWAFRuleList ListWafVersionExceptions(ctx, versionId, wafId).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Description(description).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Ordering(ordering).Page(page).PageSize(pageSize).Path(path).Search(search).Execute()
+> PaginatedWAFRuleList ListWafVersionExceptions(ctx, versionId, wafId).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Path(path).Search(search).Execute()
 
 List Exceptions for a Web Application Firewall (WAF)
 
@@ -432,23 +428,21 @@ import (
 func main() {
 	versionId := "versionId_example" // string | The ULID identifier of the version.
 	wafId := int64(789) // int64 | A unique integer value identifying the WAF.
-	createdAtGte := time.Now() // time.Time | Filter by creation date (greater than or equal). (optional)
-	createdAtLte := time.Now() // time.Time | Filter by creation date (less than or equal). (optional)
-	description := "description_example" // string | Filter by description (case-insensitive, partial match). (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 	id := []int64{int64(123)} // []int64 | Filter by id (accepts comma-separated values). (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, description, path, last_editor, last_modified, created_at) (optional)
+	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, path, last_editor, last_modified) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	path := "path_example" // string | Filter by path (case-insensitive, partial match). (optional)
-	search := "search_example" // string | A search term to filter results. Searches across the following fields: description, path, last_editor. (optional)
+	search := "search_example" // string | A search term to filter results. Searches across the following fields: description, path, last_editor, rule_id. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WAFsExceptionsAPI.ListWafVersionExceptions(context.Background(), versionId, wafId).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Description(description).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Ordering(ordering).Page(page).PageSize(pageSize).Path(path).Search(search).Execute()
+	resp, r, err := apiClient.WAFsExceptionsAPI.ListWafVersionExceptions(context.Background(), versionId, wafId).Fields(fields).Id(id).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Path(path).Search(search).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WAFsExceptionsAPI.ListWafVersionExceptions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -476,19 +470,17 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **createdAtGte** | **time.Time** | Filter by creation date (greater than or equal). | 
- **createdAtLte** | **time.Time** | Filter by creation date (less than or equal). | 
- **description** | **string** | Filter by description (case-insensitive, partial match). | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
  **id** | **[]int64** | Filter by id (accepts comma-separated values). | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, description, path, last_editor, last_modified, created_at) | 
+ **name** | **string** | Filter by name (case-insensitive, partial match). | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, path, last_editor, last_modified) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **path** | **string** | Filter by path (case-insensitive, partial match). | 
- **search** | **string** | A search term to filter results. Searches across the following fields: description, path, last_editor. | 
+ **search** | **string** | A search term to filter results. Searches across the following fields: description, path, last_editor, rule_id. | 
 
 ### Return type
 
