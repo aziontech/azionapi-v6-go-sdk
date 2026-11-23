@@ -4,10 +4,10 @@ All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CancelDeploymentVersionBuild**](DeploymentsVersionsAPI.md#CancelDeploymentVersionBuild) | **Post** /deployments/{deployment_id}/versions/{version_id}/cancel | Cancel an in-flight deployment version build
-[**ListDeploymentVersions**](DeploymentsVersionsAPI.md#ListDeploymentVersions) | **Get** /deployments/{deployment_id}/versions | List deployment versions
-[**RetrieveDeploymentVersion**](DeploymentsVersionsAPI.md#RetrieveDeploymentVersion) | **Get** /deployments/{deployment_id}/versions/{version_id} | Retrieve a deployment version
-[**RevertDeploymentVersion**](DeploymentsVersionsAPI.md#RevertDeploymentVersion) | **Post** /deployments/{deployment_id}/versions/{version_id}/revert | Revert to a deployment version
+[**CancelDeploymentVersionBuild**](DeploymentsVersionsAPI.md#CancelDeploymentVersionBuild) | **Post** /deployments/{deployment_id}/versions/{version_id}/cancel | Cancel a Deployment Version build
+[**ListDeploymentVersions**](DeploymentsVersionsAPI.md#ListDeploymentVersions) | **Get** /deployments/{deployment_id}/versions | List Deployment Versions
+[**RetrieveDeploymentVersion**](DeploymentsVersionsAPI.md#RetrieveDeploymentVersion) | **Get** /deployments/{deployment_id}/versions/{version_id} | Retrieve details of a Deployment Version
+[**RevertDeploymentVersion**](DeploymentsVersionsAPI.md#RevertDeploymentVersion) | **Post** /deployments/{deployment_id}/versions/{version_id}/revert | Revert to a Deployment Version
 
 
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 > DeploymentVersionMeta CancelDeploymentVersionBuild(ctx, deploymentId, versionId).DeploymentVersionCancelRequest(deploymentVersionCancelRequest).Execute()
 
-Cancel an in-flight deployment version build
+Cancel a Deployment Version build
 
 
 
@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 
 > PaginatedDeploymentVersionList ListDeploymentVersions(ctx, deploymentId).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Description(description).Fields(fields).LastEditor(lastEditor).Ordering(ordering).Page(page).PageSize(pageSize).ReadyAtGte(readyAtGte).ReadyAtLte(readyAtLte).Search(search).Version(version).VersionGte(versionGte).VersionLte(versionLte).VersionState(versionState).VersionStateIn(versionStateIn).Execute()
 
-List deployment versions
+List Deployment Versions
 
 
 
@@ -114,7 +114,7 @@ func main() {
 	description := "description_example" // string | Filter by description (case-insensitive, partial match). (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: version, version_state, created_at, ready_at, last_editor) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: version, version_state, created_at, ready_at, last_editor) Unknown names answer 400. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	readyAtGte := time.Now() // time.Time | Filter by ready date (greater than or equal). (optional)
@@ -159,7 +159,7 @@ Name | Type | Description  | Notes
  **description** | **string** | Filter by description (case-insensitive, partial match). | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: version, version_state, created_at, ready_at, last_editor) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: version, version_state, created_at, ready_at, last_editor) Unknown names answer 400. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **readyAtGte** | **time.Time** | Filter by ready date (greater than or equal). | 
@@ -193,7 +193,7 @@ Name | Type | Description  | Notes
 
 > DeploymentVersion RetrieveDeploymentVersion(ctx, deploymentId, versionId).Fields(fields).Execute()
 
-Retrieve a deployment version
+Retrieve details of a Deployment Version
 
 
 
@@ -268,7 +268,7 @@ Name | Type | Description  | Notes
 
 > DeploymentVersionMeta RevertDeploymentVersion(ctx, deploymentId, versionId).DeploymentVersionRevertRequest(deploymentVersionRevertRequest).Execute()
 
-Revert to a deployment version
+Revert to a Deployment Version
 
 
 

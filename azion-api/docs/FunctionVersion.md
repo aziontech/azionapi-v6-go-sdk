@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **ReferenceCount** | Pointer to **int64** |  | [optional] 
 **Vendor** | Pointer to **string** |  | [optional] 
 **Code** | Pointer to **string** | String containing the function code. Maximum size: 50.0MB | [optional] 
-**Dependencies** | Pointer to [**[]map[string][]ApplicationVersionDependenciesInnerValueInner**](map[string][]ApplicationVersionDependenciesInnerValueInner.md) | Resources this version references, grouped by resource type. Present only when the request sets dependencies&#x3D;true. | [optional] 
+**Dependencies** | Pointer to [**[]map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner**](map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner.md) | Resources this version references, grouped by resource type. Present only when the request sets dependencies&#x3D;true. | [optional] 
 **VersionId** | Pointer to **string** | ID of the version metadata | [optional] 
 **VersionState** | Pointer to **string** | Current lifecycle state of the version. | [optional] 
 **ProductVersion** | Pointer to **string** | Product version string | [optional] 
@@ -313,20 +313,20 @@ HasCode returns a boolean if a field has been set.
 
 ### GetDependencies
 
-`func (o *FunctionVersion) GetDependencies() []map[string][]ApplicationVersionDependenciesInnerValueInner`
+`func (o *FunctionVersion) GetDependencies() []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner`
 
 GetDependencies returns the Dependencies field if non-nil, zero value otherwise.
 
 ### GetDependenciesOk
 
-`func (o *FunctionVersion) GetDependenciesOk() (*[]map[string][]ApplicationVersionDependenciesInnerValueInner, bool)`
+`func (o *FunctionVersion) GetDependenciesOk() (*[]map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner, bool)`
 
 GetDependenciesOk returns a tuple with the Dependencies field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDependencies
 
-`func (o *FunctionVersion) SetDependencies(v []map[string][]ApplicationVersionDependenciesInnerValueInner)`
+`func (o *FunctionVersion) SetDependencies(v []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner)`
 
 SetDependencies sets Dependencies field to given value.
 

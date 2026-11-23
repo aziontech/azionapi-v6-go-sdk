@@ -175,11 +175,11 @@ func main() {
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
 	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, type, last_editor, last_modified) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, type, last_editor, last_modified) Unknown names answer 400. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	search := "search_example" // string | A search term to filter results. Searches across the following fields: id, name, type, last_editor, last_modified. (optional)
-	typeIn := []string{"Inner_example"} // []string | Filter by type (accepts comma-separated values). (optional)
+	typeIn := []string{"Inner_example"} // []string | Filter by type (accepts comma-separated values). The values are `http`, `edge_storage` and `live_ingest`. `edge_storage` is the type the response shows as `storage`. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -210,11 +210,11 @@ Name | Type | Description  | Notes
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
  **name** | **string** | Filter by name (case-insensitive, partial match). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, type, last_editor, last_modified) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, type, last_editor, last_modified) Unknown names answer 400. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **search** | **string** | A search term to filter results. Searches across the following fields: id, name, type, last_editor, last_modified. | 
- **typeIn** | **[]string** | Filter by type (accepts comma-separated values). | 
+ **typeIn** | **[]string** | Filter by type (accepts comma-separated values). The values are &#x60;http&#x60;, &#x60;edge_storage&#x60; and &#x60;live_ingest&#x60;. &#x60;edge_storage&#x60; is the type the response shows as &#x60;storage&#x60;. | 
 
 ### Return type
 
