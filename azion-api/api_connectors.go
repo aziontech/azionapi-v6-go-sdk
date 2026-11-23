@@ -478,7 +478,7 @@ func (r ApiListConnectorsRequest) Name(name string) ApiListConnectorsRequest {
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, type, last_editor, last_modified)
+// Which field to use when ordering the results. (Valid fields: id, name, type, last_editor, last_modified) Unknown names answer 400.
 func (r ApiListConnectorsRequest) Ordering(ordering string) ApiListConnectorsRequest {
 	r.ordering = &ordering
 	return r
@@ -502,7 +502,7 @@ func (r ApiListConnectorsRequest) Search(search string) ApiListConnectorsRequest
 	return r
 }
 
-// Filter by type (accepts comma-separated values).
+// Filter by type (accepts comma-separated values). The values are &#x60;http&#x60;, &#x60;edge_storage&#x60; and &#x60;live_ingest&#x60;. &#x60;edge_storage&#x60; is the type the response shows as &#x60;storage&#x60;.
 func (r ApiListConnectorsRequest) TypeIn(typeIn []string) ApiListConnectorsRequest {
 	r.typeIn = &typeIn
 	return r

@@ -480,7 +480,7 @@ func (r ApiListCustomPagesRequest) Name(name string) ApiListCustomPagesRequest {
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified)
+// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified) Unknown names answer 400.
 func (r ApiListCustomPagesRequest) Ordering(ordering string) ApiListCustomPagesRequest {
 	r.ordering = &ordering
 	return r

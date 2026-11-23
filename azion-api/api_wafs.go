@@ -458,7 +458,7 @@ func (r ApiListWafsRequest) Name(name string) ApiListWafsRequest {
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name)
+// Which field to use when ordering the results. (Valid fields: id, name) Unknown names answer 400.
 func (r ApiListWafsRequest) Ordering(ordering string) ApiListWafsRequest {
 	r.ordering = &ordering
 	return r
