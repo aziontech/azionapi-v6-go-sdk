@@ -471,6 +471,24 @@ func (r ApiListCertificatesRequest) CreatedAtLte(createdAtLte time.Time) ApiList
 	return r
 }
 
+// Filter by exact creation date and time.
+func (r ApiListCertificatesRequest) CreatedAt(createdAt time.Time) ApiListCertificatesRequest {
+	r.createdAt = &createdAt
+	return r
+}
+
+// Filter by creation date (greater than or equal).
+func (r ApiListCertificatesRequest) CreatedAtGte(createdAtGte time.Time) ApiListCertificatesRequest {
+	r.createdAtGte = &createdAtGte
+	return r
+}
+
+// Filter by creation date (less than or equal).
+func (r ApiListCertificatesRequest) CreatedAtLte(createdAtLte time.Time) ApiListCertificatesRequest {
+	r.createdAtLte = &createdAtLte
+	return r
+}
+
 // Comma-separated list of field names to include in the response.
 func (r ApiListCertificatesRequest) Fields(fields string) ApiListCertificatesRequest {
 	r.fields = &fields
@@ -607,6 +625,15 @@ func (a *DigitalCertificatesCertificatesAPIService) ListCertificatesExecute(r Ap
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.createdAt != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at", r.createdAt, "form", "")
+	}
+	if r.createdAtGte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__gte", r.createdAtGte, "form", "")
+	}
+	if r.createdAtLte != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__lte", r.createdAtLte, "form", "")
+	}
 	if r.createdAt != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at", r.createdAt, "form", "")
 	}
