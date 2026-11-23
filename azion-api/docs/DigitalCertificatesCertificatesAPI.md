@@ -180,7 +180,7 @@ func main() {
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
 	managed := true // bool | Filter by managed status. (optional)
 	name := "name_example" // string | Filter by certificate name (case-insensitive, partial match). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, certificate, issuer, subject_name, validity, type, managed, csr, challenge, authority, key_algorithm, product_version, last_editor, created_at, last_modified, renewed_at) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, certificate, issuer, subject_name, validity, type, managed, csr, challenge, authority, key_algorithm, product_version, last_editor, created_at, last_modified, renewed_at) Unknown names answer 400. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	renewedAt := time.Now() // time.Time | Filter by exact renewed date and time. (optional)
@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
  **managed** | **bool** | Filter by managed status. | 
  **name** | **string** | Filter by certificate name (case-insensitive, partial match). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, certificate, issuer, subject_name, validity, type, managed, csr, challenge, authority, key_algorithm, product_version, last_editor, created_at, last_modified, renewed_at) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, certificate, issuer, subject_name, validity, type, managed, csr, challenge, authority, key_algorithm, product_version, last_editor, created_at, last_modified, renewed_at) Unknown names answer 400. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **renewedAt** | **time.Time** | Filter by exact renewed date and time. | 

@@ -478,7 +478,7 @@ func (r ApiListConnectorsRequest) Name(name string) ApiListConnectorsRequest {
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, type, last_editor, last_modified)
+// Which field to use when ordering the results. (Valid fields: id, name, type, last_editor, last_modified) Unknown names answer 400.
 func (r ApiListConnectorsRequest) Ordering(ordering string) ApiListConnectorsRequest {
 	r.ordering = &ordering
 	return r

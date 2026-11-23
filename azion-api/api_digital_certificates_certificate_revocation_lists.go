@@ -550,7 +550,7 @@ func (r ApiListCertificateRevocationListsRequest) NextUpdateLte(nextUpdateLte ti
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, last_editor, created_at, last_modified, product_version, issuer, last_update, next_update, crl)
+// Which field to use when ordering the results. (Valid fields: id, name, last_editor, created_at, last_modified, product_version, issuer, last_update, next_update, crl) Unknown names answer 400.
 func (r ApiListCertificateRevocationListsRequest) Ordering(ordering string) ApiListCertificateRevocationListsRequest {
 	r.ordering = &ordering
 	return r

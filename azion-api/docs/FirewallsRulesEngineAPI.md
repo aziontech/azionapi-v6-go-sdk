@@ -345,7 +345,7 @@ func main() {
 	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
 	orderGte := int64(789) // int64 | Filter by order (greater than or equal). (optional)
 	orderLte := int64(789) // int64 | Filter by order (less than or equal). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, description, last_editor, last_modified, order) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, description, last_editor, last_modified, order) Unknown names answer 400. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	search := "search_example" // string | A search term to filter results. Searches across the following fields: name, last_editor. (optional)
@@ -387,7 +387,7 @@ Name | Type | Description  | Notes
  **name** | **string** | Filter by name (case-insensitive, partial match). | 
  **orderGte** | **int64** | Filter by order (greater than or equal). | 
  **orderLte** | **int64** | Filter by order (less than or equal). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, description, last_editor, last_modified, order) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, description, last_editor, last_modified, order) Unknown names answer 400. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **search** | **string** | A search term to filter results. Searches across the following fields: name, last_editor. | 
@@ -443,7 +443,7 @@ func main() {
 	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
 	orderGte := int64(789) // int64 | Filter by order (greater than or equal). (optional)
 	orderLte := int64(789) // int64 | Filter by order (less than or equal). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, description, last_editor, last_modified, order) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, description, last_editor, last_modified, order) Unknown names answer 400. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	search := "search_example" // string | A search term to filter results. Searches across the following fields: name, last_editor. (optional)
@@ -487,7 +487,7 @@ Name | Type | Description  | Notes
  **name** | **string** | Filter by name (case-insensitive, partial match). | 
  **orderGte** | **int64** | Filter by order (greater than or equal). | 
  **orderLte** | **int64** | Filter by order (less than or equal). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, description, last_editor, last_modified, order) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, description, last_editor, last_modified, order) Unknown names answer 400. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **search** | **string** | A search term to filter results. Searches across the following fields: name, last_editor. | 

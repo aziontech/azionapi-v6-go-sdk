@@ -587,6 +587,7 @@ type ApiListVariablesRequest struct {
 	ApiService *VariablesAPIService
 	createdAtGte *time.Time
 	createdAtLte *time.Time
+	fields *string
 	key *string
 	lastEditor *string
 	ordering *string
@@ -614,6 +615,12 @@ func (r ApiListVariablesRequest) CreatedAtLte(createdAtLte time.Time) ApiListVar
 	return r
 }
 
+// Comma-separated list of field names to include in the response.
+func (r ApiListVariablesRequest) Fields(fields string) ApiListVariablesRequest {
+	r.fields = &fields
+	return r
+}
+
 // Filter by key (case-insensitive, partial match).
 func (r ApiListVariablesRequest) Key(key string) ApiListVariablesRequest {
 	r.key = &key
@@ -626,7 +633,7 @@ func (r ApiListVariablesRequest) LastEditor(lastEditor string) ApiListVariablesR
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: key, created_at, updated_at, last_editor) &#x60;last_modified&#x60; is an alias of &#x60;updated_at&#x60;.
+// Which field to use when ordering the results. (Valid fields: key, created_at, updated_at, last_editor) Unknown names answer 400.
 func (r ApiListVariablesRequest) Ordering(ordering string) ApiListVariablesRequest {
 	r.ordering = &ordering
 	return r
@@ -737,6 +744,9 @@ func (a *VariablesAPIService) ListVariablesExecute(r ApiListVariablesRequest) (*
 	}
 	if r.createdAtLte != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__lte", r.createdAtLte, "form", "")
+	}
+	if r.fields != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
 	if r.key != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "key", r.key, "form", "")
@@ -1126,6 +1136,13 @@ type ApiRetrieveVariableRequest struct {
 	ctx context.Context
 	ApiService *VariablesAPIService
 	variableId string
+	fields *string
+}
+
+// Comma-separated list of field names to include in the response.
+func (r ApiRetrieveVariableRequest) Fields(fields string) ApiRetrieveVariableRequest {
+	r.fields = &fields
+	return r
 }
 
 func (r ApiRetrieveVariableRequest) Execute() (*Variable, *http.Response, error) {
@@ -1171,6 +1188,9 @@ func (a *VariablesAPIService) RetrieveVariableExecute(r ApiRetrieveVariableReque
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.fields != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

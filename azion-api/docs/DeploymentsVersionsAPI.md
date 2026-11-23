@@ -114,7 +114,7 @@ func main() {
 	description := "description_example" // string | Filter by description (case-insensitive, partial match). (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: version, version_state, created_at, ready_at, last_editor) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: version, version_state, created_at, ready_at, last_editor) Unknown names answer 400. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	readyAtGte := time.Now() // time.Time | Filter by ready date (greater than or equal). (optional)
@@ -159,7 +159,7 @@ Name | Type | Description  | Notes
  **description** | **string** | Filter by description (case-insensitive, partial match). | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: version, version_state, created_at, ready_at, last_editor) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: version, version_state, created_at, ready_at, last_editor) Unknown names answer 400. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **readyAtGte** | **time.Time** | Filter by ready date (greater than or equal). | 

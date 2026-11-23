@@ -1427,7 +1427,7 @@ func (r ApiListAccountReleasesRequest) LastModifiedLte(lastModifiedLte time.Time
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role)
+// Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role) Unknown names answer 400.
 func (r ApiListAccountReleasesRequest) Ordering(ordering string) ApiListAccountReleasesRequest {
 	r.ordering = &ordering
 	return r
@@ -1695,7 +1695,7 @@ func (r ApiListReleasesRequest) Fields(fields string) ApiListReleasesRequest {
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role)
+// Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role) Unknown names answer 400.
 func (r ApiListReleasesRequest) Ordering(ordering string) ApiListReleasesRequest {
 	r.ordering = &ordering
 	return r
