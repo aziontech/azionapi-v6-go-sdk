@@ -316,7 +316,7 @@ func (r ApiListDeploymentVersionsRequest) LastEditor(lastEditor string) ApiListD
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: version, version_state, created_at, ready_at, last_editor)
+// Which field to use when ordering the results. (Valid fields: version, version_state, created_at, ready_at, last_editor) Unknown names answer 400.
 func (r ApiListDeploymentVersionsRequest) Ordering(ordering string) ApiListDeploymentVersionsRequest {
 	r.ordering = &ordering
 	return r

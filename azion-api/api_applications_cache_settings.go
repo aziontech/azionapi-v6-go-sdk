@@ -888,7 +888,7 @@ func (r ApiListApplicationVersionCacheSettingsRequest) Name(name string) ApiList
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, created_at)
+// Which field to use when ordering the results. (Valid fields: id, name, created_at) Unknown names answer 400.
 func (r ApiListApplicationVersionCacheSettingsRequest) Ordering(ordering string) ApiListApplicationVersionCacheSettingsRequest {
 	r.ordering = &ordering
 	return r
@@ -1165,7 +1165,7 @@ func (r ApiListCacheSettingsRequest) Name(name string) ApiListCacheSettingsReque
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, created_at)
+// Which field to use when ordering the results. (Valid fields: id, name, created_at) Unknown names answer 400.
 func (r ApiListCacheSettingsRequest) Ordering(ordering string) ApiListCacheSettingsRequest {
 	r.ordering = &ordering
 	return r

@@ -560,7 +560,7 @@ import (
 func main() {
 	firewallId := int64(789) // int64 | The ID of the Firewall resource.
 	versionId := "versionId_example" // string | The identifier of the version.
-	dependencies := true // bool | Include the resources this version references. (optional)
+	dependencies := true // bool | Include the resources this version references. A function in the answer carries what its published version references under its own `dependencies`, in the same shape, or null while it publishes no version. No other resource carries `dependencies`, so the answer is at most two levels deep. (optional)
 	dependencyStates := []string{"Inner_example"} // []string | Keep only the dependency versions in these states (comma-separated). Needs dependencies=true. Accepted states: `draft`, `queued`, `building`, `ready`, `error`, `canceled`, `archiving`, `archived`. An unknown state matches nothing, `deleting` and `deleted` match nothing because a dependency version in those states is never listed, and the match is case sensitive (`READY` matches nothing). (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 
@@ -594,7 +594,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **dependencies** | **bool** | Include the resources this version references. | 
+ **dependencies** | **bool** | Include the resources this version references. A function in the answer carries what its published version references under its own &#x60;dependencies&#x60;, in the same shape, or null while it publishes no version. No other resource carries &#x60;dependencies&#x60;, so the answer is at most two levels deep. | 
  **dependencyStates** | **[]string** | Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true. Accepted states: &#x60;draft&#x60;, &#x60;queued&#x60;, &#x60;building&#x60;, &#x60;ready&#x60;, &#x60;error&#x60;, &#x60;canceled&#x60;, &#x60;archiving&#x60;, &#x60;archived&#x60;. An unknown state matches nothing, &#x60;deleting&#x60; and &#x60;deleted&#x60; match nothing because a dependency version in those states is never listed, and the match is case sensitive (&#x60;READY&#x60; matches nothing). | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
 

@@ -486,7 +486,7 @@ func main() {
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role) Unknown names answer 400. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	search := "search_example" // string | A search term to filter results. Searches across the following fields: id, deployment_name. (optional)
@@ -520,7 +520,7 @@ Name | Type | Description  | Notes
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role) Unknown names answer 400. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **search** | **string** | A search term to filter results. Searches across the following fields: id, deployment_name. | 
@@ -568,7 +568,7 @@ import (
 func main() {
 	deploymentId := "deploymentId_example" // string | A unique value identifying the deployment.
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role) Unknown names answer 400. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	state := []string{"Inner_example"} // []string | Filter by state (accepts comma-separated values). (optional)
@@ -603,7 +603,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, created_at, last_modified, state, traffic_role) Unknown names answer 400. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **state** | **[]string** | Filter by state (accepts comma-separated values). | 

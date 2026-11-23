@@ -496,7 +496,7 @@ func (r ApiListFunctionsRequest) Name(name string) ApiListFunctionsRequest {
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, product_version, runtime, execution_environment, default_args) An unknown field returns 400.
+// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, product_version, runtime, execution_environment, default_args) Unknown names answer 400.
 func (r ApiListFunctionsRequest) Ordering(ordering string) ApiListFunctionsRequest {
 	r.ordering = &ordering
 	return r

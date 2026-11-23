@@ -656,6 +656,7 @@ func (a *WorkloadsAPIService) DeleteWorkloadExecute(r ApiDeleteWorkloadRequest) 
 type ApiListWorkloadsRequest struct {
 	ctx context.Context
 	ApiService *WorkloadsAPIService
+	digitalCertificateId *[]int64
 	fields *string
 	id *[]int64
 	infrastructure *[]int64
@@ -669,6 +670,12 @@ type ApiListWorkloadsRequest struct {
 	pageSize *int32
 	search *string
 	workloadDomain *string
+}
+
+// Filter by the certificate of any domain shown in &#x60;bindings[].domains[].certificate&#x60; (accepts comma-separated values).
+func (r ApiListWorkloadsRequest) DigitalCertificateId(digitalCertificateId []int64) ApiListWorkloadsRequest {
+	r.digitalCertificateId = &digitalCertificateId
+	return r
 }
 
 // Comma-separated list of field names to include in the response.
@@ -719,7 +726,7 @@ func (r ApiListWorkloadsRequest) Name(name string) ApiListWorkloadsRequest {
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified)
+// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified) Unknown names answer 400.
 func (r ApiListWorkloadsRequest) Ordering(ordering string) ApiListWorkloadsRequest {
 	r.ordering = &ordering
 	return r
@@ -737,7 +744,7 @@ func (r ApiListWorkloadsRequest) PageSize(pageSize int32) ApiListWorkloadsReques
 	return r
 }
 
-// A search term to filter results. Searches across the following fields: id, name, last_editor, last_modified, workload_domain, and the CNAME domains shown in &#x60;bindings[].domains[].domain&#x60;. The other domains in &#x60;bindings[].domains[].domain&#x60; are not searched.
+// A search term to filter results. Searches across the following fields: id, name, last_editor, last_modified, workload_domain, and the domains shown in &#x60;bindings[].domains[].domain&#x60; (bound domains and CNAMEs).
 func (r ApiListWorkloadsRequest) Search(search string) ApiListWorkloadsRequest {
 	r.search = &search
 	return r
@@ -789,6 +796,9 @@ func (a *WorkloadsAPIService) ListWorkloadsExecute(r ApiListWorkloadsRequest) (*
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.digitalCertificateId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "digital_certificate_id", r.digitalCertificateId, "form", "csv")
+	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}

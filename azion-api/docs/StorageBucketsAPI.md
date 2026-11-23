@@ -174,7 +174,7 @@ func main() {
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). The value is not validated and is compared as text with the `last_modified` shown in the response. (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). The value is not validated and is compared as text with the `last_modified` shown in the response. (optional)
 	name := "name_example" // string | Filter by the exact bucket name. (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: name, workloads_access, last_editor, last_modified, product_version) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: name, workloads_access, last_editor, last_modified, product_version) Unknown names answer 400. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	search := "search_example" // string | A search term. (optional)
@@ -209,7 +209,7 @@ Name | Type | Description  | Notes
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). The value is not validated and is compared as text with the &#x60;last_modified&#x60; shown in the response. | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). The value is not validated and is compared as text with the &#x60;last_modified&#x60; shown in the response. | 
  **name** | **string** | Filter by the exact bucket name. | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: name, workloads_access, last_editor, last_modified, product_version) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: name, workloads_access, last_editor, last_modified, product_version) Unknown names answer 400. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **search** | **string** | A search term. | 
