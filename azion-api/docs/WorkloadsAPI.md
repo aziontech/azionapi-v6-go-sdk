@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 
 ## ListWorkloads
 
-> PaginatedWorkloadList ListWorkloads(ctx).DigitalCertificateId(digitalCertificateId).Fields(fields).Id(id).Infrastructure(infrastructure).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).MapName(mapName).MtlsTrustedCaCertificateId(mtlsTrustedCaCertificateId).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+> PaginatedWorkloadList ListWorkloads(ctx).Fields(fields).Id(id).Infrastructure(infrastructure).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).MtlsTrustedCaCertificateId(mtlsTrustedCaCertificateId).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).WorkloadDomain(workloadDomain).Execute()
 
 List Workloads
 
@@ -238,24 +238,23 @@ import (
 )
 
 func main() {
-	digitalCertificateId := []int64{int64(123)} // []int64 | Filter by digital certificate id (accepts comma-separated values). (optional)
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 	id := []int64{int64(123)} // []int64 | Filter by id (accepts comma-separated values). (optional)
-	infrastructure := []int64{int64(123)} // []int64 | Filter by infrastructure (accepts comma-separated values). (optional)
+	infrastructure := []int64{int64(123)} // []int64 | Filter by infrastructure (accepts comma-separated values). 1 is production and 2 is staging, the values of `infrastructure` in the response. (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
-	mapName := "mapName_example" // string | Filter by map name (case-insensitive, partial match). (optional)
-	mtlsTrustedCaCertificateId := []int64{int64(123)} // []int64 | Filter by mTLS trusted CA certificate id (accepts comma-separated values). (optional)
+	mtlsTrustedCaCertificateId := []int64{int64(123)} // []int64 | Filter by mTLS trusted CA certificate id (accepts comma-separated values). It matches `mtls.config.certificate`. (optional)
 	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
 	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified) (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
-	search := "search_example" // string | A search term to filter results. Searches across the following fields: id, name, last_editor. (optional)
+	search := "search_example" // string | A search term to filter results. Searches across the following fields: id, name, last_editor, last_modified, workload_domain, and the CNAME domains shown in `bindings[].domains[].domain`. The other domains in `bindings[].domains[].domain` are not searched. (optional)
+	workloadDomain := "workloadDomain_example" // string | Filter by workload domain (case-insensitive, partial match). (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.WorkloadsAPI.ListWorkloads(context.Background()).DigitalCertificateId(digitalCertificateId).Fields(fields).Id(id).Infrastructure(infrastructure).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).MapName(mapName).MtlsTrustedCaCertificateId(mtlsTrustedCaCertificateId).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).Execute()
+	resp, r, err := apiClient.WorkloadsAPI.ListWorkloads(context.Background()).Fields(fields).Id(id).Infrastructure(infrastructure).LastEditor(lastEditor).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).MtlsTrustedCaCertificateId(mtlsTrustedCaCertificateId).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).Search(search).WorkloadDomain(workloadDomain).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `WorkloadsAPI.ListWorkloads``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -276,20 +275,19 @@ Other parameters are passed through a pointer to a apiListWorkloadsRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **digitalCertificateId** | **[]int64** | Filter by digital certificate id (accepts comma-separated values). | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
  **id** | **[]int64** | Filter by id (accepts comma-separated values). | 
- **infrastructure** | **[]int64** | Filter by infrastructure (accepts comma-separated values). | 
+ **infrastructure** | **[]int64** | Filter by infrastructure (accepts comma-separated values). 1 is production and 2 is staging, the values of &#x60;infrastructure&#x60; in the response. | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
- **mapName** | **string** | Filter by map name (case-insensitive, partial match). | 
- **mtlsTrustedCaCertificateId** | **[]int64** | Filter by mTLS trusted CA certificate id (accepts comma-separated values). | 
+ **mtlsTrustedCaCertificateId** | **[]int64** | Filter by mTLS trusted CA certificate id (accepts comma-separated values). It matches &#x60;mtls.config.certificate&#x60;. | 
  **name** | **string** | Filter by name (case-insensitive, partial match). | 
  **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified) | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
- **search** | **string** | A search term to filter results. Searches across the following fields: id, name, last_editor. | 
+ **search** | **string** | A search term to filter results. Searches across the following fields: id, name, last_editor, last_modified, workload_domain, and the CNAME domains shown in &#x60;bindings[].domains[].domain&#x60;. The other domains in &#x60;bindings[].domains[].domain&#x60; are not searched. | 
+ **workloadDomain** | **string** | Filter by workload domain (case-insensitive, partial match). | 
 
 ### Return type
 

@@ -861,37 +861,17 @@ type ApiListWafExceptionsRequest struct {
 	ctx context.Context
 	ApiService *WAFsExceptionsAPIService
 	wafId int64
-	createdAtGte *time.Time
-	createdAtLte *time.Time
-	description *string
 	fields *string
 	id *[]int64
 	lastEditor *string
 	lastModifiedGte *time.Time
 	lastModifiedLte *time.Time
+	name *string
 	ordering *string
 	page *int64
 	pageSize *int32
 	path *string
 	search *string
-}
-
-// Filter by creation date (greater than or equal).
-func (r ApiListWafExceptionsRequest) CreatedAtGte(createdAtGte time.Time) ApiListWafExceptionsRequest {
-	r.createdAtGte = &createdAtGte
-	return r
-}
-
-// Filter by creation date (less than or equal).
-func (r ApiListWafExceptionsRequest) CreatedAtLte(createdAtLte time.Time) ApiListWafExceptionsRequest {
-	r.createdAtLte = &createdAtLte
-	return r
-}
-
-// Filter by description (case-insensitive, partial match).
-func (r ApiListWafExceptionsRequest) Description(description string) ApiListWafExceptionsRequest {
-	r.description = &description
-	return r
 }
 
 // Comma-separated list of field names to include in the response.
@@ -924,7 +904,13 @@ func (r ApiListWafExceptionsRequest) LastModifiedLte(lastModifiedLte time.Time) 
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, description, path, last_editor, last_modified, created_at)
+// Filter by name (case-insensitive, partial match).
+func (r ApiListWafExceptionsRequest) Name(name string) ApiListWafExceptionsRequest {
+	r.name = &name
+	return r
+}
+
+// Which field to use when ordering the results. (Valid fields: id, name, path, last_editor, last_modified)
 func (r ApiListWafExceptionsRequest) Ordering(ordering string) ApiListWafExceptionsRequest {
 	r.ordering = &ordering
 	return r
@@ -948,7 +934,7 @@ func (r ApiListWafExceptionsRequest) Path(path string) ApiListWafExceptionsReque
 	return r
 }
 
-// A search term to filter results. Searches across the following fields: description, path, last_editor.
+// A search term to filter results. Searches across the following fields: description, path, last_editor, rule_id.
 func (r ApiListWafExceptionsRequest) Search(search string) ApiListWafExceptionsRequest {
 	r.search = &search
 	return r
@@ -997,15 +983,6 @@ func (a *WAFsExceptionsAPIService) ListWafExceptionsExecute(r ApiListWafExceptio
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.createdAtGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__gte", r.createdAtGte, "form", "")
-	}
-	if r.createdAtLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__lte", r.createdAtLte, "form", "")
-	}
-	if r.description != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "description", r.description, "form", "")
-	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
@@ -1020,6 +997,9 @@ func (a *WAFsExceptionsAPIService) ListWafExceptionsExecute(r ApiListWafExceptio
 	}
 	if r.lastModifiedLte != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "last_modified__lte", r.lastModifiedLte, "form", "")
+	}
+	if r.name != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")
 	}
 	if r.ordering != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "ordering", r.ordering, "form", "")
@@ -1196,37 +1176,17 @@ type ApiListWafVersionExceptionsRequest struct {
 	ApiService *WAFsExceptionsAPIService
 	versionId string
 	wafId int64
-	createdAtGte *time.Time
-	createdAtLte *time.Time
-	description *string
 	fields *string
 	id *[]int64
 	lastEditor *string
 	lastModifiedGte *time.Time
 	lastModifiedLte *time.Time
+	name *string
 	ordering *string
 	page *int64
 	pageSize *int32
 	path *string
 	search *string
-}
-
-// Filter by creation date (greater than or equal).
-func (r ApiListWafVersionExceptionsRequest) CreatedAtGte(createdAtGte time.Time) ApiListWafVersionExceptionsRequest {
-	r.createdAtGte = &createdAtGte
-	return r
-}
-
-// Filter by creation date (less than or equal).
-func (r ApiListWafVersionExceptionsRequest) CreatedAtLte(createdAtLte time.Time) ApiListWafVersionExceptionsRequest {
-	r.createdAtLte = &createdAtLte
-	return r
-}
-
-// Filter by description (case-insensitive, partial match).
-func (r ApiListWafVersionExceptionsRequest) Description(description string) ApiListWafVersionExceptionsRequest {
-	r.description = &description
-	return r
 }
 
 // Comma-separated list of field names to include in the response.
@@ -1259,7 +1219,13 @@ func (r ApiListWafVersionExceptionsRequest) LastModifiedLte(lastModifiedLte time
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, description, path, last_editor, last_modified, created_at)
+// Filter by name (case-insensitive, partial match).
+func (r ApiListWafVersionExceptionsRequest) Name(name string) ApiListWafVersionExceptionsRequest {
+	r.name = &name
+	return r
+}
+
+// Which field to use when ordering the results. (Valid fields: id, name, path, last_editor, last_modified)
 func (r ApiListWafVersionExceptionsRequest) Ordering(ordering string) ApiListWafVersionExceptionsRequest {
 	r.ordering = &ordering
 	return r
@@ -1283,7 +1249,7 @@ func (r ApiListWafVersionExceptionsRequest) Path(path string) ApiListWafVersionE
 	return r
 }
 
-// A search term to filter results. Searches across the following fields: description, path, last_editor.
+// A search term to filter results. Searches across the following fields: description, path, last_editor, rule_id.
 func (r ApiListWafVersionExceptionsRequest) Search(search string) ApiListWafVersionExceptionsRequest {
 	r.search = &search
 	return r
@@ -1335,15 +1301,6 @@ func (a *WAFsExceptionsAPIService) ListWafVersionExceptionsExecute(r ApiListWafV
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.createdAtGte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__gte", r.createdAtGte, "form", "")
-	}
-	if r.createdAtLte != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__lte", r.createdAtLte, "form", "")
-	}
-	if r.description != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "description", r.description, "form", "")
-	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
@@ -1358,6 +1315,9 @@ func (a *WAFsExceptionsAPIService) ListWafVersionExceptionsExecute(r ApiListWafV
 	}
 	if r.lastModifiedLte != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "last_modified__lte", r.lastModifiedLte, "form", "")
+	}
+	if r.name != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")
 	}
 	if r.ordering != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "ordering", r.ordering, "form", "")

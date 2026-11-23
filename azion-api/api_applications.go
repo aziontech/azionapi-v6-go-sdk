@@ -480,7 +480,7 @@ func (r ApiListApplicationsRequest) Name(name string) ApiListApplicationsRequest
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: name, id, last_editor, last_modified, debug, product_version)
+// Which field to use when ordering the results. (Valid fields: name, id, last_editor, last_modified, debug)
 func (r ApiListApplicationsRequest) Ordering(ordering string) ApiListApplicationsRequest {
 	r.ordering = &ordering
 	return r
