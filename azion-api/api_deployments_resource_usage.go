@@ -53,7 +53,7 @@ func (r ApiListResourceUsageRequest) Fields(fields string) ApiListResourceUsageR
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state)
+// Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state) Unknown names answer 400.
 func (r ApiListResourceUsageRequest) Ordering(ordering string) ApiListResourceUsageRequest {
 	r.ordering = &ordering
 	return r

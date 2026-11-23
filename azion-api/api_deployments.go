@@ -504,7 +504,7 @@ func (r ApiListDeploymentsRequest) Name(name string) ApiListDeploymentsRequest {
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state)
+// Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state) Unknown names answer 400.
 func (r ApiListDeploymentsRequest) Ordering(ordering string) ApiListDeploymentsRequest {
 	r.ordering = &ordering
 	return r

@@ -1453,7 +1453,7 @@ type ApiRetrieveApplicationVersionRequest struct {
 	fields *string
 }
 
-// Include the resources this version references.
+// Include the resources this version references. A function in the answer carries what its published version references under its own &#x60;dependencies&#x60;, in the same shape, or null while it publishes no version. No other resource carries &#x60;dependencies&#x60;, so the answer is at most two levels deep.
 func (r ApiRetrieveApplicationVersionRequest) Dependencies(dependencies bool) ApiRetrieveApplicationVersionRequest {
 	r.dependencies = &dependencies
 	return r

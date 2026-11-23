@@ -481,7 +481,7 @@ func (r ApiListNetworkListsRequest) Name(name string) ApiListNetworkListsRequest
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, type)
+// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, type) Unknown names answer 400.
 func (r ApiListNetworkListsRequest) Ordering(ordering string) ApiListNetworkListsRequest {
 	r.ordering = &ordering
 	return r

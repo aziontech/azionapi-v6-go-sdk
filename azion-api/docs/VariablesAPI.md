@@ -216,7 +216,7 @@ Name | Type | Description  | Notes
 
 ## ListVariables
 
-> PaginatedVariableList ListVariables(ctx).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Key(key).LastEditor(lastEditor).Ordering(ordering).Page(page).PageSize(pageSize).ResourceId(resourceId).ResourceType(resourceType).Scope(scope).Search(search).Secret(secret).UpdatedAtGte(updatedAtGte).UpdatedAtLte(updatedAtLte).Uuid(uuid).Execute()
+> PaginatedVariableList ListVariables(ctx).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Fields(fields).Key(key).LastEditor(lastEditor).Ordering(ordering).Page(page).PageSize(pageSize).ResourceId(resourceId).ResourceType(resourceType).Scope(scope).Search(search).Secret(secret).UpdatedAtGte(updatedAtGte).UpdatedAtLte(updatedAtLte).Uuid(uuid).Execute()
 
 List Variables
 
@@ -238,9 +238,10 @@ import (
 func main() {
 	createdAtGte := time.Now() // time.Time | Filter by creation date (greater than or equal). (optional)
 	createdAtLte := time.Now() // time.Time | Filter by creation date (less than or equal). (optional)
+	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 	key := "key_example" // string | Filter by key (case-insensitive, partial match). (optional)
 	lastEditor := "lastEditor_example" // string | Filter by last editor (case-insensitive, partial match). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: key, created_at, updated_at, last_editor) `last_modified` is an alias of `updated_at`. (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: key, created_at, updated_at, last_editor) Unknown names answer 400. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	resourceId := []string{"Inner_example"} // []string | Filter by scope resource id (the external id of the resource_type). Accepts comma-separated values, unless `resource_type` also holds several values. (optional)
@@ -254,7 +255,7 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.VariablesAPI.ListVariables(context.Background()).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Key(key).LastEditor(lastEditor).Ordering(ordering).Page(page).PageSize(pageSize).ResourceId(resourceId).ResourceType(resourceType).Scope(scope).Search(search).Secret(secret).UpdatedAtGte(updatedAtGte).UpdatedAtLte(updatedAtLte).Uuid(uuid).Execute()
+	resp, r, err := apiClient.VariablesAPI.ListVariables(context.Background()).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Fields(fields).Key(key).LastEditor(lastEditor).Ordering(ordering).Page(page).PageSize(pageSize).ResourceId(resourceId).ResourceType(resourceType).Scope(scope).Search(search).Secret(secret).UpdatedAtGte(updatedAtGte).UpdatedAtLte(updatedAtLte).Uuid(uuid).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `VariablesAPI.ListVariables``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -277,9 +278,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **createdAtGte** | **time.Time** | Filter by creation date (greater than or equal). | 
  **createdAtLte** | **time.Time** | Filter by creation date (less than or equal). | 
+ **fields** | **string** | Comma-separated list of field names to include in the response. | 
  **key** | **string** | Filter by key (case-insensitive, partial match). | 
  **lastEditor** | **string** | Filter by last editor (case-insensitive, partial match). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: key, created_at, updated_at, last_editor) &#x60;last_modified&#x60; is an alias of &#x60;updated_at&#x60;. | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: key, created_at, updated_at, last_editor) Unknown names answer 400. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **resourceId** | **[]string** | Filter by scope resource id (the external id of the resource_type). Accepts comma-separated values, unless &#x60;resource_type&#x60; also holds several values. | 
@@ -383,7 +385,7 @@ Name | Type | Description  | Notes
 
 ## RetrieveVariable
 
-> Variable RetrieveVariable(ctx, variableId).Execute()
+> Variable RetrieveVariable(ctx, variableId).Fields(fields).Execute()
 
 Retrieve details of a Variable
 
@@ -403,10 +405,11 @@ import (
 
 func main() {
 	variableId := "variableId_example" // string | A unique value identifying the variable.
+	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.VariablesAPI.RetrieveVariable(context.Background(), variableId).Execute()
+	resp, r, err := apiClient.VariablesAPI.RetrieveVariable(context.Background(), variableId).Fields(fields).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `VariablesAPI.RetrieveVariable``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -432,6 +435,7 @@ Other parameters are passed through a pointer to a apiRetrieveVariableRequest st
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **fields** | **string** | Comma-separated list of field names to include in the response. | 
 
 ### Return type
 

@@ -177,7 +177,7 @@ func main() {
 	lastModifiedGte := time.Now() // time.Time | Filter by last modified date (greater than or equal). (optional)
 	lastModifiedLte := time.Now() // time.Time | Filter by last modified date (less than or equal). (optional)
 	name := "name_example" // string | Filter by name (case-insensitive, partial match). (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, product_version, runtime, execution_environment, default_args) An unknown field returns 400. (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, product_version, runtime, execution_environment, default_args) Unknown names answer 400. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 	runtime := "runtime_example" // string | Filter by runtime (single value, exact match). `azion_js` is translated to the stored value `javascript`. Any other value is compared unchanged with the stored value, so `javascript` and `lua` also match and `azion_lua` matches nothing. (optional)
@@ -215,7 +215,7 @@ Name | Type | Description  | Notes
  **lastModifiedGte** | **time.Time** | Filter by last modified date (greater than or equal). | 
  **lastModifiedLte** | **time.Time** | Filter by last modified date (less than or equal). | 
  **name** | **string** | Filter by name (case-insensitive, partial match). | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, product_version, runtime, execution_environment, default_args) An unknown field returns 400. | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, product_version, runtime, execution_environment, default_args) Unknown names answer 400. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
  **runtime** | **string** | Filter by runtime (single value, exact match). &#x60;azion_js&#x60; is translated to the stored value &#x60;javascript&#x60;. Any other value is compared unchanged with the stored value, so &#x60;javascript&#x60; and &#x60;lua&#x60; also match and &#x60;azion_lua&#x60; matches nothing. | 
