@@ -208,32 +208,30 @@ Class | Method | HTTP request | Description
 *DataStreamTemplatesAPI* | [**PartialUpdateTemplate**](docs/DataStreamTemplatesAPI.md#partialupdatetemplate) | **Patch** /workspace/stream/templates/{template_id} | Partially update a Template
 *DataStreamTemplatesAPI* | [**RetrieveTemplate**](docs/DataStreamTemplatesAPI.md#retrievetemplate) | **Get** /workspace/stream/templates/{template_id} | Retrieve details of a Template
 *DataStreamTemplatesAPI* | [**UpdateTemplate**](docs/DataStreamTemplatesAPI.md#updatetemplate) | **Put** /workspace/stream/templates/{template_id} | Update a Template
-*DeploymentsAPI* | [**CreateDeployment**](docs/DeploymentsAPI.md#createdeployment) | **Post** /deployments | Create a Deployment
-*DeploymentsAPI* | [**DeleteDeployment**](docs/DeploymentsAPI.md#deletedeployment) | **Delete** /deployments/{deployment_id} | Delete a Deployment
-*DeploymentsAPI* | [**ListDeployments**](docs/DeploymentsAPI.md#listdeployments) | **Get** /deployments | List Deployments
-*DeploymentsAPI* | [**PartialUpdateDeployment**](docs/DeploymentsAPI.md#partialupdatedeployment) | **Patch** /deployments/{deployment_id} | Partially update a Deployment
-*DeploymentsAPI* | [**RetrieveDeployment**](docs/DeploymentsAPI.md#retrievedeployment) | **Get** /deployments/{deployment_id} | Retrieve details of a Deployment
-*DeploymentsAPI* | [**UpdateDeployment**](docs/DeploymentsAPI.md#updatedeployment) | **Put** /deployments/{deployment_id} | Update a Deployment
-*DeploymentsReleaseRoutingAPI* | [**ActivateRelease**](docs/DeploymentsReleaseRoutingAPI.md#activaterelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/activate | Activate a Release
-*DeploymentsReleasesAPI* | [**ArchiveRelease**](docs/DeploymentsReleasesAPI.md#archiverelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/archive | Archive a Release
-*DeploymentsReleasesAPI* | [**BuildAndActivateRelease**](docs/DeploymentsReleasesAPI.md#buildandactivaterelease) | **Post** /deployments/{deployment_id}/build_and_activate | Create, build and activate a Release
-*DeploymentsReleasesAPI* | [**BuildRelease**](docs/DeploymentsReleasesAPI.md#buildrelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/build | Build a Release
-*DeploymentsReleasesAPI* | [**CancelRelease**](docs/DeploymentsReleasesAPI.md#cancelrelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/cancel | Cancel a Release
-*DeploymentsReleasesAPI* | [**CreateRelease**](docs/DeploymentsReleasesAPI.md#createrelease) | **Post** /deployments/{deployment_id}/releases | Create a Release
-*DeploymentsReleasesAPI* | [**DeleteRelease**](docs/DeploymentsReleasesAPI.md#deleterelease) | **Delete** /deployments/{deployment_id}/releases/{release_id} | Delete a Release
-*DeploymentsReleasesAPI* | [**ListAccountReleases**](docs/DeploymentsReleasesAPI.md#listaccountreleases) | **Get** /deployments/releases | List Releases of all Deployments
-*DeploymentsReleasesAPI* | [**ListReleases**](docs/DeploymentsReleasesAPI.md#listreleases) | **Get** /deployments/{deployment_id}/releases | List Releases
-*DeploymentsReleasesAPI* | [**PartialUpdateRelease**](docs/DeploymentsReleasesAPI.md#partialupdaterelease) | **Patch** /deployments/{deployment_id}/releases/{release_id} | Partially update a Release
-*DeploymentsReleasesAPI* | [**PatchAndActivateRelease**](docs/DeploymentsReleasesAPI.md#patchandactivaterelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/patch_and_activate | Update and activate a Release
-*DeploymentsReleasesAPI* | [**PromoteRelease**](docs/DeploymentsReleasesAPI.md#promoterelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/promote | Promote a Release
-*DeploymentsReleasesAPI* | [**RetrieveRelease**](docs/DeploymentsReleasesAPI.md#retrieverelease) | **Get** /deployments/{deployment_id}/releases/{release_id} | Retrieve details of a Release
-*DeploymentsReleasesAPI* | [**UpdateRelease**](docs/DeploymentsReleasesAPI.md#updaterelease) | **Put** /deployments/{deployment_id}/releases/{release_id} | Update a Release
-*DeploymentsResourceUsageAPI* | [**ListResourceUsage**](docs/DeploymentsResourceUsageAPI.md#listresourceusage) | **Get** /resource_usage | List Deployments using a resource
-*DeploymentsResourceUsageAPI* | [**RetrieveDeploymentResourceHierarchy**](docs/DeploymentsResourceUsageAPI.md#retrievedeploymentresourcehierarchy) | **Get** /deployments/{deployment_id}/resource_hierarchy | Retrieve the resources of a Deployment
-*DeploymentsVersionsAPI* | [**CancelDeploymentVersionBuild**](docs/DeploymentsVersionsAPI.md#canceldeploymentversionbuild) | **Post** /deployments/{deployment_id}/versions/{version_id}/cancel | Cancel a Deployment Version build
-*DeploymentsVersionsAPI* | [**ListDeploymentVersions**](docs/DeploymentsVersionsAPI.md#listdeploymentversions) | **Get** /deployments/{deployment_id}/versions | List Deployment Versions
-*DeploymentsVersionsAPI* | [**RetrieveDeploymentVersion**](docs/DeploymentsVersionsAPI.md#retrievedeploymentversion) | **Get** /deployments/{deployment_id}/versions/{version_id} | Retrieve details of a Deployment Version
-*DeploymentsVersionsAPI* | [**RevertDeploymentVersion**](docs/DeploymentsVersionsAPI.md#revertdeploymentversion) | **Post** /deployments/{deployment_id}/versions/{version_id}/revert | Revert to a Deployment Version
+*DeploymentsAPI* | [**CreateDeployment**](docs/DeploymentsAPI.md#createdeployment) | **Post** /deployments | Create a deployment
+*DeploymentsAPI* | [**DeleteDeployment**](docs/DeploymentsAPI.md#deletedeployment) | **Delete** /deployments/{deployment_id} | Delete a deployment
+*DeploymentsAPI* | [**ListDeployments**](docs/DeploymentsAPI.md#listdeployments) | **Get** /deployments | List deployments
+*DeploymentsAPI* | [**PartialUpdateDeployment**](docs/DeploymentsAPI.md#partialupdatedeployment) | **Patch** /deployments/{deployment_id} | Update a deployment
+*DeploymentsAPI* | [**RetrieveDeployment**](docs/DeploymentsAPI.md#retrievedeployment) | **Get** /deployments/{deployment_id} | Get a deployment
+*DeploymentsAPI* | [**UpdateDeployment**](docs/DeploymentsAPI.md#updatedeployment) | **Put** /deployments/{deployment_id} | Replace a deployment
+*DeploymentsReleaseRoutingAPI* | [**ActivateRelease**](docs/DeploymentsReleaseRoutingAPI.md#activaterelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/activate | Activate a release
+*DeploymentsReleasesAPI* | [**ArchiveRelease**](docs/DeploymentsReleasesAPI.md#archiverelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/archive | Archive a release
+*DeploymentsReleasesAPI* | [**BuildRelease**](docs/DeploymentsReleasesAPI.md#buildrelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/build | Finalize a draft release (send to edge via outbox)
+*DeploymentsReleasesAPI* | [**CancelRelease**](docs/DeploymentsReleasesAPI.md#cancelrelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/cancel | Cancel a release
+*DeploymentsReleasesAPI* | [**CreateRelease**](docs/DeploymentsReleasesAPI.md#createrelease) | **Post** /deployments/{deployment_id}/releases | Create a draft release
+*DeploymentsReleasesAPI* | [**DeleteRelease**](docs/DeploymentsReleasesAPI.md#deleterelease) | **Delete** /deployments/{deployment_id}/releases/{release_id} | Delete a release
+*DeploymentsReleasesAPI* | [**ListAccountReleases**](docs/DeploymentsReleasesAPI.md#listaccountreleases) | **Get** /deployments/releases | List every release of the account
+*DeploymentsReleasesAPI* | [**ListReleases**](docs/DeploymentsReleasesAPI.md#listreleases) | **Get** /deployments/{deployment_id}/releases | List releases
+*DeploymentsReleasesAPI* | [**PartialUpdateRelease**](docs/DeploymentsReleasesAPI.md#partialupdaterelease) | **Patch** /deployments/{deployment_id}/releases/{release_id} | Patch a release
+*DeploymentsReleasesAPI* | [**PromoteRelease**](docs/DeploymentsReleasesAPI.md#promoterelease) | **Post** /deployments/{deployment_id}/releases/{release_id}/promote | Promote a release
+*DeploymentsReleasesAPI* | [**RetrieveRelease**](docs/DeploymentsReleasesAPI.md#retrieverelease) | **Get** /deployments/{deployment_id}/releases/{release_id} | Get a release
+*DeploymentsReleasesAPI* | [**UpdateRelease**](docs/DeploymentsReleasesAPI.md#updaterelease) | **Put** /deployments/{deployment_id}/releases/{release_id} | Replace a release
+*DeploymentsResourceUsageAPI* | [**ListResourceUsage**](docs/DeploymentsResourceUsageAPI.md#listresourceusage) | **Get** /resource_usage | List deployments using a resource
+*DeploymentsResourceUsageAPI* | [**RetrieveDeploymentResourceHierarchy**](docs/DeploymentsResourceUsageAPI.md#retrievedeploymentresourcehierarchy) | **Get** /deployments/{deployment_id}/resource_hierarchy | Get a deployment resource hierarchy
+*DeploymentsVersionsAPI* | [**CancelDeploymentVersionBuild**](docs/DeploymentsVersionsAPI.md#canceldeploymentversionbuild) | **Post** /deployments/{deployment_id}/versions/{version_id}/cancel | Cancel an in-flight deployment version build
+*DeploymentsVersionsAPI* | [**ListDeploymentVersions**](docs/DeploymentsVersionsAPI.md#listdeploymentversions) | **Get** /deployments/{deployment_id}/versions | List deployment versions
+*DeploymentsVersionsAPI* | [**RetrieveDeploymentVersion**](docs/DeploymentsVersionsAPI.md#retrievedeploymentversion) | **Get** /deployments/{deployment_id}/versions/{version_id} | Retrieve a deployment version
+*DeploymentsVersionsAPI* | [**RevertDeploymentVersion**](docs/DeploymentsVersionsAPI.md#revertdeploymentversion) | **Post** /deployments/{deployment_id}/versions/{version_id}/revert | Revert to a deployment version
 *DigitalCertificatesCertificateRevocationListsAPI* | [**CreateCertificateRevocationList**](docs/DigitalCertificatesCertificateRevocationListsAPI.md#createcertificaterevocationlist) | **Post** /workspace/tls/crls | Create a certificate revocation lists (CRL)
 *DigitalCertificatesCertificateRevocationListsAPI* | [**DeleteCertificateRevocationList**](docs/DigitalCertificatesCertificateRevocationListsAPI.md#deletecertificaterevocationlist) | **Delete** /workspace/tls/crls/{crl_id} | Delete a certificate revocation list
 *DigitalCertificatesCertificateRevocationListsAPI* | [**ListCertificateRevocationLists**](docs/DigitalCertificatesCertificateRevocationListsAPI.md#listcertificaterevocationlists) | **Get** /workspace/tls/crls | List certificate revocation lists (CRL)

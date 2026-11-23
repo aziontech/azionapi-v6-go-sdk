@@ -656,7 +656,6 @@ func (a *WorkloadsAPIService) DeleteWorkloadExecute(r ApiDeleteWorkloadRequest) 
 type ApiListWorkloadsRequest struct {
 	ctx context.Context
 	ApiService *WorkloadsAPIService
-	digitalCertificateId *[]int64
 	fields *string
 	id *[]int64
 	infrastructure *[]int64
@@ -796,9 +795,6 @@ func (a *WorkloadsAPIService) ListWorkloadsExecute(r ApiListWorkloadsRequest) (*
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.digitalCertificateId != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "digital_certificate_id", r.digitalCertificateId, "form", "csv")
-	}
 	if r.fields != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
 	}
