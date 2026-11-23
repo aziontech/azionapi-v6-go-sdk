@@ -35,7 +35,7 @@ type FunctionVersion struct {
 	// String containing the function code. Maximum size: 50.0MB
 	Code *string `json:"code,omitempty"`
 	// Resources this version references, grouped by resource type. Present only when the request sets dependencies=true.
-	Dependencies []map[string][]ApplicationVersionDependenciesInnerValueInner `json:"dependencies,omitempty"`
+	Dependencies []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner `json:"dependencies,omitempty"`
 	// ID of the version metadata
 	VersionId *string `json:"version_id,omitempty"`
 	// Current lifecycle state of the version.
@@ -409,9 +409,9 @@ func (o *FunctionVersion) SetCode(v string) {
 }
 
 // GetDependencies returns the Dependencies field value if set, zero value otherwise.
-func (o *FunctionVersion) GetDependencies() []map[string][]ApplicationVersionDependenciesInnerValueInner {
+func (o *FunctionVersion) GetDependencies() []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner {
 	if o == nil || IsNil(o.Dependencies) {
-		var ret []map[string][]ApplicationVersionDependenciesInnerValueInner
+		var ret []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner
 		return ret
 	}
 	return o.Dependencies
@@ -419,7 +419,7 @@ func (o *FunctionVersion) GetDependencies() []map[string][]ApplicationVersionDep
 
 // GetDependenciesOk returns a tuple with the Dependencies field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FunctionVersion) GetDependenciesOk() ([]map[string][]ApplicationVersionDependenciesInnerValueInner, bool) {
+func (o *FunctionVersion) GetDependenciesOk() ([]map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner, bool) {
 	if o == nil || IsNil(o.Dependencies) {
 		return nil, false
 	}
@@ -435,8 +435,8 @@ func (o *FunctionVersion) HasDependencies() bool {
 	return false
 }
 
-// SetDependencies gets a reference to the given []map[string][]ApplicationVersionDependenciesInnerValueInner and assigns it to the Dependencies field.
-func (o *FunctionVersion) SetDependencies(v []map[string][]ApplicationVersionDependenciesInnerValueInner) {
+// SetDependencies gets a reference to the given []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner and assigns it to the Dependencies field.
+func (o *FunctionVersion) SetDependencies(v []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner) {
 	o.Dependencies = v
 }
 

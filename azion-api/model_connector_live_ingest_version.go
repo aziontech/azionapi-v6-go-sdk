@@ -61,7 +61,7 @@ type ConnectorLiveIngestVersion struct {
 	// Trace ID of the last build, for observability. Omitted when unset.
 	TraceId *string `json:"trace_id,omitempty"`
 	// Resources this version references, grouped by resource type. Present only when the request sets dependencies=true.
-	Dependencies []map[string][]ApplicationVersionDependenciesInnerValueInner `json:"dependencies,omitempty"`
+	Dependencies []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner `json:"dependencies,omitempty"`
 }
 
 type _ConnectorLiveIngestVersion ConnectorLiveIngestVersion
@@ -801,9 +801,9 @@ func (o *ConnectorLiveIngestVersion) SetTraceId(v string) {
 }
 
 // GetDependencies returns the Dependencies field value if set, zero value otherwise.
-func (o *ConnectorLiveIngestVersion) GetDependencies() []map[string][]ApplicationVersionDependenciesInnerValueInner {
+func (o *ConnectorLiveIngestVersion) GetDependencies() []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner {
 	if o == nil || IsNil(o.Dependencies) {
-		var ret []map[string][]ApplicationVersionDependenciesInnerValueInner
+		var ret []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner
 		return ret
 	}
 	return o.Dependencies
@@ -811,7 +811,7 @@ func (o *ConnectorLiveIngestVersion) GetDependencies() []map[string][]Applicatio
 
 // GetDependenciesOk returns a tuple with the Dependencies field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ConnectorLiveIngestVersion) GetDependenciesOk() ([]map[string][]ApplicationVersionDependenciesInnerValueInner, bool) {
+func (o *ConnectorLiveIngestVersion) GetDependenciesOk() ([]map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner, bool) {
 	if o == nil || IsNil(o.Dependencies) {
 		return nil, false
 	}
@@ -827,8 +827,8 @@ func (o *ConnectorLiveIngestVersion) HasDependencies() bool {
 	return false
 }
 
-// SetDependencies gets a reference to the given []map[string][]ApplicationVersionDependenciesInnerValueInner and assigns it to the Dependencies field.
-func (o *ConnectorLiveIngestVersion) SetDependencies(v []map[string][]ApplicationVersionDependenciesInnerValueInner) {
+// SetDependencies gets a reference to the given []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner and assigns it to the Dependencies field.
+func (o *ConnectorLiveIngestVersion) SetDependencies(v []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner) {
 	o.Dependencies = v
 }
 

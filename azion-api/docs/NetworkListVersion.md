@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 **ArchiveComment** | Pointer to **string** | Comment provided when archiving | [optional] 
 **LastError** | Pointer to **map[string]interface{}** | Last build error details | [optional] 
 **TraceId** | Pointer to **string** | Trace ID of the last build, for observability. Omitted when unset. | [optional] 
-**Dependencies** | Pointer to [**[]map[string][]ApplicationVersionDependenciesInnerValueInner**](map[string][]ApplicationVersionDependenciesInnerValueInner.md) | Resources this version references, grouped by resource type. Present only when the request sets dependencies&#x3D;true. | [optional] 
+**Dependencies** | Pointer to [**[]map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner**](map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner.md) | Resources this version references, grouped by resource type. Present only when the request sets dependencies&#x3D;true. | [optional] 
 
 ## Methods
 
@@ -669,20 +669,20 @@ HasTraceId returns a boolean if a field has been set.
 
 ### GetDependencies
 
-`func (o *NetworkListVersion) GetDependencies() []map[string][]ApplicationVersionDependenciesInnerValueInner`
+`func (o *NetworkListVersion) GetDependencies() []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner`
 
 GetDependencies returns the Dependencies field if non-nil, zero value otherwise.
 
 ### GetDependenciesOk
 
-`func (o *NetworkListVersion) GetDependenciesOk() (*[]map[string][]ApplicationVersionDependenciesInnerValueInner, bool)`
+`func (o *NetworkListVersion) GetDependenciesOk() (*[]map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner, bool)`
 
 GetDependenciesOk returns a tuple with the Dependencies field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDependencies
 
-`func (o *NetworkListVersion) SetDependencies(v []map[string][]ApplicationVersionDependenciesInnerValueInner)`
+`func (o *NetworkListVersion) SetDependencies(v []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner)`
 
 SetDependencies sets Dependencies field to given value.
 

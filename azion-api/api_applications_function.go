@@ -909,7 +909,7 @@ func (r ApiListApplicationFunctionInstancesRequest) Name(name string) ApiListApp
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified)
+// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified) Unknown names answer 400.
 func (r ApiListApplicationFunctionInstancesRequest) Ordering(ordering string) ApiListApplicationFunctionInstancesRequest {
 	r.ordering = &ordering
 	return r
@@ -1214,7 +1214,7 @@ func (r ApiListApplicationVersionFunctionsRequest) Name(name string) ApiListAppl
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified)
+// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified) Unknown names answer 400.
 func (r ApiListApplicationVersionFunctionsRequest) Ordering(ordering string) ApiListApplicationVersionFunctionsRequest {
 	r.ordering = &ordering
 	return r
