@@ -149,7 +149,7 @@ Name | Type | Description  | Notes
 
 ## ListCertificates
 
-> PaginatedCertificateList ListCertificates(ctx).CertificateType(certificateType).CreatedAt(createdAt).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Fields(fields).Id(id).Issuer(issuer).LastModified(lastModified).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Managed(managed).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).RenewedAt(renewedAt).RenewedAtGte(renewedAtGte).RenewedAtLte(renewedAtLte).Search(search).Type_(type_).Execute()
+> PaginatedCertificateList ListCertificates(ctx).CreatedAt(createdAt).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Fields(fields).Id(id).Issuer(issuer).LastModified(lastModified).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Managed(managed).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).RenewedAt(renewedAt).RenewedAtGte(renewedAtGte).RenewedAtLte(renewedAtLte).Search(search).Type_(type_).Execute()
 
 List certificates
 
@@ -169,7 +169,6 @@ import (
 )
 
 func main() {
-	certificateType := []int64{int64(123)} // []int64 | Filter by certificate type (accepts comma-separated values). 0 is edge_certificate and 1 is trusted_ca_certificate, the values of type in the response. Any other number matches nothing. (optional)
 	createdAt := time.Now() // time.Time | Filter by exact creation date and time. (optional)
 	createdAtGte := time.Now() // time.Time | Filter by creation date (greater than or equal). (optional)
 	createdAtLte := time.Now() // time.Time | Filter by creation date (less than or equal). (optional)
@@ -188,11 +187,11 @@ func main() {
 	renewedAtGte := time.Now() // time.Time | Filter by renewed date (greater than or equal). (optional)
 	renewedAtLte := time.Now() // time.Time | Filter by renewed date (less than or equal). (optional)
 	search := "search_example" // string | A search term to filter results. Searches across the following fields: name. (optional)
-	type_ := "type__example" // string | Filter by certificate type, using the values of type in the response. Accepts a single value. When sent together with certificate_type, this parameter is used and certificate_type is ignored. (optional)
+	type_ := "type__example" // string | Filter by certificate type, using the values of type in the response. Accepts a single value. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DigitalCertificatesCertificatesAPI.ListCertificates(context.Background()).CertificateType(certificateType).CreatedAt(createdAt).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Fields(fields).Id(id).Issuer(issuer).LastModified(lastModified).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Managed(managed).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).RenewedAt(renewedAt).RenewedAtGte(renewedAtGte).RenewedAtLte(renewedAtLte).Search(search).Type_(type_).Execute()
+	resp, r, err := apiClient.DigitalCertificatesCertificatesAPI.ListCertificates(context.Background()).CreatedAt(createdAt).CreatedAtGte(createdAtGte).CreatedAtLte(createdAtLte).Fields(fields).Id(id).Issuer(issuer).LastModified(lastModified).LastModifiedGte(lastModifiedGte).LastModifiedLte(lastModifiedLte).Managed(managed).Name(name).Ordering(ordering).Page(page).PageSize(pageSize).RenewedAt(renewedAt).RenewedAtGte(renewedAtGte).RenewedAtLte(renewedAtLte).Search(search).Type_(type_).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DigitalCertificatesCertificatesAPI.ListCertificates``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -213,7 +212,6 @@ Other parameters are passed through a pointer to a apiListCertificatesRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **certificateType** | **[]int64** | Filter by certificate type (accepts comma-separated values). 0 is edge_certificate and 1 is trusted_ca_certificate, the values of type in the response. Any other number matches nothing. | 
  **createdAt** | **time.Time** | Filter by exact creation date and time. | 
  **createdAtGte** | **time.Time** | Filter by creation date (greater than or equal). | 
  **createdAtLte** | **time.Time** | Filter by creation date (less than or equal). | 
@@ -232,7 +230,7 @@ Name | Type | Description  | Notes
  **renewedAtGte** | **time.Time** | Filter by renewed date (greater than or equal). | 
  **renewedAtLte** | **time.Time** | Filter by renewed date (less than or equal). | 
  **search** | **string** | A search term to filter results. Searches across the following fields: name. | 
- **type_** | **string** | Filter by certificate type, using the values of type in the response. Accepts a single value. When sent together with certificate_type, this parameter is used and certificate_type is ignored. | 
+ **type_** | **string** | Filter by certificate type, using the values of type in the response. Accepts a single value. | 
 
 ### Return type
 

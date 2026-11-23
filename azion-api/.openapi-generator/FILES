@@ -1368,4 +1368,15 @@ model_workload_version_list.go
 model_workload_version_meta.go
 model_workload_version_revert_request.go
 response.go
+test/api_auth_login_test.go
+test/api_auth_mfatotp_device_test.go
+test/api_auth_refresh_access_token_test.go
+test/api_auth_revoke_test.go
+test/api_data_stream_data_sources_test.go
+test/api_data_stream_streams_test.go
+test/api_data_stream_templates_test.go
+test/api_policy_lockout_policy_test.go
+test/api_policy_policies_test.go
+test/api_policy_session_timeout_policy_test.go
+test/api_sql_database_test.go
 utils.go
