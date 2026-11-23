@@ -25,6 +25,8 @@ type ApplicationVersionDependenciesInnerValueInner struct {
 	// Name of the latest live version of the resource. Null when the resource is gone.
 	Name NullableString `json:"name,omitempty"`
 	Versions []ApplicationVersionDependenciesInnerValueInnerVersionsInner `json:"versions,omitempty"`
+	// A function in the answer carries what its published version references under its own `dependencies`, in the same shape, or null while it publishes no version. No other resource carries `dependencies`, so the answer is at most two levels deep.
+	Dependencies []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner `json:"dependencies,omitempty"`
 }
 
 // NewApplicationVersionDependenciesInnerValueInner instantiates a new ApplicationVersionDependenciesInnerValueInner object
@@ -150,6 +152,39 @@ func (o *ApplicationVersionDependenciesInnerValueInner) SetVersions(v []Applicat
 	o.Versions = v
 }
 
+// GetDependencies returns the Dependencies field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ApplicationVersionDependenciesInnerValueInner) GetDependencies() []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner {
+	if o == nil {
+		var ret []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner
+		return ret
+	}
+	return o.Dependencies
+}
+
+// GetDependenciesOk returns a tuple with the Dependencies field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ApplicationVersionDependenciesInnerValueInner) GetDependenciesOk() ([]map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner, bool) {
+	if o == nil || IsNil(o.Dependencies) {
+		return nil, false
+	}
+	return o.Dependencies, true
+}
+
+// HasDependencies returns a boolean if a field has been set.
+func (o *ApplicationVersionDependenciesInnerValueInner) HasDependencies() bool {
+	if o != nil && !IsNil(o.Dependencies) {
+		return true
+	}
+
+	return false
+}
+
+// SetDependencies gets a reference to the given []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner and assigns it to the Dependencies field.
+func (o *ApplicationVersionDependenciesInnerValueInner) SetDependencies(v []map[string][]ApplicationVersionDependenciesInnerValueInnerDependenciesInnerValueInner) {
+	o.Dependencies = v
+}
+
 func (o ApplicationVersionDependenciesInnerValueInner) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -168,6 +203,9 @@ func (o ApplicationVersionDependenciesInnerValueInner) ToMap() (map[string]inter
 	}
 	if !IsNil(o.Versions) {
 		toSerialize["versions"] = o.Versions
+	}
+	if o.Dependencies != nil {
+		toSerialize["dependencies"] = o.Dependencies
 	}
 	return toSerialize, nil
 }

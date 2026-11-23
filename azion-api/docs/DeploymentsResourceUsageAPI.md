@@ -4,8 +4,8 @@ All URIs are relative to *https://stage-api.azion.com/v6*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListResourceUsage**](DeploymentsResourceUsageAPI.md#ListResourceUsage) | **Get** /resource_usage | List deployments using a resource
-[**RetrieveDeploymentResourceHierarchy**](DeploymentsResourceUsageAPI.md#RetrieveDeploymentResourceHierarchy) | **Get** /deployments/{deployment_id}/resource_hierarchy | Get a deployment resource hierarchy
+[**ListResourceUsage**](DeploymentsResourceUsageAPI.md#ListResourceUsage) | **Get** /resource_usage | List Deployments using a resource
+[**RetrieveDeploymentResourceHierarchy**](DeploymentsResourceUsageAPI.md#RetrieveDeploymentResourceHierarchy) | **Get** /deployments/{deployment_id}/resource_hierarchy | Retrieve the resources of a Deployment
 
 
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 > PaginatedResourceUsageList ListResourceUsage(ctx).ResourceId(resourceId).ResourceType(resourceType).Fields(fields).Ordering(ordering).Page(page).PageSize(pageSize).Execute()
 
-List deployments using a resource
+List Deployments using a resource
 
 
 
@@ -30,10 +30,10 @@ import (
 )
 
 func main() {
-	resourceId := []string{"Inner_example"} // []string | One or more resource ids to look up, comma-separated (`resource_id=a,b`). For `application` this is its `global_id`.
-	resourceType := "resourceType_example" // string | Resource type to look up.
+	resourceId := []string{"Inner_example"} // []string | Filter by resource id (accepts comma-separated values). For an `application`, use its `global_id`.
+	resourceType := "resourceType_example" // string | Filter by resource type.
 	fields := "fields_example" // string | Comma-separated list of field names to include in the response. (optional)
-	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state) (optional)
+	ordering := "ordering_example" // string | Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state) Unknown names answer 400. (optional)
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
 
@@ -60,10 +60,10 @@ Other parameters are passed through a pointer to a apiListResourceUsageRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **resourceId** | **[]string** | One or more resource ids to look up, comma-separated (&#x60;resource_id&#x3D;a,b&#x60;). For &#x60;application&#x60; this is its &#x60;global_id&#x60;. | 
- **resourceType** | **string** | Resource type to look up. | 
+ **resourceId** | **[]string** | Filter by resource id (accepts comma-separated values). For an &#x60;application&#x60;, use its &#x60;global_id&#x60;. | 
+ **resourceType** | **string** | Filter by resource type. | 
  **fields** | **string** | Comma-separated list of field names to include in the response. | 
- **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state) | 
+ **ordering** | **string** | Which field to use when ordering the results. (Valid fields: id, name, created_at, last_modified, version_state) Unknown names answer 400. | 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
 
@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 
 > ResourceHierarchyResponse RetrieveDeploymentResourceHierarchy(ctx, deploymentId).Fields(fields).Execute()
 
-Get a deployment resource hierarchy
+Retrieve the resources of a Deployment
 
 
 

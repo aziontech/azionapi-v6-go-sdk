@@ -930,7 +930,7 @@ func (r ApiListFirewallRulesRequest) OrderLte(orderLte int64) ApiListFirewallRul
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, description, last_editor, last_modified, order)
+// Which field to use when ordering the results. (Valid fields: id, name, description, last_editor, last_modified, order) Unknown names answer 400.
 func (r ApiListFirewallRulesRequest) Ordering(ordering string) ApiListFirewallRulesRequest {
 	r.ordering = &ordering
 	return r
@@ -1265,7 +1265,7 @@ func (r ApiListFirewallVersionRequestRulesRequest) OrderLte(orderLte int64) ApiL
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, description, last_editor, last_modified, order)
+// Which field to use when ordering the results. (Valid fields: id, name, description, last_editor, last_modified, order) Unknown names answer 400.
 func (r ApiListFirewallVersionRequestRulesRequest) Ordering(ordering string) ApiListFirewallVersionRequestRulesRequest {
 	r.ordering = &ordering
 	return r
