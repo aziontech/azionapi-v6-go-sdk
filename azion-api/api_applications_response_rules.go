@@ -930,7 +930,7 @@ func (r ApiListApplicationResponseRulesRequest) OrderLte(orderLte int64) ApiList
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, description, last_editor, last_modified, order)
+// Which field to use when ordering the results. (Valid fields: id, name, description, last_editor, last_modified, order) Unknown names answer 400.
 func (r ApiListApplicationResponseRulesRequest) Ordering(ordering string) ApiListApplicationResponseRulesRequest {
 	r.ordering = &ordering
 	return r
@@ -1265,7 +1265,7 @@ func (r ApiListApplicationVersionResponseRulesRequest) OrderLte(orderLte int64) 
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, description, last_editor, last_modified, order)
+// Which field to use when ordering the results. (Valid fields: id, name, description, last_editor, last_modified, order) Unknown names answer 400.
 func (r ApiListApplicationVersionResponseRulesRequest) Ordering(ordering string) ApiListApplicationVersionResponseRulesRequest {
 	r.ordering = &ordering
 	return r

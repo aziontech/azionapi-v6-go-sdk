@@ -909,7 +909,7 @@ func (r ApiListFirewallFunctionRequest) Name(name string) ApiListFirewallFunctio
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified)
+// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified) Unknown names answer 400.
 func (r ApiListFirewallFunctionRequest) Ordering(ordering string) ApiListFirewallFunctionRequest {
 	r.ordering = &ordering
 	return r
@@ -1214,7 +1214,7 @@ func (r ApiListFirewallVersionFunctionsRequest) Name(name string) ApiListFirewal
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified)
+// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified) Unknown names answer 400.
 func (r ApiListFirewallVersionFunctionsRequest) Ordering(ordering string) ApiListFirewallVersionFunctionsRequest {
 	r.ordering = &ordering
 	return r

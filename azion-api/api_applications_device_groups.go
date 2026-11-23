@@ -889,7 +889,7 @@ func (r ApiListApplicationVersionDeviceGroupsRequest) Name(name string) ApiListA
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, user_agent)
+// Which field to use when ordering the results. (Valid fields: id, name, user_agent) Unknown names answer 400.
 func (r ApiListApplicationVersionDeviceGroupsRequest) Ordering(ordering string) ApiListApplicationVersionDeviceGroupsRequest {
 	r.ordering = &ordering
 	return r
@@ -1176,7 +1176,7 @@ func (r ApiListDeviceGroupsRequest) Name(name string) ApiListDeviceGroupsRequest
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, user_agent)
+// Which field to use when ordering the results. (Valid fields: id, name, user_agent) Unknown names answer 400.
 func (r ApiListDeviceGroupsRequest) Ordering(ordering string) ApiListDeviceGroupsRequest {
 	r.ordering = &ordering
 	return r
