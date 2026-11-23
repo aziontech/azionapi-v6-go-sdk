@@ -466,6 +466,8 @@ Class | Method | HTTP request | Description
  - [BucketCreateRequest](docs/BucketCreateRequest.md)
  - [BucketCreateResponse](docs/BucketCreateResponse.md)
  - [BucketObject](docs/BucketObject.md)
+ - [BuildAndActivateRequest](docs/BuildAndActivateRequest.md)
+ - [BuildAndActivateRequestResourcesInner](docs/BuildAndActivateRequestResourcesInner.md)
  - [CacheModule](docs/CacheModule.md)
  - [CacheModuleRequest](docs/CacheModuleRequest.md)
  - [CacheSetting](docs/CacheSetting.md)

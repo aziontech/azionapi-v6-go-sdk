@@ -126,6 +126,8 @@ docs/BucketCreate.md
 docs/BucketCreateRequest.md
 docs/BucketCreateResponse.md
 docs/BucketObject.md
+docs/BuildAndActivateRequest.md
+docs/BuildAndActivateRequestResourcesInner.md
 docs/CRLVersionsAPI.md
 docs/CacheModule.md
 docs/CacheModuleRequest.md
@@ -798,6 +800,8 @@ model_bucket_create.go
 model_bucket_create_request.go
 model_bucket_create_response.go
 model_bucket_object.go
+model_build_and_activate_request.go
+model_build_and_activate_request_resources_inner.go
 model_cache_module.go
 model_cache_module_request.go
 model_cache_setting.go
