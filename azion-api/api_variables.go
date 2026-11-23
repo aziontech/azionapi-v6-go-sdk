@@ -587,6 +587,7 @@ type ApiListVariablesRequest struct {
 	ApiService *VariablesAPIService
 	createdAtGte *time.Time
 	createdAtLte *time.Time
+	fields *string
 	key *string
 	lastEditor *string
 	ordering *string
@@ -595,8 +596,6 @@ type ApiListVariablesRequest struct {
 	resourceId *[]string
 	resourceType *[]string
 	scope *[]string
-	scopeId *[]string
-	scopeType *[]string
 	search *string
 	secret *bool
 	updatedAtGte *time.Time
@@ -616,6 +615,12 @@ func (r ApiListVariablesRequest) CreatedAtLte(createdAtLte time.Time) ApiListVar
 	return r
 }
 
+// Comma-separated list of field names to include in the response.
+func (r ApiListVariablesRequest) Fields(fields string) ApiListVariablesRequest {
+	r.fields = &fields
+	return r
+}
+
 // Filter by key (case-insensitive, partial match).
 func (r ApiListVariablesRequest) Key(key string) ApiListVariablesRequest {
 	r.key = &key
@@ -628,7 +633,7 @@ func (r ApiListVariablesRequest) LastEditor(lastEditor string) ApiListVariablesR
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: key, created_at, updated_at, last_editor) &#x60;last_modified&#x60; is an alias of &#x60;updated_at&#x60;.
+// Which field to use when ordering the results. (Valid fields: key, created_at, updated_at, last_editor) Unknown names answer 400.
 func (r ApiListVariablesRequest) Ordering(ordering string) ApiListVariablesRequest {
 	r.ordering = &ordering
 	return r
@@ -661,20 +666,6 @@ func (r ApiListVariablesRequest) ResourceType(resourceType []string) ApiListVari
 // Filter by scope. Comma-separated selectors, each &#x60;global&#x60; or &#x60;&lt;resource_type&gt;:&lt;resource_id&gt;&#x60; (e.g. &#x60;global,environment:AJQ6CZJE&#x60;). Returns variables bound to any selector. Up to 50 selectors. Sending &#x60;scope&#x60; without any selector is rejected.
 func (r ApiListVariablesRequest) Scope(scope []string) ApiListVariablesRequest {
 	r.scope = &scope
-	return r
-}
-
-// Deprecated alias for &#x60;resource_id&#x60;.
-// Deprecated
-func (r ApiListVariablesRequest) ScopeId(scopeId []string) ApiListVariablesRequest {
-	r.scopeId = &scopeId
-	return r
-}
-
-// Deprecated alias for &#x60;resource_type&#x60;.
-// Deprecated
-func (r ApiListVariablesRequest) ScopeType(scopeType []string) ApiListVariablesRequest {
-	r.scopeType = &scopeType
 	return r
 }
 
@@ -754,6 +745,9 @@ func (a *VariablesAPIService) ListVariablesExecute(r ApiListVariablesRequest) (*
 	if r.createdAtLte != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at__lte", r.createdAtLte, "form", "")
 	}
+	if r.fields != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
+	}
 	if r.key != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "key", r.key, "form", "")
 	}
@@ -777,12 +771,6 @@ func (a *VariablesAPIService) ListVariablesExecute(r ApiListVariablesRequest) (*
 	}
 	if r.scope != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "scope", r.scope, "form", "csv")
-	}
-	if r.scopeId != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope_id", r.scopeId, "form", "csv")
-	}
-	if r.scopeType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "scope_type", r.scopeType, "form", "csv")
 	}
 	if r.search != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "search", r.search, "form", "")
@@ -1148,6 +1136,13 @@ type ApiRetrieveVariableRequest struct {
 	ctx context.Context
 	ApiService *VariablesAPIService
 	variableId string
+	fields *string
+}
+
+// Comma-separated list of field names to include in the response.
+func (r ApiRetrieveVariableRequest) Fields(fields string) ApiRetrieveVariableRequest {
+	r.fields = &fields
+	return r
 }
 
 func (r ApiRetrieveVariableRequest) Execute() (*Variable, *http.Response, error) {
@@ -1193,6 +1188,9 @@ func (a *VariablesAPIService) RetrieveVariableExecute(r ApiRetrieveVariableReque
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.fields != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "fields", r.fields, "form", "")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

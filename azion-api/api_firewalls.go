@@ -487,7 +487,7 @@ func (r ApiListFirewallsRequest) Name(name string) ApiListFirewallsRequest {
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, debug)
+// Which field to use when ordering the results. (Valid fields: id, name, last_editor, last_modified, debug) Unknown names answer 400.
 func (r ApiListFirewallsRequest) Ordering(ordering string) ApiListFirewallsRequest {
 	r.ordering = &ordering
 	return r

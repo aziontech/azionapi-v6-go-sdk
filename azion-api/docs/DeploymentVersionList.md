@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**VersionId** | Pointer to **string** | ID of the version metadata (use in /versions/{version_id} URLs). | [optional] 
+**VersionId** | Pointer to **string** | Identifier of the version. | [optional] 
 **VersionState** | Pointer to **string** | Current lifecycle state of the version.  * &#x60;draft&#x60; - draft * &#x60;queued&#x60; - queued * &#x60;building&#x60; - building * &#x60;ready&#x60; - ready * &#x60;error&#x60; - error * &#x60;canceled&#x60; - canceled * &#x60;archiving&#x60; - archiving * &#x60;archived&#x60; - archived * &#x60;deleting&#x60; - deleting | [optional] 
 **CreatedAt** | Pointer to **NullableTime** | When this version was created. | [optional] 
 **ReadyAt** | Pointer to **NullableTime** | When this version became ready. | [optional] 
-**Description** | Pointer to **NullableString** | Version description, sent only when the adapter supplies one. | [optional] 
+**Description** | Pointer to **NullableString** | Description of the version. | [optional] 
 **LastEditor** | Pointer to **NullableString** | Email of the last editor. | [optional] 
 
 ## Methods

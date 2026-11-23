@@ -529,7 +529,7 @@ func (r ApiListCredentialsRequest) Name(name string) ApiListCredentialsRequest {
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: name, expiration_date, created_at)
+// Which field to use when ordering the results. (Valid fields: name, expiration_date, created_at, last_editor, last_modified) Unknown names answer 400.
 func (r ApiListCredentialsRequest) Ordering(ordering string) ApiListCredentialsRequest {
 	r.ordering = &ordering
 	return r

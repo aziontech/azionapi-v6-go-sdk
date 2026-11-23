@@ -1449,7 +1449,7 @@ func (r ApiRetrieveFunctionVersionRequest) Dependencies(dependencies bool) ApiRe
 	return r
 }
 
-// Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true.
+// Keep only the dependency versions in these states (comma-separated). Needs dependencies&#x3D;true. Accepted states: &#x60;draft&#x60;, &#x60;queued&#x60;, &#x60;building&#x60;, &#x60;ready&#x60;, &#x60;error&#x60;, &#x60;canceled&#x60;, &#x60;archiving&#x60;, &#x60;archived&#x60;. An unknown state matches nothing, &#x60;deleting&#x60; and &#x60;deleted&#x60; match nothing because a dependency version in those states is never listed, and the match is case sensitive (&#x60;READY&#x60; matches nothing).
 func (r ApiRetrieveFunctionVersionRequest) DependencyStates(dependencyStates []string) ApiRetrieveFunctionVersionRequest {
 	r.dependencyStates = &dependencyStates
 	return r

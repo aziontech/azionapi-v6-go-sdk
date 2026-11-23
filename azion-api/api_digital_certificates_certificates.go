@@ -432,7 +432,6 @@ func (a *DigitalCertificatesCertificatesAPIService) DeleteCertificateExecute(r A
 type ApiListCertificatesRequest struct {
 	ctx context.Context
 	ApiService *DigitalCertificatesCertificatesAPIService
-	certificateType *[]int64
 	createdAt *time.Time
 	createdAtGte *time.Time
 	createdAtLte *time.Time
@@ -452,12 +451,6 @@ type ApiListCertificatesRequest struct {
 	renewedAtLte *time.Time
 	search *string
 	type_ *string
-}
-
-// Filter by certificate type (accepts comma-separated values). 0 is edge_certificate and 1 is trusted_ca_certificate, the values of type in the response. Any other number matches nothing.
-func (r ApiListCertificatesRequest) CertificateType(certificateType []int64) ApiListCertificatesRequest {
-	r.certificateType = &certificateType
-	return r
 }
 
 // Filter by exact creation date and time.
@@ -526,7 +519,7 @@ func (r ApiListCertificatesRequest) Name(name string) ApiListCertificatesRequest
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, certificate, issuer, subject_name, validity, type, managed, csr, challenge, authority, key_algorithm, product_version, last_editor, created_at, last_modified, renewed_at)
+// Which field to use when ordering the results. (Valid fields: id, name, certificate, issuer, subject_name, validity, type, managed, csr, challenge, authority, key_algorithm, product_version, last_editor, created_at, last_modified, renewed_at) Unknown names answer 400.
 func (r ApiListCertificatesRequest) Ordering(ordering string) ApiListCertificatesRequest {
 	r.ordering = &ordering
 	return r
@@ -568,7 +561,7 @@ func (r ApiListCertificatesRequest) Search(search string) ApiListCertificatesReq
 	return r
 }
 
-// Filter by certificate type, using the values of type in the response. Accepts a single value. When sent together with certificate_type, this parameter is used and certificate_type is ignored.
+// Filter by certificate type, using the values of type in the response. Accepts a single value.
 func (r ApiListCertificatesRequest) Type_(type_ string) ApiListCertificatesRequest {
 	r.type_ = &type_
 	return r
@@ -614,9 +607,6 @@ func (a *DigitalCertificatesCertificatesAPIService) ListCertificatesExecute(r Ap
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.certificateType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "certificate_type", r.certificateType, "form", "csv")
-	}
 	if r.createdAt != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "created_at", r.createdAt, "form", "")
 	}
