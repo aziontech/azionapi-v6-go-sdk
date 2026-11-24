@@ -1032,6 +1032,7 @@ type ApiListFunctionVersionsRequest struct {
 	functionId int64
 	page *int64
 	pageSize *int32
+	version *string
 }
 
 // A page number within the paginated result set.
@@ -1043,6 +1044,12 @@ func (r ApiListFunctionVersionsRequest) Page(page int64) ApiListFunctionVersions
 // A numeric value that indicates the number of items per page.
 func (r ApiListFunctionVersionsRequest) PageSize(pageSize int32) ApiListFunctionVersionsRequest {
 	r.pageSize = &pageSize
+	return r
+}
+
+// Narrow the list to one version. &#x60;latest&#x60;, in any case, answers the published version, or an empty list when none is published. Any other value matches a &#x60;version_id&#x60; and answers an empty list when none matches. An empty value is no filter. A resource that saves and builds in the same request (save and build) publishes no latest version, and &#x60;latest&#x60; on it answers 400 with code &#x60;10000&#x60;.
+func (r ApiListFunctionVersionsRequest) Version(version string) ApiListFunctionVersionsRequest {
+	r.version = &version
 	return r
 }
 
@@ -1094,6 +1101,9 @@ func (a *FunctionVersionsAPIService) ListFunctionVersionsExecute(r ApiListFuncti
 	}
 	if r.pageSize != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
+	}
+	if r.version != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "version", r.version, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
