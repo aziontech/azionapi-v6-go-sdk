@@ -388,7 +388,7 @@ Name | Type | Description  | Notes
 
 ## ListFunctionVersions
 
-> PaginatedFunctionVersionList ListFunctionVersions(ctx, functionId).Page(page).PageSize(pageSize).Execute()
+> PaginatedFunctionVersionList ListFunctionVersions(ctx, functionId).Page(page).PageSize(pageSize).Version(version).Execute()
 
 List Function versions
 
@@ -410,10 +410,11 @@ func main() {
 	functionId := int64(789) // int64 | The ID of the Function resource.
 	page := int64(789) // int64 | A page number within the paginated result set. (optional)
 	pageSize := int32(56) // int32 | A numeric value that indicates the number of items per page. (optional)
+	version := "version_example" // string | Narrow the list to one version. `latest`, in any case, answers the published version, or an empty list when none is published. Any other value matches a `version_id` and answers an empty list when none matches. An empty value is no filter. A resource that saves and builds in the same request (save and build) publishes no latest version, and `latest` on it answers 400 with code `10000`. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.FunctionVersionsAPI.ListFunctionVersions(context.Background(), functionId).Page(page).PageSize(pageSize).Execute()
+	resp, r, err := apiClient.FunctionVersionsAPI.ListFunctionVersions(context.Background(), functionId).Page(page).PageSize(pageSize).Version(version).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `FunctionVersionsAPI.ListFunctionVersions``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -441,6 +442,7 @@ Name | Type | Description  | Notes
 
  **page** | **int64** | A page number within the paginated result set. | 
  **pageSize** | **int32** | A numeric value that indicates the number of items per page. | 
+ **version** | **string** | Narrow the list to one version. &#x60;latest&#x60;, in any case, answers the published version, or an empty list when none is published. Any other value matches a &#x60;version_id&#x60; and answers an empty list when none matches. An empty value is no filter. A resource that saves and builds in the same request (save and build) publishes no latest version, and &#x60;latest&#x60; on it answers 400 with code &#x60;10000&#x60;. | 
 
 ### Return type
 

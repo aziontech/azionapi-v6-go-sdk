@@ -13,6 +13,8 @@ package azionapi
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
 
 // checks if the PatchedWorkloadBindingRequest type satisfies the MappedNullable interface at compile time
@@ -20,17 +22,21 @@ var _ MappedNullable = &PatchedWorkloadBindingRequest{}
 
 // PatchedWorkloadBindingRequest A deployment bound to an environment, with the domains it answers on.
 type PatchedWorkloadBindingRequest struct {
-	EnvironmentId *string `json:"environment_id,omitempty"`
-	DeploymentId *string `json:"deployment_id,omitempty"`
+	EnvironmentId string `json:"environment_id"`
+	DeploymentId string `json:"deployment_id"`
 	Domains []PatchedWorkloadBindingRequestDomainsInner `json:"domains,omitempty"`
 }
+
+type _PatchedWorkloadBindingRequest PatchedWorkloadBindingRequest
 
 // NewPatchedWorkloadBindingRequest instantiates a new PatchedWorkloadBindingRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPatchedWorkloadBindingRequest() *PatchedWorkloadBindingRequest {
+func NewPatchedWorkloadBindingRequest(environmentId string, deploymentId string) *PatchedWorkloadBindingRequest {
 	this := PatchedWorkloadBindingRequest{}
+	this.EnvironmentId = environmentId
+	this.DeploymentId = deploymentId
 	return &this
 }
 
@@ -42,68 +48,52 @@ func NewPatchedWorkloadBindingRequestWithDefaults() *PatchedWorkloadBindingReque
 	return &this
 }
 
-// GetEnvironmentId returns the EnvironmentId field value if set, zero value otherwise.
+// GetEnvironmentId returns the EnvironmentId field value
 func (o *PatchedWorkloadBindingRequest) GetEnvironmentId() string {
-	if o == nil || IsNil(o.EnvironmentId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.EnvironmentId
+
+	return o.EnvironmentId
 }
 
-// GetEnvironmentIdOk returns a tuple with the EnvironmentId field value if set, nil otherwise
+// GetEnvironmentIdOk returns a tuple with the EnvironmentId field value
 // and a boolean to check if the value has been set.
 func (o *PatchedWorkloadBindingRequest) GetEnvironmentIdOk() (*string, bool) {
-	if o == nil || IsNil(o.EnvironmentId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.EnvironmentId, true
+	return &o.EnvironmentId, true
 }
 
-// HasEnvironmentId returns a boolean if a field has been set.
-func (o *PatchedWorkloadBindingRequest) HasEnvironmentId() bool {
-	if o != nil && !IsNil(o.EnvironmentId) {
-		return true
-	}
-
-	return false
-}
-
-// SetEnvironmentId gets a reference to the given string and assigns it to the EnvironmentId field.
+// SetEnvironmentId sets field value
 func (o *PatchedWorkloadBindingRequest) SetEnvironmentId(v string) {
-	o.EnvironmentId = &v
+	o.EnvironmentId = v
 }
 
-// GetDeploymentId returns the DeploymentId field value if set, zero value otherwise.
+// GetDeploymentId returns the DeploymentId field value
 func (o *PatchedWorkloadBindingRequest) GetDeploymentId() string {
-	if o == nil || IsNil(o.DeploymentId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.DeploymentId
+
+	return o.DeploymentId
 }
 
-// GetDeploymentIdOk returns a tuple with the DeploymentId field value if set, nil otherwise
+// GetDeploymentIdOk returns a tuple with the DeploymentId field value
 // and a boolean to check if the value has been set.
 func (o *PatchedWorkloadBindingRequest) GetDeploymentIdOk() (*string, bool) {
-	if o == nil || IsNil(o.DeploymentId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DeploymentId, true
+	return &o.DeploymentId, true
 }
 
-// HasDeploymentId returns a boolean if a field has been set.
-func (o *PatchedWorkloadBindingRequest) HasDeploymentId() bool {
-	if o != nil && !IsNil(o.DeploymentId) {
-		return true
-	}
-
-	return false
-}
-
-// SetDeploymentId gets a reference to the given string and assigns it to the DeploymentId field.
+// SetDeploymentId sets field value
 func (o *PatchedWorkloadBindingRequest) SetDeploymentId(v string) {
-	o.DeploymentId = &v
+	o.DeploymentId = v
 }
 
 // GetDomains returns the Domains field value if set, zero value otherwise.
@@ -148,16 +138,49 @@ func (o PatchedWorkloadBindingRequest) MarshalJSON() ([]byte, error) {
 
 func (o PatchedWorkloadBindingRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.EnvironmentId) {
-		toSerialize["environment_id"] = o.EnvironmentId
-	}
-	if !IsNil(o.DeploymentId) {
-		toSerialize["deployment_id"] = o.DeploymentId
-	}
+	toSerialize["environment_id"] = o.EnvironmentId
+	toSerialize["deployment_id"] = o.DeploymentId
 	if !IsNil(o.Domains) {
 		toSerialize["domains"] = o.Domains
 	}
 	return toSerialize, nil
+}
+
+func (o *PatchedWorkloadBindingRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"environment_id",
+		"deployment_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPatchedWorkloadBindingRequest := _PatchedWorkloadBindingRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	err = decoder.Decode(&varPatchedWorkloadBindingRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PatchedWorkloadBindingRequest(varPatchedWorkloadBindingRequest)
+
+	return err
 }
 
 type NullablePatchedWorkloadBindingRequest struct {

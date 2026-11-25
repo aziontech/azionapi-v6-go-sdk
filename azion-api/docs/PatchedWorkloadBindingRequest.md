@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EnvironmentId** | Pointer to **string** |  | [optional] 
-**DeploymentId** | Pointer to **string** |  | [optional] 
+**EnvironmentId** | **string** |  | 
+**DeploymentId** | **string** |  | 
 **Domains** | Pointer to [**[]PatchedWorkloadBindingRequestDomainsInner**](PatchedWorkloadBindingRequestDomainsInner.md) |  | [optional] 
 
 ## Methods
 
 ### NewPatchedWorkloadBindingRequest
 
-`func NewPatchedWorkloadBindingRequest() *PatchedWorkloadBindingRequest`
+`func NewPatchedWorkloadBindingRequest(environmentId string, deploymentId string, ) *PatchedWorkloadBindingRequest`
 
 NewPatchedWorkloadBindingRequest instantiates a new PatchedWorkloadBindingRequest object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetEnvironmentId sets EnvironmentId field to given value.
 
-### HasEnvironmentId
-
-`func (o *PatchedWorkloadBindingRequest) HasEnvironmentId() bool`
-
-HasEnvironmentId returns a boolean if a field has been set.
 
 ### GetDeploymentId
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetDeploymentId sets DeploymentId field to given value.
 
-### HasDeploymentId
-
-`func (o *PatchedWorkloadBindingRequest) HasDeploymentId() bool`
-
-HasDeploymentId returns a boolean if a field has been set.
 
 ### GetDomains
 

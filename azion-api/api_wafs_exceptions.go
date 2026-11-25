@@ -910,7 +910,7 @@ func (r ApiListWafExceptionsRequest) Name(name string) ApiListWafExceptionsReque
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, path, last_editor, last_modified) Unknown names answer 400.
+// Which field to use when ordering the results. (Valid fields: id, rule_id, name, path, last_editor, last_modified) Unknown names answer 400.
 func (r ApiListWafExceptionsRequest) Ordering(ordering string) ApiListWafExceptionsRequest {
 	r.ordering = &ordering
 	return r
@@ -1225,7 +1225,7 @@ func (r ApiListWafVersionExceptionsRequest) Name(name string) ApiListWafVersionE
 	return r
 }
 
-// Which field to use when ordering the results. (Valid fields: id, name, path, last_editor, last_modified) Unknown names answer 400.
+// Which field to use when ordering the results. (Valid fields: id, rule_id, name, path, last_editor, last_modified) Unknown names answer 400.
 func (r ApiListWafVersionExceptionsRequest) Ordering(ordering string) ApiListWafVersionExceptionsRequest {
 	r.ordering = &ordering
 	return r
